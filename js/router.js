@@ -16,12 +16,13 @@
 	
 	    },
 		defaultAction: function(actions){
-			startPage('orderTab');
+			this.startPage('orderTab');
 		},
 		startPage: function(tab){
 			var uuu = new mainHomeView();
 			uuu.render(tab);
 			$('#mainRoot').html(uuu.el);
+//			var iscrolljj = new iScroll('container', { vScroll: true, hScroll: true, hScrollbar: true, vScrollbar: true });
 			EasyScroller.init();
 		},
 		changePage:function (page) {
@@ -38,5 +39,6 @@
 	    }
 	});
 	
+	window.myapp = window.myapp || {};
 	window.myapp.Router = AppRouter;
 })(window.myapp.MainHomeView);
