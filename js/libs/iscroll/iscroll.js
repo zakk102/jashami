@@ -597,11 +597,6 @@ iScroll.prototype = {
 		var that = this,
 			resetX = that.x >= 0 ? 0 : that.x < that.maxScrollX ? that.maxScrollX : that.x,
 			resetY = that.y >= that.minScrollY || that.maxScrollY > 0 ? that.minScrollY : that.y < that.maxScrollY ? that.maxScrollY : that.y;
-console.log(that.wrapper.clientHeight);
-console.log(that.scrollerH);
-console.log(that.maxScrollY);
-console.log(resetY);
-console.log(that.y);
 		if (resetX == that.x && resetY == that.y) {
 			if (that.moved) {
 				that.moved = false;

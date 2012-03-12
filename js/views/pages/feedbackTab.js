@@ -20,12 +20,14 @@
   		},
 		render: function(){
 			$(this.el).html(_.template(feedbackTabTemplate));
-			this.sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el)});
-			this.sendFeedbackBtn.changeColorWhenTouch = true;
+			var sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el)});
+			sendFeedbackBtn.changeColorWhenTouch = true;
 			return this;
 	   },
 	   sendFeedback: function(){
-	   		alert('sendFeedback');
+	   		var recommandation = $('#recommendation', this.el).val();
+	   		var opinion = $('#opinion', this.el).val();
+	   		alert('sendFeedback' + recommandation + opinion);
 	   }
 	});
 	

@@ -1,5 +1,5 @@
 // Filename: views/widget/touchWidget.js
-(function(SETTINGS){
+(function(Utils){
 	var TouchWidget = Backbone.View.extend({
 		initialize: function(){
 			this._isEnabled = true;
@@ -8,30 +8,47 @@
 			this._lastY = null;
 		},
 		events: {
-    		'mousedown': 'mouseDown',
-    		'touchstart': 'touchStart',
-    		'mousemove': 'mouseMove',
-    		'touchmove': 'touchMove',
-    		'mouseup': 'mouseUp',
-    		'touchend': 'touchEnd',
+			'mouseout':'onMouseOut',
+    		'mousedown':'mouseDown',
+    		'touchstart':'touchStart',
+    		'touchmove':'touchMove',
+    		'mouseup':'mouseUp',
+    		'touchend':'touchEnd',
+  		},
+  		onMouseOut: function(e){
+  			this._clickStart = false;
+	    	$(this.el).removeClass('Pressed');
   		},
   		mouseDown: function(e){
   			this.start(e.clientX, e.clientY);
   		},
   		touchStart: function(e){
-  			this.start(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
-  		},
-  		mouseMove: function(e){
-  			this.move(e.clientX, e.clientY);
+  			e.preventDefault();
+  			e.stopPropagation();
+  			this.start(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
   		},
   		touchMove: function(e){
-  			this.move(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+  			e.preventDefault();
+  			e.stopPropagation();
+  			var x = Utils.getAbsoluteLeft(e.target);
+  			var y = Utils.getAbsoluteTop(e.target);
+  			var w = e.target.clientWidth;
+  			var h = e.target.clientHeight;
+  			var ex = e.originalEvent.changedTouches[0].pageX;
+  			var ey = e.originalEvent.changedTouches[0].clientY;
+  			if(ex<x || ex>x+w || ey<y || ey>y+h){
+  				this._clickStart = false;
+	    		$(this.el).removeClass('Pressed');
+  			}
+//  			this.move(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
   		},
   		mouseUp: function(e){
   			this.end(e.clientX, e.clientY);
   		},
   		touchEnd: function(e){
-  			this.end(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+  			e.preventDefault();
+  			e.stopPropagation();
+  			this.end(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
   		},
   		start: function(x, y){
   			if (this._isEnabled && x!=null && y!=null) {
@@ -43,7 +60,7 @@
 	            }
     		}
   		},
-  		move: function(x, y){
+/*  		move: function(x, y){
   			if (this._isEnabled && x!=null && y!=null && this._lastX!=null && this._lastY!=null) {
 	    		// skip small movement
 	    		var varX = x - this._lastX;
@@ -53,10 +70,10 @@
 	    			return;
 	    		}
 	    		
-	    		_clickStart = false;
+	    		this._clickStart = false;
 	    		$(this.el).removeClass('Pressed');
 	    	}
-  		},
+  		},*/
   		end: function(x, y){
   			if (this._isEnabled && x!=null && y!=null) {
 	    		this._lastX = null;
@@ -73,4 +90,4 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.TouchWidget = TouchWidget;
-})(window.myapp.Settings);
+})(window.myapp.Utils);
