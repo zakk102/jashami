@@ -1,5 +1,5 @@
 // Filename: views/pages/startPage
-(function(TouchWidget){
+(function(TabViews){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div></div>',
@@ -17,55 +17,29 @@
 			'<div class="TabHeader">',
 				'<div class="TabButton"><a href="#startPage/orderTab">點餐</a></div>',
 				'<div class="TabButton"><a href="#startPage/historyTab">紀錄</a></div>',
-				'<div class="TabButton"><a href="#startPage/FeedbackTab">意見</a></div>',
+				'<div class="TabButton"><a href="#startPage/feedbackTab">意見</a></div>',
 				'<div class="TabButton"><a href="#startPage/aboutUsTab">關於</a></div>',
 			'</div>',
 		'</div>'
 	].join('');
-	
-	var tabTemplate = {};	
-	tabTemplate.orderTab = "wewefwefwsdsdf";
-	tabTemplate.historyTab = [
-		"<% _.each(people, function(name) { %>",
-			"<li>",
-				"<%= name %>",
-			"</li>",
-		"<% }); %>"
-	].join('');
-	tabTemplate.FeedbackTab = [
-		"<div class='about_text' style='width:100%;'>",
-			"感謝您使用Jashami(甲蝦米)<br/>",
-			"您希望哪些商家擁有Jashami的服務，請推薦給我們：",
-			"<input id='recommendation' type='Text' class='INPUT Text'>",
-			"請留下您的寶貴意見，我們將為您提供更好的服務:",
-			"<input id='opinion' type='Text' class='INPUT Text'>",
-			"<div id='sendFeedbackBtn' class='SubmitButton'>送出</div>",
-//			"<input type='button' value='送出'/>",
-		"</div>"
-	].join('');
-	tabTemplate.aboutUsTab = "eee";
 
-	var mainHomeView = Backbone.View.extend({
+	var StartPageView = Backbone.View.extend({
 		initialize: function(){
 		},
-		events: {
-    		'clickByTouch #sendFeedbackBtn': 'sendFeedback'
-  		},
 		render: function(tab){
 			$(this.el).html(_.template(pageTemplate));
-			$(this.el).addClass('Base');
 			$(this.el).attr("style","height:100%");
 			$(this.el).attr("style","width:100%");
-			$('#content', this.el).html(_.template(tabTemplate[tab], {people : ['moe', 'curly', 'larry']}));
-			this.sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el)});
-			this.sendFeedbackBtn.changeColorWhenTouch = true;
+			var tabb = new TabViews[tab]({el:$('#content', this.el)});
 			return this;
-	   },
-	   sendFeedback: function(){
-	   		alert('sendFeedback');
 	   }
 	});
 	
 	window.myapp = window.myapp || {};
-	window.myapp.MainHomeView = mainHomeView;
-})(window.myapp.Widget.TouchWidget);
+	window.myapp.StartPageView = StartPageView;
+})({
+	orderTab:window.myapp.OrderTabView, 
+	historyTab:window.myapp.HistoryTabView, 
+	feedbackTab:window.myapp.FeedbackTabView, 
+	aboutUsTab:window.myapp.AboutUsTabView
+});

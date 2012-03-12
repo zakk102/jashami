@@ -1,5 +1,5 @@
 // Filename: router.js
-(function(mainHomeView){
+(function(StartPageView){
 	var AppRouter = Backbone.Router.extend({
 		routes: {
 			// Define some URL routes
@@ -19,9 +19,8 @@
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
-			var uuu = new mainHomeView();
+			var uuu = new StartPageView({el:$('#mainPage')});
 			uuu.render(tab);
-			$('#mainRoot').html(uuu.el);
 //			var iscrolljj = new iScroll('container', { vScroll: true, hScroll: true, hScrollbar: true, vScrollbar: true });
 			EasyScroller.init();
 		},
@@ -41,4 +40,4 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.Router = AppRouter;
-})(window.myapp.MainHomeView);
+})(window.myapp.StartPageView);
