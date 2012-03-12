@@ -49,7 +49,7 @@
 		initialize: function(){
 		},
 		events: {
-//    		'click #sendFeedbackBtn': 'sendFeedback'
+    		'clickByTouch #sendFeedbackBtn': 'sendFeedback'
   		},
 		render: function(tab){
 			$(this.el).html(_.template(pageTemplate));
@@ -57,7 +57,8 @@
 			$(this.el).attr("style","height:100%");
 			$(this.el).attr("style","width:100%");
 			$('#content', this.el).html(_.template(tabTemplate[tab], {people : ['moe', 'curly', 'larry']}));
-			this.sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el), changeColorWhenTouch: true });
+			this.sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el)});
+			this.sendFeedbackBtn.changeColorWhenTouch = true;
 			return this;
 	   },
 	   sendFeedback: function(){

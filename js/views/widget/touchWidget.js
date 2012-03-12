@@ -1,5 +1,5 @@
 // Filename: views/widget/touchWidget.js
-(function(){
+(function(SETTINGS){
 	var TouchWidget = Backbone.View.extend({
 		initialize: function(){
 			this._isEnabled = true;
@@ -34,25 +34,43 @@
   			this.end(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
   		},
   		start: function(x, y){
-  			console.log('ww');
   			if (this._isEnabled && x!=null && y!=null) {
-  				console.log('qq');
 	    		this._lastX = x;
 				this._lastY = y;
 	            this._clickStart = true;
 	            if(this.changeColorWhenTouch){ 
-	            	console.log('Pressed');
 	            	$(this.el).addClass('Pressed');
 	            }
     		}
   		},
   		move: function(x, y){
+  			if (this._isEnabled && x!=null && y!=null && this._lastX!=null && this._lastY!=null) {
+	    		// skip small movement
+	    		var varX = x - this._lastX;
+	    		var varY = y - this._lastY;
+	    		var thr = SETTINGS.OnMoveEventThreshold;
+	    		if( (varX<=thr&&varX>=-thr) && (varY<=thr&&varY>=-thr) ){
+	    			return;
+	    		}
+	    		
+	    		_clickStart = false;
+	    		$(this.el).removeClass('Pressed');
+	    	}
   		},
   		end: function(x, y){
+  			if (this._isEnabled && x!=null && y!=null) {
+	    		this._lastX = null;
+	    		this._lastY = null;
+	    		if(this._clickStart){
+	    			$(this.el).trigger('clickByTouch');
+	    		}
+	    		this._clickStart = false;
+	    		$(this.el).removeClass('Pressed');
+    		}
   		}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.TouchWidget = TouchWidget;
-})();
+})(window.myapp.Settings);
