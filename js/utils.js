@@ -37,8 +37,8 @@
 		var left = 0;
 		var transform = elem.style.webkitTransform;
     	if (transform && transform !== "") {
-    		var result = (/translate3d\((\-?.*)px, (\-?.*)px, 0px\) scale\(1\)/).exec(transform);
-    		if(result) left = -parseInt(result[1]);
+    		var result = (/translate(3d)?\((\-?.*)px, (\-?.*)px, (\-?.*)px\)( scale\((\d)\))?/).exec(transform);
+    		if(result) left = -parseInt(result[2]);
     	}
 		return left;
 	};
@@ -46,8 +46,8 @@
 		var top = 0;
 		var transform = elem.style.webkitTransform;
     	if (transform && transform !== "") {
-    		var result = (/translate3d\((\-?.*)px, (\-?.*)px, 0px\) scale\(1\)/).exec(transform);
-        	if(result) top = -parseInt(result[2]);
+    		var result = (/translate(3d)?\((\-?.*)px, (\-?.*)px, (\-?.*)px\)( scale\((\d)\))?/).exec(transform);
+        	if(result) top = -parseInt(result[3]);
     	}    
 		return top;
 	};

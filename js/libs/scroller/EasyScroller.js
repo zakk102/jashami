@@ -98,7 +98,7 @@ EasyScroller.prototype.bindEvents = function() {
 		this.container.addEventListener("touchstart", function(e) {
 
 			// Don't react if initial down happens on a form element
-			if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
+			if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
 				return;
 			}
 
