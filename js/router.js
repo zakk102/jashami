@@ -20,8 +20,9 @@
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
-			if(!this.views.startPage) this.views.startPage = new StartPageView({el:$('#mainPage')});
-			this.views.startPage.render(tab);
+			if(!this.views.startPage) this.views.startPage = new StartPageView();
+			$('.ActivePage').html(this.views.startPage.el);
+			this.views.startPage.toTab(tab);
 //			var iscrolljj = new iScroll('container', { vScroll: true, hScroll: true, hScrollbar: true, vScrollbar: true });
 			EasyScroller.init();
 		}/*,

@@ -184,6 +184,8 @@ EasyScroller.init = function() {
 	for (var i = 0; i < elements.length; i++) {
 
 		element = elements[i];
+		var isold = element.getAttribute('isold');
+		if(isold) continue;
 		var scrollable = element.getAttribute('data-scrollable');
 		var zoomable = element.getAttribute('data-zoomable') || '';
 		var zoomOptions = zoomable.split('-');
@@ -197,7 +199,7 @@ EasyScroller.init = function() {
 			minZoom: minZoom,
 			maxZoom: maxZoom
 		});
-
+		element.setAttribute('isold', 'true');
 	};
 }
 
