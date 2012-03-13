@@ -12,7 +12,7 @@
 		},
 		events: {
   		},
-		render: function(tab){
+		render: function(){
 			$(this.el).attr('id', 'container');
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('overflow', 'hidden');

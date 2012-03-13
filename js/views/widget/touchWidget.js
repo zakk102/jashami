@@ -1,5 +1,5 @@
 // Filename: views/widget/touchWidget.js
-(function(Utils){
+(function(){
 	var TouchWidget = Backbone.View.extend({
 		initialize: function(){
 			this._isEnabled = true;
@@ -32,8 +32,11 @@
   		touchMove: function(e){
   			e.preventDefault();
   			e.stopPropagation();
-  			var x = Utils.getAbsoluteLeft(e.target);
-  			var y = Utils.getAbsoluteTop(e.target);
+//  			var x = Utils.getAbsoluteLeft(e.target);
+//  			var y = Utils.getAbsoluteTop(e.target);
+			var rect = e.target.getBoundingClientRect();
+			var x = rect.left;
+  			var y = rect.top;
   			var w = e.target.clientWidth;
   			var h = e.target.clientHeight;
   			var ex = e.originalEvent.changedTouches[0].pageX;
@@ -94,4 +97,4 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.TouchWidget = TouchWidget;
-})(window.myapp.Utils);
+})();

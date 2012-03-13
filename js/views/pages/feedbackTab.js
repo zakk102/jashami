@@ -21,10 +21,11 @@
     		'clickByTouch #sendFeedbackBtn': 'sendFeedback'
   		},
 		render: function(){
-			$(this.el).attr('id', 'container');
-			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
-			$(this.el).css('overflow', 'hidden');
-			$(this.el).html(_.template(feedbackTabTemplate));			
+//			var scroller = new window.myapp.Widget.Scroller();
+//			scroller.html(_.template(feedbackTabTemplate));
+//			$(this.el).html(scroller.el);
+$(this.el).html(_.template(feedbackTabTemplate));
+			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');		
 			var sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el) });
 			sendFeedbackBtn.changeColorWhenTouch = true;
 	   },

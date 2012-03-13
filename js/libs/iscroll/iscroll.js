@@ -843,6 +843,7 @@ iScroll.prototype = {
 	},
 
 	_unbind: function (type, el, bubble) {
+		console.log(type);
 		(el || this.scroller).removeEventListener(type, this, !!bubble);
 	},
 

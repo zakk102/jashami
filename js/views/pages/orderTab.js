@@ -1,9 +1,7 @@
 // Filename: views/pages/orderTab.js
 (function(){
 	var orderTabTemplate = [
-		'<div id="content" data-scrollable="y" style="width:100%;">',
-			"wewefwefwsdsdf",
-		'</div>'
+			"wewefwefwsdsdf"
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
@@ -12,11 +10,11 @@
 		},
 		events: {
   		},
-		render: function(tab){
-			$(this.el).attr('id', 'container');
+		render: function(){
+			var scroller = new window.myapp.Widget.Scroller();
+			scroller.html(_.template(orderTabTemplate));
+			this.el = scroller.el;
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
-			$(this.el).css('overflow', 'hidden');
-			$(this.el).html(_.template(orderTabTemplate));
 	   }
 	});
 	
