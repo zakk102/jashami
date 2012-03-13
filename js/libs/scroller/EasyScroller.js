@@ -169,7 +169,8 @@ EasyScroller.prototype.bindEvents = function() {
 
 		this.container.addEventListener("mousewheel", function(e) {
 			if(that.options.zooming) {
-				that.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);	
+				var delta = e.detail? e.detail*(-120) : e.wheelDelta
+				that.scroller.doMouseZoom(delta, e.timeStamp, e.pageX, e.pageY);	
 				e.preventDefault();
 			}
 		}, false);

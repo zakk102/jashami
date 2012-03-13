@@ -20,6 +20,8 @@
 	    	$(this.el).removeClass('Pressed');
   		},
   		mouseDown: function(e){
+  			e.preventDefault();
+			e.stopPropagation();
   			this.start(e.clientX, e.clientY);
   		},
   		touchStart: function(e){
@@ -35,7 +37,7 @@
   			var w = e.target.clientWidth;
   			var h = e.target.clientHeight;
   			var ex = e.originalEvent.changedTouches[0].pageX;
-  			var ey = e.originalEvent.changedTouches[0].clientY;
+  			var ey = e.originalEvent.changedTouches[0].pageY;
   			if(ex<x || ex>x+w || ey<y || ey>y+h){
   				this._clickStart = false;
 	    		$(this.el).removeClass('Pressed');
@@ -43,6 +45,8 @@
 //  			this.move(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
   		},
   		mouseUp: function(e){
+  			e.preventDefault();
+			e.stopPropagation();
   			this.end(e.clientX, e.clientY);
   		},
   		touchEnd: function(e){

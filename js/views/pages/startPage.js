@@ -25,12 +25,14 @@
 
 	var StartPageView = Backbone.View.extend({
 		initialize: function(){
+			this.tabs = {};
 		},
 		render: function(tab){
 			$(this.el).html(_.template(pageTemplate));
 			$(this.el).attr("style","height:100%");
 			$(this.el).attr("style","width:100%");
-			var tabb = new TabViews[tab]({el:$('#content', this.el)});
+			if(!this.tabs[tab]) this.tabs[tab] = new TabViews[tab]({el:$('#content', this.el)});
+			else $('#content', this.el).html(this.tabs[tab].el);
 			return this;
 	   }
 	});

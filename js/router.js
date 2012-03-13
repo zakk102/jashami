@@ -8,22 +8,23 @@
 			'*actions': 'defaultAction'
 		},
 		initialize:function () {
-	        $('.back').live('click', function(event) {
+/*	        $('.back').live('click', function(event) {
 	            window.history.back();
 	            return false;
 	        });
 	        this.firstPage = true;
-	
+*/
+			this.views = {};	
 	    },
 		defaultAction: function(actions){
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
-			var uuu = new StartPageView({el:$('#mainPage')});
-			uuu.render(tab);
+			if(!this.views.startPage) this.views.startPage = new StartPageView({el:$('#mainPage')});
+			this.views.startPage.render(tab);
 //			var iscrolljj = new iScroll('container', { vScroll: true, hScroll: true, hScrollbar: true, vScrollbar: true });
 			EasyScroller.init();
-		},
+		}/*,
 		changePage:function (page) {
 	        $(page.el).attr('data-role', 'page');
 	        page.render();
@@ -35,7 +36,7 @@
 	            this.firstPage = false;
 	        }
 	        $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
-	    }
+	    }*/
 	});
 	
 	window.myapp = window.myapp || {};
