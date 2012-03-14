@@ -1,4 +1,5 @@
-window.i18n['zh-tw'] = {
+window.languages = window.languages || {};
+window.languages['zh-tw'] = {
     "setting": {
         "DST": 8,
         "format": "Y 年 m 月 d 日 (D) H:i:s",
