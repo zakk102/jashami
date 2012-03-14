@@ -881,7 +881,12 @@ iScroll.prototype = {
 		
 		if (that.options.onDestroy) that.options.onDestroy.call(that);
 	},
-
+	
+	setOption: function(options){
+		for (i in options) this.options[i] = options[i];
+		this.refresh();
+	},
+	
 	refresh: function () {
 		var that = this,
 			offset,
