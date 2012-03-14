@@ -14,13 +14,23 @@
     <link rel="stylesheet" type="text/css" href="css/style_pad.css" media="screen and (min-width:641px)">
 
 	<!-- libs -->
+	<script src="js/libs/i18n/i18n-zakk.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/libs/underscore/underscore-min.js"></script>
 	<script src="js/libs/backbone/backbone-min.js"></script>
 	<script src="js/libs/iscroll/iscroll.js"></script>
 	
 	<!-- my app -->
-	<script src="js/utils.js"></script>
+	<script src="js/i18n/zh-tw.js"></script>
+	<script>
+		var supportedLang = 'zh-tw';
+		var defaultLang = 'zh-tw';
+		var language = window.navigator.userLanguage || window.navigator.language || defaultLang;
+		language = language.toLowerCase();
+		if(supportedLang.indexOf(language)<0) language = defaultLang;
+		i18n.set(window.i18n[language]);
+	</script>
+	<script src="js/images.js"></script>
 	<script src="js/views/widget/scroller.js"></script>
 	<script src="js/views/widget/touchWidget.js"></script>
 	<script src="js/views/pages/orderTab.js"></script>
