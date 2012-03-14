@@ -15,6 +15,7 @@
 			
 			var that = this;
 			var refresh = function(){
+				console.log('ddsfsdf');
 				that.scroll.refresh();
 				// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
 				[].slice.call(that.content.querySelectorAll('input, select, button')).forEach(function(el){
@@ -23,8 +24,8 @@
 					});
 				});
 			};
-			$(this.container).live('DOMNodeInsertedIntoDocument', refresh);
-			$(this.container).resize(refresh);
+			$(this.container).bind('DOMNodeInsertedIntoDocument', refresh);
+			$(this.container).bind('resize', refresh);
 		},
 		events: {
   		},
