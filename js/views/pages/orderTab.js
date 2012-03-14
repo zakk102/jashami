@@ -1,23 +1,26 @@
 // Filename: views/pages/orderTab.js
-(function(){
-	var orderTabTemplate = [
+(function(Scroller){
+	var tabTemplate = [
 			"wewefwefwsdsdf"
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			this.render();
+			var scroller = new Scroller();
+			scroller.html(_.template(tabTemplate));
+			$(this.el).html(scroller.el);
+			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
+			$(this.el).css('display', '-webkit-box');	
+			$(scroller.el).css('width', '100%');
 		},
 		events: {
   		},
 		render: function(){
-			var scroller = new window.myapp.Widget.Scroller();
-			scroller.html(_.template(orderTabTemplate));
-			this.el = scroller.el;
-			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
-	   }
+			this.delegateEvents();
+			return this;
+		}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})();
+})(window.myapp.Widget.Scroller);

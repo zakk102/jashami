@@ -2,26 +2,33 @@
 (function(scrollLib){
 	var Scroller = Backbone.View.extend({
 		initialize: function(){
-			this.render();
+			this.container = document.createElement('div');
+			this.content = document.createElement('div');
+			this.container.appendChild(this.content);
+			this.el = this.container;
+			this.container.style.overflow = 'hidden';
+			this.content.style.width = '100%';
+			this.content.style.height = '100%';
+			this.scroll = new scrollLib(this.container, { hScroll: true, vScroll: true });
+			var that = this;
+			var refresh = function(){
+				that.scroll.refresh();
+				// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
+				[].slice.call(that.content.querySelectorAll('input, select, button')).forEach(function(el){
+					el.addEventListener(('ontouchstart' in window)?'touchstart':'mousedown', function(e){
+						e.stopPropagation();
+					});
+				});
+			};
+			$(this.container).live('DOMNodeInsertedIntoDocument', refresh);
+			$(this.container).resize(refresh);
 		},
 		events: {
   		},
   		html: function(html){
-  			var data = document.createElement('div');
-  			$(data).html(html);
-  			$(this.content).html(data);
+  			$(this.content).html(html);
   		},
 		render: function(){
-			this.container = document.createElement('div');
-			this.content = document.createElement('div');
-			this.container.appendChild(this.content);
-			this.container.style.overflow = 'hidden';
-			this.el = this.container;
-			this.scroll = new scrollLib(this.container, { hScroll: true, vScroll: true });
-			var that = this;
-			$(this.el).live('DOMNodeInsertedIntoDocument', function(){
-				that.scroll.refresh();
-			});
 		}
 	});
 		

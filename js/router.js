@@ -15,7 +15,7 @@
 		},
 		startPage: function(tab){
 			if(!this.views.startPage) this.views.startPage = new StartPageView();
-			$('.ActivePage').html(this.views.startPage.el);
+			$('.ActivePage').html(this.views.startPage.render().el);
 			this.views.startPage.toTab(tab);
 		}
 	});

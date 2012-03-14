@@ -1,6 +1,6 @@
 // Filename: views/pages/aboutUsTab.js
-(function(){
-	var aboutUsTabTemplate = [
+(function(Scroller){
+	var tabTemplate = [
 		'<div id="content" data-scrollable="y" style="width:100%;">',
 			"qqq",
 		'</div>'
@@ -8,18 +8,20 @@
 	
 	var AboutUsTabView = Backbone.View.extend({
 		initialize: function(){
-			this.render();
+			var scroller = new Scroller();
+			scroller.html(_.template(tabTemplate));
+			$(this.el).html(scroller.el);
+			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
+			$(this.el).css('display', '-webkit-box');	
+			$(scroller.el).css('width', '100%');
 		},
 		events: {
   		},
 		render: function(tab){
-			$(this.el).attr('id', 'container');
-			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
-			$(this.el).css('overflow', 'hidden');
-			$(this.el).html(_.template(aboutUsTabTemplate));
+			return this;
 	   }
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.AboutUsTabView = AboutUsTabView;
-})();
+})(window.myapp.Widget.Scroller);
