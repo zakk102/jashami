@@ -1,4 +1,4 @@
-// Filename: views/widget/scroller.js
+// Filename: js/widget/scroller.js
 (function(scrollLib){
 	var Scroller = Backbone.View.extend({
 		initialize: function(){
@@ -15,7 +15,6 @@
 			
 			var that = this;
 			var refresh = function(){
-				console.log('ddsfsdf');
 				that.scroll.refresh();
 				// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
 				[].slice.call(that.content.querySelectorAll('input, select, button')).forEach(function(el){

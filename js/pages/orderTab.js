@@ -1,17 +1,32 @@
-// Filename: views/pages/orderTab.js
-(function(Scroller){
+// Filename: js/pages/orderTab.js
+(function(Scroller, Store, StoreList, StoreBrief){
 	var tabTemplate = [
-			"wewefwefwsdsdf"
+			'<div class="StoreList"></div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
 			var scroller = new Scroller();
 			scroller.html(_.template(tabTemplate));
-			$(this.el).html(scroller.el);
+			$(this.el).html(scroller.render().el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
 			$(scroller.el).css('width', '100%');
+			
+			//test
+			var that = this;
+			var slist = new StoreList();
+			slist.getByRegion(function(){
+				_.each(slist.models, function(m, index){
+					var storeBrief = new StoreBrief({model:m});
+					$('.StoreList', that.el).append(storeBrief.render().el);
+				});
+				//re-fresh the scroller to know the new size of the scroller
+				$('img', this.el).bind('load', function(){
+					scroller.render();
+				});
+				scroller.render(); 
+			});
 		},
 		events: {
   		},
@@ -23,4 +38,7 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.Scroller,
+	window.myapp.Model.Store,
+	window.myapp.Collection.StoreList,
+	window.myapp.View.StoreBrief);

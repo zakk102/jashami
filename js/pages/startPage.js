@@ -1,4 +1,4 @@
-// Filename: views/pages/startPage
+// Filename: js/pages/startPage
 (function(i18n, ImageResource, TabViews){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',

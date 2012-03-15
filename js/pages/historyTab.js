@@ -1,4 +1,4 @@
-// Filename: views/pages/historyTab.js
+// Filename: js/pages/historyTab.js
 (function(Scroller){
 	var tabTemplate = [
 		'<div id="pullDown"></div>',
@@ -55,8 +55,6 @@
 				pullDownAction: pullDownAction
 			});
 		},
-		events: {
-  		},
 		render: function(){
 			return this;
 	    }

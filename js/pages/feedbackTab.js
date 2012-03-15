@@ -1,4 +1,4 @@
-// Filename: views/pages/feedbackTab.js
+// Filename: js/pages/feedbackTab.js
 (function(TouchWidget, Scroller){
 	var tabTemplate = [
 		"<div class='about_text' style='width:100%;'>",

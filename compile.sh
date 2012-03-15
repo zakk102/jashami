@@ -6,9 +6,12 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/libs/iscroll/iscroll.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \
+./js/models/store.js \
+./js/collections/storeList.js \
 ./js/images.js \
 ./js/widget/scroller.js \
 ./js/widget/touchWidget.js \
+./js/views/storeBrief.js \
 ./js/pages/orderTab.js \
 ./js/pages/historyTab.js \
 ./js/pages/feedbackTab.js \

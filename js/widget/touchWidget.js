@@ -1,4 +1,4 @@
-// Filename: views/widget/touchWidget.js
+// Filename: js/widget/touchWidget.js
 (function(){
 	var TouchWidget = Backbone.View.extend({
 		initialize: function(){
