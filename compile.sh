@@ -1,4 +1,4 @@
-java -jar ../compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-8 --jscomp_off=internetExplorerChecks \
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-8 --jscomp_off=internetExplorerChecks \
 ./js/libs/i18n/i18n-zakk.js \
 ./js/libs/zepto/zepto.min.js \
 ./js/libs/underscore/underscore-min.js \
