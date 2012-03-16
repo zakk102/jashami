@@ -19,6 +19,7 @@
 	<script src="js/libs/zepto/zepto.min.js"></script>
 	<script src="js/libs/underscore/underscore-min.js"></script>
 	<script src="js/libs/backbone/backbone.js"></script>
+	<script src="js/libs/backbone/backbone-relational.js"></script>
 	<script src="js/libs/iscroll/iscroll.js"></script>
 	
 	<!-- my app -->
@@ -31,8 +32,7 @@
 		if(supportedLang.indexOf(language)<0) language = defaultLang;
 		i18n.set(window.languages[language]);
 	</script>
-	<script src="js/models/store.js"></script>
-	<script src="js/collections/storeList.js"></script>
+	<script src="js/models/menuData.js"></script>
 	<script src="js/images.js"></script>
 	<script src="js/widget/scroller.js"></script>
 	<script src="js/widget/touchWidget.js"></script>
@@ -42,6 +42,7 @@
 	<script src="js/pages/feedbackTab.js"></script>
 	<script src="js/pages/aboutUsTab.js"></script>
 	<script src="js/pages/startPage.js"></script>
+	<script src="js/pages/storePage.js"></script>
 	<script src="js/router.js"></script>
 	<script>
 		$(document).ready(function () {

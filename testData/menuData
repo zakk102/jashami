@@ -1,0 +1,50 @@
+{"stores":[
+	{
+		"_chainStore": "五十嵐",
+		"_index": "01-01",
+		"_storeNameId": "五十嵐市政府店",
+		"_displayedName": "五十嵐",
+        "_msg": "滿200外送",
+        "_deliveryLimit": 200,
+        "_deliveryFee": -1,
+        "_phoneNumber": "02-2368-4599",
+        "_faxNumber": "02-2368-4599",
+        "_address": "台北市中正區汀州路三段116-1號",
+        "_zipCode": "100",
+        "_lat": 25.014171,
+        "_lng": 121.533397,
+        "_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%BA%94%E5%8D%81%E5%B5%90/00_320.jpg",
+        "_menuId": "五十嵐台北",
+        "_openTime": "11,00,19,00,60,2,15"
+	},{
+		"_chainStore": "三元喜事",
+		"_index": "02-01",
+		"_storeNameId": "三元喜事大龍峒店",
+		"_displayedName": "三元喜事",
+        "_msg": "滿500外送",
+        "_deliveryLimit": 500,
+        "_deliveryFee": -1,
+        "_phoneNumber": "02-2598-6550",
+        "_faxNumber": "02-2594-1527",
+        "_email": "shihhan.3ms@gmail.com",
+        "_address": "台北市大同區大龍街288號",
+        "_zipCode": "103",
+        "_lat": 25.07145,
+        "_lng": 121.515806,
+        "_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/store-02.jpg",
+        "_menuId": "三元喜事菜單",
+        "_openTime": "11,0,21,00,60,2,15"
+	}
+],
+"menus":[
+	{
+		"_menuId": "五十嵐台北",
+		"products":[
+			{
+				"_productId":"p1"
+			},{
+				"_productId":"p2"
+			}
+		]
+	}
+]}

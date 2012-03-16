@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(Scroller, Store, StoreList, StoreBrief){
+(function(MenuData, Scroller, StoreBrief){
 	var tabTemplate = [
 			'<div class="StoreList"></div>'
 	].join('');
@@ -15,9 +15,10 @@
 			
 			//test
 			var that = this;
-			var slist = new StoreList();
-			slist.getByRegion(function(){
-				_.each(slist.models, function(m, index){
+			var menudata = new MenuData();
+			menudata.fetch({success:function(){
+				window.menuData = menudata;
+				_.each(menudata.get('stores').models, function(m, index){
 					var storeBrief = new StoreBrief({model:m});
 					$('.StoreList', that.el).append(storeBrief.render().el);
 				});
@@ -25,8 +26,8 @@
 				$('img', this.el).bind('load', function(){
 					scroller.render();
 				});
-				scroller.render(); 
-			});
+				scroller.render();
+			}});
 		},
 		events: {
   		},
@@ -38,7 +39,6 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.Widget.Scroller,
-	window.myapp.Model.Store,
-	window.myapp.Collection.StoreList,
+})(	window.myapp.Model.MenuData,
+	window.myapp.Widget.Scroller,
 	window.myapp.View.StoreBrief);

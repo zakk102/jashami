@@ -3,6 +3,7 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/libs/zepto/zepto.min.js \
 ./js/libs/underscore/underscore-min.js \
 ./js/libs/backbone/backbone-min.js \
+./js/libs/backbone/backbone-relational.js \
 ./js/libs/iscroll/iscroll.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \
@@ -17,5 +18,6 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/pages/feedbackTab.js \
 ./js/pages/aboutUsTab.js \
 ./js/pages/startPage.js \
+./js/pages/storePage.js \
 ./js/router.js \
 --js_output_file=complied.js

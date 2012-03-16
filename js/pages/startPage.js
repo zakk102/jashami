@@ -1,4 +1,4 @@
-// Filename: js/pages/startPage
+// Filename: js/pages/startPage.js
 (function(i18n, ImageResource, TabViews){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
@@ -40,8 +40,7 @@
 	window.myapp = window.myapp || {};
 	window.myapp.StartPageView = StartPageView;
 })(i18n, window.myapp.Images,
-	{
-	orderTab:window.myapp.OrderTabView, 
+{	orderTab:window.myapp.OrderTabView, 
 	historyTab:window.myapp.HistoryTabView, 
 	feedbackTab:window.myapp.FeedbackTabView, 
 	aboutUsTab:window.myapp.AboutUsTabView
