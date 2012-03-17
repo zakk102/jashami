@@ -27,6 +27,8 @@
 					scroller.render();
 				});
 				scroller.render();
+			},error:function(originalModel, resp, options){
+				console.log(resp.status);
 			}});
 		},
 		events: {

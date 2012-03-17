@@ -1,8 +1,8 @@
 //Filename: js/pages/storePage.js
-(function(Scroller){
+(function(TouchWidget, Scroller){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
-			'<div></div>',
+			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
 			'<div>',
 				'<%= storeName %>',
 			'</div>',
@@ -27,10 +27,13 @@
 			var storeName = this.model.get('_displayedName');
 			$(this.el).html(_.template(pageTemplate,{storeName:storeName}));
 			$("#storeContent", this.el).html(this.scroller.render().el);
+//			var backBtn = new TouchWidget({ el: $('.HeaderButton', this.el) });
+//			backBtn.changeColorWhenTouch = true;
 			return this;
 	  	}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.StorePageView = StorePageView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.TouchWidget, 
+	window.myapp.Widget.Scroller);
