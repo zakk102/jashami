@@ -24,7 +24,7 @@
 				});
 			};
 			$(this.container).bind('DOMNodeInsertedIntoDocument', refresh);
-			$(this.container).bind('resize', refresh);
+			$(window).bind('resize', refresh);
 		},
 		events: {
   		},
@@ -92,6 +92,10 @@
 					}
 				}
 			});
+  		},
+  		scrollTo: function(x, y, time){
+  			if(!time) time = 300;
+  			this.scroll.scrollTo(-x, -y, time);
   		},
 		render: function(options){
 			if(options) this.scroll.setOption(options);

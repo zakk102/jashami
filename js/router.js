@@ -34,11 +34,13 @@
 				var that = this;
 				window.menuData = new MenuData();
 				window.menuData.fetch({success:function(){
-					that.views.storePage.setModel(window.menuData.get('stores').get(store));
+					that.views.storePage.model = window.menuData.get('stores').get(store);
+//					that.views.storePage.setModel(window.menuData.get('stores').get(store));
 					that.changePage(that.views.storePage.render().el);
 				}});
 			}else{
-				this.views.storePage.setModel(window.menuData.get('stores').get(store));
+				this.views.storePage.model = window.menuData.get('stores').get(store);
+//				this.views.storePage.setModel(window.menuData.get('stores').get(store));
 				this.changePage(this.views.storePage.render().el);
 			}
 		},
