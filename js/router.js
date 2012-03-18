@@ -11,10 +11,11 @@
 		initialize:function () {
 			var that = this;
 			this.views = {};
-			this.useTransitionEffect = true;
+			this.useTransitionEffect = false;
 			this.firstPage = true;
 			this.isGoBack = false;
 			$('.BackButton').live("clickByTouch", function(){
+				if(that.inTransition) return;
 				that.isGoBack = true;
 				window.history.back();
 			});
@@ -37,18 +38,62 @@
 					that.views.storePage.model = window.menuData.get('stores').get(store);
 //					that.views.storePage.setModel(window.menuData.get('stores').get(store));
 					that.changePage(that.views.storePage.render().el);
+					that.views.storePage.refreshGridSize();
 				}});
 			}else{
 				this.views.storePage.model = window.menuData.get('stores').get(store);
 //				this.views.storePage.setModel(window.menuData.get('stores').get(store));
 				this.changePage(this.views.storePage.render().el);
+				this.views.storePage.refreshGridSize();
 			}
 		},
 		changePage: function(el){
+			// Collapse the keyboard
+            $(':focus').blur();
+            
+			this.inTransition = true;
 			if(!this.useTransitionEffect || this.firstPage){ // first rendered page, no change page animation
 				$('.ActivePage').html(el);
 				this.firstPage = false;
+				this.inTransition = false;
 			}else{
+				var that = this;
+				// prepare transition
+				var from = $('.ActivePage').children();
+				var to = $(el);
+				from.css('position', 'absolute');
+				to.css('position', 'absolute');
+				$('.ActivePage').append(to);
+				if(!this.isGoBack){
+					to.css('left','100%');
+					from.animate({
+				    	left: '-100%',
+				  	}, 300, 'ease-in-out', function(){
+				  		from.remove();
+				  	});
+					to.animate({
+				    	left: '0',
+				  	}, 300, 'ease-in-out', function(){
+				  		from.css('position', 'relative');
+						to.css('position', 'relative');
+				  		that.inTransition = false;
+				  	});
+				}else{
+					to.css('left','-100%');
+					from.animate({
+				    	left: '100%',
+				  	}, 300, 'ease-in-out', function(){
+				  		from.remove();
+				  	});
+					to.animate({
+				    	left: '0',
+				  	}, 300, 'ease-in-out', function(){
+				  		from.css('position', 'relative');
+						to.css('position', 'relative');
+				  		that.inTransition = false;
+				  	});
+				}
+/*				
 				// prepare transition
 				var from = $('.ActivePage').children();
 				var to = $(el);
@@ -60,21 +105,29 @@
 				}
 				$('.ActivePage').append(el);
 				// register transition end event
+				var that = this;
 				if(this.isGoBack){
 					from.bind('webkitTransitionEnd', function(){
 						from.unbind();
 						// finish transition
-						from.removeClass('transitionSlide transitionOut reverse transitionStart');
-						to.removeClass('transitionSlide transitionIn reverse transitionStart');
+						from.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
+						to.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
 						from.remove();
+						setTimeout(function(){
+							that.inTransition = false;
+						},100);
 					});
 				}else{
 					to.bind('webkitTransitionEnd', function(){
 						to.unbind();
 						// finish transition
-						from.removeClass('transitionSlide transitionOut reverse transitionStart');
-						to.removeClass('transitionSlide transitionIn reverse transitionStart');
+						from.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
+						to.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
 						from.remove();
+						that.inTransition = false;
+						setTimeout(function(){
+							that.inTransition = false;
+						},100);
 					});
 				}
 				
@@ -82,13 +135,10 @@
 				setTimeout(function(){
 					from.addClass('transitionStart'); 
 					to.addClass('transitionStart');
-				},10);
-				
+				},10);				
+*/				
 				this.isGoBack = false;
 			}
-			// bind events: zepto's $.live is broken in webkit browser
-			var that = this;
-			
 		}
 	});
 	

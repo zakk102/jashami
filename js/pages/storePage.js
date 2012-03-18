@@ -87,6 +87,33 @@
 			this._minCol = 3;
 			this._minGridWidth = 100;
 			this._maxGridWidth = 150;
+/*			var refreshGridSize = function(){
+				var widgetWidth = $(window).width()-that._segmentPanelWidth;
+				$(that.scroller.el).css('width', widgetWidth+'px');
+				
+				var calGridWidth = widgetWidth/that._col;
+				var otherWidth = 2*(that._gridHMargin);
+				var newGridWidth = calGridWidth - otherWidth;
+		
+				while(newGridWidth>that._maxGridWidth){
+					that._col++;
+					newGridWidth = (widgetWidth/that._col) - otherWidth;
+				}
+		
+				while(that._col>that._minCol && newGridWidth<that._minGridWidth){
+					that._col--;
+					newGridWidth = (widgetWidth/that._col) - otherWidth;
+				}
+				
+				that._gridHeight = that._gridHeight*newGridWidth/that._gridWidth;
+				that._gridWidth = newGridWidth;
+				that.setModel();
+			};
+//			$(this.scroller.el).bind('DOMNodeInsertedIntoDocument', refreshGridSize);
+//			$(window).bind('resize', refreshGridSize);
+*/		},
+		refreshGridSize: function(){
+			var that = this;
 			var refreshGridSize = function(){
 				var widgetWidth = $(window).width()-that._segmentPanelWidth;
 				$(that.scroller.el).css('width', widgetWidth+'px');
@@ -109,8 +136,7 @@
 				that._gridWidth = newGridWidth;
 				that.setModel();
 			};
-			$(this.scroller.el).bind('DOMNodeInsertedIntoDocument', refreshGridSize);
-			$(window).bind('resize', refreshGridSize);
+			refreshGridSize();
 		},
   		setModel: function(model){
   			if(model) this.model = model;
