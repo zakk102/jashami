@@ -31,6 +31,9 @@
   		html: function(html){
   			$(this.content).html(html);
   		},
+  		getContent: function(){
+  			return $(this.content);
+  		},
   		setPullToRefresh: function(options){
   			var opt = {
   				pullDownOffset: 30,

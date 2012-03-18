@@ -27,25 +27,39 @@
   		touchStart: function(e){
   			e.preventDefault();
   			e.stopPropagation();
-  			this.start(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
+  			this.start(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+  			var target = e.target
+  			while(!target.tagName) target=target.parentElement;
+  			var rect = target.getBoundingClientRect();
+  			this.topLeftX = rect.left;
+  			this.topLeftY = rect.top;
+  			this.bottomRightX = rect.left + target.clientWidth;
+  			this.bottomRightY = rect.top + target.clientHeight;
   		},
   		touchMove: function(e){
   			e.preventDefault();
   			e.stopPropagation();
-//  			var x = Utils.getAbsoluteLeft(e.target);
-//  			var y = Utils.getAbsoluteTop(e.target);
-			var rect = e.target.getBoundingClientRect();
-			var x = rect.left;
-  			var y = rect.top;
-  			var w = e.target.clientWidth;
-  			var h = e.target.clientHeight;
-  			var ex = e.originalEvent.changedTouches[0].pageX;
-  			var ey = e.originalEvent.changedTouches[0].pageY;
-  			if(ex<x || ex>x+w || ey<y || ey>y+h){
+ /*
+  			var target = e.target
+  			while(!target.tagName) target=target.parentElement;
+  			var rect = target.getBoundingClientRect();
+  				var x = rect.left;
+	 			var y = rect.top;
+	  			var w = target.clientWidth;
+	  			var h = target.clientHeight;
+	  			var ex = e.changedTouches[0].pageX;
+	  			var ey = e.changedTouches[0].pageY;
+	  			if(ex<x || ex>x+w || ey<y || ey>y+h){
+	  				this._clickStart = false;
+		    		$(this.el).removeClass('Pressed');
+	  			}
+*/
+			var ex = e.changedTouches[0].pageX;
+	  		var ey = e.changedTouches[0].pageY;
+			if(ex<this.topLeftX || ex>this.bottomRightX || ey<this.topLeftY || ey>this.bottomRightY){
   				this._clickStart = false;
 	    		$(this.el).removeClass('Pressed');
   			}
-//  			this.move(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
   		},
   		mouseUp: function(e){
   			e.preventDefault();
@@ -55,7 +69,7 @@
   		touchEnd: function(e){
   			e.preventDefault();
   			e.stopPropagation();
-  			this.end(e.originalEvent.changedTouches[0].pageX, e.originalEvent.changedTouches[0].pageY);
+  			this.end(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
   		},
   		start: function(x, y){
   			if (this._isEnabled && x!=null && y!=null) {

@@ -25,8 +25,8 @@
 			this.tabs = {};
 			$(this.el).html(_.template(pageTemplate));
 			$(this.el).addClass('Base');
-			$(this.el).attr("style","height:100%");
-			$(this.el).attr("style","width:100%");
+			$(this.el).attr("id","startPageView");
+			$(this.el).attr("style","height:100%; width:100%;");
 		},
 		render: function(){
 			return this;

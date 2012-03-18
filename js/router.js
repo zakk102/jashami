@@ -14,12 +14,17 @@
 			this.useTransitionEffect = true;
 			this.firstPage = true;
 			this.isGoBack = false;
+			$('.BackButton').live("clickByTouch", function(){
+				that.isGoBack = true;
+				window.history.back();
+			});
 	    },
 		defaultAction: function(actions){
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
 			if(!this.views.startPage) this.views.startPage = new Views.StartPageView();
+			if($('#startPageView').length) this.firstPage = true;
 			this.views.startPage.toTab(tab);
 			this.changePage(this.views.startPage.render().el);
 		},
@@ -29,11 +34,11 @@
 				var that = this;
 				window.menuData = new MenuData();
 				window.menuData.fetch({success:function(){
-					that.views.storePage.model = window.menuData.get('stores').get(store);
+					that.views.storePage.setModel(window.menuData.get('stores').get(store));
 					that.changePage(that.views.storePage.render().el);
 				}});
 			}else{
-				this.views.storePage.model = window.menuData.get('stores').get(store);
+				this.views.storePage.setModel(window.menuData.get('stores').get(store));
 				this.changePage(this.views.storePage.render().el);
 			}
 		},
@@ -81,13 +86,7 @@
 			}
 			// bind events: zepto's $.live is broken in webkit browser
 			var that = this;
-			$('.BackButton').bind("click", function(){
-				that.isGoBack = true;
-				window.history.back();
-			});
-			$('.TabHeader a').bind('click', function(){
-				that.firstPage = true;
-			});
+			
 		}
 	});
 	
