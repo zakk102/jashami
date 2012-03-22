@@ -240,10 +240,13 @@
 			// get product id
 			pid = $(e.currentTarget).attr('pid');
 			// show product panel
-			window.productPanel.$el.show();
-			// push state
+			window.productPanel.show('top');
+			// set product data
+			var menuId = this.model.get('_menuId').get('_menuId');
+			window.productPanel.setModel(this.model.get('_menuId').get('products').get(pid));
+			// push state to url
 			href = window.location.hash+'/'+pid;
-			window.history.pushState(href, href, href);
+			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){
 			// shopping car

@@ -1,7 +1,7 @@
 //Filename: js/models/menuData.js
 (function(){
 	var Product = Backbone.RelationalModel.extend({
-	    idAttribute: '_productId'
+	    idAttribute: '_productNameId'
 	});
 	
 	var Menu = Backbone.RelationalModel.extend({
