@@ -7,5 +7,5 @@ i18n.set(window.languages[language]);
 $(document).ready(function () {
 	$('#backgroundLogo').remove();
 	var app_router = new myapp.Router;
-	Backbone.history.start();
+	Backbone.history.start({pushState: true});
 });

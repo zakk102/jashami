@@ -1,5 +1,5 @@
 // Filename: js/pages/feedbackTab.js
-(function(TouchWidget, Scroller){
+(function(Scroller){
 	var tabTemplate = [
 		"<div class='about_text' style='width:100%;'>",
 			"感謝您使用Jashami(甲蝦米)<br/>",
@@ -7,26 +7,26 @@
 			"<input id='recommendation' type='Text' class='INPUT Text'>",
 			"請留下您的寶貴意見，我們將為您提供更好的服務:",
 			"<input id='opinion' type='Text' class='INPUT Text'>",
-			"<div id='sendFeedbackBtn' class='SubmitButton'>送出</div>",
+			"<a id='sendFeedbackBtn' class='SubmitButton'>送出</a>",
 		"</div>",
 	].join('');
 	
 	var FeedbackTabView = Backbone.View.extend({
 		initialize: function(){
 			var scroller = new Scroller();
+			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
+			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
-			this.sendFeedbackBtn = new TouchWidget({ el: $('#sendFeedbackBtn', this.el) });
-			this.sendFeedbackBtn.changeColorWhenTouch = true;
 		},
 		events: {
-    		'clickByTouch #sendFeedbackBtn': 'sendFeedback'
+    		'click #sendFeedbackBtn': 'sendFeedback'
   		},
 		render: function(){
-			this.sendFeedbackBtn.delegateEvents();
+			this.scroller.render();
 			this.delegateEvents();
 			return this;
 	   	},
@@ -39,4 +39,4 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.FeedbackTabView = FeedbackTabView;
-})(window.myapp.Widget.TouchWidget, window.myapp.Widget.Scroller);
+})(window.myapp.Widget.Scroller);

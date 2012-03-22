@@ -1,143 +1,167 @@
 // Filename: router.js
-(function(MenuData, Views){
+(function(MenuData, LoadingPanel, Views){
+	var TransitionEffectTypes = 'hSlide';
 	var AppRouter = Backbone.Router.extend({
 		routes: {
 			// Define some URL routes
 			'startPage/:tab': 'startPage',
 			'storePage/:store': 'storePage',
+			'storePage/:store/:product': 'productPage',
 			// Default
 			'*actions': 'defaultAction'
 		},
 		initialize:function () {
+			// loading panel
+			window.loadingPanel = new LoadingPanel();
+			$('body').append(window.loadingPanel.el);
+			// settings
 			var that = this;
 			this.views = {};
-			this.useTransitionEffect = false;
-			this.firstPage = true;
-			this.isGoBack = false;
-			$('.BackButton').live("clickByTouch", function(){
-				if(that.inTransition) return;
-				that.isGoBack = true;
-				window.history.back();
+			window.useTransitionEffect = true;
+			// pre-load pages
+			this.views.startPage = new Views.StartPageView();
+			this.loadToDOM(this.views.startPage.el);
+			this.views.storePage = new Views.StorePageView();
+			this.loadToDOM(this.views.storePage.el);
+			// determine transition type & direction
+			$(window).bind('hashchange', function(e){
+				var newUrl = e.newURL;
+				var oldUrl = e.oldURL;
+				console.log('hashchange from '+oldUrl+" to "+newUrl);
+				if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
+					that.transitionEffectType = 'hSlide';
+					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
+						that.transitionDir = 'left';
+					}
+				}else if(newUrl.indexOf('#storePage')>=0){ // to store page
+					that.transitionEffectType = 'hSlide';
+					if(oldUrl.indexOf('#startPage')>=0){ // from start page, slide from right
+						that.transitionDir = 'right';
+					}
+				}
 			});
 	    },
 		defaultAction: function(actions){
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
-			if(!this.views.startPage) this.views.startPage = new Views.StartPageView();
-			if($('#startPageView').length) this.firstPage = true;
+			if(!this.views.startPage){ // load the page into DOM
+				this.views.startPage = new Views.StartPageView();
+				this.loadToDOM(this.views.startPage.el);
+			}
+			if(window.productPanel){ // product panel
+				window.productPanel.$el.hide();
+			}
+			this.changePage(this.views.startPage.render().el, this.transitionEffectType, this.transitionDir);
+			this.transitionEffectType = null;
+			this.transitionDir = null;
 			this.views.startPage.toTab(tab);
-			this.changePage(this.views.startPage.render().el);
 		},
 		storePage: function(store){
-			if(!this.views.storePage) this.views.storePage = new Views.StorePageView();
+			if(!this.views.storePage){ // load the page into DOM
+				this.views.storePage = new Views.StorePageView();
+				this.loadToDOM(this.views.storePage.el);
+			}
+			if(window.productPanel){ // product panel
+				window.productPanel.$el.hide();
+			}
+			var that = this;
+			if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
+				that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
+				that.transitionEffectType = null;
+				that.transitionDir = null;
+				that.views.storePage.render();
+				return;
+			}
+			that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
+			that.transitionEffectType = null;
+			that.transitionDir = null;
 			if(!window.menuData){
-				var that = this;
 				window.menuData = new MenuData();
 				window.menuData.fetch({success:function(){
-					that.views.storePage.model = window.menuData.get('stores').get(store);
-//					that.views.storePage.setModel(window.menuData.get('stores').get(store));
-					that.changePage(that.views.storePage.render().el);
+					that.views.storePage.resetDisplayedData();
 					that.views.storePage.refreshGridSize();
+					that.views.storePage.resetScroller();
+					that.views.storePage.setModel(window.menuData.get('stores').get(store));
 				}});
 			}else{
-				this.views.storePage.model = window.menuData.get('stores').get(store);
-//				this.views.storePage.setModel(window.menuData.get('stores').get(store));
-				this.changePage(this.views.storePage.render().el);
-				this.views.storePage.refreshGridSize();
+				that.views.storePage.resetDisplayedData();
+				that.views.storePage.refreshGridSize();
+				that.views.storePage.resetScroller();
+				that.views.storePage.setModel(window.menuData.get('stores').get(store));
 			}
 		},
-		changePage: function(el){
+		productPage: function(store, product){
+			// product panel
+			if(!window.productPanel){
+				window.productPanel = new ProductPanel();
+				$('body').append(window.productPanel.$el);
+			}
+			// show product panel
+			window.productPanel.$el.show();
+			// load store page in background
+			this.changePage(this.views.storePage.el);
+		},
+		loadToDOM: function(el){
+			var id = $(el).attr('id');
+			if($('#'+id).length>0){
+				console.log('page '+id+' has already loaded');
+				return;
+			}
+			$(el).hide();
+			$('#mainRoot').append(el);
+		},
+		changePage: function(el, effectType, effectDir){
 			// Collapse the keyboard
             $(':focus').blur();
             
-			this.inTransition = true;
-			if(!this.useTransitionEffect || this.firstPage){ // first rendered page, no change page animation
-				$('.ActivePage').html(el);
-				this.firstPage = false;
-				this.inTransition = false;
-			}else{
+			var from = $(this.currentActivePage);
+			var to = $(el);
+			to.attr('url',window.location.href); // set url
+			if(from==to || from.attr('url')==to.attr('url')) return;
+			
+			window.inTransition = true;
+			if(!window.useTransitionEffect || !effectType || TransitionEffectTypes.indexOf(effectType)<0){ // no change page animation
+				from.hide();
+				to.show();
+            	this.currentActivePage = to;
+				window.inTransition = false;
+			}else if(effectType=='hSlide'){
 				var that = this;
 				// prepare transition
-				var from = $('.ActivePage').children();
-				var to = $(el);
 				from.css('position', 'absolute');
 				to.css('position', 'absolute');
-				$('.ActivePage').append(to);
-				if(!this.isGoBack){
-					to.css('left','100%');
+				to.show();
+				if(effectDir=='right'){
+					to.css('-webkit-transform','translate3d(100%, 0, 0)');
+					from.css('-webkit-transform','translate3d(0, 0, 0)');
 					from.animate({
-				    	left: '-100%',
+				    	'-webkit-transform': 'translate3d(-100%, 0, 0)',
 				  	}, 300, 'ease-in-out', function(){
-				  		from.remove();
+				  		from.hide();
 				  	});
 					to.animate({
-				    	left: '0',
+				    	'-webkit-transform': 'translate3d(0, 0, 0)',
 				  	}, 300, 'ease-in-out', function(){
-				  		from.css('position', 'relative');
-						to.css('position', 'relative');
-				  		that.inTransition = false;
+						that.currentActivePage = to;
+				  		window.inTransition = false;
 				  	});
 				}else{
-					to.css('left','-100%');
+					to.css('-webkit-transform','translate3d(-100%, 0, 0)');
+					from.css('-webkit-transform','translate3d(0, 0, 0)');
 					from.animate({
-				    	left: '100%',
+				    	'-webkit-transform': 'translate3d(100%, 0, 0)',
 				  	}, 300, 'ease-in-out', function(){
-				  		from.remove();
+				  		from.hide();
 				  	});
 					to.animate({
-				    	left: '0',
+				    	'-webkit-transform': 'translate3d(0, 0, 0)',
 				  	}, 300, 'ease-in-out', function(){
-				  		from.css('position', 'relative');
-						to.css('position', 'relative');
-				  		that.inTransition = false;
+						that.currentActivePage = to;
+				  		window.inTransition = false;
 				  	});
-				}
-/*				
-				// prepare transition
-				var from = $('.ActivePage').children();
-				var to = $(el);
-				from.addClass('transitionSlide transitionOut');
-				to.addClass('transitionSlide transitionIn');
-				if(this.isGoBack){ // reverse
-					from.addClass('reverse');
-					to.addClass('reverse');
-				}
-				$('.ActivePage').append(el);
-				// register transition end event
-				var that = this;
-				if(this.isGoBack){
-					from.bind('webkitTransitionEnd', function(){
-						from.unbind();
-						// finish transition
-						from.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
-						to.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
-						from.remove();
-						setTimeout(function(){
-							that.inTransition = false;
-						},100);
-					});
-				}else{
-					to.bind('webkitTransitionEnd', function(){
-						to.unbind();
-						// finish transition
-						from.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
-						to.removeClass('transitionSlide transitionIn transitionOut reverse transitionStart');
-						from.remove();
-						that.inTransition = false;
-						setTimeout(function(){
-							that.inTransition = false;
-						},100);
-					});
-				}
-				
-				// start transition
-				setTimeout(function(){
-					from.addClass('transitionStart'); 
-					to.addClass('transitionStart');
-				},10);				
-*/				
-				this.isGoBack = false;
+				  	window.isGoBack = false;
+				}				
 			}
 		}
 	});
@@ -146,6 +170,36 @@
 	window.myapp.Router = AppRouter;
 	
 })(	window.myapp.Model.MenuData,
+	window.myapp.Widget.LoadingPanel,
 {	StartPageView:window.myapp.StartPageView,
 	StorePageView:window.myapp.StorePageView
 });
+
+
+/*
+to.css('-webkit-transform','translate3d(100%, 0, 0)');
+					to.css('-webkit-transition-property','-webkit-transform');
+					to.css('-webkit-transition-duration','300ms');
+					to.css('-webkit-transition-timing-function','ease-in-out');
+					to.bind('webkitTransitionEnd', function(){
+						to.css('-webkit-transition-property','initial');
+						to.css('-webkit-transition-duration','initial');
+						that.currentActivePage = to;
+				  		window.inTransition = false;
+				  		to.unbind();
+					});
+					from.css('-webkit-transform','translate3d(0, 0, 0)');
+					from.css('-webkit-transition-property','-webkit-transform');
+					from.css('-webkit-transition-duration','300ms');
+					from.css('-webkit-transition-timing-function','ease-in-out');
+					from.bind('webkitTransitionEnd', function(){
+						from.css('-webkit-transition-property','initial');
+						from.css('-webkit-transition-duration','initial');
+						from.hide();
+						from.unbind();
+					});
+					// start transition
+					to.css('-webkit-transform','translate3d(0, 0, 0)');
+					from.css('-webkit-transform','translate3d(-100%, 0, 0)');
+
+ */

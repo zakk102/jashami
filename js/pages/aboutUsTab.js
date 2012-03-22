@@ -13,6 +13,7 @@
 			$(this.el).html(scroller.el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
+			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
 		},
 		events: {

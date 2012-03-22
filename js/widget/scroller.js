@@ -14,8 +14,9 @@
 			this.scroll = new scrollLib(this.container, opt);
 			
 			var that = this;
-			var refresh = function(){
-				that.scroll.refresh();
+			var refresh = function(e){
+				console.log('refresh scroller by: ' + e.type);
+				that.scroll.refresh(e.type);
 				// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
 				[].slice.call(that.content.querySelectorAll('input, select, button')).forEach(function(el){
 					el.addEventListener(('ontouchstart' in window)?'touchstart':'mousedown', function(e){
@@ -23,11 +24,9 @@
 					});
 				});
 			};
-			$(this.container).bind('DOMNodeInsertedIntoDocument', refresh);
-			$(window).bind('resize', refresh);
+//			$(this.container).bind('DOMNodeInsertedIntoDocument', refresh);
+//			$(window).bind('resize', refresh);
 		},
-		events: {
-  		},
   		html: function(html){
   			$(this.content).html(html);
   		},
@@ -97,9 +96,13 @@
   			if(!time) time = 300;
   			this.scroll.scrollTo(-x, -y, time);
   		},
+  		scrollToElement: function(el, time){
+  			if(!time) time = 300;
+  			this.scroll.scrollToElement(el, time);
+  		},
 		render: function(options){
 			if(options) this.scroll.setOption(options);
-			else this.scroll.refresh();
+			else this.scroll.refresh('re-bind event');
 			return this;
 		}
 	});
