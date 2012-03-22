@@ -1,0 +1,63 @@
+
+@color-header-gray: rgb(243,244,239);
+
+.HeaderPanel {
+  -webkit-box-orient: vertical;
+  
+  .top {
+    position:relative;
+    height:1.4em;
+    background-color:orange;
+  }
+  
+  .center {
+    position:relative;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    z-index: 11;
+    height:3em;
+    background:-webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, @color-header-gray),
+      color-stop(0.63, white),
+      color-stop(1, @color-header-gray)
+    );
+    color: #fff;
+    font-weight:bold;
+    line-height:35px;
+    padding:0px 10px !IMPORTANT;
+    overflow:ellipsis;
+    vertical-align:middle;
+    text-align:center;
+  }
+  
+  .bottom {
+    position:relative;
+    height:0.2em;
+    background-color:orange;
+    -webkit-box-shadow: 0px 0px 12px  #633a1e;
+  }
+  
+}
+// 
+// .HeaderPanel > div:nth-child(2) > div{
+  // font-size:1.3em;
+// }
+// .HeaderPanel > div:nth-child(2) img{
+  // width: 175px !important;
+  // height: 54px !important;
+  // background-size: 175px;
+// }
+// .HeaderPanel > div:first-child, .HeaderPanel > div:last-child {
+  // min-width:3.5em;
+// }
+// .HeaderPanel > div:first-child, .HeaderButton.NextButton{
+  // margin-left: 0.8em;
+// }
+// .HeaderPanel > div:last-child, .HeaderButton.BackButton{
+  // margin-right: 0.8em;
+// }
