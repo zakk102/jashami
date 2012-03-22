@@ -1,7 +1,7 @@
 //Filename: js/pages/storePage.js
 (function(ImageResource, TouchWidget, Scroller){
 	var pageTemplate = [
-		'<div class="HeaderPanel">',
+		'<div class="header">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
 			'<div id="storeName">',
 			'</div>',

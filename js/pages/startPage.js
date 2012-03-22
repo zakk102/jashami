@@ -1,16 +1,16 @@
 // Filename: js/pages/startPage.js
 (function(i18n, ImageResource, TabViews){
 	var pageTemplate = [
-		'<div class="HeaderPanel">',
+		'<div class="header">',
 			'<div class="top"></div>',
-			'<div class=center>',
+			'<div class="center">',
 				'<div></div>',
 				'<div>',
-					'<img src="'+ImageResource.JashamiLogo+'">',
+					'<img id="logo" src="'+ImageResource.JashamiLogo+'">',
 				'</div>',
 				'<div></div>',
 			'</div>',
-			'<div class=bottom></div>',
+			'<div class="bottom"></div>',
 		'</div>',
 		'<div class="TabPanel">',
 			'<div class="TabContent">',

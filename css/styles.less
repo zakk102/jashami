@@ -1,13 +1,14 @@
 
 @color-header-gray: rgb(243,244,239);
+@color-logo-orange: rgb(223,74,10);
 
-.HeaderPanel {
+.header {
   -webkit-box-orient: vertical;
   
   .top {
     position:relative;
-    height:1.4em;
-    background-color:orange;
+    height:0.4em;
+    background-color:@color-logo-orange;
   }
   
   .center {
@@ -29,16 +30,20 @@
     color: #fff;
     font-weight:bold;
     line-height:35px;
-    padding:0px 10px !IMPORTANT;
+    padding:0px 10px;
     overflow:ellipsis;
     vertical-align:middle;
     text-align:center;
+    #logo {
+      height:80%;
+      vertical-align:middle;
+    }
   }
   
   .bottom {
     position:relative;
     height:0.2em;
-    background-color:orange;
+    background-color:@color-logo-orange;
     -webkit-box-shadow: 0px 0px 12px  #633a1e;
   }
   
