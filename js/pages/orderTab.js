@@ -1,17 +1,21 @@
 // Filename: js/pages/orderTab.js
-(function(MenuData, Scroller, StoreBrief){
+(function(MenuData, Scroller, StoreBrief, AddressSelector){
 	var tabTemplate = [
+			'<div class="AddressSelector"></div>',
 			'<div class="StoreList"></div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
+			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
 			$(scroller.el).css('width', '100%');
+			
+			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
 			//test
 			var that = this;
@@ -33,6 +37,9 @@
 		},
 		events: {
   		},
+  		loadStore: function(e) {
+  			alert(e.currentTarget.value);
+  		},
 		render: function(){
 			this.delegateEvents();
 			return this;
@@ -43,4 +50,5 @@
 	window.myapp.OrderTabView = OrderTabView;
 })(	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
-	window.myapp.View.StoreBrief);
+	window.myapp.View.StoreBrief,
+	window.myapp.Widget.AddressSelector);
