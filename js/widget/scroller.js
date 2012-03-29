@@ -103,6 +103,12 @@
 		render: function(options){
 			if(options) this.scroll.setOption(options);
 			else this.scroll.refresh('re-bind event');
+			// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
+			[].slice.call(this.content.querySelectorAll('input, select, button')).forEach(function(el){
+				el.addEventListener(('ontouchstart' in window)?'touchstart':'mousedown', function(e){
+					e.stopPropagation();
+				});
+			});
 			return this;
 		}
 	});
