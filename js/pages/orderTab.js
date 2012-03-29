@@ -9,10 +9,12 @@
 		initialize: function(){
 			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
+			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
+			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
 			
 			$('.AddressSelector', this.el).html(addressSelector.render().el);
@@ -41,6 +43,7 @@
   			alert(e.currentTarget.value);
   		},
 		render: function(){
+			this.scroller.render();
 			this.delegateEvents();
 			return this;
 		}

@@ -386,7 +386,7 @@ table{
 	-webkit-box-shadow: inset 2px 0 2px black;
 	padding-left: 7px;
 }
-.HeaderButton.Pressed > span.Button, .HeaderButton.Pressed > .ButtonText{
+.HeaderButton:active > span.Button, .HeaderButton:active > .ButtonText{
 	background:-webkit-gradient(linear,center top, center bottom,
    from(#212021),
        color-stop(50%, #6d6d6d),
@@ -396,7 +396,7 @@ table{
 	border-radius: 3px;
 	-webkit-box-shadow: none;
 }
-.HeaderButton.Pressed > span.Pointer{
+.HeaderButton:active > span.Pointer{
 	background:-webkit-gradient(linear,left top, right bottom,
    from(#212021),
        color-stop(50%, #6d6d6d),
@@ -1059,7 +1059,7 @@ border-radius: 15px;
 	height:48px !important;
 	background-size: 48px;
 }
-.TabButton.TabButtonSelected, .TabButton.Pressed {
+.TabButton.TabButtonSelected, .TabButton:active {
 	background:-webkit-gradient(linear,center top,center bottom, from(rgba(207,92,9,0.7)),color-stop(49% ,#c4580a),color-stop(50% ,#b14c02),to(rgba(142,63,4,0.8)));
     border:1px solid #431d04;
 }
@@ -1123,7 +1123,7 @@ border-radius: 15px;
 	padding: 0px 10px 0px 10px;
 	margin-right: -30px;
 }
-.SubmitButton.Pressed {
+.SubmitButton:active {
 	background:-webkit-gradient(linear,center bottom, center top,
    from(#ff8b19),
    to(#ae4e00));
