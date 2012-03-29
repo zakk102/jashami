@@ -18,6 +18,7 @@
 			var that = this;
 			this.views = {};
 			window.useTransitionEffect = true;
+			window.lastUrl = window.location.href;
 			// pre-load pages
 			this.views.startPage = new Views.StartPageView();
 			this.loadToDOM(this.views.startPage.el);
@@ -25,9 +26,16 @@
 			this.loadToDOM(this.views.storePage.el);
 			// determine transition type & direction
 			$(window).bind('hashchange', function(e){
-				var newUrl = e.newURL;
-				var oldUrl = e.oldURL;
-				console.log('hashchange from '+oldUrl+" to "+newUrl);
+				var newUrl, oldUrl;
+				if(e.newURL){
+					newUrl = e.newURL;
+					oldUrl = e.oldURL;
+				}else{ // if not support e.newUrl
+					newUrl = window.location.href;
+					oldUrl = window.lastUrl;
+					window.lastUrl = newUrl;
+				}
+//				console.log('hashchange from '+oldUrl+" to "+newUrl);
 				if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
 					that.transitionEffectType = 'hSlide';
 					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
@@ -35,7 +43,7 @@
 					}
 				}else if(newUrl.indexOf('#storePage')>=0){ // to store page
 					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#startPage')>=0){ // from start page, slide from right
+					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
 						that.transitionDir = 'right';
 					}
 				}
@@ -97,6 +105,14 @@
 				window.productPanel = new ProductPanel();
 				$('body').append(window.productPanel.$el);
 			}
+			// set product panel hidden callback
+			var that = this;
+			//TODO: if jump to this url directly, need to define some button callback actions to render views
+/*			window.productPanel.callback = function(){
+				//TODO: show store page content
+				// url modify
+				Backbone.history.navigate("#storePage/"+store, {trigger: false, replace: true});
+			};*/
 			// show product panel
 			window.productPanel.$el.show();
 			// load store page in background
