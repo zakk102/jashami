@@ -1,4 +1,4 @@
-//Filename: js/views/ProductPanel.js
+//Filename: js/views/productPanel.js
 (function(Scroller){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
@@ -22,10 +22,26 @@
 				'</div></div>',
 			'</div>',
 			'<div class="Price" style="-webkit-box-flex: 999;"></div>',
-		'</div>'
+		'</div>',
+		'<div class="OptionBox"></div>'
 	].join('');
 	
 	var priceTemplate = '<%=price%> X <%=amount%> = <%=price*amount%>元';
+	
+	var optionTemplate = [
+		'<% for(var i=0; i<data.length; i++){ %>',
+			'<% var o = data[i]; var title = o.get("title"); var v = o.get("values"); %>',
+			'<div class="OptionPanel WebOptionPanel">',
+				'<div class="OptionTitle"><%= title %>：</div>',
+				'<select name="<%= title %>">',
+				'<% for(var j=0; j<v.length; j++){ %>',
+					'<% var r = v[j].substring(0, v[j].indexOf(":")); %>',
+					'<option value="<%= r %>"><%= r %></option>',
+				'<% } %>',
+				'</select>',
+			'</div>',
+		'<% } %>'
+	].join('');
 	
 	var ProductPanel = Backbone.View.extend({
 		initialize: function(){
@@ -41,13 +57,13 @@
 			// scroller
 			this.scroller = new Scroller();
 			$("#productContent", this.el).append(this.scroller.render().el);
-			
 		},
 		events:{
 			"click #cancelBtn":"_cancel",
 			"click #buyBtn":"_buy",
-			"click #plusBtn":"addAmount",
-			"click #minusBtn":"minusAmount"
+			"click #plusBtn":"_addAmount",
+			"click #minusBtn":"_minusAmount",
+			"selectionChange .ProductOption":"_updateSelection"
 		},
 		setModel: function(model){
 			if(model) this.model = model;
@@ -63,6 +79,29 @@
 				info:intro,
 			}));
 			$('.Price', this.el).html(_.template(priceTemplate,{price:price, amount:this.amount}));
+			// options
+/*			if(!m.get('optionList')){
+				var ol = new window.myapp.Model.ProductOptionList();
+				ol.parse(m.get('_optionString'));
+				m.set('optionList', ol);
+			}
+			$('.OptionBox', this.el).html(_.template(optionTemplate,{data:m.get('optionList').models}));
+*/
+			$('.OptionBox', this.el).empty();
+			this.optionWidget = [];
+			this.selectedOption = {};
+			this.selectedPrice = price;
+			var _options = m.get('_options');
+			for(var i=0; i<_options.length; i++){
+				var option = _options[i];
+				var ov = new window.myapp.View.ProductOptionView({model:option});
+				$('.OptionBox', this.el).append(ov.render().el);
+				this.optionWidget.push(ov);
+				this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
+				this.selectedPrice += ov.getSelectedPrice()
+			}
+					
+			// refresh size
 			this.scroller.render();
 		},
 		_cancel: function(){
@@ -87,16 +126,30 @@
 				}
 			});
 		},
-		addAmount: function(){
+		_updateSelection: function(){
+			var m = this.model;
+			this.selectedPrice = m.get('_price');
+			this.selectedOption = {};
+			for(var i=0,length=this.optionWidget.length; i<length; i++){
+				var ov = this.optionWidget[i];
+				this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
+				this.selectedPrice += ov.getSelectedPrice()
+			}
+			this._updateMoney();
+		},
+		_updateMoney: function(){
+			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+		},
+		_addAmount: function(){
 			this.amount++;
 			var price = this.model.get('_price');
-			$('.Price', this.el).html(_.template(priceTemplate,{price:price, amount:this.amount}));
+			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
 		},
-		minusAmount: function(){
+		_minusAmount: function(){
 			this.amount--;
 			if(this.amount<1) this.amount=1;
 			var price = this.model.get('_price');
-			$('.Price', this.el).html(_.template(priceTemplate,{price:price, amount:this.amount}));
+			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
 		},
 		render: function(){
 			this.delegateEvents();

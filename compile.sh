@@ -13,6 +13,7 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/widget/scroller.js \
 ./js/views/storeBrief.js \
 ./js/views/productPanel.js \
+./js/views/productOption.js \
 ./js/pages/orderTab.js \
 ./js/pages/historyTab.js \
 ./js/pages/feedbackTab.js \

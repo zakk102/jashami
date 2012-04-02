@@ -1,7 +1,41 @@
 //Filename: js/models/menuData.js
 (function(){
+
+	var ProductOption = Backbone.Model.extend({
+		Single: 'singleOption',
+		Multiple: 'multipleOption',
+		parse: function(optionString){
+			this.clear(); // clear data
+			this.set('title', optionString.substring(0, optionString.indexOf('?')) );
+			var otherString = optionString.substring(optionString.indexOf('?')+1);
+			this.set('values', otherString.split('&') );
+			this.set('type', ProductOption.Single );
+		}
+	});
+	
+	var ProductOptionList = Backbone.Collection.extend({
+		parse: function(optionString){
+			this.models = []; // clear data
+			var that = this;
+			var os = optionString.split('|');
+			_.each(os, function(string){
+				var po = new ProductOption();
+				po.parse(string);
+				that.add(po);
+			});
+		}
+	});
+/*
+	var ProductOption = Backbone.RelationalModel.extend({
+		relations: [{
+	            type: Backbone.HasOne,
+	            key: '_subOption',
+	            relatedModel: ProductOption,
+	        }]
+	});
+*/	
 	var Product = Backbone.RelationalModel.extend({
-	    idAttribute: '_productNameId'
+	    idAttribute: '_productNameId',
 	});
 	
 	var Menu = Backbone.RelationalModel.extend({
@@ -51,6 +85,7 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.Model = window.myapp.Model || {};
+	window.myapp.Model.ProductOptionList = ProductOptionList;
 	window.myapp.Model.Product = Product;
 	window.myapp.Model.Menu = Menu;
 	window.myapp.Model.Store = Store;
