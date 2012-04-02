@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(Scroller){
+(function(Scroller, ProductOptionView){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div id="cancelBtn"><div class="HeaderButton"><div class="ButtonText">取消</div></div></div>',
@@ -92,13 +92,15 @@
 			this.selectedOption = {};
 			this.selectedPrice = price;
 			var _options = m.get('_options');
-			for(var i=0; i<_options.length; i++){
-				var option = _options[i];
-				var ov = new window.myapp.View.ProductOptionView({model:option});
-				$('.OptionBox', this.el).append(ov.render().el);
-				this.optionWidget.push(ov);
-				this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
-				this.selectedPrice += ov.getSelectedPrice()
+			if(_options){
+				for(var i=0; i<_options.length; i++){
+					var option = _options[i];
+					var ov = new ProductOptionView({model:option});
+					$('.OptionBox', this.el).append(ov.render().el);
+					this.optionWidget.push(ov);
+					this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
+					this.selectedPrice += ov.getSelectedPrice()
+				}
 			}
 					
 			// refresh size
@@ -199,4 +201,4 @@
 	window.myapp = window.myapp || {};
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
-})( window.myapp.Widget.Scroller);
+})( window.myapp.Widget.Scroller, window.myapp.View.ProductOptionView);
