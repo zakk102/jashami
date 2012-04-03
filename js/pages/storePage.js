@@ -13,9 +13,9 @@
 		'<div class="ShoppingCar">',
 			'<div style="position: relative; " class="Car">',
 				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; top: 0%; right: 0%; bottom: 0%; width: 25%; ">',
-					'<div class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
+					'<a class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
 						'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
-					'</div>',
+					'</a>',
 				'</div>',
 				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0%; top: 0%; right: 25%; height: 50%; ">',
 					'<div class="ProgressBarPanel" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
@@ -226,6 +226,9 @@
 				});
 			},30);
 			
+			// shopping car
+			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('_storeNameId'));
+			
   		},
   		events:{
 			"click .BackButton":"goBack",
@@ -245,7 +248,9 @@
 			var menuId = this.model.get('_menuId').get('_menuId');
 			window.productPanel.setModel(this.model.get('_menuId').get('products').get(pid));
 			// push state to url
-			href = window.location.hash+'/'+pid;
+			var href = "";
+			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
+			else href = window.location.hash+'/'+pid;
 			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){

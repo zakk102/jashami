@@ -12,13 +12,14 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/images.js \
 ./js/widget/scroller.js \
 ./js/views/storeBrief.js \
-./js/views/productPanel.js \
 ./js/views/productOption.js \
+./js/views/productPanel.js \
 ./js/pages/orderTab.js \
 ./js/pages/historyTab.js \
 ./js/pages/feedbackTab.js \
 ./js/pages/aboutUsTab.js \
 ./js/pages/startPage.js \
 ./js/pages/storePage.js \
+./js/pages/orderInfoPage.js \
 ./js/router.js \
 --js_output_file=complied.js
