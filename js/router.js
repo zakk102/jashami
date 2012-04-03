@@ -7,6 +7,7 @@
 			'startPage/:tab': 'startPage',
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
+			'oderInfoPage/:store': 'orderInfoPage',
 			// Default
 			'*actions': 'defaultAction'
 		},
@@ -46,6 +47,11 @@
 					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
 						that.transitionDir = 'right';
 					}
+				}else if(newUrl.indexOf('#oderInfoPage')>=0){ // to order info page
+					that.transitionEffectType = 'hSlide';
+					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
+						that.transitionDir = 'right';
+					}
 				}
 			});
 	    },
@@ -66,7 +72,7 @@
 			this.views.startPage.toTab(tab);
 		},
 		storePage: function(store){
-			if(!this.views.storePage){ // load the page into DOM
+			if(!this.views.storePage){ // load the store page into DOM
 				this.views.storePage = new Views.StorePageView();
 				this.loadToDOM(this.views.storePage.el);
 			}
@@ -91,12 +97,20 @@
 					that.views.storePage.refreshGridSize();
 					that.views.storePage.resetScroller();
 					that.views.storePage.setModel(window.menuData.get('stores').get(store));
+					if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
+						that.views.orderInfoPage = new Views.OrderInfoPageView();
+						that.loadToDOM(that.views.orderInfoPage.el);
+					}
 				}});
 			}else{
 				that.views.storePage.resetDisplayedData();
 				that.views.storePage.refreshGridSize();
 				that.views.storePage.resetScroller();
 				that.views.storePage.setModel(window.menuData.get('stores').get(store));
+				if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
+					that.views.orderInfoPage = new Views.OrderInfoPageView();
+					that.loadToDOM(that.views.orderInfoPage.el);
+				}
 			}
 		},
 		productPage: function(store, product){
@@ -112,11 +126,31 @@
 				//TODO: show store page content
 				// url modify
 				Backbone.history.navigate("#storePage/"+store, {trigger: false, replace: true});
-			};*/
+			};
+*/
 			// show product panel
 			window.productPanel.$el.show();
 			// load store page in background
 			this.changePage(this.views.storePage.el);
+		},
+		orderInfoPage: function(store){
+			if(!this.views.orderInfoPage){ // load the orderInfo page into DOM
+				this.views.orderInfoPage = new Views.OrderInfoPageView();
+				this.loadToDOM(this.views.orderInfoPage.el);
+			}
+			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+			this.transitionEffectType = null;
+			this.transitionDir = null;
+			// set store data
+			var that = this;
+			if(!window.menuData){
+				window.menuData = new MenuData();
+				window.menuData.fetch({success:function(){
+					that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
+				}});
+			}else{
+				that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
+			}
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');
@@ -188,7 +222,8 @@
 })(	window.myapp.Model.MenuData,
 	window.myapp.Widget.LoadingPanel,
 {	StartPageView:window.myapp.StartPageView,
-	StorePageView:window.myapp.StorePageView
+	StorePageView:window.myapp.StorePageView,
+	OrderInfoPageView:window.myapp.OrderInfoPageView,
 });
 
 
