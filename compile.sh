@@ -21,5 +21,6 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/pages/startPage.js \
 ./js/pages/storePage.js \
 ./js/pages/orderInfoPage.js \
+./js/pages/userInfoPage.js \
 ./js/router.js \
 --js_output_file=complied.js

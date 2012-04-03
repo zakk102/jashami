@@ -21,7 +21,7 @@
 		'</div></div>',
 		'<div class="OrderInfo Btns">',
 			'<div class="Button" id="clearAllBtn"><div class="ButtonText">清除全部</div></div>',
-			'<a class="Button" href="#checkOutPage"><div class="ButtonText">結帳</div></a>',
+			'<a class="Button" id="checkOutBtn"><div class="ButtonText">結帳</div></a>',
 		'</div>'
 	].join('');
 	
@@ -43,6 +43,7 @@
   			//  title
 			var storeName = this.model.get('_displayedName');
 			$("#title", this.el).html(storeName);
+			$("#checkOutBtn", this.el).attr("href", "#userInfoPage/"+this.model.id);
 		},
 		events:{
 			"click .BackButton":"goBack",

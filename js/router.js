@@ -8,6 +8,7 @@
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
 			'oderInfoPage/:store': 'orderInfoPage',
+			'userInfoPage/:store': 'userInfoPage',
 			// Default
 			'*actions': 'defaultAction'
 		},
@@ -50,6 +51,11 @@
 				}else if(newUrl.indexOf('#oderInfoPage')>=0){ // to order info page
 					that.transitionEffectType = 'hSlide';
 					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
+						that.transitionDir = 'right';
+					}
+				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to order info page
+					that.transitionEffectType = 'hSlide';
+					if(oldUrl.indexOf('#oderInfoPage')>=0){ // from order info page, slide from right
 						that.transitionDir = 'right';
 					}
 				}
@@ -141,16 +147,34 @@
 			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;
-			// set store data
+			// set store menu data
 			var that = this;
 			if(!window.menuData){
 				window.menuData = new MenuData();
 				window.menuData.fetch({success:function(){
 					that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
+					if(!that.views.userInfoPage){ // pre-load the user info page into DOM
+						that.views.userInfoPage = new Views.UserInfoPageView();
+						that.loadToDOM(that.views.userInfoPage.el);
+					}
 				}});
 			}else{
 				that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
+				if(!that.views.userInfoPage){ // pre-load the user info page into DOM
+					that.views.userInfoPage = new Views.UserInfoPageView();
+					that.loadToDOM(that.views.userInfoPage.el);
+				}
 			}
+		},
+		userInfoPage: function(store){
+			if(!this.views.userInfoPage){ // load the userInfo page into DOM
+				this.views.userInfoPage = new Views.UserInfoPageView();
+				this.loadToDOM(this.views.userInfoPage.el);
+			}
+			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+			this.transitionEffectType = null;
+			this.transitionDir = null;
+			this.views.userInfoPage.render();
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');
@@ -224,6 +248,7 @@
 {	StartPageView:window.myapp.StartPageView,
 	StorePageView:window.myapp.StorePageView,
 	OrderInfoPageView:window.myapp.OrderInfoPageView,
+	UserInfoPageView:window.myapp.UserInfoPageView
 });
 
 
