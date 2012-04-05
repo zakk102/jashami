@@ -1,43 +1,74 @@
 // Filename: js/pages/startPage.js
 (function(i18n, ImageResource, TabViews){
 	var pageTemplate = [
-		'<div class="header">',
-			'<div class="top"></div>',
-			'<div class="center">',
-				'<div></div>',
-				'<div>',
-					'<img id="logo" src="'+ImageResource.JashamiLogo+'">',
-				'</div>',
-				'<div></div>',
-			'</div>',
-			'<div class="bottom"></div>',
+		'<div class="PageLeftPanel" style="display:block; position:absolute; width:200px; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms; -webkit-transform:translate3d(-100%, 0px, 0px);">',
+			'<li><div class="TabButton" href="orderTab">'+i18n._('orderTab')+'</div></li>',
+			'<li><div class="TabButton" href="historyTab">'+i18n._('historyTab')+'</div></li>',
+			'<li><div class="TabButton" href="feedbackTab">'+i18n._('feedbackTab')+'</div></li>',
+			'<li><div class="TabButton" href="aboutUsTab">'+i18n._('aboutUsTab')+'</div></li>',
 		'</div>',
-		'<div class="TabPanel">',
-			'<div class="TabContent">',
+		'<div class="PageMainPanel" style="width:100%; height:100%; display:-webkit-box; -webkit-box-orient:vertical; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms;">',
+			'<div class="header">',
+				'<div class="top"></div>',
+				'<div class="center">',
+					'<div class="BackButton"><div class="Pointer"></div><div class="Button">更多</div></div>',
+					'<div>',
+						'<img id="logo" src="'+ImageResource.JashamiLogo+'">',
+					'</div>',
+					'<div class="right"></div>',
+				'</div>',
+				'<div class="bottom"></div>',
 			'</div>',
-			'<div class="TabHeader">',
-				'<div class="TabButton"><a href="#startPage/orderTab">'+i18n._('orderTab')+'</a></div>',
-				'<div class="TabButton"><a href="#startPage/historyTab">'+i18n._('historyTab')+'</a></div>',
-				'<div class="TabButton"><a href="#startPage/feedbackTab">'+i18n._('feedbackTab')+'</a></div>',
-				'<div class="TabButton"><a href="#startPage/aboutUsTab">'+i18n._('aboutUsTab')+'</a></div>',
+			'<div class="PageContent" style="width:100%; -webkit-box-flex:10; display:-webkit-box;">',
 			'</div>',
 		'</div>'
 	].join('');
 
 	var StartPageView = Backbone.View.extend({
 		initialize: function(){
+			this.isShowFunction = false;
 			this.tabs = {};
-			$(this.el).html(_.template(pageTemplate));
-			$(this.el).addClass('Base');
-			$(this.el).attr("id","startPageView");
-			$(this.el).attr("style","height:100%; width:100%;");
+			this.$el.html(_.template(pageTemplate));
+			this.$el.addClass('Base');
+			this.$el.attr("id","startPageView");
+			this.$el.attr("style","height:100%; width:100%;");
+			this.$el.css("-webkit-box-orient", "horizontal");
+		},
+		events:{
+			"click .BackButton":"toggleFunctionPanel",
+			"click .PageLeftPanel div":"toTab2",
 		},
 		render: function(){
 			return this;
 	  	},
+	  	toggleFunctionPanel: function(){
+	  		if(this.isShowFunction){
+	  			this.$el.children('.PageLeftPanel').css('-webkit-transform','translate3d(-100%, 0px, 0px)');
+	  			this.$el.children('.PageMainPanel').css('-webkit-transform','translate3d(0px, 0px, 0px)');
+	  			this.isShowFunction = false;
+	  		}else{
+	  			this.$el.children('.PageLeftPanel').css('-webkit-transform','translate3d(0px, 0px, 0px)');
+	  			this.$el.children('.PageMainPanel').css('-webkit-transform','translate3d(200px, 0px, 0px)');
+	  			this.isShowFunction = true;
+	  		}
+	  	},
 	  	toTab: function(tab){
-	  		if(!this.tabs[tab]) this.tabs[tab] = new TabViews[tab]();
-			$('.TabContent', this.el).html(this.tabs[tab].render().el);
+	  		if(!tab) return;
+	  		this.currentTab = tab;
+	  		if(!this.tabs[tab]){
+	  			this.tabs[tab] = new TabViews[tab]();
+	  			$('.PageContent', this.el).append(this.tabs[tab].render().el);
+	  		}
+	  		$('.PageContent', this.el).children().hide();
+			$(this.tabs[tab].el).css('display', '-webkit-box');
+			this.tabs[tab].render();
+	  	},
+	  	toTab2: function(e){
+	  		var href = $(e.currentTarget).attr('href');
+	  		window.history.replaceState(href, href, "#startPage/"+href);
+	  		this.toggleFunctionPanel();
+	  		this.toTab(href);
+	  		this.$el.attr('url',window.location.href);
 	  	}
 	});
 	

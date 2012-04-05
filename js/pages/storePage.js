@@ -1,10 +1,9 @@
 //Filename: js/pages/storePage.js
-(function(ImageResource, TouchWidget, Scroller){
+(function(ImageResource, Scroller, ProductPanel){
 	var pageTemplate = [
 		'<div class="header">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
-			'<div id="storeName">',
-			'</div>',
+			'<div id="title"></div>',
 			'<div></div>',
 		'</div>',
 		'<div id="storeContent" style="background-color:rgba(255, 255, 255, 0.75) ; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
@@ -57,8 +56,8 @@
 		initialize: function(){
 			var that = this;
 			$(this.el).addClass('Base');
-			$(this.el).attr("style","height:100%");
-			$(this.el).attr("style","width:100%");
+			$(this.el).attr("id","storePageView");
+			$(this.el).attr("style","height:100%; width:100%;");
 			
 			// scroller
 			this.scroller = new Scroller();
@@ -66,17 +65,20 @@
 //			$(this.scroller.el).css('-webkit-box-flex', '1');
 
 			// segment widget
-			if($(window).width()>640) this._segmentPanelWidth = 60;
-			else this._segmentPanelWidth = 30;
+			this._segmentPanelWidth = $(window).width()>640?60:30;
 			this.segmentPanel = new Scroller();
+			
+			// product panel
+			if(!window.productPanel){
+				window.productPanel = new ProductPanel();
+				$('body').append(window.productPanel.$el);
+			}
 
 			// this page
 			$(this.el).html(_.template(pageTemplate));
 			$("#storeContent", this.el).append(this.scroller.render().el);
 			$("#storeContent", this.el).append(this.segmentPanel.render().el);
 			$(this.segmentPanel.getContent()).addClass('ScrollBar Segment');
-			this.backBtn = new TouchWidget({ el: $('.BackButton', this.el) });
-			this.backBtn.changeColorWhenTouch = true;
 			
 			// grid setting
 			this._col = 3;
@@ -85,73 +87,79 @@
 			this._gridHMargin = 2;
 			this._gridVMargin = 3;
 			this._minCol = 3;
-			this._minGridWidth = 100;
-			this._maxGridWidth = 150;
-/*			var refreshGridSize = function(){
+			this._minGridWidth = $(window).width()<=640?100:150;
+			this._maxGridWidth = $(window).width()<=640?150:200;
+			
+			$(window).bind('resize', function(){
+				that._minGridWidth = $(window).width()<=640?100:150;
+				that._maxGridWidth = $(window).width()<=640?150:200;
+				that._segmentPanelWidth = $(window).width()>640?60:30;
 				var widgetWidth = $(window).width()-that._segmentPanelWidth;
-				$(that.scroller.el).css('width', widgetWidth+'px');
-				
-				var calGridWidth = widgetWidth/that._col;
-				var otherWidth = 2*(that._gridHMargin);
-				var newGridWidth = calGridWidth - otherWidth;
-		
-				while(newGridWidth>that._maxGridWidth){
-					that._col++;
-					newGridWidth = (widgetWidth/that._col) - otherWidth;
-				}
-		
-				while(that._col>that._minCol && newGridWidth<that._minGridWidth){
-					that._col--;
-					newGridWidth = (widgetWidth/that._col) - otherWidth;
-				}
-				
-				that._gridHeight = that._gridHeight*newGridWidth/that._gridWidth;
-				that._gridWidth = newGridWidth;
-				that.setModel();
-			};
-//			$(this.scroller.el).bind('DOMNodeInsertedIntoDocument', refreshGridSize);
-//			$(window).bind('resize', refreshGridSize);
-*/		},
+				that.calAndSetGridSize(that._segmentPanelWidth, widgetWidth);
+			});
+		},
 		refreshGridSize: function(){
+			this._minGridWidth = $(window).width()<=640?100:150;
+			this._maxGridWidth = $(window).width()<=640?150:200;
+			this._segmentPanelWidth = $(window).width()>640?60:30;
+			var widgetWidth = $(window).width()-this._segmentPanelWidth;
+			this.calAndSetGridSize(this._segmentPanelWidth, widgetWidth);	
+		},
+		calAndSetGridSize: function(segmentWidth, widgetWidth){
 			var that = this;
-			var refreshGridSize = function(){
-				var widgetWidth = $(window).width()-that._segmentPanelWidth;
-				$(that.scroller.el).css('width', widgetWidth+'px');
+			$(that.scroller.el).css('width', widgetWidth+'px');
 				
-				var calGridWidth = widgetWidth/that._col;
-				var otherWidth = 2*(that._gridHMargin);
-				var newGridWidth = calGridWidth - otherWidth;
-		
-				while(newGridWidth>that._maxGridWidth){
-					that._col++;
-					newGridWidth = (widgetWidth/that._col) - otherWidth;
+			var calGridWidth = widgetWidth/that._col;
+			var otherWidth = 2*(that._gridHMargin);
+			var newGridWidth = calGridWidth - otherWidth;
+	
+			while(newGridWidth>that._maxGridWidth){
+				that._col++;
+				newGridWidth = (widgetWidth/that._col) - otherWidth;
+			}
+	
+			while(that._col>that._minCol && newGridWidth<that._minGridWidth){
+				that._col--;
+				newGridWidth = (widgetWidth/that._col) - otherWidth;
+			}
+			
+			that._gridHeight = that._gridHeight*newGridWidth/that._gridWidth;
+			that._gridWidth = newGridWidth;
+			
+			// update to every grid
+			var grids = $('.Grid', that.el);
+			for(i=0; i<grids.length; i++){
+				var grid = $(grids.get(i));
+				grid.css('width', that._gridWidth);
+				if($('img', grid).length){
+					grid.css('height', that._gridHeight*2+that._gridVMargin);
+				}else{
+					grid.css('height', that._gridHeight);
 				}
-		
-				while(that._col>that._minCol && newGridWidth<that._minGridWidth){
-					that._col--;
-					newGridWidth = (widgetWidth/that._col) - otherWidth;
-				}
-				
-				that._gridHeight = that._gridHeight*newGridWidth/that._gridWidth;
-				that._gridWidth = newGridWidth;
-				that.setModel();
-			};
-			refreshGridSize();
+			}
+			$('.SegmentWidget', that.el).width(segmentWidth);
+		},
+		resetScroller: function(){
+			this.scroller.scrollTo(0, 0);
+		},
+		resetDisplayedData: function(){
+			this.scroller.getContent().empty();
+			this.segmentPanel.getContent().empty();
 		},
   		setModel: function(model){
   			if(model) this.model = model;
   			var that = this;
   			//  title
 			var storeName = this.model.get('_displayedName');
-			$("#storeName", this.el).html(storeName);
+			$("#title", this.el).html(storeName);
 			// product items
-			this.scroller.getContent().empty();
-			this.segmentPanel.getContent().empty();
 			var products = this.model.get('_menuId').get('products').models;
 			var cateName;
 			var cateWidget;
-			_.each(products, function(p){
+			var count = 0;
+			var dd = function(p){
 				var el = document.createElement('div');
+				el.className = 'Grid';
 				el.style['float'] = 'left';
 				el.style.marginTop = that._gridVMargin +'px';
 				el.style.marginBottom = that._gridVMargin +'px';
@@ -160,6 +168,9 @@
 				var img = p.get('_imgUrl');
 				var pname = p.get('_displayedName');
 				var pprice = p.get('_price');
+				var pid = p.get('_productNameId');
+				el.pid = pid; 
+//$(el).bind('click', function(){window.history.pushState(pid, "page 2", window.location+'/'+pid);});
 				if(img){
 					el.style.width = that._gridWidth +'px';
 					el.style.height = that._gridHeight*2+that._gridVMargin +'px';
@@ -174,6 +185,7 @@
 				if(cate==cateName){
 					$(cateWidget).append(el);
 				}else{
+					count++;
 					cateName = cate;
 					// category title
 					var cateNameWidget = document.createElement('div');
@@ -184,6 +196,10 @@
 					// category widget
 					cateWidget = document.createElement('div');
 					cateWidget.className = 'FlexGridContainer color1';
+					// for segment localization
+					cateWidget.id = 'cateName'+count;
+					cateWidget.style.paddingTop = '15px';
+					cateWidget.style.marginBottom = '-15px';
 					$(cateWidget).append(cateNameWidget);
 					$(cateWidget).append(el);
 					that.scroller.getContent().append(cateWidget);
@@ -195,22 +211,43 @@
 					segment.innerHTML = '<div>'+cate+'</div>';
 					that.segmentPanel.getContent().append(segment);
 					$(segment).width(that._segmentPanelWidth);
-					$(segment).attr('loc', cateWidget.offsetTop-$(that.segmentPanel.getContent()).offset().top);
+					$(segment).attr('loc', 'cateName'+count);
 				}
-			});
-			this.scroller.render();
-			this.segmentPanel.render();
-			this.scroller.scrollTo(0,0,0);
-			this.segmentPanel.scrollTo(0,0,0);
-			$('.SegmentWidget', this.el).bind('click', function(e){
-				var loc = $(e.currentTarget).attr('loc');
-  				that.scroller.scrollTo(0, loc);
-			});
+			};
+			// render product widgets & bind events
+			setTimeout(function(){ // wait time to let browser show above code
+				_.each(products, dd);
+				$(cateWidget).css('margin-bottom', '0px'); // reset the margin of last line
+				that.scroller.render();
+				that.segmentPanel.render();
+				$('.SegmentWidget', that.el).bind('click', function(e){
+					var loc = $(e.currentTarget).attr('loc');
+	  				that.scroller.scrollToElement($('#'+loc).get(0));
+				});
+			},30);
+			
   		},
+  		events:{
+			"click .BackButton":"goBack",
+			"click .Grid":"showProduct"
+		},
+		goBack: function(){
+			if(window.inTransition) return;
+			window.isGoBack = true;
+			window.history.back();
+		},
+		showProduct: function(e){
+			// get product id
+			pid = $(e.currentTarget).attr('pid');
+			// show product panel
+			window.productPanel.$el.show();
+			// push state
+			href = window.location.hash+'/'+pid;
+			window.history.pushState(href, href, href);
+		},
 		render: function(){
 			// shopping car
 			// re-bind event
-			this.backBtn.delegateEvents();
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
@@ -220,5 +257,5 @@
 	window.myapp = window.myapp || {};
 	window.myapp.StorePageView = StorePageView;
 })(	window.myapp.Images,
-	window.myapp.Widget.TouchWidget, 
-	window.myapp.Widget.Scroller);
+	window.myapp.Widget.Scroller,
+	window.myapp.View.ProductPanel);

@@ -887,7 +887,8 @@ iScroll.prototype = {
 		this.refresh();
 	},
 	
-	refresh: function () {
+	refresh: function (e) {
+		console.log('refresh SCROLL by '+e);
 		var that = this,
 			offset,
 			i, l,

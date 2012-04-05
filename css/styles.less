@@ -1,16 +1,66 @@
+body{
+  position: absolute;
+  margin: 0; 
+  padding: 0; 
+  background-image: url(pic/back-w.jpg); 
+  background-size: 100%; 
+  height: 100%; 
+  width: 100%; 
+}
 
 @color-header-gray: rgb(243,244,239);
 @color-logo-orange: rgb(223,74,10);
 
+//======Widget: Button
+@button-height: 2.0em;
+@button-color:silver;
+.button-rounded (@color: silver){ 
+  text-align:center;
+  height:@button-height;
+  width:2.5em;
+  line-height: @button-height;
+  display: block;
+  border-radius: 3px;
+  color: @color*0.5;
+  // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
+  background:-webkit-linear-gradient(bottom, @color 10%, @color*1.5 50%);
+  // &:active {
+    // background:-webkit-gradient(linear,center top, center bottom,
+     // from(@color*0.4),
+         // color-stop(50%, @color*0.8),
+         // color-stop(51%, @color*0.2),
+     // to(@color*0.2));
+    // color:@color*1.5;
+  // }  
+}
+
+//======Widget: Arrow
+@arrow-height:@button-height/1.35;//< 1/1.414 since rounded-corner
+.arrow-left (@color: silver){
+  height:@arrow-height;
+  width:@arrow-height;
+  background: -webkit-linear-gradient(right bottom, @color 10%, @color*1.5 50%);
+  border-radius: 3px;
+  -webkit-transform: rotate(45deg);
+  // &:active{
+    // background:-webkit-gradient(linear,left top, right bottom,
+     // from(@color*0.4),
+         // color-stop(50%, @color*0.8),
+         // color-stop(51%, @color*0.2),
+     // to(@color*0.2));
+    // color:@color*1.5;
+  // }
+}
+
 .header {
   -webkit-box-orient: vertical;
-  
+
   .top {
     position:relative;
     height:0.4em;
     background-color:@color-logo-orange;
   }
-  
+
   .center {
     position:relative;
     display: -webkit-box;
@@ -18,7 +68,8 @@
     -webkit-box-align: center;
     -webkit-box-pack: justify;
     z-index: 11;
-    height:3em;
+    @height-header:3em;
+    height:@height-header;
     background:-webkit-gradient(
       linear,
       left bottom,
@@ -34,6 +85,58 @@
     overflow:ellipsis;
     vertical-align:middle;
     text-align:center;
+    
+    .BackButton{
+      position:relative;
+      height:@height-header;
+      width:@height-header;
+      .Button {
+        position:absolute;
+        top:50%;
+        margin-top:-@button-height/2;
+        padding-right:0.3em;
+        left:@arrow-height*0.45;
+        // @color-button: rgb(192,192,192);
+        .button-rounded(@button-color);
+      }      
+      .Pointer {
+        position:absolute;
+        .arrow-left(@button-color);
+        top:50%;
+        margin-top:-@arrow-height/2;
+      }
+    }
+    .BackButton:active .Button{
+      background:-webkit-gradient(linear,center top, center bottom,
+       from(@button-color*0.4),
+           color-stop(50%, @button-color*0.8),
+           color-stop(51%, @button-color*0.2),
+       to(@button-color*0.2));
+      color:@button-color*1.5;
+    }  
+    .BackButton:active .Pointer{
+      background:-webkit-gradient(linear,left top, right bottom,
+       from(@button-color*0.4),
+           color-stop(50%, @button-color*0.8),
+           color-stop(51%, @button-color*0.2),
+       to(@button-color*0.2));
+      color:@button-color*1.5;
+    }
+    .right{
+      position:relative;
+      height:@height-header;
+      width:@height-header;
+    }
+    // .BackButton{
+      // -webkit-box-orient: horizontal;
+      // font-size:1em;
+      // color:#1f0707;
+      // position: relative;
+      // border-radius: 3px;
+//       
+//       
+    // }
+    
     #logo {
       height:80%;
       vertical-align:middle;
