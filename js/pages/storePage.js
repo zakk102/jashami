@@ -141,6 +141,7 @@
 		},
 		resetScroller: function(){
 			this.scroller.scrollTo(0, 0);
+			this.segmentPanel.scrollTo(0, 0);
 		},
 		resetDisplayedData: function(){
 			this.scroller.getContent().empty();

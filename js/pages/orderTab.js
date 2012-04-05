@@ -18,6 +18,7 @@
 			//test
 			var that = this;
 			var menudata = new MenuData();
+			menudata.setAPI("getMenuByZipcode", {zipCode:100, isEditMode:false});
 			menudata.fetch({success:function(){
 				window.menuData = menudata;
 				_.each(menudata.get('stores').models, function(m, index){

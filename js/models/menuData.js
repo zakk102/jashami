@@ -1,5 +1,5 @@
 //Filename: js/models/menuData.js
-(function(){
+(function(Api){
 
 	var ProductOption = Backbone.Model.extend({
 		Single: 'singleOption',
@@ -71,7 +71,16 @@
 	});
 	
 	var MenuData = Backbone.RelationalModel.extend({
-		url: '/jashami/testData/menuData',
+		url: 'http://127.0.0.1:8888/ifood_api/MenuService?action=getMenuByZipcode&zipCode=110',
+		setAPI: function(action, args){
+			this.url = Api.MenuServiceUrl+"?action="+action+"&";
+			if(args && Object.keys(args).length>0){
+				for(key in args){
+					this.url += key+"="+args[key]+"&";	
+				}
+			}
+			this.url = this.url.substring(0, this.url.length-1);
+		},
 	    relations: [{
 	            type: Backbone.HasMany,
 	            key: 'stores',
@@ -90,4 +99,4 @@
 	window.myapp.Model.Menu = Menu;
 	window.myapp.Model.Store = Store;
 	window.myapp.Model.MenuData = MenuData;
-})();
+})(window.myapp.Api);
