@@ -29,24 +29,24 @@
 	var ProductOption = Backbone.RelationalModel.extend({
 		relations: [{
 	            type: Backbone.HasOne,
-	            key: '_subOption',
+	            key: 'subOption',
 	            relatedModel: ProductOption,
 	        }]
 	});
 */	
 	var Product = Backbone.RelationalModel.extend({
-	    idAttribute: '_productNameId',
+	    idAttribute: 'productNameId',
 	});
 	
 	var Menu = Backbone.RelationalModel.extend({
-	    idAttribute: '_menuId',
+	    idAttribute: 'menuId',
 	    relations: [{
 	            type: Backbone.HasMany,
 	            key: 'products',
 	            relatedModel: Product,
 	            reverseRelation: {
 	                key: 'menu',
-	                includeInJSON: '_menuId'
+	                includeInJSON: 'menuId'
 	            }
 	        }]
 	});
@@ -58,14 +58,14 @@
             lat: 99999,
             lng: 99999,
         },
-		idAttribute: '_storeNameId',
+		idAttribute: 'storeNameId',
 	    relations: [{
 	            type: Backbone.HasOne,
-	            key: '_menuId',
+	            key: 'menuId',
 	            relatedModel: Menu,
 	            reverseRelation: {
 	                key: 'store',
-	                includeInJSON: '_storeNameId'
+	                includeInJSON: 'storeNameId'
 	            }
 	        }]
 	});

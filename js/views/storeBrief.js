@@ -17,10 +17,10 @@
 	
 	var StoreBrief = Backbone.View.extend({
 		render: function(){
-			var id = this.model.get('_storeNameId');
-			var name = this.model.get('_displayedName');
-			var msg = this.model.get('_msg');
-			var img = this.model.get('_imgUrl');
+			var id = this.model.get('storeNameId');
+			var name = this.model.get('displayedName');
+			var msg = this.model.get('msg');
+			var img = this.model.get('imgUrl');
 			$(this.el).html(_.template(template, {id:id, name:name, msg:msg, img:img}));
 			$(this.el).addClass('StoreBriefWidget3');
 			return this;

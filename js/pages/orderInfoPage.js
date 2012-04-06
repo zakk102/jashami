@@ -41,7 +41,7 @@
 			if(model) this.model = model;
   			var that = this;
   			//  title
-			var storeName = this.model.get('_displayedName');
+			var storeName = this.model.get('displayedName');
 			$("#title", this.el).html(storeName);
 			$("#checkOutBtn", this.el).attr("href", "#userInfoPage/"+this.model.id);
 		},

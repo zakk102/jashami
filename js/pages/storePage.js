@@ -151,10 +151,10 @@
   			if(model) this.model = model;
   			var that = this;
   			//  title
-			var storeName = this.model.get('_displayedName');
+			var storeName = this.model.get('displayedName');
 			$("#title", this.el).html(storeName);
 			// product items
-			var products = this.model.get('_menuId').get('products').models;
+			var products = this.model.get('menuId').get('products').models;
 			var cateName;
 			var cateWidget;
 			var count = 0;
@@ -166,10 +166,10 @@
 				el.style.marginBottom = that._gridVMargin +'px';
 				el.style.marginLeft = that._gridHMargin +'px';
 				el.style.marginRight = that._gridHMargin +'px';
-				var img = p.get('_imgUrl');
-				var pname = p.get('_displayedName');
-				var pprice = p.get('_price');
-				var pid = p.get('_productNameId');
+				var img = p.get('imgUrl');
+				var pname = p.get('displayedName');
+				var pprice = p.get('price');
+				var pid = p.get('productNameId');
 				el.pid = pid; 
 //$(el).bind('click', function(){window.history.pushState(pid, "page 2", window.location+'/'+pid);});
 				if(img){
@@ -181,7 +181,7 @@
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
-				var cate = p.get('_category');
+				var cate = p.get('category');
 				cate = cate.substring(cate.indexOf('.')+1);
 				if(cate==cateName){
 					$(cateWidget).append(el);
@@ -228,7 +228,7 @@
 			},30);
 			
 			// shopping car
-			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('_storeNameId'));
+			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('storeNameId'));
 			
   		},
   		events:{
@@ -246,8 +246,8 @@
 			// show product panel
 			window.productPanel.show('top');
 			// set product data
-			var menuId = this.model.get('_menuId').get('_menuId');
-			window.productPanel.setModel(this.model.get('_menuId').get('products').get(pid));
+			var menuId = this.model.get('menuId').get('menuId');
+			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid));
 			// push state to url
 			var href = "";
 			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;

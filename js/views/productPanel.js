@@ -68,10 +68,10 @@
 		setModel: function(model){
 			if(model) this.model = model;
 			var m = this.model;
-			var name = m.get('_displayedName');
-			var price = m.get('_price');
-			var img = m.get('_imgUrl');
-			var intro = m.get('_intro');
+			var name = m.get('displayedName');
+			var price = m.get('price');
+			var img = m.get('imgUrl');
+			var intro = m.get('intro');
 			this.amount = 1;
 			this.scroller.html(_.template(productWidgetTemplate,{
 				name:name,
@@ -91,7 +91,7 @@
 			this.optionWidget = [];
 			this.selectedOption = {};
 			this.selectedPrice = price;
-			var _options = m.get('_options');
+			var _options = m.get('options');
 			if(_options){
 				for(var i=0; i<_options.length; i++){
 					var option = _options[i];
@@ -130,7 +130,7 @@
 		},
 		_updateSelection: function(){
 			var m = this.model;
-			this.selectedPrice = m.get('_price');
+			this.selectedPrice = m.get('price');
 			this.selectedOption = {};
 			for(var i=0,length=this.optionWidget.length; i<length; i++){
 				var ov = this.optionWidget[i];
@@ -144,13 +144,13 @@
 		},
 		_addAmount: function(){
 			this.amount++;
-			var price = this.model.get('_price');
+			var price = this.model.get('price');
 			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
 		},
 		_minusAmount: function(){
 			this.amount--;
 			if(this.amount<1) this.amount=1;
-			var price = this.model.get('_price');
+			var price = this.model.get('price');
 			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
 		},
 		render: function(){

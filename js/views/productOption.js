@@ -31,10 +31,10 @@
 		selectionChange_m: function(e){
 			var selected = e.currentTarget.value;
 			var m = this.model;
-			if(m._subOption){
+			if(m.subOption){
 				var sSelected = $('.salve', this.el).val();
-				var s = m._subOption;
-				var options = s._values[selected] || {};
+				var s = m.subOption;
+				var options = s.values[selected] || {};
 				$("select.salve", this.el).html(_.template(selectionTemplate, {options:options}));
 				if(options[sSelected]){
 					$('.salve', this.el).val(sSelected);
@@ -48,10 +48,10 @@
 		getSelected: function(){
 			var m = this.model;
 			var data = {};
-			data[m._title] = $('.master', this.el).val();
-			if(m._subOption){
-				var s = m._subOption;
-				data[s._title] = $('.salve', this.el).val();
+			data[m.title] = $('.master', this.el).val();
+			if(m.subOption){
+				var s = m.subOption;
+				data[s.title] = $('.salve', this.el).val();
 			}
 			return data;
 		},
@@ -59,10 +59,10 @@
 			var m = this.model;
 			var result = 0;
 			var mSelected = $('.master', this.el).val();
-			result += m._values[mSelected];
-			if(m._subOption){
-				var s = m._subOption;
-				var options = s._values[mSelected]
+			result += m.values[mSelected];
+			if(m.subOption){
+				var s = m.subOption;
+				var options = s.values[mSelected]
 				result += options[$('.salve', this.el).val()];
 			}
 			return result;
@@ -72,13 +72,13 @@
 		},
 		render: function(){
 			var m = this.model;
-			this.$el.html(_.template(template, {title:m._title, type:"master", options:m._values}));
-			var val = Object.keys(m._values)[0];
+			this.$el.html(_.template(template, {title:m.title, type:"master", options:m.values}));
+			var val = Object.keys(m.values)[0];
 			$("select.master", this.el).val(val);
-			if(m._subOption){
-				var s = m._subOption;
-				var options = s._values[val] || {};
-				this.$el.append(_.template(template, {title:s._title, type:"salve", options:options}));
+			if(m.subOption){
+				var s = m.subOption;
+				var options = s.values[val] || {};
+				this.$el.append(_.template(template, {title:s.title, type:"salve", options:options}));
 			}
 			return this;
 		}

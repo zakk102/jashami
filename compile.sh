@@ -9,6 +9,7 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/i18n/zh-tw.js \
 ./js/main.js \
 ./js/settings.js \
+./js/utils.js \
 ./js/models/menuData.js \
 ./js/images.js \
 ./js/widget/scroller.js \
