@@ -109,23 +109,33 @@
 		_cancel: function(){
 			var that = this;
 			this.hide('top', function(){
+				/*
 				if(that.callback){
 					that.callback();
 					that.callback = null;
 				}else{
 					window.history.go(-1);
 				}
+				*/
+				window.history.go(-1);
 			});
 		},
 		_buy: function(){
 			var that = this;
 			this.hide('bottom', function(){
+				/*
 				if(that.callback){
 					that.callback();
 					that.callback = null;
 				}else{
 					window.history.go(-1);
 				}
+				*/
+				//add products to shoppingcart
+				if(window.shoppingCartData){
+					window.shoppingCartData.addProduct({product:that.model, amount:that.amount});
+				}
+				window.history.go(-1);
 			});
 		},
 		_updateSelection: function(){

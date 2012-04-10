@@ -1,12 +1,16 @@
 // Filename: js/pages/orderTab.js
-(function(Utils, MenuData, Scroller, StoreBrief){
+(function(Utils, MenuData, Scroller, StoreBrief, AddressSelector){
 	var tabTemplate = [
+			'<div class="AddressSelector"></div>',
 			'<div class="StoreList"></div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
+			var location = "110";
+			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
+			
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
@@ -14,11 +18,18 @@
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
+			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
+			this.loadStore({'currentTarget':{'value': location}});
+		},
+		events: {
+  		},
+  		loadStore: function(e) {
 			//test
+			var location = e.currentTarget.value;
 			var that = this;
 			var menudata = new MenuData();
-			menudata.setAPI("getMenuByZipcode", {zipCode:100, isEditMode:false});
+			menudata.setAPI("getMenuByZipcode", {zipCode:location, isEditMode:false});
 			menudata.fetch({success:function(){
 				window.menuData = menudata;
 				// sort store by index, deliveryLimit and Distance
@@ -65,8 +76,6 @@
 			},error:function(originalModel, resp, options){
 				console.log(resp.status);
 			}});
-		},
-		events: {
   		},
 		render: function(){
 			this.scroller.render();
@@ -80,4 +89,5 @@
 })(	window.myapp.Utils,
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
-	window.myapp.View.StoreBrief);
+	window.myapp.View.StoreBrief,
+	window.myapp.Widget.AddressSelector);
