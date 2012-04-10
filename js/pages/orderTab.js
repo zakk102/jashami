@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(MenuData, Scroller, StoreBrief, AddressSelector){
+(function(Utils, MenuData, Scroller, StoreBrief, AddressSelector){
 	var tabTemplate = [
 			'<div class="AddressSelector"></div>',
 			'<div class="StoreList"></div>'
@@ -7,7 +7,7 @@
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			var location = "";
+			var location = "110";
 			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
 			
@@ -18,7 +18,6 @@
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
-			
 			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
 			this.loadStore({'currentTarget':{'value': location}});
@@ -26,13 +25,46 @@
 		events: {
   		},
   		loadStore: function(e) {
-  			var location = e.currentTarget.value;
-  			var that = this;
-  			
-			if(!window.menuData) window.menudata = new MenuData();
-			window.menudata.setLocation(location);
-			window.menudata.fetch({success:function(){
-				_.each(window.menudata.get('stores').models, function(m, index){
+			//test
+			var location = e.currentTarget.value;
+			var that = this;
+			var menudata = new MenuData();
+			menudata.setAPI("getMenuByZipcode", {zipCode:location, isEditMode:false});
+			menudata.fetch({success:function(){
+				window.menuData = menudata;
+				// sort store by index, deliveryLimit and Distance
+				var stores = menudata.get('stores');
+				stores.comparator = function(arg0, arg1){
+					if(!menudata._lat || !menudata._lng){ //沒有定位，無法算距離
+						if(arg0.get('chainStore')!=arg1.get('chainStore')){ // 不同連鎖
+							return arg0.get('index').localeCompare(arg1.get('index'));
+						}else{ // 比外送額度
+							var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
+							return dl0==dl1 ? 0 : dl0<dl1? -1 : 1;
+						}
+					}else{
+						if(!arg0.get('chainStore')==arg1.get('chainStore')){ // 不同連鎖
+							return arg0.get('index').localeCompare(arg1.get('index'));
+						}else{
+							//2.5公里以內比外送額度，2.5公里以外比距離
+							//兩家店相差很近(1km以內)比外送額度
+							var d1 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg0.get('lat'), arg0.get('lng'));
+							var d2 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg1.get('lat'), arg1.get('lng'));
+							if( (d1<2.5 && d2<2.5) || Math.abs(d1-d2)<1 ){
+								var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
+								if(dl0==dl1){ //外送額度一樣，比距離
+									return d1==d2 ? 0 : d1<d2? -1 : 1;
+								}else{
+									return dl0==dl1 ? 0 : dl0<dl1? -1 : 1;
+								}
+							}else{
+								return d1==d2 ? 0 : d1<d2? -1 : 1;
+							}
+						}
+					}
+				};
+				stores.sort();
+				_.each(stores.models, function(m, index){
 					var storeBrief = new StoreBrief({model:m});
 					$('.StoreList', that.el).append(storeBrief.render().el);
 				});
@@ -54,7 +86,8 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.Model.MenuData,
+})(	window.myapp.Utils,
+	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
 	window.myapp.View.StoreBrief,
 	window.myapp.Widget.AddressSelector);

@@ -1,104 +1,135 @@
 {"stores":[
 	{
-		"_chainStore": "五十嵐",
-		"_index": "01-01",
-		"_storeNameId": "五十嵐市政府店",
-		"_displayedName": "五十嵐",
-        "_msg": "滿200外送",
-        "_deliveryLimit": 200,
-        "_deliveryFee": -1,
-        "_phoneNumber": "02-2368-4599",
-        "_faxNumber": "02-2368-4599",
-        "_address": "台北市中正區汀州路三段116-1號",
-        "_zipCode": "100",
-        "_lat": 25.014171,
-        "_lng": 121.533397,
-        "_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%BA%94%E5%8D%81%E5%B5%90/00_320.jpg",
-        "_menuId": "五十嵐台北",
-        "_openTime": "11,00,19,00,60,2,15"
+		"chainStore": "五十嵐",
+		"index": "01-01",
+		"storeNameId": "五十嵐市政府店",
+		"displayedName": "五十嵐",
+        "msg": "滿200外送",
+        "deliveryLimit": 200,
+        "deliveryFee": -1,
+        "phoneNumber": "02-2368-4599",
+        "faxNumber": "02-2368-4599",
+        "address": "台北市中正區汀州路三段116-1號",
+        "zipCode": "100",
+        "lat": 25.014171,
+        "lng": 121.533397,
+        "imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%BA%94%E5%8D%81%E5%B5%90/00_320.jpg",
+        "menuId": "五十嵐台北",
+        "openTime": "11,00,19,00,60,2,15"
 	},{
-		"_chainStore": "三元喜事",
-		"_index": "02-01",
-		"_storeNameId": "三元喜事大龍峒店",
-		"_displayedName": "三元喜事",
-        "_msg": "滿500外送",
-        "_deliveryLimit": 500,
-        "_deliveryFee": -1,
-        "_phoneNumber": "02-2598-6550",
-        "_faxNumber": "02-2594-1527",
-        "_email": "shihhan.3ms@gmail.com",
-        "_address": "台北市大同區大龍街288號",
-        "_zipCode": "103",
-        "_lat": 25.07145,
-        "_lng": 121.515806,
-        "_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/store-02.jpg",
-        "_menuId": "三元喜事菜單",
-        "_openTime": "11,0,21,00,60,2,15"
+		"chainStore": "三元喜事",
+		"index": "02-01",
+		"storeNameId": "三元喜事大龍峒店",
+		"displayedName": "三元喜事",
+        "msg": "滿500外送",
+        "deliveryLimit": 500,
+        "deliveryFee": -1,
+        "phoneNumber": "02-2598-6550",
+        "faxNumber": "02-2594-1527",
+        "email": "shihhan.3ms@gmail.com",
+        "address": "台北市大同區大龍街288號",
+        "zipCode": "103",
+        "lat": 25.07145,
+        "lng": 121.515806,
+        "imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/store-02.jpg",
+        "menuId": "三元喜事菜單",
+        "openTime": "11,0,21,00,60,2,15"
 	}
 ],
 "menus":[
 	{
-		"_menuId": "五十嵐台北",
+		"menuId": "五十嵐台北",
 		"products":[
 			{
-				"_productNameId": "五十嵐台北_茉莉綠茶",
-				"_displayedName": "茉莉綠茶",
-				"_price": 20,
-				"_category": "1.找好茶",
-				"_imgUrl": "",
-				"_intro": "",
-				"_optionString": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
-				"_optionShowTogetherSetting": "冷熱:甜度"
+				"productNameId": "五十嵐台北_茉莉綠茶",
+				"displayedName": "茉莉綠茶",
+				"price": 20,
+				"category": "1.找好茶",
+				"imgUrl": "",
+				"intro": "",
+				"optionstring": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
+				"options":[
+					{
+						"title":"甜度",
+						"multiple":false,
+						"mustHave":true,
+						"values":{"10分糖":0, "9分糖":0, "7分糖":0, "5分糖":0, "3分糖":0, "無糖":0, "多糖":0},
+						"action":"plus"
+					},{
+						"title":"冷熱",
+						"multiple":false,
+						"mustHave":true,
+						"values":{"正常冰":0, "少冰":0, "去冰":0, "常溫":0, "熱":0},
+						"action":"plus"
+					},{
+						"title":"份量",
+						"multiple":false,
+						"mustHave":true,
+						"values":{"中杯":0, "大杯":5},
+						"action":"plus",
+						"subOption":{
+							"title":"加料",
+							"multiple":false,
+							"mustHave":true,
+							"values":{
+								"中杯":{"不用加料":0, "珍珠":5, "波霸":5, "椰果":5, "仙草":5, "冰淇淋":10, "愛玉":10, "布丁":10},
+								"大杯":{"不用加料":0, "珍珠":10, "波霸":10, "椰果":10, "仙草":10, "冰淇淋":20, "愛玉":20, "布丁":20}
+							},
+							"action":"max"
+						}
+					}
+				],
+				"optionshowTogetherSetting": "冷熱:甜度"
 			},{
-				"_productNameId": "五十嵐台北_阿薩姆紅茶",
-				"_displayedName": "阿薩姆紅茶",
-				"_price": 20,
-				"_category": "1.找好茶",
-				"_imgUrl": "",
-				"_intro": "",
-				"_optionString": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
-				"_optionShowTogetherSetting": "冷熱:甜度"
+				"productNameId": "五十嵐台北_阿薩姆紅茶",
+				"displayedName": "阿薩姆紅茶",
+				"price": 20,
+				"category": "1.找好茶",
+				"imgUrl": "",
+				"intro": "",
+				"optionstring": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
+				"optionshowTogetherSetting": "冷熱:甜度"
 			},{
-				"_productNameId": "五十嵐台北_奶茶",
-				"_displayedName": "奶茶",
-				"_price": 30,
-				"_category": "3.找奶茶",
-				"_imgUrl": "",
-				"_intro": "",
-				"_optionString": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
-				"_optionShowTogetherSetting": "冷熱:甜度"
+				"productNameId": "五十嵐台北_奶茶",
+				"displayedName": "奶茶",
+				"price": 30,
+				"category": "3.找奶茶",
+				"imgUrl": "",
+				"intro": "",
+				"optionstring": "甜度?10分糖:0&9分糖:0&7分糖:0&5分糖:0&3分糖:0&無糖:0&多糖:0|冷熱?正常冰:0&少冰:0&去冰:0&常溫:0&熱:0|份量?中杯:0&大杯:5|份量:加料:中杯?不用加料:0&珍珠:5&波霸:5&椰果:5&仙草:5&珍珠+波霸:5&珍珠+椰果:5&珍珠+仙草:5&波霸+椰果:5&波霸+仙草:5&椰果+仙草:5&冰淇淋:10&愛玉:10&布丁:10|份量:加料:大杯?不用加料:0&珍珠:10&波霸:10&椰果:10&仙草:10&珍珠+波霸:10&珍珠+椰果:10&珍珠+仙草:10&波霸+椰果:10&波霸+仙草:10&椰果+仙草:10&香草冰淇淋:20&芒果冰淇淋:20&愛玉:20&布丁:20",
+				"optionshowTogetherSetting": "冷熱:甜度"
 			}
 		]
 	},{
-		"_menuId": "三元喜事菜單",
+		"menuId": "三元喜事菜單",
 		"products":[
 			{
-				"_productNameId": "三元喜事菜單_豬腳便當",
-				"_displayedName": "豬腳便當",
-				"_price": 89,
-				"_category": "1.便當",
-				"_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%B1%AC%E8%85%B3%E4%BE%BF%E7%95%B6.png.jpg",
-				"_intro": "特製重達百斤優良豬隻品種，使用宜蘭三星蔥，上等老薑川燙，七度Ｃ冰鎮，混合數十種獨家配方陳年老滷汁及冰糖，經嚴苛多道程序慢火煨滷，不油膩且香Ｑ有嚼勁，吃得出膠質與肉香的豬腳，富含膠質及膠原蛋白，保證您吮指留香回味無窮。",
-				"_optionString": "",
-				"_optionShowTogetherSetting": ""
+				"productNameId": "三元喜事菜單_豬腳便當",
+				"displayedName": "豬腳便當",
+				"price": 89,
+				"category": "1.便當",
+				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%B1%AC%E8%85%B3%E4%BE%BF%E7%95%B6.png.jpg",
+				"intro": "特製重達百斤優良豬隻品種，使用宜蘭三星蔥，上等老薑川燙，七度Ｃ冰鎮，混合數十種獨家配方陳年老滷汁及冰糖，經嚴苛多道程序慢火煨滷，不油膩且香Ｑ有嚼勁，吃得出膠質與肉香的豬腳，富含膠質及膠原蛋白，保證您吮指留香回味無窮。",
+				"optionstring": "",
+				"optionshowTogetherSetting": ""
 			},{
-				"_productNameId": "三元喜事菜單_蹄膀(腿庫)便當",
-				"_displayedName": "蹄膀(腿庫)便當",
-				"_price": 95,
-				"_category": "1.便當",
-				"_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%85%BF%E5%BA%AB%E4%BE%BF%E7%95%B6.png.jpg",
-				"_intro": "蹄膀是豬腿靠近上肢的部位，此處的肉肥而不膩，瘦不生渣，最富彈性，三元喜事特製蹄膀，皮Ｑ肉嫩卻不失嚼感！搭配當日現炒的新鮮蔬菜，加上香脆滑順的筍絲及獨門調製的酸菜，讓您胃口大開，大大滿足。",
-				"_optionString": "",
-				"_optionShowTogetherSetting": ""
+				"productNameId": "三元喜事菜單_蹄膀(腿庫)便當",
+				"displayedName": "蹄膀(腿庫)便當",
+				"price": 95,
+				"category": "1.便當",
+				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%85%BF%E5%BA%AB%E4%BE%BF%E7%95%B6.png.jpg",
+				"intro": "蹄膀是豬腿靠近上肢的部位，此處的肉肥而不膩，瘦不生渣，最富彈性，三元喜事特製蹄膀，皮Ｑ肉嫩卻不失嚼感！搭配當日現炒的新鮮蔬菜，加上香脆滑順的筍絲及獨門調製的酸菜，讓您胃口大開，大大滿足。",
+				"optionstring": "",
+				"optionshowTogetherSetting": ""
 			},{
-				"_productNameId": "三元喜事菜單_白菜滷",
-				"_displayedName": "白菜滷",
-				"_price": 40,
-				"_category": "3.小菜、湯品@小菜湯品",
-				"_imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E5%B0%8F%E8%8F%9C_%E7%99%BD%E8%8F%9C%E6%BB%B7.png.jpg",
-				"_intro": "",
-				"_optionString": "",
-				"_optionShowTogetherSetting": ""
+				"productNameId": "三元喜事菜單_白菜滷",
+				"displayedName": "白菜滷",
+				"price": 40,
+				"category": "3.小菜、湯品@小菜湯品",
+				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E5%B0%8F%E8%8F%9C_%E7%99%BD%E8%8F%9C%E6%BB%B7.png.jpg",
+				"intro": "",
+				"optionstring": "",
+				"optionshowTogetherSetting": ""
 			}
 		]
 	}

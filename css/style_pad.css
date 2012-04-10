@@ -1018,7 +1018,7 @@ border-radius: 15px;
     border-radius: 8px 8px 0px 0px;
     -webkit-box-shadow: inset 0px 4px 8px #260c03;
 }
-.ShoppingCar .Button.Pressed{
+.ShoppingCar .Button:active{
 	background:-webkit-gradient(linear,center bottom, center top,
    from(#6c1813),
    color-stop(14%, #b63127),
@@ -1503,7 +1503,7 @@ border-radius: 15px;
        font-size:1.1em;
        color:white;
 }
-.OrderInfo.Btns > .Button.Pressed{
+.OrderInfo.Btns > .Button:active{
 	background:-webkit-gradient(linear,center bottom, center top,
    from(#6c1813),
    color-stop(14%, #b63127),

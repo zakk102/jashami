@@ -12,7 +12,7 @@
 				var sum = 0;
 				
 				for(var i=0; i<products.length; i++){
-					sum += (products[i].product.get('_price') * products[i].amount);
+					sum += (products[i].product.get('price') * products[i].amount);
 				}
 				this.set('sum', sum);
 				
