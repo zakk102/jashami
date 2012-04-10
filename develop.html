@@ -17,6 +17,7 @@
 	<link rel="stylesheet/less" type="text/css" href="css/styles.less"> 
 
 	<!-- lib -->
+	<script src="js/libs/phonegap/phonegap-ios.js"></script>
 	<script src="js/libs/i18n/i18n-zakk.js"></script>
 	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
 	<script src="js/libs/zepto/zepto.min.js"></script>
@@ -36,11 +37,14 @@
 		if(supportedLang.indexOf(language)<0) language = defaultLang;
 		i18n.set(window.languages[language]);
 	</script>
+	<script src="js/settings.js"></script>
+	<script src="js/utils.js"></script>
 	<script src="js/models/menuData.js"></script>
 	<script src="js/images.js"></script>
 	<script src="js/widget/scroller.js"></script>
 	<script src="js/widget/loadingPanel.js"></script>
 	<script src="js/views/storeBrief.js"></script>
+	<script src="js/views/productOption.js"></script>
 	<script src="js/views/productPanel.js"></script>
 	<script src="js/pages/orderTab.js"></script>
 	<script src="js/pages/historyTab.js"></script>
@@ -48,6 +52,8 @@
 	<script src="js/pages/aboutUsTab.js"></script>
 	<script src="js/pages/startPage.js"></script>
 	<script src="js/pages/storePage.js"></script>
+	<script src="js/pages/orderInfoPage.js"></script>
+	<script src="js/pages/userInfoPage.js"></script>
 	<script src="js/router.js"></script>
 	<script>
 		$(document).ready(function () {

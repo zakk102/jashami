@@ -35,21 +35,30 @@
 			this.$el.css("-webkit-box-orient", "horizontal");
 		},
 		events:{
+			"click .PageContent":"hideFunctionPanel",
 			"click .BackButton":"toggleFunctionPanel",
-			"click .PageLeftPanel div":"toTab2",
+			"click .PageLeftPanel div":"toTab2"
 		},
 		render: function(){
 			return this;
 	  	},
-	  	toggleFunctionPanel: function(){
+	  	toggleFunctionPanel: function(e){
 	  		if(this.isShowFunction){
 	  			this.$el.children('.PageLeftPanel').css('-webkit-transform','translate3d(-100%, 0px, 0px)');
 	  			this.$el.children('.PageMainPanel').css('-webkit-transform','translate3d(0px, 0px, 0px)');
 	  			this.isShowFunction = false;
+	  			this.onToggle = false;
 	  		}else{
 	  			this.$el.children('.PageLeftPanel').css('-webkit-transform','translate3d(0px, 0px, 0px)');
 	  			this.$el.children('.PageMainPanel').css('-webkit-transform','translate3d(200px, 0px, 0px)');
 	  			this.isShowFunction = true;
+	  		}
+	  	},
+	  	hideFunctionPanel: function(e){
+	  		if(this.isShowFunction){
+	  			this.$el.children('.PageLeftPanel').css('-webkit-transform','translate3d(-100%, 0px, 0px)');
+	  			this.$el.children('.PageMainPanel').css('-webkit-transform','translate3d(0px, 0px, 0px)');
+	  			this.isShowFunction = false;
 	  		}
 	  	},
 	  	toTab: function(tab){
@@ -65,7 +74,7 @@
 	  	},
 	  	toTab2: function(e){
 	  		var href = $(e.currentTarget).attr('href');
-	  		window.history.replaceState(href, href, "#startPage/"+href);
+	  		Backbone.history.navigate("#startPage/"+href, {trigger: false, replace: true});
 	  		this.toggleFunctionPanel();
 	  		this.toTab(href);
 	  		this.$el.attr('url',window.location.href);

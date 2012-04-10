@@ -1476,7 +1476,7 @@ position: absolute;
        font-size:1.1em;
        color:white;
 }
-.OrderInfo.Btns > .Button.Pressed{
+.OrderInfo.Btns > .Button:active{
 	background:-webkit-gradient(linear,center bottom, center top,
    from(#6c1813),
    color-stop(14%, #b63127),

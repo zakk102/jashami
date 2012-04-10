@@ -13,9 +13,9 @@
 		'<div class="ShoppingCar">',
 			'<div style="position: relative; " class="Car">',
 				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; top: 0%; right: 0%; bottom: 0%; width: 25%; ">',
-					'<div class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
+					'<a class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
 						'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
-					'</div>',
+					'</a>',
 				'</div>',
 				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0%; top: 0%; right: 25%; height: 50%; ">',
 					'<div class="ProgressBarPanel" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
@@ -141,6 +141,7 @@
 		},
 		resetScroller: function(){
 			this.scroller.scrollTo(0, 0);
+			this.segmentPanel.scrollTo(0, 0);
 		},
 		resetDisplayedData: function(){
 			this.scroller.getContent().empty();
@@ -150,10 +151,10 @@
   			if(model) this.model = model;
   			var that = this;
   			//  title
-			var storeName = this.model.get('_displayedName');
+			var storeName = this.model.get('displayedName');
 			$("#title", this.el).html(storeName);
 			// product items
-			var products = this.model.get('_menuId').get('products').models;
+			var products = this.model.get('menuId').get('products').models;
 			var cateName;
 			var cateWidget;
 			var count = 0;
@@ -165,10 +166,10 @@
 				el.style.marginBottom = that._gridVMargin +'px';
 				el.style.marginLeft = that._gridHMargin +'px';
 				el.style.marginRight = that._gridHMargin +'px';
-				var img = p.get('_imgUrl');
-				var pname = p.get('_displayedName');
-				var pprice = p.get('_price');
-				var pid = p.get('_productNameId');
+				var img = p.get('imgUrl');
+				var pname = p.get('displayedName');
+				var pprice = p.get('price');
+				var pid = p.get('productNameId');
 				el.pid = pid; 
 //$(el).bind('click', function(){window.history.pushState(pid, "page 2", window.location+'/'+pid);});
 				if(img){
@@ -180,7 +181,7 @@
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
-				var cate = p.get('_category');
+				var cate = p.get('category');
 				cate = cate.substring(cate.indexOf('.')+1);
 				if(cate==cateName){
 					$(cateWidget).append(el);
@@ -226,6 +227,9 @@
 				});
 			},30);
 			
+			// shopping car
+			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('storeNameId'));
+			
   		},
   		events:{
 			"click .BackButton":"goBack",
@@ -240,10 +244,15 @@
 			// get product id
 			pid = $(e.currentTarget).attr('pid');
 			// show product panel
-			window.productPanel.$el.show();
-			// push state
-			href = window.location.hash+'/'+pid;
-			window.history.pushState(href, href, href);
+			window.productPanel.show('top');
+			// set product data
+			var menuId = this.model.get('menuId').get('menuId');
+			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid));
+			// push state to url
+			var href = "";
+			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
+			else href = window.location.hash+'/'+pid;
+			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){
 			// shopping car
