@@ -1,3 +1,37 @@
+
+//==============================================================
+// Cross-Browser CSS3 Rule Generator http://css3please.com/
+//==============================================================
+// for now its only for abbriviation.
+.border-radius(@px:3px) {
+  -webkit-border-radius: @px; /* Saf3-4, iOS 1-3.2, Android ≤1.6 */
+     -moz-border-radius: @px; /* FF1-3.6 */
+          border-radius: @px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.linear-gradient(@start, @color-stop-1, @color-stop-2) {
+  background-color: @color-stop-1;
+  // background-image: -webkit-gradient(linear, @start, @end, from(@color-stop-1), to(@color-stop-2)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2); /* FF3.6 */
+  background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2); /* IE10 */
+  background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Opera 11.10+ */
+  // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
+}
+.linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3) {
+  background-color: @color-stop-1;
+  // background-image: -webkit-gradient(linear, @start, @end, from(@color-stop-1), to(@color-stop-2)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* FF3.6 */
+  background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* IE10 */
+  background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Opera 11.10+ */
+  // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
+}
+
+
+
+
+
 body{
   position: absolute;
   margin: 0; 
@@ -13,42 +47,31 @@ body{
 
 //======Widget: Button
 @button-height: 2.0em;
+@button-width: 2.5em;
 @button-color:silver;
 .button-rounded (@color: silver){ 
   text-align:center;
   height:@button-height;
-  width:2.5em;
+  width:@button-width;
   line-height: @button-height;
   display: block;
-  border-radius: 3px;
+  .border-radius;
   color: @color*0.5;
   // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
-  background:-webkit-linear-gradient(bottom, @color 10%, @color*1.5 50%);
-  // &:active {
-    // background:-webkit-gradient(linear,center top, center bottom,
-     // from(@color*0.4),
-         // color-stop(50%, @color*0.8),
-         // color-stop(51%, @color*0.2),
-     // to(@color*0.2));
-    // color:@color*1.5;
-  // }  
+  .linear-gradient(bottom, @color 10%, @color*1.5 50%);
 }
 
 //======Widget: Arrow
-@arrow-height:@button-height/1.35;//< 1/1.414 since rounded-corner
-.arrow-left (@color: silver){
-  height:@arrow-height;
-  width:@arrow-height;
-  background: -webkit-linear-gradient(right bottom, @color 10%, @color*1.5 50%);
-  border-radius: 3px;
+@diamond-height:@button-height/1.36;//< 1/1.414 since rounded-corner
+.diamond-rounded (@color: silver){
+  height:@diamond-height;
+  width:@diamond-height;
+  .linear-gradient(right bottom, @color 10%, @color*1.5 50%);
+  .border-radius;
   -webkit-transform: rotate(45deg);
   // &:active{
-    // background:-webkit-gradient(linear,left top, right bottom,
-     // from(@color*0.4),
-         // color-stop(50%, @color*0.8),
-         // color-stop(51%, @color*0.2),
-     // to(@color*0.2));
-    // color:@color*1.5;
+      // .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
+      // color:@button-color*1.5;
   // }
 }
 
@@ -70,73 +93,80 @@ body{
     z-index: 11;
     @height-header:3em;
     height:@height-header;
-    background:-webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0, @color-header-gray),
-      color-stop(0.63, white),
-      color-stop(1, @color-header-gray)
-    );
+    .linear-gradient(bottom, @color-logo-orange 0%, @color-logo-orange*1.5 63%, @color-logo-orange 100%);
     color: #fff;
     font-weight:bold;
     line-height:35px;
-    padding:0px 10px;
-    overflow:ellipsis;
+    // padding:0px 10px;
+    // overflow:ellipsis;
     vertical-align:middle;
     text-align:center;
-    
     .BackButton{
       position:relative;
       height:@height-header;
-      width:@height-header;
+      @width:@height-header*1.5;
+      width:@width;
       .Button {
+        .button-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
-        padding-right:0.3em;
-        left:@arrow-height*0.45;
-        // @color-button: rgb(192,192,192);
-        .button-rounded(@button-color);
-      }      
+        left:50%;
+        margin-left:-@button-width/2;
+        .ButtonMsg{
+          padding-right:0.3em;
+        }
+      }
       .Pointer {
+        .diamond-rounded(@button-color);
         position:absolute;
-        .arrow-left(@button-color);
         top:50%;
-        margin-top:-@arrow-height/2;
+        margin-top:-@diamond-height/2;
+        left:50%;
+        margin-left:-@width/2 + 0.35em;
       }
     }
     .BackButton:active .Button{
-      background:-webkit-gradient(linear,center top, center bottom,
-       from(@button-color*0.4),
-           color-stop(50%, @button-color*0.8),
-           color-stop(51%, @button-color*0.2),
-       to(@button-color*0.2));
+      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
       color:@button-color*1.5;
     }  
     .BackButton:active .Pointer{
-      background:-webkit-gradient(linear,left top, right bottom,
-       from(@button-color*0.4),
-           color-stop(50%, @button-color*0.8),
-           color-stop(51%, @button-color*0.2),
-       to(@button-color*0.2));
+      .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
       color:@button-color*1.5;
     }
-    .right{
-      position:relative;
+    .NextButton{
+     position:relative;
       height:@height-header;
-      width:@height-header;
+      @width:@height-header*1.5;
+      width:@width;
+      .Button {
+        .button-rounded(@button-color);
+        position:absolute;
+        top:50%;
+        margin-top:-@button-height/2;
+        right:50%;
+        margin-right:-@button-width/2;
+        .ButtonMsg{
+          padding-left:0.3em;
+        }
+      }
+      .Pointer {
+        .diamond-rounded(@button-color);
+        position:absolute;
+        top:50%;
+        margin-top:-@diamond-height/2;
+        right:50%;
+        margin-right:-@width/2 + 0.35em;
+      }
     }
-    // .BackButton{
-      // -webkit-box-orient: horizontal;
-      // font-size:1em;
-      // color:#1f0707;
-      // position: relative;
-      // border-radius: 3px;
-//       
-//       
-    // }
-    
+    .NextButton:active .Button{
+      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
+      color:@button-color*1.5;
+    }  
+    .NextButton:active .Pointer{
+      .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
+      color:@button-color*1.5;
+    }
     #logo {
       height:80%;
       vertical-align:middle;
@@ -166,6 +196,6 @@ body{
 // .HeaderPanel > div:first-child, .HeaderButton.NextButton{
   // margin-left: 0.8em;
 // }
-// .HeaderPanel > div:last-child, .HeaderButton.BackButton{
+// .HeaderPanel > div:last-child, .HeaderButton.NextButton{
   // margin-right: 0.8em;
 // }
