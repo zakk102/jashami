@@ -37,6 +37,10 @@
 	});
 	
 	var MenuData = Backbone.RelationalModel.extend({
+		setLocation: function(loc){
+			this.set('location', loc);
+			this.url = '/jashami/testData/menuData';
+		},
 		url: '/jashami/testData/menuData',
 	    relations: [{
 	            type: Backbone.HasMany,
