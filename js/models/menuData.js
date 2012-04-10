@@ -71,7 +71,7 @@
 	});
 	
 	var MenuData = Backbone.RelationalModel.extend({
-		url: 'http://127.0.0.1:8888/ifood_api/MenuService?action=getMenuByZipcode&zipCode=110',
+		url: 'http://api.majashami.appspot.com/api/MenuService?action=getMenuByZipcode&zipCode=110',
 		setAPI: function(action, args){
 			this.url = Api.MenuServiceUrl+"?action="+action+"&";
 			if(args && Object.keys(args).length>0){

@@ -1,5 +1,5 @@
 // Filename: js/pages/historyTab.js
-(function(Scroller){
+(function(Scroller, Accordion, OrderHistory){
 	var tabTemplate = [
 		'<div id="pullDown"></div>',
 		'<div class="OrderHistory">',
@@ -12,9 +12,24 @@
 					'<div class="gwt-Label">狀態</div>',
 				'</div>',
 			'</div>',
-			'<div class="Accordion OrderHistoryPanel"></div>',
+			'<div class="OrderHistoryPanel"></div>',
 		'</div>',
 		'<div id="pullUp"></div>',
+	].join('');
+	
+	var orderHeaderTemplate = [
+		'<div class="AccordionArrow"></div>',
+		'<div><%= want.format("M/D H:m") %></div>',
+		'<div><%= send.format("MD")+"-"+ID.substring(ID.length-3) %></div>',
+		'<div><%= status %></div>'			
+	].join('');
+	
+	var orderContentTemplate = [
+		'<div class="TakeOutLabel"><%= store+"("+storePhone+")"+":" %></div>',
+		'<ul class="BuyList">',
+			'<li>Party共享餐[加購:不要加購] X 1 = 850元</li>',
+		'</ul>',
+		'<div class="TotalMoney"><%= "總共"+total+"元" %></div>'
 	].join('');
 	
 	var HistoryTabView = Backbone.View.extend({
@@ -28,33 +43,37 @@
 			$(scroller.el).css('width', '100%');
 			$('.OrderHistoryPanel', this.el).css('minHeight', window.clientHeight);
 			
+			var accordion = new Accordion({el:$('.OrderHistoryPanel',this.el)});
+			
 			pullDownEl = $('#pullDown', this.el);
 			pullDownOffset = 30;
 			pullUpEl = $('#pullUp', this.el);
 			pullUpOffset = 30;
 			var that = this;
 			var pullUpAction = function(){
-				setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-					el = $('.OrderHistoryPanel', that.el);
-					for (i=0; i<3; i++) {
-						el.append('<li>Generated row</li>');
-					}
-					scroller.render();		// Remember to refresh when contents are loaded (ie: on ajax completion)
-				}, 1000);
-			}
+			};
 			var pullDownAction = function(){
-				setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-					el = $('.OrderHistoryPanel', that.el);
-					for (i=0; i<3; i++) {
-						el.prepend('<li>Generated row</li>');
-					}
-					scroller.render();		// Remember to refresh when contents are loaded (ie: on ajax completion)
-				}, 1000);
+				var orderHistory = new OrderHistory();
+				orderHistory.fetch({success:function(){
+					window.orderHistory = orderHistory;
+					//TODO re-render order widget history list
+					accordion.claer();
+					_.each(orderHistory.models, function(m, index){
+						var header = _.template(orderHeaderTemplate, {send:new Date(m.get('submitDate')), want:new Date(m.get('wantDate')), ID: m.get('orderID'), status:m.get('status')});
+						var content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney')});
+						accordion.add(header, content);
+					});
+					// re-fresh scroller boundery
+					scroller.render();
+				},error:function(){
+					console.log('get order history failed');
+				}});
 			}
 			scroller.setPullToRefresh({
 				pullDownEl: pullDownEl, 
 				pullDownAction: pullDownAction
 			});
+			
 		},
 		render: function(){
 			return this;
@@ -63,4 +82,18 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.HistoryTabView = HistoryTabView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.Scroller,
+	window.myapp.Widget.Accordion,
+	window.myapp.Model.OrderHistory);
+
+
+/*
+				setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+					el = $('.OrderHistoryPanel', that.el);
+					for (i=0; i<3; i++) {
+						el.append('<li>Generated row</li>');
+					}
+					scroller.render();		// Remember to refresh when contents are loaded (ie: on ajax completion)
+				}, 1000); 
+ 
+ */
