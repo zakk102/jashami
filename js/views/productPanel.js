@@ -29,12 +29,12 @@
 	var priceTemplate = '<%=price%> X <%=amount%> = <%=price*amount%>元';
 	
 	var optionTemplate = [
-		'<% for(var i=0; i<data.length; i++){ %>',
+		'<% for(var i=0, length=data.length; i<length; i++){ %>',
 			'<% var o = data[i]; var title = o.get("title"); var v = o.get("values"); %>',
 			'<div class="OptionPanel WebOptionPanel">',
 				'<div class="OptionTitle"><%= title %>：</div>',
 				'<select name="<%= title %>">',
-				'<% for(var j=0; j<v.length; j++){ %>',
+				'<% for(var j=0, length2=v.length; j<length2; j++){ %>',
 					'<% var r = v[j].substring(0, v[j].indexOf(":")); %>',
 					'<option value="<%= r %>"><%= r %></option>',
 				'<% } %>',
