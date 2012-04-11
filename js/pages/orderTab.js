@@ -25,7 +25,6 @@
 		events: {
   		},
   		loadStore: function(e) {
-			//test
 			var location = e.currentTarget.value;
 			var that = this;
 			var menudata = new MenuData();
@@ -66,6 +65,7 @@
 					}
 				};
 				stores.sort();
+				$('.StoreList', that.el).empty();
 				_.each(stores.models, function(m, index){
 					var storeBrief = new StoreBrief({model:m});
 					$('.StoreList', that.el).append(storeBrief.render().el);
@@ -76,6 +76,7 @@
 				});
 				that.scroller.render();
 			},error:function(originalModel, resp, options){
+				if(window.loadingPanel) window.loadingPanel.connectionIn();
 				console.log(resp.status);
 			}});
   		},
