@@ -43,6 +43,13 @@
 		'<% } %>'
 	].join('');
 	
+	var noteTemplate = [
+		'<div class="OptionPanel WebOptionPanel">',
+			'<div class="OptionTitle"><%= title %>：</div>',
+			'<div><%= content  %></div>',
+		'</div>'
+	].join('');
+	
 	var ProductPanel = Backbone.View.extend({
 		initialize: function(){
 			this.tabs = {};
@@ -96,6 +103,11 @@
 			if(_options){
 				for(var i=0; i<_options.length; i++){
 					var option = _options[i];
+					var keys = Object.keys(option.values);
+					if(keys.length>0 && keys.length<2){ // not a option, just a note
+						$('.OptionBox', this.el).append(_.template(noteTemplate, {title:option.title, content:keys[0]}));
+						continue;
+					}
 					var ov = new ProductOptionView({model:option});
 					$('.OptionBox', this.el).append(ov.render().el);
 					this.optionWidget.push(ov);
