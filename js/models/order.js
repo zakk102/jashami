@@ -1,6 +1,6 @@
 //Filename: js/models/order.js
 (function(Api){
-	var Order = Backbone.RelationalModel.extend({
+	var Order = Backbone.Model.extend({
 		idAttribute: 'orderID'
 	});
 	

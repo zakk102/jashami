@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(Scroller, ProductOptionView){
+(function(Scroller, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div id="cancelBtn"><div class="HeaderButton"><div class="ButtonText">取消</div></div></div>',
@@ -65,8 +65,9 @@
 			"click #minusBtn":"_minusAmount",
 			"selectionChange .ProductOption":"_updateSelection"
 		},
-		setModel: function(model){
+		setModel: function(model, storeNameId){
 			if(model) this.model = model;
+			if(storeNameId) this.storeNameId = storeNameId;
 			var m = this.model;
 			var name = m.get('displayedName');
 			var price = m.get('price');
@@ -99,7 +100,7 @@
 					$('.OptionBox', this.el).append(ov.render().el);
 					this.optionWidget.push(ov);
 					this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
-					this.selectedPrice += ov.getSelectedPrice()
+					this.selectedPrice += ov.getSelectedPrice();
 				}
 			}
 					
@@ -131,10 +132,17 @@
 					window.history.go(-1);
 				}
 				*/
-				//add products to shoppingcart
-				if(window.shoppingCartData){
-					window.shoppingCartData.addProduct({product:that.model, amount:that.amount});
+				//get shoppingCart
+				if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
+				var shoppingCarts = window.shoppingCartCollection;
+				var shoppingCart = shoppingCarts.get(that.storeNameId);
+				if(!shoppingCart){
+					var deliveryLimit = this.model.get('deliveryLimit');
+					shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+					shoppingCarts.add(shoppingCart);
 				}
+				//add products to shoppingCart
+				shoppingCart.addBuyItem(new BuyItem({product:that.model, amount:that.amount}));
 				window.history.go(-1);
 			});
 		},
@@ -211,4 +219,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
-})( window.myapp.Widget.Scroller, window.myapp.View.ProductOptionView);
+})( window.myapp.Widget.Scroller, 
+	window.myapp.View.ProductOptionView,
+	window.myapp.Model.BuyItem,
+	window.myapp.Model.ShoppingCart,
+	window.myapp.Model.ShoppingCartCollection);

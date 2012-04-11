@@ -1,32 +1,53 @@
 //Filename: js/models/shoppingCartData.js
 (function(){
-	var ShoppingCartData = Backbone.Model.extend({
+	var BuyItem = Backbone.Model.extend({
+	});
+	
+	var BuyList = Backbone.Collection.extend({
+		model:BuyItem
+	});
+	
+	var ShoppingCart = Backbone.Model.extend({
 		defaults:{
 			deliveryLimit: 0,
 			sum: 0,
-			products: []
+			buyList: new BuyList()
 		},
+		idAttribute: 'storeNameId',
 		initialize: function(){
-			this.bind("change:products", function(){
-				var products = this.get('products');
-				var sum = 0;
-				
-				for(var i=0; i<products.length; i++){
-					sum += (products[i].product.get('price') * products[i].amount);
-				}
-				this.set('sum', sum);
-				
-				window.shoppingCartPanel.resetDisplayedData(this);
-			});
-			window.shoppingCartPanel.resetDisplayedData(this);
+			this.set('buyList',new BuyList());
+			this.updateDisplay();
 		},
-		addProduct: function(product, options){
-			this.get('products').push(product);
-			if(!options || !options.slient) this.trigger('change:products');
+		updateDisplay: function(){
+			var products = this.get('buyList');
+			var sum = 0;
+			
+			for(var i=0,length=products.length; i<length; i++){
+				sum += (products.at(i).get('product').get('price') * products.at(i).get('amount'));
+			}
+			this.set('sum', sum);
+			
+			if(window.shoppingCartPanel && window.shoppingCartPanel.resetDisplayedData) window.shoppingCartPanel.resetDisplayedData(this);
+		},
+		addBuyItem: function(buyItem, options){
+			this.get('buyList').push(buyItem);
+			if(!options || !options.slient) this.updateDisplay();
+		},
+		removeBuyItem: function(options){
+			if(!options || !options.slient) this.updateDisplay();
+		},
+		clearBuyList: function(options){
+			if(!options || !options.slient) this.updateDisplay();
 		}
+	});
+	
+	var ShoppingCartCollection = Backbone.Collection.extend({
+		model:ShoppingCart
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.Model= window.myapp.Model || {};
-	window.myapp.Model.ShoppingCartData = ShoppingCartData;
+	window.myapp.Model.BuyItem = BuyItem;
+	window.myapp.Model.ShoppingCart = ShoppingCart;
+	window.myapp.Model.ShoppingCartCollection = ShoppingCartCollection;
 })();

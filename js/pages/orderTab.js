@@ -70,9 +70,9 @@
 				});
 				//re-fresh the scroller to know the new size of the scroller
 				$('img', this.el).bind('load', function(){
-					scroller.render();
+					that.scroller.render();
 				});
-				scroller.render();
+				that.scroller.render();
 			},error:function(originalModel, resp, options){
 				console.log(resp.status);
 			}});

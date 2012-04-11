@@ -1,5 +1,5 @@
 //Filename: js/pages/storePage.js
-(function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData){
+(function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="header">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
@@ -210,9 +210,6 @@
 				}
 			};
 			
-			var deliveryLimit = this.model.get('deliveryLimit');
-			window.shoppingCartData = new ShoppingCartData({ deliveryLimit:deliveryLimit, sum:0, products:[] });
-			
 			// render product widgets & bind events
 			setTimeout(function(){ // wait time to let browser show above code
 				_.each(products, dd);
@@ -225,7 +222,17 @@
 				});
 			},30);			
 			// shopping car
-			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('storeNameId'));
+			var storeNameId = this.model.get('storeNameId');
+			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+storeNameId);
+			if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
+			var shoppingCarts = window.shoppingCartCollection;
+			var shoppingCart = shoppingCarts.get(storeNameId);
+			if(!shoppingCart){
+				var deliveryLimit = this.model.get('deliveryLimit');
+				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+				shoppingCarts.add(shoppingCart);
+			}
+			shoppingCart.updateDisplay();
   		},
   		events:{
 			"click .BackButton":"goBack",
@@ -243,7 +250,7 @@
 			window.productPanel.show('top');
 			// set product data
 			var menuId = this.model.get('menuId').get('menuId');
-			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid));
+			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid), this.model.get('storeNameId'));
 			// push state to url
 			var href = "";
 			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
@@ -251,7 +258,6 @@
 			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){
-			// shopping car
 			// re-bind event
 			this.scroller.render();
 			this.delegateEvents();
@@ -265,4 +271,5 @@
 	window.myapp.Widget.Scroller,
 	window.myapp.View.ProductPanel,
 	window.myapp.View.ShoppingCartPanel,
-	window.myapp.Model.ShoppingCartData);
+	window.myapp.Model.ShoppingCart,
+	window.myapp.Model.ShoppingCartCollection);
