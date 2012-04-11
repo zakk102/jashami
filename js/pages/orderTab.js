@@ -30,7 +30,9 @@
 			var that = this;
 			var menudata = new MenuData();
 			menudata.setAPI("getMenuByZipcode", {zipCode:location, isEditMode:false});
+			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			menudata.fetch({success:function(){
+				if(window.loadingPanel) window.loadingPanel.connectionIn();
 				window.menuData = menudata;
 				// sort store by index, deliveryLimit and Distance
 				var stores = menudata.get('stores');

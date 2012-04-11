@@ -7,10 +7,27 @@
 	
 	var LoadingPanel = Backbone.View.extend({
 		initialize: function(){
+			this.conn = 0;
 			$(this.el).attr('id','loadingPanel');
 			$(this.el).attr('style','position:absolute; z-index: 99990;width: 100%; height: 100%;');
 			$(this.el).hide();
 			$(this.el).html(_.template(template));
+		},
+		connectionOut: function(){
+			this.conn++;
+			this._update();
+		},
+		connectionIn: function(){
+			this.conn--;
+			if(this.conn<0) this.conn = 0;
+			this._update();
+		},
+		_update: function(){
+			if(this.conn>0){
+				this.$el.show();
+			}else{
+				this.$el.hide();
+			}
 		},
 		render: function(){
 			return this;
