@@ -102,6 +102,7 @@
 					this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
 					this.selectedPrice += ov.getSelectedPrice();
 				}
+				this._updateMoney();
 			}
 					
 			// refresh size
@@ -142,7 +143,11 @@
 					shoppingCarts.add(shoppingCart);
 				}
 				//add products to shoppingCart
-				shoppingCart.addBuyItem(new BuyItem({product:that.model, amount:that.amount}));
+				shoppingCart.addBuyItem(new BuyItem({	productNameId: that.model.get('productNameId'), 
+														selectedOptions: $.extend({},that.selectedOption),
+														singlePrice: that.selectedPrice,
+														amount:that.amount
+													}));
 				window.history.go(-1);
 			});
 		},

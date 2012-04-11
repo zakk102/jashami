@@ -17,5 +17,23 @@
 			}
 		],
 		"sum": 25
+	},{
+		"storeNameId": "五十嵐市政府店2",
+		"deliveryLimit": 200,
+		"buyList":[
+			{
+				"productNameId": "五十嵐台北_茉莉綠茶",
+				"selectedOptions":{
+					"甜度":"10分糖",
+					"冷熱":"正常冰",
+					"份量":"大",
+					"加料":"不用加料"
+				},
+				"singlePrice": 25,
+				"amount": 1,
+				"orderName":"Evan"
+			}
+		],
+		"sum": 25
 	}
 ]

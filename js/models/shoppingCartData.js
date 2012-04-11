@@ -19,11 +19,12 @@
 			this.updateDisplay();
 		},
 		updateDisplay: function(){
-			var products = this.get('buyList');
+			var buyList = this.get('buyList');
 			var sum = 0;
 			
-			for(var i=0,length=products.length; i<length; i++){
-				sum += (products.at(i).get('product').get('price') * products.at(i).get('amount'));
+			for(var i=0,length=buyList.length; i<length; i++){
+				var bi = buyList.at(i);
+				sum += (bi.get('singlePrice') * bi.get('amount'));
 			}
 			this.set('sum', sum);
 			
