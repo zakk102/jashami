@@ -14,7 +14,7 @@
 			$(h).addClass('AccordionHeader');
 			$(c).addClass('AccordionContent');
 			$(container).addClass('Collapse');
-			$(c).height(0);
+			$(c).css('height','0px');
 			$(h).html(header);
 			$(c).html(content);
 			$(container).append(h);
