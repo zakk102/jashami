@@ -107,7 +107,20 @@ body{
 @button-height: 2.0em;
 @button-width: 2.5em;
 @button-color:silver;
-.button-rounded (@color: silver){ 
+.button-flat(@color: silver){ 
+  text-align:center;
+  height:@button-height;
+  width:@button-width;
+  line-height: @button-height;
+  display: block;
+  color: @color*0.5;
+  border-style:outset;
+  // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
+  &:active{
+      color:@button-color*1.5;
+  }
+}
+.button-convex-rounded (@color: silver){ 
   text-align:center;
   height:@button-height;
   width:@button-width;
@@ -141,6 +154,7 @@ body{
   -webkit-box-orient: vertical;
 
   .top {
+    display:none;
     position:relative;
     height:0.4em;
     background-color:@color-logo-orange;
@@ -155,7 +169,11 @@ body{
     z-index: 11;
     @height-header:3em;
     height:@height-header;
-    .linear-gradient(bottom, @color-logo-orange 0%, @color-logo-orange*1.5 63%, @color-logo-orange 100%);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color:@color-logo-orange*2;
+    .linear-gradient(bottom, @color-logo-orange 10%, @color-logo-orange*1.5 90%);
+    box-shadow: 0px 0px 10px black;
     color: #fff;
     font-weight:bold;
     line-height:35px;
@@ -169,7 +187,7 @@ body{
       @width:@height-header*1.5;
       width:@width;
       .Button {
-        .button-rounded(@button-color);
+        .button-convex-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
@@ -207,7 +225,7 @@ body{
       @width:@height-header*1.5;
       width:@width;
       .Button {
-        .button-rounded(@button-color);
+        .button-convex-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
@@ -241,6 +259,7 @@ body{
   }
   
   .bottom {
+    display:none;
     position:relative;
     height:0.2em;
     background-color:@color-logo-orange;
@@ -251,13 +270,34 @@ body{
 .PageLeftPanel{
   z-index:10;
   height:100%;
-  background:rgba(200,100,50,0.5);
-  box-shadow:2px 0px 13px black;
-  
+  background:rgba(50,50,50,0.9);
+  // box-shadow:2px 0px 13px black;
   .TabButton{
-    .button-rounded(@button-color);
-    width:100%;
+    display:-webkit-box;
+    -webkit-box-orient:horizontal;
+    -webkit-box-pack:left;
+    -webkit-box-align:center;
+    height:2em;
     
+    .imgWrap {
+      .icon{
+        padding: 0em 0.5em 0.1em 0.5em;
+        height: 1em;
+      }
+    }
+    // text-align:left;
+    // line-height:@button-height;
+    width:100%;
+    // vertical-align: middle;
+    border-bottom-style: groove;
+    border-bottom-width: 2px;
+    border-bottom-color: gray;
+    color:white;
+    &:active{
+      background-color:#202020;
+      border-bottom-style: ridge;
+      border-bottom-color: #202020;
+    }
   }
 }
 // 
