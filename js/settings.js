@@ -7,6 +7,7 @@
 	
 	window.myapp.Api = window.myapp.Api || {};
 //	window.myapp.Api.BasicUrl = "http://localhost:8888/ifood_api";
-	window.myapp.Api.BasicUrl = "http://t1.majashami.appspot.com/ifood_api";
-	window.myapp.Api.MenuServiceUrl = window.myapp.Api.BasicUrl + "/MenuService";
+	window.myapp.Api.BasicUrl = "http://api.majashami.appspot.com/api/";
+	window.myapp.Api.MenuServiceUrl = window.myapp.Api.BasicUrl + "MenuService";
+	window.myapp.Api.OrderServiceUrl = window.myapp.Api.BasicUrl + "OrderService";
 })();

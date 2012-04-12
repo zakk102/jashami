@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(Scroller, ProductOptionView){
+(function(Scroller, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div id="cancelBtn"><div class="HeaderButton"><div class="ButtonText">取消</div></div></div>',
@@ -29,18 +29,25 @@
 	var priceTemplate = '<%=price%> X <%=amount%> = <%=price*amount%>元';
 	
 	var optionTemplate = [
-		'<% for(var i=0; i<data.length; i++){ %>',
+		'<% for(var i=0, length=data.length; i<length; i++){ %>',
 			'<% var o = data[i]; var title = o.get("title"); var v = o.get("values"); %>',
 			'<div class="OptionPanel WebOptionPanel">',
 				'<div class="OptionTitle"><%= title %>：</div>',
 				'<select name="<%= title %>">',
-				'<% for(var j=0; j<v.length; j++){ %>',
+				'<% for(var j=0, length2=v.length; j<length2; j++){ %>',
 					'<% var r = v[j].substring(0, v[j].indexOf(":")); %>',
 					'<option value="<%= r %>"><%= r %></option>',
 				'<% } %>',
 				'</select>',
 			'</div>',
 		'<% } %>'
+	].join('');
+	
+	var noteTemplate = [
+		'<div class="OptionPanel WebOptionPanel">',
+			'<div class="OptionTitle"><%= title %>：</div>',
+			'<div><%= content  %></div>',
+		'</div>'
 	].join('');
 	
 	var ProductPanel = Backbone.View.extend({
@@ -65,8 +72,9 @@
 			"click #minusBtn":"_minusAmount",
 			"selectionChange .ProductOption":"_updateSelection"
 		},
-		setModel: function(model){
+		setModel: function(model, storeNameId){
 			if(model) this.model = model;
+			if(storeNameId) this.storeNameId = storeNameId;
 			var m = this.model;
 			var name = m.get('displayedName');
 			var price = m.get('price');
@@ -95,12 +103,18 @@
 			if(_options){
 				for(var i=0; i<_options.length; i++){
 					var option = _options[i];
+					var keys = Object.keys(option.values);
+					if(keys.length>0 && keys.length<2){ // not a option, just a note
+						$('.OptionBox', this.el).append(_.template(noteTemplate, {title:option.title, content:keys[0]}));
+						continue;
+					}
 					var ov = new ProductOptionView({model:option});
 					$('.OptionBox', this.el).append(ov.render().el);
 					this.optionWidget.push(ov);
 					this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
-					this.selectedPrice += ov.getSelectedPrice()
+					this.selectedPrice += ov.getSelectedPrice();
 				}
+				this._updateMoney();
 			}
 					
 			// refresh size
@@ -109,23 +123,44 @@
 		_cancel: function(){
 			var that = this;
 			this.hide('top', function(){
+				/*
 				if(that.callback){
 					that.callback();
 					that.callback = null;
 				}else{
 					window.history.go(-1);
 				}
+				*/
+				window.history.go(-1);
 			});
 		},
 		_buy: function(){
 			var that = this;
 			this.hide('bottom', function(){
+				/*
 				if(that.callback){
 					that.callback();
 					that.callback = null;
 				}else{
 					window.history.go(-1);
 				}
+				*/
+				//get shoppingCart
+				if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
+				var shoppingCarts = window.shoppingCartCollection;
+				var shoppingCart = shoppingCarts.get(that.storeNameId);
+				if(!shoppingCart){
+					var deliveryLimit = this.model.get('deliveryLimit');
+					shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+					shoppingCarts.add(shoppingCart);
+				}
+				//add products to shoppingCart
+				shoppingCart.addBuyItem(new BuyItem({	productNameId: that.model.get('productNameId'), 
+														selectedOptions: $.extend({},that.selectedOption),
+														singlePrice: that.selectedPrice,
+														amount:that.amount
+													}));
+				window.history.go(-1);
 			});
 		},
 		_updateSelection: function(){
@@ -201,4 +236,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
-})( window.myapp.Widget.Scroller, window.myapp.View.ProductOptionView);
+})( window.myapp.Widget.Scroller, 
+	window.myapp.View.ProductOptionView,
+	window.myapp.Model.BuyItem,
+	window.myapp.Model.ShoppingCart,
+	window.myapp.Model.ShoppingCartCollection);

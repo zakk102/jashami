@@ -1,5 +1,5 @@
 //Filename: js/pages/storePage.js
-(function(ImageResource, Scroller, ProductPanel){
+(function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="header">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
@@ -17,19 +17,7 @@
 						'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
 					'</a>',
 				'</div>',
-				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0%; top: 0%; right: 25%; height: 50%; ">',
-					'<div class="ProgressBarPanel" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
-						'<div class="ProgressMsgOk">可外送</div><div style="" class="ProgressMsgNotOk">未達額度</div>',
-						'<div class="ProgressBar"><div class="Progress"></div></div>',
-						'<div class="gwt-Label">0/800</div>',
-					'</div>',
-				'</div>',
-				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0%; top: 50%; bottom: 0%; width: 30%; ">',
-					'<div class="gwt-Label" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">總共$</div>',
-				'</div>',
-				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 30%; top: 50%; right: 25%; bottom: 0%; ">',
-					'<div class="gwt-Label" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">0元</div>',
-				'</div>',
+				'<div class="ShoppingCartPanel"></div>',
 			'</div>',
 		'</div>'
 	].join('');
@@ -79,6 +67,12 @@
 			$("#storeContent", this.el).append(this.scroller.render().el);
 			$("#storeContent", this.el).append(this.segmentPanel.render().el);
 			$(this.segmentPanel.getContent()).addClass('ScrollBar Segment');
+	
+			// shopping cart panel
+			if(!window.shoppingCartPanel){
+				window.shoppingCartPanel = new ShoppingCartPanel();
+				$('.ShoppingCartPanel', this.el).html(window.shoppingCartPanel.render().el);
+			}
 			
 			// grid setting
 			this._col = 3;
@@ -215,6 +209,7 @@
 					$(segment).attr('loc', 'cateName'+count);
 				}
 			};
+			
 			// render product widgets & bind events
 			setTimeout(function(){ // wait time to let browser show above code
 				_.each(products, dd);
@@ -225,11 +220,19 @@
 					var loc = $(e.currentTarget).attr('loc');
 	  				that.scroller.scrollToElement($('#'+loc).get(0));
 				});
-			},30);
-			
+			},30);			
 			// shopping car
-			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+this.model.get('storeNameId'));
-			
+			var storeNameId = this.model.get('storeNameId');
+			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+storeNameId);
+			if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
+			var shoppingCarts = window.shoppingCartCollection;
+			var shoppingCart = shoppingCarts.get(storeNameId);
+			if(!shoppingCart){
+				var deliveryLimit = this.model.get('deliveryLimit');
+				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+				shoppingCarts.add(shoppingCart);
+			}
+			shoppingCart.updateDisplay();
   		},
   		events:{
 			"click .BackButton":"goBack",
@@ -247,7 +250,7 @@
 			window.productPanel.show('top');
 			// set product data
 			var menuId = this.model.get('menuId').get('menuId');
-			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid));
+			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid), this.model.get('storeNameId'));
 			// push state to url
 			var href = "";
 			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
@@ -255,7 +258,6 @@
 			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){
-			// shopping car
 			// re-bind event
 			this.scroller.render();
 			this.delegateEvents();
@@ -267,4 +269,7 @@
 	window.myapp.StorePageView = StorePageView;
 })(	window.myapp.Images,
 	window.myapp.Widget.Scroller,
-	window.myapp.View.ProductPanel);
+	window.myapp.View.ProductPanel,
+	window.myapp.View.ShoppingCartPanel,
+	window.myapp.Model.ShoppingCart,
+	window.myapp.Model.ShoppingCartCollection);

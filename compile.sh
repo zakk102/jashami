@@ -11,8 +11,10 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/settings.js \
 ./js/utils.js \
 ./js/models/menuData.js \
+./js/models/order.js \
 ./js/images.js \
 ./js/widget/scroller.js \
+./js/widget/accordion.js \
 ./js/views/storeBrief.js \
 ./js/views/productOption.js \
 ./js/views/productPanel.js \
