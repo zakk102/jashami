@@ -13,11 +13,12 @@
     <link rel="stylesheet" type="text/css" href="http://commondatastorage.googleapis.com/jashami/v2/style_pad.css" media="screen and (min-width:641px)">
 -->    
  	<link rel="stylesheet" type="text/css" href="css/style.css" media="only screen and (max-width:640px)"> 
-     <link rel="stylesheet" type="text/css" href="css/style_pad.css" media="screen and (min-width:641px)"> 
+    <link rel="stylesheet" type="text/css" href="css/style_pad.css" media="screen and (min-width:641px)"> 
 <!--	<link rel="stylesheet/less" type="text/css" href="css/styles.less">  -->
 
 	<!-- lib -->
 	<script src="js/libs/phonegap/phonegap-ios.js"></script>
+	<script src="js/libs/phonegap/phonegap-zakk.js"></script>
 	<script src="js/libs/i18n/i18n-zakk.js"></script> 
 	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
 	<script src="js/libs/zepto/zepto.min.js"></script>
@@ -39,6 +40,7 @@
 	</script>
 	<script src="js/settings.js"></script>
 	<script src="js/utils.js"></script>
+	<script src="js/localModel.js"></script>
 	<script src="js/models/menuData.js"></script>
 	<script src="js/models/order.js"></script>
 	<script src="js/models/shoppingCartData.js"></script>
@@ -61,6 +63,22 @@
 	<script src="js/pages/userInfoPage.js"></script>
 	<script src="js/router.js"></script>
 	<script>
+		// phonegap
+		myapp.PG.Event.onDeviceReady(function(){
+			console.log("phonegap load");
+    		window.phonegapEnabled = true;
+    		if(myapp.LocalModel) myapp.LocalModel.setPhoneUUID(myapp.PG.Device.getUUID());
+    		// android back key
+    		myapp.PG.Device.overrideBackButton();
+    		myapp.PG.Event.onBackKeyDown(function(){
+    			if(!window.enableBackButton) return;
+    			//TODO go back page, need to detect have to exit app or not
+    		});
+    		//TODO pause and resume
+    		//TODO native or web
+    		window.myapp.OrderTabView.prototype.useNative(true);
+		});
+		// start
 		$(document).ready(function () {
 			$('#backgroundLogo').remove();
 			var app_router = new myapp.Router;

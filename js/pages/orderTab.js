@@ -1,7 +1,10 @@
 // Filename: js/pages/orderTab.js
-(function(Utils, MenuData, Scroller, StoreBrief, AddressSelector){
+(function(Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector){
 	var tabTemplate = [
-			'<div class="AddressSelector"></div>',
+			'<div>', 
+				'<div class="AddressSelector"></div>',
+				'<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
+			'</div>',
 			'<div class="StoreList"></div>'
 	].join('');
 	
@@ -21,8 +24,26 @@
 			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
 			this.loadStore({'currentTarget':{'value': location}});
+			this.useNative(window.phonegapEnabled);
 		},
 		events: {
+			"click .CircleButton":"autoLocate"
+  		},
+  		autoLocate: function(){
+  			if(window.loadingPanel) window.loadingPanel.connectionOut();
+  			Geolocation.getCurrentPosition(function(location){
+    			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
+    				var addr = address.results[0].formatted_address;
+    				console.log(addr.substr(0,3));
+    				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			},function(error){
+    				console.log(error);
+    				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			});
+    		},function(error){
+    			console.log(error);
+    			if(window.loadingPanel) window.loadingPanel.connectionIn();
+    		});
   		},
   		loadStore: function(e) {
 			var location = e.currentTarget.value;
@@ -84,12 +105,20 @@
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
+		},
+		useNative: function(isNative){
+			if(isNative){
+				$(".CircleButton", this.el).css("display", "");
+			}else{
+				$(".CircleButton", this.el).css("display", "none");
+			}
 		}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.Utils,
+})(	window.myapp.PG.Geolocation,
+	window.myapp.Utils,
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
 	window.myapp.View.StoreBrief,

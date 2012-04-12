@@ -81,6 +81,7 @@
 			};
 			var pullDownAction = function(){
 				var orderHistory = new OrderHistory();
+				orderHistory.setAPI("getOrderHistory",{phoneId:myapp.LocalModel.getUUID()});
 				orderHistory.fetch({success:function(){
 					window.orderHistory = orderHistory;
 					// re-render order widget history list

@@ -1,11 +1,13 @@
 java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks \
 ./js/libs/phonegap/phonegap-ios.js \
+./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
 ./js/libs/zepto/zepto.min.js \
 ./js/libs/underscore/underscore-min.js \
 ./js/libs/backbone/backbone-min.js \
 ./js/libs/backbone/backbone-relational.js \
 ./js/libs/iscroll/iscroll.js \
+./js/localModel.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \
 ./js/settings.js \
