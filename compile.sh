@@ -1,4 +1,4 @@
-java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-8 --jscomp_off=internetExplorerChecks \
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks \
 ./js/libs/phonegap/phonegap-ios.js \
 ./js/libs/i18n/i18n-zakk.js \
 ./js/libs/zepto/zepto.min.js \
@@ -14,10 +14,13 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --charset=UTF-
 ./js/models/order.js \
 ./js/images.js \
 ./js/widget/scroller.js \
+./js/widget/addressSelector.js \
+./js/widget/loadingPanel.js \
 ./js/widget/accordion.js \
 ./js/views/storeBrief.js \
 ./js/views/productOption.js \
 ./js/views/productPanel.js \
+./js/views/shoppingCartPanel.js \
 ./js/pages/orderTab.js \
 ./js/pages/historyTab.js \
 ./js/pages/feedbackTab.js \

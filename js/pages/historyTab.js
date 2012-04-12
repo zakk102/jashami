@@ -61,6 +61,7 @@
 	var HistoryTabView = Backbone.View.extend({
 		initialize: function(){
 			var scroller = new Scroller();
+			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.el);
 			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
@@ -83,7 +84,7 @@
 				orderHistory.fetch({success:function(){
 					window.orderHistory = orderHistory;
 					// re-render order widget history list
-					accordion.claer();
+					accordion.clear();
 					_.each(orderHistory.models, function(m, index){
 						var header = _.template(orderHeaderTemplate, {send:new Date(m.get('submitDate')), want:new Date(m.get('wantDate')), ID: m.get('orderID'), status:m.get('status')});
 						var content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney')});
@@ -101,7 +102,15 @@
 			});
 			
 		},
+		events:{
+			"toggle .Accordion": "toggleCallback"
+		},
+		toggleCallback: function(){
+			this.scroller.render();
+		},
 		render: function(){
+			this.delegateEvents();
+			this.scroller.render();
 			return this;
 	    }
 	});
