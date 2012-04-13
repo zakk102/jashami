@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector){
+(function(Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div>', 
 				'<div class="AddressSelector"></div>',
@@ -10,10 +10,8 @@
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
 			
-			this.addressSelector = addressSelector;
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
@@ -21,9 +19,9 @@
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
-			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
-			this.useNative(window.phonegapEnabled);
+			//this.useNative(window.phonegapEnabled);
+			this.useNative(true);
 		},
 		events: {
 			"click .CircleButton":"autoLocate",
@@ -110,11 +108,20 @@
 			return this;
 		},
 		useNative: function(isNative){
+			var addressSelector;
 			if(isNative){
+				// address selector
+				addressSelector = new NativeAddressSelector();
+				// localization button
 				$(".CircleButton", this.el).css("display", "");
 			}else{
+				// address selector
+				addressSelector = new AddressSelector();
+				// localization button
 				$(".CircleButton", this.el).css("display", "none");
 			}
+			this.addressSelector = addressSelector;
+			$('.AddressSelector', this.el).html(addressSelector.render().el);
 		}
 	});
 	
@@ -125,4 +132,5 @@
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
 	window.myapp.View.StoreBrief,
-	window.myapp.Widget.AddressSelector);
+	window.myapp.Widget.AddressSelector,
+	window.myapp.Widget.NativeAddressSelector);

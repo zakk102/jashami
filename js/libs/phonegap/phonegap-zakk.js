@@ -1,6 +1,7 @@
 // phonegap plugins
 (function(){
 	PhoneGap.plugins = PhoneGap.plugins || {};
+	window.plugins = window.plugins || {}; // bug fix
 	
 	// http request
 	function HttpRequest() {};
@@ -13,6 +14,23 @@
 	PhoneGap.addConstructor(function() {
 		PhoneGap.plugins.httpRequest = new HttpRequest();
 	});	
+	
+	//picker
+	function Picker() {
+    	this._callback;
+	}
+	Picker.prototype.show = function(options, cb) {
+	    this._callback = cb;
+	    PhoneGap.exec("Picker.show", options);
+	}
+	Picker.prototype._selected = function(selectedValue) {
+	    if (this._callback)
+	        this._callback(selectedValue);
+	}
+	PhoneGap.addConstructor(function() {
+	    PhoneGap.plugins.picker = new Picker();
+	    window.plugins.picker = PhoneGap.plugins.picker; // bug fix
+	});
 })();
 
 // phonegap interface
@@ -73,6 +91,28 @@
 		});
 	};
 	
+	// Picker
+	var Picker = {};
+	PG.Picker = Picker;
+	/*
+	 * dependent: boolean, is dependent case or not
+	 * values: string array
+	 * setValues: string array
+	 * callback: slected callback
+	 * rect: (iPad only) int array, location of the popup
+	 */
+	Picker.showPicker = function(dependent, values, setValues, callback, rect){
+		var option = {};
+		option.dependent = dependent;
+		option.components = values;
+		option.setValues = setValues;
+		option.maximunWordsInLine = 24;
+		option.rect = rect;
+		
+		PGP.picker.show( option, function(selectedValue){
+			callback(selectedValue);
+		});
+	};
 	
 	window.myapp = window.myapp || {};
 	window.myapp.PG = PG;

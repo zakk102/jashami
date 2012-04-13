@@ -19,6 +19,8 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=i
 ./js/images.js \
 ./js/widget/scroller.js \
 ./js/widget/addressSelector.js \
+./js/widget/nativeSelector.js \
+./js/widget/nativeAddressSelector.js \
 ./js/widget/loadingPanel.js \
 ./js/widget/accordion.js \
 ./js/views/storeBrief.js \
