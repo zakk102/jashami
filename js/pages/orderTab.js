@@ -20,8 +20,8 @@
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
 			
-			//this.useNative(window.phonegapEnabled);
-			this.useNative(true);
+			this.useNative(window.phonegapEnabled);
+			//this.useNative(true);
 		},
 		events: {
 			"click .CircleButton":"autoLocate",
