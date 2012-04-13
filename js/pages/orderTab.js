@@ -10,10 +10,10 @@
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			var location = "110";
 			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
 			
+			this.addressSelector = addressSelector;
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
@@ -23,18 +23,19 @@
 			$(scroller.el).css('width', '100%');
 			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
-			this.loadStore({'currentTarget':{'value': location}});
 			this.useNative(window.phonegapEnabled);
 		},
 		events: {
-			"click .CircleButton":"autoLocate"
+			"click .CircleButton":"autoLocate",
+			"locationChange .AddressSelector":"locationChange"
   		},
   		autoLocate: function(){
+  			var that = this;
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
     				var addr = address.results[0].formatted_address;
-    				console.log(addr.substr(0,3));
+    				that.addressSelector.setSelection_zipcode(addr.substr(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
     			},function(error){
     				console.log(error);
@@ -45,11 +46,13 @@
     			if(window.loadingPanel) window.loadingPanel.connectionIn();
     		});
   		},
-  		loadStore: function(e) {
-			var location = e.currentTarget.value;
+  		locationChange: function(e){
+  			this.loadStore(e.data);
+  		},
+  		loadStore: function(zipcode) {
 			var that = this;
 			var menudata = new MenuData();
-			menudata.setAPI("getMenuByZipcode", {zipCode:location, isEditMode:false});
+			menudata.setAPI("getMenuByZipcode", {zipCode:zipcode, isEditMode:false});
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			menudata.fetch({success:function(){
 				if(window.loadingPanel) window.loadingPanel.connectionIn();

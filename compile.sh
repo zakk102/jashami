@@ -12,8 +12,10 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=i
 ./js/main.js \
 ./js/settings.js \
 ./js/utils.js \
+./js/models/addressAndZipcode.js \
 ./js/models/menuData.js \
 ./js/models/order.js \
+./js/models/shoppingCartData.js \
 ./js/images.js \
 ./js/widget/scroller.js \
 ./js/widget/addressSelector.js \
