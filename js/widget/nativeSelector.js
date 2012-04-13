@@ -3,7 +3,7 @@
 	var template = [
 		'<span>',
 			'<span class="selectedValue"></span>',
-			'<span style="background-image: url('+Images.ArrowDownIcon1+'); background-size: 100%; background-position: 50% 50%; "></span>',
+			'<span style="background-image: url('+Images.ArrowDownIcon2+'); background-size: 100%; background-position: 50% 50%; "></span>',
 		'</span>',
 	].join('');
 	
