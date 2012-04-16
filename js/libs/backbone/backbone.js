@@ -986,6 +986,7 @@
           fragment = this.getHash();
         }
       }
+      fragment = decodeURIComponent(fragment);
       if (!fragment.indexOf(this.options.root)) fragment = fragment.substr(this.options.root.length);
       return fragment.replace(routeStripper, '');
     },

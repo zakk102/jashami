@@ -2,10 +2,10 @@
 (function(i18n, ImageResource, TabViews){
 	var pageTemplate = [
 		'<div class="PageLeftPanel" style="display:block; position:absolute; width:200px; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms; -webkit-transform:translate3d(-100%, 0px, 0px);">',
-			'<div class="TabButton" href="orderTab"><div class="imgWrap"><img class="icon" src="/jashami3/css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('orderTab')+'</div>',
-			'<div class="TabButton" href="historyTab"><div class="imgWrap"><img class="icon" src="/jashami3/css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('historyTab')+'</div>',
-			'<div class="TabButton" href="feedbackTab"><div class="imgWrap"><img class="icon" src="/jashami3/css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('feedbackTab')+'</div>',
-			'<div class="TabButton" href="aboutUsTab"><div class="imgWrap"><img class="icon" src="/jashami3/css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('aboutUsTab')+'</div>',
+			'<div class="TabButton" href="orderTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('orderTab')+'</div>',
+			'<div class="TabButton" href="historyTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('historyTab')+'</div>',
+			'<div class="TabButton" href="feedbackTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('feedbackTab')+'</div>',
+			'<div class="TabButton" href="aboutUsTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('aboutUsTab')+'</div>',
 		'</div>',
 		'<div class="PageMainPanel" style="width:100%; height:100%; display:-webkit-box; -webkit-box-orient:vertical; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms;">',
 			'<div class="header">',

@@ -80,6 +80,7 @@
 				}
 			}
 			this.url = this.url.substring(0, this.url.length-1);
+//			this.url = "/jashami/testData/menuData";
 		},
 	    relations: [{
 	            type: Backbone.HasMany,

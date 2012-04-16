@@ -1,14 +1,14 @@
 // Filename: js/pages/orderTab.js
-(function(Utils, MenuData, Scroller, StoreBrief, AddressSelector){
+(function(Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
-			'<div class="AddressSelector"></div>'
-//			'<div id="container" class="clearfix masonry centered"></div>'
+			'<div>', 
+				'<div class="AddressSelector"></div>',
+				'<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
+			'</div>',
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			var location = "110";
-			var addressSelector = new AddressSelector({ model: {changeArea: this.loadStore} });
 			var scroller = new Scroller();
 			
 			this.scroller = scroller;
@@ -18,17 +18,38 @@
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
-			$('.AddressSelector', this.el).html(addressSelector.render().el);
 			
-			this.loadStore({'currentTarget':{'value': location}});
+			this.useNative(window.phonegapEnabled);
+			//this.useNative(true);
 		},
 		events: {
+			"click .CircleButton":"autoLocate",
+			"locationChange .AddressSelector":"locationChange"
   		},
-  		loadStore: function(e) {
-			var location = e.currentTarget.value;
+  		autoLocate: function(){
+  			var that = this;
+  			if(window.loadingPanel) window.loadingPanel.connectionOut();
+  			Geolocation.getCurrentPosition(function(location){
+    			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
+    				var addr = address.results[0].formatted_address;
+    				that.addressSelector.setSelection_zipcode(addr.substr(0,3));
+    				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			},function(error){
+    				console.log(error);
+    				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			});
+    		},function(error){
+    			console.log(error);
+    			if(window.loadingPanel) window.loadingPanel.connectionIn();
+    		});
+  		},
+  		locationChange: function(e){
+  			this.loadStore(e.data);
+  		},
+  		loadStore: function(zipcode) {
 			var that = this;
 			var menudata = new MenuData();
-			menudata.setAPI("getMenuByZipcode", {zipCode:location, isEditMode:false});
+			menudata.setAPI("getMenuByZipcode", {zipCode:zipcode, isEditMode:false});
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			menudata.fetch({success:function(){
 				if(window.loadingPanel) window.loadingPanel.connectionIn();
@@ -105,13 +126,31 @@
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
+		},
+		useNative: function(isNative){
+			var addressSelector;
+			if(isNative){
+				// address selector
+				addressSelector = new NativeAddressSelector();
+				// localization button
+				$(".CircleButton", this.el).css("display", "");
+			}else{
+				// address selector
+				addressSelector = new AddressSelector();
+				// localization button
+				$(".CircleButton", this.el).css("display", "none");
+			}
+			this.addressSelector = addressSelector;
+			$('.AddressSelector', this.el).html(addressSelector.render().el);
 		}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.Utils,
+})(	window.myapp.PG.Geolocation,
+	window.myapp.Utils,
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,
 	window.myapp.View.StoreBrief,
-	window.myapp.Widget.AddressSelector);
+	window.myapp.Widget.AddressSelector,
+	window.myapp.Widget.NativeAddressSelector);
