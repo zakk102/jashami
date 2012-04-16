@@ -11,7 +11,7 @@
 			'<div><img src="'+ImageResource.ArrowDownIcon1+'"/><div>數量</div></div>',
 			'<div><img src="'+ImageResource.ArrowDownIcon1+'"/><div>價錢</div></div>',
 		'</div>',
-		'<div id="orderList" style="background-color:rgba(255, 255, 255, 0.75) ; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div id="orderList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>',
 		'<div class="TotalMoneyPanel"><div>',
 			'<div>總共</div>',
