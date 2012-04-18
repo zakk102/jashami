@@ -1,0 +1,103 @@
+---
+
+title: Help
+category: docs
+layout: default
+toc:
+  - { title: Reporting bugs and issues, anchor: reporting_bugs_and_issues }
+  - { title: jQuery Masonry, anchor: jquery_masonry }
+  - { title: Additional resources, anchor: additional_resources }
+  - { title: Unloaded media and overlapping, anchor: unloaded_media_and_overlapping }
+  - { title: DOM ready, anchor: dom_ready }
+
+---
+
+Masonry is a fairly popular script. Chances are your issue has already been encountered by someone else.
+
+## Reporting bugs and issues
+
+[Report bugs and issues on GitHub](http://github.com/desandro/vanilla-masonry/issues).
+
+### Guidelines {: #issues-guidelines}
+
++ Look over open and closed issues before submitting yours.
++ Add a link to a live site with the bug. If the project is confidential, try re-creating it in [jsFiddle](http://jsfiddle.net).
+
+The issues tracker is for bugs and issues -- when Masonry doesn't work as expected. It is not for implementation issues -- when you are having trouble setting up Masonry. I am unable to personally help with implementation issues but [don't give up](http://metafizzy.co/blog/frustrated-stuck-tired-defeated/)!
+
+## jQuery Masonry
+
+[jQuery Masonry](http://masonry.desandro.com) is the original, more robust version of Masonry. Along with all the benefits of jQuery (easier DOM selection, document-ready function), it has several features missing from Vanilla Masonry:
+
++ jQuery animation
++ itemSelector option
++ Infinite scroll integration
++ imagesLoaded plugin
+
+Vanilla Masonry has the advantage of being lightweight, without any frame dependency, best suited for small applications. jQuery Masonry is better suited for larger, complex applications, when jQuery is already being used.
+
+## Additional resources
+
++ The [Metafizzy blog](http://metafizzy.co/blog/) has posts that cover specialized use cases
++ [Stack Overflow questions about Masonry](http://stackoverflow.com/search?q=masonry)
++ Other resources that are [like Masonry but not](http://www.delicious.com/desandro/likemasonrybutnot)
+
+## Unloaded media and overlapping
+
+The number one issue that pops up is overlapping content. This is most likely due to unloaded images.
+
+### On window load
+
+Masonry should be initialized on window load so that images are loaded first.
+
+{% highlight javascript %}
+
+window.onload = function() {
+  var wall = new Masonry( document.getElementById('container'), {
+    // options...
+  });
+};
+
+{% endhighlight %}
+
+[See Demo: Images](../demos/images.html).
+
+### Inline dimensions
+
+Or you can specify the width and height of images inline.
+
+{% highlight html %}
+
+<img src="img-file.jpg" width="280" height="160" />
+
+{% endhighlight %}
+
+If you’re using a PHP-based CMS, you can use the [getimagesize](http://php.net/manual/en/function.getimagesize.php) function.
+
+## DOM ready
+
+Instead of initializing Masonry with `window.onload`, you use a DOM ready script to kick things as soon as possible.
+
++ [DOMReady by Mark McDonnell](https://github.com/Integralist/DOMready)
++ [domready by Dustin Diaz](https://github.com/ded/domready)
++ See also [Paul Irish's lazyweb request for a DOMContentLoaded shim](https://github.com/paulirish/lazyweb-requests/issues/27)
+
+For example, with [DOMReady](https://github.com/Integralist/DOMready):
+
+{% highlight javascript %}
+
+DOMready( function() {
+  var wall = new Masonry( element, options );
+});
+
+{% endhighlight %}
+
+If you are targeting just modern browsers that support `DOMContentLoaded`:
+
+{% highlight javascript %}
+
+window.addEventListener( 'DOMContentLoaded', function() {
+  var wall = new Masonry( element, options );
+}, false );
+
+{% endhighlight %}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Introduction &middot; Vanilla Masonry</title>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  <link rel="stylesheet" href="../css/style.css" />
+  
+  <!-- scripts at bottom of page -->
+
+</head>
+<body class="docs ">
+  
+  <nav id="site-nav">
+    <h1><a href="../index.html">Vanilla Masonry</a></h1>
+    
+    <h2>Docs</h2>
+    
+    <ul class="docs-list">
+      
+        
+        <li class="current"><a href="#content">Introduction</a>
+          <ul class="toc">
+            
+            <li><a href="#getting_started">Getting started</a></li>
+            
+            <li><a href="#css_transitions">CSS transitions</a></li>
+            
+            <li><a href="#code_repository">Code repository</a></li>
+            
+            <li><a href="#acknowledgments">Acknowledgments</a></li>
+            
+            <li><a href="#changelog">Changelog</a></li>
+            
+            <li><a href="#license">License</a></li>
+            
+          </ul>
+        </li>
+        
+      
+        
+          
+            <li><a href="../docs/options.html">Options</a>
+          
+        
+      
+        
+          
+            <li><a href="../docs/methods.html">Methods</a>
+          
+        
+      
+        
+          
+            <li><a href="../docs/help.html">Help</a>
+          
+        
+      
+    </ul>
+
+    <h2>Demos</h2>
+    
+    <ul class="demos-list">
+      
+        
+          
+            <li><a href="../demos/basic-single-column.html">Basic single-column</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/basic-multi-column.html">Basic multi-column</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/images.html">Images</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/tumblelog.html">Tumblelog example</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/adding-items.html">Adding items</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/gutters.html">Gutters</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/right-to-left.html">Right-to-left</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/centered.html">Centered</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/fluid.html">Fluid</a>
+          
+        
+      
+    </ul>
+    
+  </nav> <!-- #site-nav -->
+  
+  <section id="content">
+    
+    
+      <h1>Introduction</h1>
+    
+    
+    <p>Masonry is a dynamic grid layout script. Think of it as the flip-side of CSS floats. Whereas floating arranges elements horizontally then vertically, Masonry arranges elements vertically, positioning each element in the next open spot in the grid. The result minimizes vertical gaps between elements of varying height, just like a mason fitting stones in a wall.</p>
+
+<p>You might have heard of <a href='http://masonry.desandro.com'>jQuery Masonry</a>, this is the framework-free version.</p>
+
+<h2 id='getting_started'>Getting started</h2>
+
+<h3 id='markup'>Markup</h3>
+
+<p>Masonry works on a container element with a group of similar child items.</p>
+<div class='highlight'><pre><code class='html'><span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;container&quot;</span><span class='nt'>&gt;</span>
+  <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;item&quot;</span><span class='nt'>&gt;</span>...<span class='nt'>&lt;/div&gt;</span>
+  <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;item&quot;</span><span class='nt'>&gt;</span>...<span class='nt'>&lt;/div&gt;</span>
+  <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;item&quot;</span><span class='nt'>&gt;</span>...<span class='nt'>&lt;/div&gt;</span>
+  ...
+<span class='nt'>&lt;/div&gt;</span>
+</code></pre>
+</div>
+<p>Add the Masonry script.</p>
+<div class='highlight'><pre><code class='html'><span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/path/to/masonry.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+</code></pre>
+</div>
+<h3 id='css'>CSS</h3>
+
+<p>All sizing of items is handled by your CSS. Items should be floated.</p>
+<div class='highlight'><pre><code class='css'><span class='nc'>.item</span> <span class='p'>{</span>
+  <span class='k'>width</span><span class='o'>:</span> <span class='m'>220px</span><span class='p'>;</span>
+  <span class='k'>margin</span><span class='o'>:</span> <span class='m'>10px</span><span class='p'>;</span>
+  <span class='k'>float</span><span class='o'>:</span> <span class='k'>left</span><span class='p'>;</span>
+<span class='p'>}</span>
+</code></pre>
+</div>
+<h3 id='script'>Script</h3>
+
+<p>Initialize a Masonry instance with <code>new Masonry( element, options )</code>. The Masonry constructor accepts two arguments.</p>
+
+<ol>
+<li>The container element</li>
+
+<li>An options object</li>
+</ol>
+
+<p>Set <code>columnWidth</code> to set the width of columns in the layout grid. There are a number of other <a href='options.html'>options</a> you can specify.</p>
+<div class='highlight'><pre><code class='javascript'><span class='nb'>window</span><span class='p'>.</span><span class='nx'>onload</span> <span class='o'>=</span> <span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
+  <span class='kd'>var</span> <span class='nx'>wall</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>Masonry</span><span class='p'>(</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span><span class='p'>(</span><span class='s1'>&#39;container&#39;</span><span class='p'>),</span> <span class='p'>{</span>
+    <span class='nx'>columnWidth</span><span class='o'>:</span> <span class='mi'>240</span>
+  <span class='p'>});</span>
+<span class='p'>};</span>
+</code></pre>
+</div>
+<p>That&#8217;s it!</p>
+
+<p><a href='../demos/basic-multi-column.html'><strong>See Demo: Basic multi-column</strong></a></p>
+
+<h2 id='css_transitions'>CSS transitions</h2>
+
+<p>You can animate layout rearrangements on CSS3 transitions. In your CSS, add transition styles below. The Masonry plugin will add a class of <code>masonry</code> to the container after the first arrangement so transitions can be applied afterward. Item elements will have a class of <code>masonry-brick</code> added.</p>
+<div class='highlight'><pre><code class='css'><span class='c'>/**** Transitions ****/</span>
+
+<span class='nc'>.masonry</span><span class='o'>,</span>
+<span class='nc'>.masonry</span> <span class='nc'>.masonry-brick</span> <span class='p'>{</span>
+  <span class='o'>-</span><span class='n'>webkit</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>duration</span><span class='o'>:</span> <span class='m'>0.7s</span><span class='p'>;</span>
+     <span class='o'>-</span><span class='n'>moz</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>duration</span><span class='o'>:</span> <span class='m'>0.7s</span><span class='p'>;</span>
+      <span class='o'>-</span><span class='n'>ms</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>duration</span><span class='o'>:</span> <span class='m'>0.7s</span><span class='p'>;</span>
+       <span class='o'>-</span><span class='err'>o</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>duration</span><span class='o'>:</span> <span class='m'>0.7s</span><span class='p'>;</span>
+          <span class='n'>transition</span><span class='o'>-</span><span class='n'>duration</span><span class='o'>:</span> <span class='m'>0.7s</span><span class='p'>;</span>
+<span class='p'>}</span>
+
+<span class='nc'>.masonry</span> <span class='p'>{</span>
+  <span class='o'>-</span><span class='n'>webkit</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>width</span><span class='o'>,</span> <span class='k'>height</span><span class='p'>;</span>
+     <span class='o'>-</span><span class='n'>moz</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>width</span><span class='o'>,</span> <span class='k'>height</span><span class='p'>;</span>
+      <span class='o'>-</span><span class='n'>ms</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>width</span><span class='o'>,</span> <span class='k'>height</span><span class='p'>;</span>
+       <span class='o'>-</span><span class='err'>o</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>width</span><span class='o'>,</span> <span class='k'>height</span><span class='p'>;</span>
+          <span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>width</span><span class='o'>,</span> <span class='k'>height</span><span class='p'>;</span>
+<span class='p'>}</span>
+
+<span class='nc'>.masonry</span> <span class='nc'>.masonry-brick</span> <span class='p'>{</span>
+  <span class='o'>-</span><span class='n'>webkit</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>left</span><span class='o'>,</span> <span class='k'>right</span><span class='o'>,</span> <span class='k'>top</span><span class='p'>;</span>
+     <span class='o'>-</span><span class='n'>moz</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>left</span><span class='o'>,</span> <span class='k'>right</span><span class='o'>,</span> <span class='k'>top</span><span class='p'>;</span>
+      <span class='o'>-</span><span class='n'>ms</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>left</span><span class='o'>,</span> <span class='k'>right</span><span class='o'>,</span> <span class='k'>top</span><span class='p'>;</span>
+       <span class='o'>-</span><span class='err'>o</span><span class='o'>-</span><span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>left</span><span class='o'>,</span> <span class='k'>right</span><span class='o'>,</span> <span class='k'>top</span><span class='p'>;</span>
+          <span class='n'>transition</span><span class='o'>-</span><span class='n'>property</span><span class='o'>:</span> <span class='k'>left</span><span class='o'>,</span> <span class='k'>right</span><span class='o'>,</span> <span class='k'>top</span><span class='p'>;</span>
+<span class='p'>}</span>
+</code></pre>
+</div>
+<h2 id='code_repository'>Code repository</h2>
+
+<p>This project lives on GitHub at <a href='http://github.com/desandro/vanilla-masonry'>github.com/desandro/vanilla-masonry</a>. There you can grab the latest code and follow development.</p>
+
+<h2 id='acknowledgments'>Acknowledgments</h2>
+
+<p>My thanks go out to following developers, whose work was integral in making Masonry lightweight and cross-browser compatible.</p>
+
+<ul>
+<li><a href='http://dustindiaz.com/'><strong>Dustin Diaz</strong></a> for add/remove class function in <a href='https://github.com/ded/bonzo'>bonzo</a></li>
+
+<li><a href='http://jquery.org/team/'><strong>The jQuery team</strong></a> for the <code>getWH</code> helper function within jQuery</li>
+
+<li><strong>John Hann</strong> for <a href='http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/'>debouncing methods</a></li>
+
+<li><strong>John Resig</strong> for <a href='http://ejohn.org/projects/flexible-javascript-events/'>cross-browser addEvent &amp; removeEvent functions</a></li>
+
+<li><strong>Mike Sherov</strong> for his fix to resolve <a href='https://github.com/jquery/jquery/pull/616'>measuring percent margins in WebKit</a></li>
+</ul>
+
+<h2 id='changelog'>Changelog</h2>
+<dl>
+  <dt>v1.0: Dec 2011</dt>
+    <dd>Original release</dd>
+</dl>
+<h2 id='license'>License</h2>
+
+<p>Vanilla Masonry is licensed under the MIT license. It may be used for personal and commercial applications.</p>
+<div class='license-copy'>
+  <h3>The MIT License</h3>
+  <p>Copyright &copy; 2011 David DeSandro</p>
+  <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+  <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+  <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</div>
+    
+    <footer id="site-footer">
+      Vanilla Masonry by <a href="http://desandro.com">David DeSandro</a>
+    </footer>
+    
+  </section> <!-- #content -->
+
+</body>
+</html>

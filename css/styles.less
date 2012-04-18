@@ -28,28 +28,100 @@
   // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
 }
 
+//==============================================================
+// disable dragging of images, text selection and tap highlighting
+//==============================================================
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* this will work for QtWebKit in future */
+  -webkit-user-drag: none;
+}
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); }
 
+/****** css reset ********/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 62.5%; /* 1em = 10px */
+  font: inherit;
+  vertical-align: middle;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+ol, ul {
+  list-style: disc;
+}
+img{ outline:none ; }
+select{
+  cursor: pointer;
+  -webkit-appearance: menulist-button;
+  left: 0;
+  top: 0;
+  height: 3em;
+  -webkit-tap-highlight-color: rgba(0,0,0,0); 
+  min-width:7em;
+}
 
 
 
 body{
   position: absolute;
   margin: 0; 
-  padding: 0; 
-  background-image: url(pic/back-w.jpg); 
-  background-size: 100%; 
+  padding: 0;
+  // background-image: url(../pic/back-w.jpg); 
+  // background-size: 100%; 
+  background: url(../pic/seamlesspaper1_320.jpg) repeat scroll 0 0; 
   height: 100%; 
   width: 100%; 
 }
 
+//==============================================================
+// Constants
+//==============================================================
+
 @color-header-gray: rgb(243,244,239);
 @color-logo-orange: rgb(223,74,10);
 
-//======Widget: Button
+//==============================================================
+// Widgets
+//==============================================================
+//--Button
 @button-height: 2.0em;
 @button-width: 2.5em;
 @button-color:silver;
-.button-rounded (@color: silver){ 
+.button-flat(@color: silver){ 
+  text-align:center;
+  height:@button-height;
+  width:@button-width;
+  line-height: @button-height;
+  display: block;
+  color: @color*0.5;
+  border-style:outset;
+  // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
+  &:active{
+      color:@button-color*1.5;
+  }
+}
+.button-convex-rounded (@color: silver){ 
   text-align:center;
   height:@button-height;
   width:@button-width;
@@ -59,9 +131,13 @@ body{
   color: @color*0.5;
   // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
   .linear-gradient(bottom, @color 10%, @color*1.5 50%);
+  &:active{
+      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
+      color:@button-color*1.5;
+  }
 }
 
-//======Widget: Arrow
+//--Arrow
 @diamond-height:@button-height/1.36;//< 1/1.414 since rounded-corner
 .diamond-rounded (@color: silver){
   height:@diamond-height;
@@ -69,16 +145,18 @@ body{
   .linear-gradient(right bottom, @color 10%, @color*1.5 50%);
   .border-radius;
   -webkit-transform: rotate(45deg);
-  // &:active{
-      // .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
-      // color:@button-color*1.5;
-  // }
+  &:active{
+      .linear-gradient(right bottom, @button-color*0.8 50%, @button-color*1.3 90%);
+      color:@button-color*1.5;
+  }
 }
 
+//--Hearder
 .header {
   -webkit-box-orient: vertical;
 
   .top {
+    display:none;
     position:relative;
     height:0.4em;
     background-color:@color-logo-orange;
@@ -93,7 +171,11 @@ body{
     z-index: 11;
     @height-header:3em;
     height:@height-header;
-    .linear-gradient(bottom, @color-logo-orange 0%, @color-logo-orange*1.5 63%, @color-logo-orange 100%);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color:@color-logo-orange*2;
+    .linear-gradient(bottom, @color-logo-orange 10%, @color-logo-orange*1.5 90%);
+    box-shadow: 0px 0px 10px black;
     color: #fff;
     font-weight:bold;
     line-height:35px;
@@ -107,14 +189,19 @@ body{
       @width:@height-header*1.5;
       width:@width;
       .Button {
-        .button-rounded(@button-color);
+        .button-convex-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
         left:50%;
         margin-left:-@button-width/2;
         .ButtonMsg{
-          padding-right:0.3em;
+          height:100%;
+          // width:80%;
+          // padding-right:0.5m;
+          background-image:url('bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_114_list.png');
+          background-repeat:no-repeat;
+          background-position:center; 
         }
       }
       .Pointer {
@@ -140,7 +227,7 @@ body{
       @width:@height-header*1.5;
       width:@width;
       .Button {
-        .button-rounded(@button-color);
+        .button-convex-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
@@ -174,6 +261,7 @@ body{
   }
   
   .bottom {
+    display:none;
     position:relative;
     height:0.2em;
     background-color:@color-logo-orange;
@@ -181,6 +269,84 @@ body{
   }
   
 }
+
+//==============================================================
+// Panel
+//==============================================================
+
+.PageLeftPanel{
+  z-index:10;
+  height:100%;
+  background:rgba(50,50,50,0.9);
+  // box-shadow:2px 0px 13px black;
+  .TabButton{
+    display:-webkit-box;
+    -webkit-box-orient:horizontal;
+    -webkit-box-pack:left;
+    -webkit-box-align:center;
+    height:2em;
+    
+    .imgWrap {
+      .icon{
+        padding: 0em 0.5em 0.1em 0.5em;
+        height: 1em;
+      }
+    }
+    // text-align:left;
+    // line-height:@button-height;
+    width:100%;
+    // vertical-align: middle;
+    border-bottom-style: groove;
+    border-bottom-width: 2px;
+    border-bottom-color: gray;
+    color:white;
+    &:active{
+      background-color:#202020;
+      border-bottom-style: ridge;
+      border-bottom-color: #202020;
+    }
+  }
+}
+
+//==============================================================
+// Panel: StoreList
+//==============================================================
+
+.StoreList{
+  
+  .StoreBriefWidget3{
+    background:white;
+    
+    .storeBriefWrap{
+      margin: 0.5em;
+      
+      .storeImg{
+        width:100%;
+      }
+    }
+  }
+}
+
+//==============================================================
+// Pinterest-like layout: Masonry
+//==============================================================
+.item {
+  width: 300px;
+  margin: 10px;
+  float: left;
+}
+
+.centered {
+margin: 0 auto;
+}
+
+//==============================================================
+// Clearfix: the height of the parent of a floating grid
+//==============================================================
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
 // 
 // .HeaderPanel > div:nth-child(2) > div{
   // font-size:1.3em;

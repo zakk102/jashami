@@ -4,7 +4,7 @@
 		initialize: function(){
 			$(this.el).addClass('Accordion');
 		},
-		claer: function(){
+		clear: function(){
 			$(this.el).empty();
 		},
 		add: function(header, content){
@@ -14,7 +14,7 @@
 			$(h).addClass('AccordionHeader');
 			$(c).addClass('AccordionContent');
 			$(container).addClass('Collapse');
-			$(c).height(0);
+			$(c).css('height','0px');
 			$(h).html(header);
 			$(c).html(content);
 			$(container).append(h);
@@ -22,14 +22,14 @@
 			this.$el.append(container);
 		},
 		toggleAccordionStack: function(e){
-			console.log(e);
 			var stack = e.currentTarget.parentNode;
 			$(stack).toggleClass('Collapse');
 			$(stack).toggleClass('Expand');
 			var content = $(stack).children('.AccordionContent');
-			console.log(content.offset());
 			if($(stack).hasClass('Expand')) content.css('height', 'auto');
 			else content.css('height','0px');
+			
+			this.$el.trigger("toggle");
 		},
 		events: {
 			"click .AccordionHeader":"toggleAccordionStack"

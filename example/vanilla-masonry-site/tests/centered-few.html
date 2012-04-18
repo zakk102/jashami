@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Centered few &middot; Vanilla Masonry</title>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  <link rel="stylesheet" href="../css/style.css" />
+  
+  <!-- scripts at bottom of page -->
+
+</head>
+<body class="tests ">
+  
+  <nav id="site-nav">
+    <h1><a href="../index.html">Vanilla Masonry</a></h1>
+    
+    <h2>Docs</h2>
+    
+    <ul class="docs-list">
+      
+        
+          
+            <li><a href="../docs/intro.html">Introduction</a>
+          
+        
+      
+        
+          
+            <li><a href="../docs/options.html">Options</a>
+          
+        
+      
+        
+          
+            <li><a href="../docs/methods.html">Methods</a>
+          
+        
+      
+        
+          
+            <li><a href="../docs/help.html">Help</a>
+          
+        
+      
+    </ul>
+
+    <h2>Demos</h2>
+    
+    <ul class="demos-list">
+      
+        
+          
+            <li><a href="../demos/basic-single-column.html">Basic single-column</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/basic-multi-column.html">Basic multi-column</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/images.html">Images</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/tumblelog.html">Tumblelog example</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/adding-items.html">Adding items</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/gutters.html">Gutters</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/right-to-left.html">Right-to-left</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/centered.html">Centered</a>
+          
+        
+      
+        
+          
+            <li><a href="../demos/fluid.html">Fluid</a>
+          
+        
+      
+    </ul>
+    
+  </nav> <!-- #site-nav -->
+  
+  <section id="content">
+    
+    
+      <h1>Centered few</h1>
+    
+    
+    <div id="copy">
+  <p>When there's only a couple items, the container should shrink to fit the layout, and not leave any empty columns.</p>
+</div>
+
+<div id="container" class="centered clearfix">
+
+  <div class="box col2">
+    <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+    <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+    <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+  </div>
+
+  <div class="box col2">
+    <p>Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+    <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+  </div>
+
+  <div class="box col2">
+    <p>Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+    <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+  </div>
+
+  <div class="box col4">
+    <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+  </div>
+
+</div> <!-- #container -->
+
+
+<script src="../masonry.min.js"></script>
+<script>
+  window.onload = function() {
+    var wall = new Masonry( document.getElementById('container'), {
+      columnWidth: 100,
+      isFitWidth: true
+    });
+  }
+</script>
+
+    
+    <footer id="site-footer">
+      Vanilla Masonry by <a href="http://desandro.com">David DeSandro</a>
+    </footer>
+    
+  </section> <!-- #content -->
+
+</body>
+</html>
