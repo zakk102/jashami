@@ -4,7 +4,7 @@
 	var template = [
 		'<div class="OptionPanel WebOptionPanel">',
 			'<div class="OptionTitle"><%= title %>：</div>',
-			'<select class="<%= type %>">',
+			'<select class="<%= type %>" key="<%= title %>">',
 			'<% for(var key in options){ %>',
 				'<% var text = options[key]>0?key+" + "+options[key]+"元":key; %>',
 				'<option value="<%= key %>"><%= text %></option>',
