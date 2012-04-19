@@ -1,4 +1,19 @@
-{"stores":[
+{"zipCodeIndexs":[
+	{
+		"zipCode": 113,
+		"stores":[
+			{ "storeNameId": "五十嵐市政府店" },
+			{ "storeNameId": "三元喜事大龍峒店" }
+		]
+	},{
+		"zipCode": 112,
+		"stores":[
+			{ "storeNameId": "五十嵐市政府店" },
+			{ "storeNameId": "三元喜事大龍峒店" }
+		]
+	}
+],
+"stores":[
 	{
 		"chainStore": "五十嵐",
 		"index": "01-01",

@@ -37,7 +37,7 @@
 		events:{
 			"click .PageContent":"hideFunctionPanel",
 			"click .BackButton":"toggleFunctionPanel",
-			"click .PageLeftPanel div":"toTab2"
+			"click .PageLeftPanel .TabButton":"toTab2"
 		},
 		render: function(){
 			return this;
