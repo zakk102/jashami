@@ -17,28 +17,28 @@
   		},
   		onMouseOut: function(e){
   			this._clickStart = false;
-	    	$(this.el).removeClass('Pressed');
+	    	$(this.el).removeClass('active');
   		},
   		mouseDown: function(e){
-  			e.preventDefault();
-			e.stopPropagation();
+//  			e.preventDefault();
+//			e.stopPropagation();
   			this.start(e.clientX, e.clientY);
   		},
   		touchStart: function(e){
-  			e.preventDefault();
-  			e.stopPropagation();
+//  			e.preventDefault();
+//  			e.stopPropagation();
   			this.start(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
-  			var target = e.target
+/*  			var target = e.target
   			while(!target.tagName) target=target.parentElement;
   			var rect = target.getBoundingClientRect();
   			this.topLeftX = rect.left;
   			this.topLeftY = rect.top;
   			this.bottomRightX = rect.left + target.clientWidth;
-  			this.bottomRightY = rect.top + target.clientHeight;
+  			this.bottomRightY = rect.top + target.clientHeight;*/
   		},
   		touchMove: function(e){
-  			e.preventDefault();
-  			e.stopPropagation();
+//  			e.preventDefault();
+//  			e.stopPropagation();
  /*
   			var target = e.target
   			while(!target.tagName) target=target.parentElement;
@@ -53,22 +53,22 @@
 	  				this._clickStart = false;
 		    		$(this.el).removeClass('Pressed');
 	  			}
-*/
+
 			var ex = e.changedTouches[0].pageX;
 	  		var ey = e.changedTouches[0].pageY;
 			if(ex<this.topLeftX || ex>this.bottomRightX || ey<this.topLeftY || ey>this.bottomRightY){
   				this._clickStart = false;
-	    		$(this.el).removeClass('Pressed');
-  			}
+	    		$(this.el).removeClass('active');
+  			}*/
   		},
   		mouseUp: function(e){
-  			e.preventDefault();
-			e.stopPropagation();
+//  			e.preventDefault();
+//			e.stopPropagation();
   			this.end(e.clientX, e.clientY);
   		},
   		touchEnd: function(e){
-  			e.preventDefault();
-  			e.stopPropagation();
+//  			e.preventDefault();
+//  			e.stopPropagation();
   			this.end(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
   		},
   		start: function(x, y){
@@ -76,9 +76,9 @@
 	    		this._lastX = x;
 				this._lastY = y;
 	            this._clickStart = true;
-	            if(this.changeColorWhenTouch){ 
-	            	$(this.el).addClass('Pressed');
-	            }
+//	            if(this.changeColorWhenTouch){ 
+	            	$(this.el).addClass('active');
+//	            }
     		}
   		},
 /*  		move: function(x, y){
@@ -99,11 +99,11 @@
   			if (this._isEnabled && x!=null && y!=null) {
 	    		this._lastX = null;
 	    		this._lastY = null;
-	    		if(this._clickStart){
-	    			$(this.el).trigger('clickByTouch');
-	    		}
+//	    		if(this._clickStart){
+//	    			$(this.el).trigger('clickByTouch');
+//	    		}
 	    		this._clickStart = false;
-	    		$(this.el).removeClass('Pressed');
+	    		$(this.el).removeClass('active');
     		}
   		}
 	});

@@ -34,6 +34,7 @@
 	<script src="js/localModel.js"></script>
 	<script src="js/i18n/zh-tw.js"></script>
 	<script>
+	window.phonegapEnabled = true;
 		var supportedLang = 'zh-tw';
 		var defaultLang = 'zh-tw';
 		var language = window.navigator.userLanguage || window.navigator.language || defaultLang;
@@ -48,6 +49,7 @@
 	<script src="js/models/order.js"></script>
 	<script src="js/models/shoppingCartData.js"></script>
 	<script src="js/images.js"></script>
+	<script src="js/widget/touchWidget.js"></script>
 	<script src="js/widget/scroller.js"></script>
 	<script src="js/widget/addressSelector.js"></script>
 	<script src="js/widget/nativeSelector.js"></script>
@@ -71,7 +73,6 @@
 		// phonegap
 		myapp.PG.Event.onDeviceReady(function(){
 			console.log("phonegap load");
-    		window.phonegapEnabled = true;
     		if(myapp.LocalModel) myapp.LocalModel.setPhoneUUID(myapp.PG.Device.getUUID());
     		// android back key
     		myapp.PG.Device.overrideBackButton();
@@ -81,7 +82,7 @@
     		});
     		//TODO pause and resume
     		//TODO native or web
-    		window.myapp.OrderTabView.prototype.useNative(true);
+    		window.myapp.OrderTabView.prototype.useNative(window.phonegapEnabled);
 		});
 		// start
 		$(document).ready(function () {
@@ -91,6 +92,7 @@
 		});
 	</script>
 </head>
+
 <body>
 	<script src="js/libs/masonry/masonry.min.js"></script>
 	<div id="backgroundLogo" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width=100%; height=100%;background: url(pic/white_logo.png) no-repeat center center fixed;background-size:240px;"></div>
