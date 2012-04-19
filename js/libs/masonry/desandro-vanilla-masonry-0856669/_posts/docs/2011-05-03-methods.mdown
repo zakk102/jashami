@@ -1,0 +1,123 @@
+---
+
+title: Methods
+category: docs
+layout: default
+toc:
+  - { title: appended, anchor: appended }
+  - { title: build, anchor: build }
+  - { title: destroy, anchor: destroy }
+  - { title: layout, anchor: layout }
+  - { title: reloadItems, anchor: reloaditems }
+  - { title: reload, anchor: reload }
+
+---
+
+Masonry offers several methods to extend functionality. Methods are called on an Masonry instance
+
+{% highlight javascript %}
+
+// wall is an instance of Masonry
+var wall = new Masonry( element, options );
+// reload is a method
+wall.reload();
+
+{% endhighlight %}
+
+
+## appended
+
+{% highlight javascript %}
+
+masonryInstance.appended( [elements], isAnimatedFromBottom );
+
+{% endhighlight %}
+
+Triggers `.layout()` on an array of item elements that have been appended to the container. Setting the `isAnimatedFromBottom` argument to <code><span class="kc">true</span></code> will enable the newly appended items to be animated from the bottom, if [CSS transitions](intro.html#css_transitions) are enabled.
+
+[See Demo: Adding items](../demos/adding-items.html).
+
+{% highlight javascript %}
+
+var container = document.getElementById('container'),
+    item1 = document.createElement('div'),
+    item2 = document.createElement('div');
+
+var wall = new Masonry( container, { columnWidth: 100 });
+
+container.appendChild( item1 );
+container.appendChild( item2 );
+
+wall.appended( [ item1, item2 ] );
+
+{% endhighlight %}
+
+## build
+
+{% highlight javascript %}
+
+masonryInstance.build();
+
+{% endhighlight %}
+
+Positions all items in the Masonry instance.
+
+## destroy
+
+{% highlight javascript %}
+
+masonryInstance.destroy();
+
+{% endhighlight %}
+
+Removes Masonry functionality completely. Returns element back to pre-initialized state.
+
+## layout
+
+{% highlight javascript %}
+
+masonryInstance.layout( [elements] );
+
+{% endhighlight %}
+
+Positions an array of item elements in layout.
+
+`.layout()` will only position specified elements, and those elements will be positioned at the end of layout. Whereas `.build()` will position all items in the Masonry instance.
+
+## reloadItems
+
+{% highlight javascript %}
+
+masonryInstance.reloadItems()
+
+{% endhighlight %}
+
+Re-collects all item elements in their current order in the DOM for the masonry instance.
+
+## reload
+
+{% highlight javascript %}
+
+masonryInstance.reload()
+
+{% endhighlight %}
+
+Convenience method for triggering `.reloadItems()` then `.build()`. Useful for prepending or inserting items.
+
+[See Demo: Adding items](../demos/adding-items.html).
+
+{% highlight javascript %}
+
+var container = document.getElementById('container'),
+    item1 = document.createElement('div'),
+    item2 = document.createElement('div');
+
+var wall = new Masonry( container, { columnWidth: 100 });
+
+container.insertBefore( item1, container.firstChild );
+container.insertBefore( item2, container.firstChild );
+
+wall.reload();
+
+{% endhighlight %}
+

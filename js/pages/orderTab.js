@@ -5,7 +5,6 @@
 				'<div class="AddressSelector"></div>',
 				'<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
 			'</div>',
-			'<div class="StoreList"></div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
@@ -15,7 +14,7 @@
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.render().el);
-			$(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
+			// $(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
@@ -82,15 +81,36 @@
 						}
 					}
 				};
+				
+				if(!that.masonry){
+					var ele = document.createElement('div');
+					$(ele).addClass('StoreList clearfix masonry centered');
+					$(that.scroller.content).append(ele);
+				}
+				
 				stores.sort();
 				$('.StoreList', that.el).empty();
+				//test
+				that._itemCount = stores.models.length;
+				that._loadedImg = 0;
 				_.each(stores.models, function(m, index){
 					var storeBrief = new StoreBrief({model:m});
 					$('.StoreList', that.el).append(storeBrief.render().el);
 				});
+				
 				//re-fresh the scroller to know the new size of the scroller
 				$('img', this.el).bind('load', function(){
-					that.scroller.render();
+					that._loadedImg ++;
+					if(that._loadedImg==that._itemCount){
+						if(!that.masonry){
+						var wall = new Masonry( ele, {
+					    	isFitWidth: true,
+					    	isResizable: true
+						});
+					that.masonry = wall;
+				}
+						that.scroller.render();
+					}
 				});
 				that.scroller.render();
 			},function(xhr, type){

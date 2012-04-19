@@ -1,0 +1,110 @@
+---
+
+title: Options
+category: docs
+layout: default
+body_class: options
+toc :
+  - { title: columnWidth, anchor: columnwidth }
+  - { title: gutterWidth, anchor: gutterwidth }
+  - { title: isFitWidth, anchor: isfitwidth }
+  - { title: isResizable, anchor: isresizable }
+  - { title: isRTL, anchor: isrtl }
+
+---
+
+Options are set with an object as the second argument to the `Masonry` constructor. All options are optional, and do not need to be set, but [`columnWidth`](#columnwidth) is recommended.
+
+{% highlight javascript %}
+
+window.onload = function() {
+  // initialize Masonry instance
+  var wall = new Masonry( document.getElementById('container'), {
+    // options...
+    columnWidth: 240,
+    gutterWidth: 20,
+    isFitWidth: true
+  });
+  // change an option after initialization
+  wall.options.columnWidth = 200;
+};
+
+{% endhighlight %}
+
+<dl class="header clearfix">
+  <dt><code>option</code></dt>
+  <dd class="option-type">Type</dd>
+  <dd class="default">Default</dd>
+</dl>
+
+## columnWidth
+
+<dl class="clearfix">
+  <dt><code>columnWidth</code></dt>
+  <dd class="option-type">Integer or Function</dd>
+</dl>
+
+Width in pixels of 1 column of your grid. If no columnWidth is specified, Masonry uses the width of the first item element. **Recommended** if your layout has item elements that have multiple-column widths.
+
+[See Demo: Basic multi-column](../demos/basic-multi-column.html).
+
+To set a dynamic column width, you can pass in a function that returns the value column width. The function provides an argument for the width of the container. Use this technique for fluid or responsive layouts.
+
+{% highlight javascript %}
+
+var wall = new Masonry( document.getElementById('container'), {
+  // dynamically set column width to 1/5 the width of the container
+  columnWidth: function( containerWidth ) {
+    return containerWidth / 5;
+  }
+});
+
+{% endhighlight %}
+
+[See Demo: Fluid](../demos/fluid.html).
+
+## gutterWidth
+
+<dl class="clearfix">
+  <dt><code>gutterWidth</code></dt>
+  <dd class="option-type">Integer</dd>
+  <dd class="default"><code><span class="mi">0</span></code></dd>
+</dl>
+
+Adds additional spacing between columns.
+
+[See Demo: Gutters](../demos/gutters.html).
+
+## isFitWidth
+
+<dl class="clearfix">
+  <dt><code>isFitWidth</code></dt>
+  <dd class="option-type">Boolean</dd>
+  <dd class="default"><code><span class="kc">false</span></code></dd>
+</dl>
+
+If enabled, Masonry will size the width of the container to the nearest column. When enabled, Masonry will measure the width of the container's parent element, not the width of the container. This option is ideal for centering Masonry layouts.
+
+[See Demo: Centered](../demos/centered.html).
+
+## isResizable
+
+<dl class="clearfix">
+  <dt><code>isResizable</code></dt>
+  <dd class="option-type">Boolean</dd>
+  <dd class="default"><code><span class="kc">true</span></code></dd>
+</dl>
+
+Triggers layout logic when browser window is resized.
+
+## isRTL
+
+<dl class="clearfix">
+  <dt><code>isRTL</code></dt>
+  <dd class="option-type">Boolean</dd>
+  <dd class="default"><code><span class="kc">false</span></code></dd>
+</dl>
+
+Enables right-to-left layout for languages like Hebrew and Arabic.
+
+[See Demo: Right-to-left](../demos/right-to-left.html).

@@ -6,7 +6,7 @@
 			'<div id="title"></div>',
 			'<div></div>',
 		'</div>',
-		'<div id="storeContent" style="background-color:rgba(255, 255, 255, 0.75) ; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div id="storeContent" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 //			'<div id="productPanel" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
 //			'<div id="" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
 		'</div>',

@@ -6,7 +6,7 @@
 			'<div id="title"></div>',
 			'<div></div>',
 		'</div>',
-		'<div id="userinfoList" style="background-color:rgba(255, 255, 255, 0.75) ; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div id="userinfoList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>'
 	].join('');
 	
