@@ -68,6 +68,23 @@
 		return d;
 	}
 	
+// device type	
+	Utils.DeviceType = {'Other':1, 'Android':2, 'iPhone':3, 'iPod':4, 'iPad':5};
+	Utils.DeviceType.getDeviceType = function(){
+		var userAgent = window.navigator.userAgent.toLocaleLowerCase();
+		if(userAgent.indexOf("android")>=0){
+			return this.Android;
+		}else if (userAgent.indexOf("ipod")>=0){
+			return this.iPod;
+		}else if(userAgent.indexOf("ipad")>=0){
+			return this.iPad;
+		}else if(userAgent.indexOf("iphone")>=0) {
+			return this.iPhone;
+		}else {
+			return this.Others;
+		}
+	};
+	
 	window.myapp = window.myapp || {};
 	window.myapp.Utils = Utils;
 })();

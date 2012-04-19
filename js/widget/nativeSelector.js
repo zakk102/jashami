@@ -1,5 +1,5 @@
 // Filename: js/widget/Selector.js
-(function(Images, Picker){
+(function(Utils, DeviceType, Images, Picker){
 	var template = [
 		'<span>',
 			'<span class="selectedValue"></span>',
@@ -31,8 +31,21 @@
 					that.updateDisplay();
 					that.$el.trigger("selectionChange", that.getSelectedValues());
 				};
-				//TODO iPad version
-				Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback);
+				if(DeviceType.getDeviceType()==DeviceType.iPad){// iPad version
+					var ele = that.el;
+					var x = Utils.getAbsoluteLeft(ele);
+					var y = Utils.getAbsoluteTop(ele);
+					var width = ele.clientWidth;
+					var height = ele.clientHeight;
+					/*console.log("si x = "+x);
+					console.log("si y = "+y);
+					console.log("si width = "+width);
+					console.log("si height = "+height);*/
+					var rect = [x, y, width, height];
+					Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback, rect);
+				}else{
+					Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback);
+				}
 			});
 		},
 		/*
@@ -142,5 +155,7 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.NativeSelector = NativeSelector;
-})(	window.myapp.Images,
+})(	window.myapp.Utils,
+	window.myapp.Utils.DeviceType,
+	window.myapp.Images,
 	window.myapp.PG.Picker);

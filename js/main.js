@@ -18,7 +18,7 @@
 			//TODO go back page, need to detect have to exit app or not
 		});
 		//TODO pause and resume
-		//TODO native or web ui
+		// native or web ui
 		$(window).trigger('useNative', true);
 	});
 // start
@@ -36,7 +36,7 @@
 			var editMode = true;
 			var menuLastUpdateTime = window.myapp.LocalModel.getMenuLastUpdateTime(editMode);
 			window.inUpdatingMenu = true;
-			//TODO get menu from server if need
+			// get menu from server if need
 			var url = window.myapp.Api.MenuServiceUrl+"?action=updateDateIfNeed&lastUpdate="+menuLastUpdateTime+"&isEditMode="+editMode;
 			var url2 = window.myapp.Api.MenuServiceUrl+"?action=getWholeMenu&isEditMode="+editMode;
 			console.log(url);
@@ -47,10 +47,10 @@
 				window.menuData.get('stores').add(data.stores);
 				window.menuData.get('menus').add(data.menus);
 				window.inUpdatingMenu = false;
-				//TODO save the menu to local file
+				// save the menu to local file
 				window.myapp.PG.File.write(window.myapp.Settings.LocalMenuDataFileName, JSON.stringify(data), function(){
 					console.log("write success");
-					//TODO set last update time to local storage
+					// set last update time to local storage
 					window.myapp.LocalModel.setMenuLastUpdateTime(new Date(), editMode);
 				},function(error){
 					console.log(error.code);
@@ -66,9 +66,9 @@
 				error: function(xhr, type){
 				    console.log('updateDateIfNeed: Ajax error!');
 				    console.log(type);
-				    //TODO already up to date? if yes, read from local file
-				    //TODO read success
-				    //TODO read fail
+				    // already up to date? if yes, read from local file
+				    // read success
+				    // read fail
 				    window.myapp.PG.File.read(window.myapp.Settings.LocalMenuDataFileName, function(text){
 				    	console.log('read local menu file success');
 						console.log(text.substring(0,20));

@@ -46,7 +46,6 @@
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
-    				console.log(address);
     				var addr = address.results[0].formatted_address;
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();

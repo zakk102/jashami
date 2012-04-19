@@ -44,9 +44,7 @@
 			this.selector.setSelectedValues(values, options);
 		},
 		setSelection_zipcode: function(zipcode, options){
-			console.log(zipcode);
   			var value = addressAndZipcode.zipcode2address(zipcode);
-  			console.log(value);
   			if(value != null) this.setSelection(value, options);
   		},
 		render: function(){
