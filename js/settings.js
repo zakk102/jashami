@@ -3,7 +3,13 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Settings = {
 		'OnMoveEventThreshold': 10,
-		'LocalMenuDataFileName':'menuData.txt'
+		'LocalMenuDataFileName':'menuData.txt',
+		'StoreBriefHmargin': 10,
+		'getStoreBriefWidth': function(containerWidth){
+			var wWidth = containerWidth - this.StoreBriefHmargin;
+			var col = Math.floor(wWidth/400)+1;
+			return (wWidth-this.StoreBriefHmargin*(col-1))/col;
+		}
 	};
 	
 	window.myapp.Api = window.myapp.Api || {};

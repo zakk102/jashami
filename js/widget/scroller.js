@@ -10,7 +10,7 @@
 			this.el = this.container;
 			this.container.style.overflow = 'hidden';
 			this.content.style.width = '100%';
-			this.content.style.height = '100%';
+			//this.content.style.height = '100%';
 			this.scroll = new scrollLib(this.container, opt);
 			
 			var that = this;

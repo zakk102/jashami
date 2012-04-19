@@ -110,7 +110,7 @@
 		PGP.httpRequest.requestInBackground(url, 
 		function(responseData){
 			console.log("getAddressFromGeo http success");
-			var o = eval( '(' + responseData + ')' );
+			var o = JSON.parse(responseData);
 			successCallback(o);
 		},
 		function(errorMsg){

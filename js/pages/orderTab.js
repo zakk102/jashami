@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
+(function(Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div>', 
 				'<div class="AddressSelector"></div>',
@@ -9,6 +9,7 @@
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
+			var that = this;
 			var scroller = new Scroller();
 			
 			this.scroller = scroller;
@@ -19,8 +20,22 @@
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
 			
+			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
+			var ele = document.createElement('div');
+			$(ele).addClass('StoreList clearfix masonry centered');
+			$(this.scroller.content).append(ele);
+			this.masonry = new Masonry( ele, {
+				columnWidth: this.itemWidth,
+				gutterWidth: Settings.StoreBriefHmargin,
+		    	isFitWidth: true,
+		    	isResizable: true
+			});
+			
 			this.useNative(window.phonegapEnabled);
 			//this.useNative(true);
+			$(window).bind('useNative', function(e){
+				that.useNative(e.data);
+			});
 		},
 		events: {
 			"click .CircleButton":"autoLocate",
@@ -31,8 +46,9 @@
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
+    				console.log(address);
     				var addr = address.results[0].formatted_address;
-    				that.addressSelector.setSelection_zipcode(addr.substr(0,3));
+    				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
     			},function(error){
     				console.log(error);
@@ -81,38 +97,26 @@
 						}
 					}
 				};
-				
-//				if(!that.masonry){
-					$('.StoreList', that.scroller.content).remove();
-					var ele = document.createElement('div');
-					$(ele).addClass('StoreList clearfix masonry centered');
-					$(that.scroller.content).append(ele);
-//				}
-				
 				stores.sort();
 				$('.StoreList', that.el).empty();
 				that._itemCount = stores.models.length;
 				that._loadedImg = 0;
 				_.each(stores.models, function(m, index){
-					var storeBrief = new StoreBrief({model:m});
-					$('.StoreList', that.el).append(storeBrief.render().el);
+					var storeBrief = new StoreBrief({model:m}).render();
+					storeBrief.$el.css('width', that.itemWidth+'px');
+					$('.StoreList', that.el).append(storeBrief.el);
 				});
 				
 				//re-fresh the scroller to know the new size of the scroller
-				//init masonry
+				//re-fresh masonry
 				$('img', this.el).bind('load', function(){
 					that._loadedImg ++;
 					if(that._loadedImg==that._itemCount){
-//						if(!that.masonry){
-							var wall = new Masonry( ele, {
-						    	isFitWidth: true,
-						    	isResizable: true
-							});
-//							that.masonry = wall;
-//						}
+						that.masonry.reload();
 						that.scroller.render();
 					}
 				});
+				that.masonry.reload();
 				that.scroller.render();
 			},function(xhr, type){
 				console.log(type);
@@ -138,13 +142,14 @@
 				$(".CircleButton", this.el).css("display", "none");
 			}
 			this.addressSelector = addressSelector;
-			$('.AddressSelector', this.el).html(addressSelector.render().el);
+			$('.AddressSelector', this.el).html(this.addressSelector.render().el);
 		}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.PG.Geolocation,
+})(	window.myapp.Settings,
+	window.myapp.PG.Geolocation,
 	window.myapp.Utils,
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.Scroller,

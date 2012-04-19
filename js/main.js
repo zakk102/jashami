@@ -19,12 +19,12 @@
 		});
 		//TODO pause and resume
 		//TODO native or web ui
-		window.myapp.OrderTabView.prototype.useNative(true);
+		$(window).trigger('useNative', true);
 	});
 // start
 	$(document).ready(function () {
 		$('#backgroundLogo').remove();
-		var app_router = new myapp.Router;
+		window.app_router = new myapp.Router;
 		Backbone.history.start();
 	});
 	

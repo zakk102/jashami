@@ -253,7 +253,7 @@
 
 
 /*
-to.css('-webkit-transform','translate3d(100%, 0, 0)');
+					to.css('-webkit-transform','translate3d(100%, 0, 0)');
 					to.css('-webkit-transition-property','-webkit-transform');
 					to.css('-webkit-transition-duration','300ms');
 					to.css('-webkit-transition-timing-function','ease-in-out');
