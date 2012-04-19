@@ -83,6 +83,9 @@
 			for(var key in options){
 				$('select[key="' + key + '"]', this.el).val(options[key]);
 			}
+			
+			//set options
+			this.selectedOption = options;
 		},
 		setModel: function(model, storeNameId){
 			if(model) this.model = model;
