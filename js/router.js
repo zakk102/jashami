@@ -144,6 +144,13 @@
 				this.views.orderInfoPage = new Views.OrderInfoPageView();
 				this.loadToDOM(this.views.orderInfoPage.el);
 			}
+			
+			if(this.views.orderInfoPage){
+				if(!window.orderInfoPage){
+					window.orderInfoPage = this.views.orderInfoPage;
+				}
+			}
+			
 			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;
