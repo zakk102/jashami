@@ -4,7 +4,7 @@
 		'<div class="HeaderPanel">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
 			'<div id="title"></div>',
-			'<div></div>',
+			'<div><div class="HeaderButton NextButton"><span class="Button">送出</span><span class="Pointer"></span></div></div>',
 		'</div>',
 		'<div id="userinfoList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>'
@@ -48,11 +48,15 @@
 		},
 		events:{
 			"click .BackButton":"goBack",
+			"click .NextButton":"sendOrder"
 		},
 		goBack: function(){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
+		},
+		sendOrder: function(){
+			alert('送出');
 		},
 		render: function(){
 			// re-bind event

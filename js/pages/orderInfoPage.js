@@ -70,13 +70,13 @@
   			//  title
 			var storeName = this.model.get('displayedName');
 			$("#title", this.el).html(storeName);
-			$("#checkOutBtn", this.el).attr("href", "#userInfoPage/"+this.model.id);
 			
 			this.resetDisplayedData();
 		},
 		events:{
 			"click .BackButton":"goBack",
 			"click #clearAllBtn":"clearAll",
+			"click #checkOutBtn":"checkOut",
 			"click .updateItem":"updateItem",
 			"click .removeItem":"removeItem"
 		},
@@ -91,6 +91,18 @@
 			
 			shoppingCart.clearBuyList();
 		},
+		checkOut: function(){
+			var storeNameId = this.model.get('storeNameId');
+			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var sum = shoppingCart.get('sum');
+			var deliveryLimit = shoppingCart.get('deliveryLimit');
+			
+			if(sum >= deliveryLimit){
+				location.href = "#userInfoPage/"+this.model.id;
+			}else{
+				alert('未達外送額度');
+			}
+		},
 		updateItem: function(e){
 			var index = e.currentTarget.getAttribute("index");
 			var storeNameId = this.model.get('storeNameId');
@@ -98,34 +110,31 @@
 			var pid = item.get('productNameId');
 			var product = window.menuData.get('stores').get(storeNameId).get('menuId').get('products').get(pid);
 			
-			window.productPanel.show('top', function(){
-				var that = this;
-				this.hide('bottom', function() {
+			var productPanel = window.productPanel;
+			productPanel.show('top', {text:'確定', action:function(){
+				productPanel.hide('bottom', function() {
 					//get shoppingCart
 					if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
 					var shoppingCarts = window.shoppingCartCollection;
-					var shoppingCart = shoppingCarts.get(that.storeNameId);
+					var shoppingCart = shoppingCarts.get(productPanel.storeNameId);
 					if(!shoppingCart){
-						var deliveryLimit = this.model.get('deliveryLimit');
+						var deliveryLimit = productPanel.model.get('deliveryLimit');
 						shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
 						shoppingCarts.add(shoppingCart);
 					}
 					//update product to shoppingCart
-					item.set('selectedOptions', $.extend({},that.selectedOption));
-					item.set('singlePrice', that.selectedPrice);
-					item.set('amount', that.amount);
+					item.set('selectedOptions', $.extend({},productPanel.selectedOption));
+					item.set('singlePrice', productPanel.selectedPrice);
+					item.set('amount', productPanel.amount);
 					shoppingCart.updateBuyItem(item);
 					
 					window.history.go(-1);
 				});
-			});
-			window.productPanel.setModel(product, storeNameId);
-			window.productPanel.resetDisplayedData(item);
+			}});
+			window.productPanel.setModel(product, storeNameId, item);
 						
 			// push state to url
-			var href = "";
-			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
-			else href = window.location.hash+'/'+pid;
+			var href = window.location.hash+'/'+index;
 			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		removeItem: function(e){

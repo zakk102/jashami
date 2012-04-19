@@ -38,11 +38,12 @@
 					window.lastUrl = newUrl;
 				}
 //				console.log('hashchange from '+oldUrl+" to "+newUrl);
+				// determin slide direction, default = 'left'
 				if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
 					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
-						that.transitionDir = 'left';
-					}
+//					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
+//						that.transitionDir = 'left';
+//					}
 				}else if(newUrl.indexOf('#storePage')>=0){ // to store page
 					that.transitionEffectType = 'hSlide';
 					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
@@ -53,9 +54,9 @@
 					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
 						that.transitionDir = 'right';
 					}
-				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to order info page
+				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
 					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#oderInfoPage')>=0){ // from order info page, slide from right
+					if(oldUrl.indexOf('#oderInfoPage')>=0 || oldUrl.indexOf('#storePage')>=0){ // from order info page, slide from right
 						that.transitionDir = 'right';
 					}
 				}

@@ -4,7 +4,7 @@
 		'<div class="header">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
 			'<div id="title"></div>',
-			'<div></div>',
+			'<div><div class="HeaderButton NextButton"><span class="Button">結帳</span><span class="Pointer"></span></div></div>',
 		'</div>',
 		'<div id="storeContent" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 //			'<div id="productPanel" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
@@ -236,12 +236,25 @@
   		},
   		events:{
 			"click .BackButton":"goBack",
+			"click .NextButton":"checkOut",
 			"click .Grid":"showProduct"
 		},
 		goBack: function(){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
+		},
+		checkOut: function(){
+			var storeNameId = this.model.get('storeNameId');
+			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var sum = shoppingCart.get('sum');
+			var deliveryLimit = shoppingCart.get('deliveryLimit');
+			
+			if(sum >= deliveryLimit){
+				location.href = "#userInfoPage/"+this.model.id;
+			}else{
+				alert('未達外送額度');
+			}
 		},
 		showProduct: function(e){
 			// get product id

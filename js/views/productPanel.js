@@ -73,21 +73,7 @@
 			"click #minusBtn":"_minusAmount",
 			"selectionChange .ProductOption":"_updateSelection"
 		},
-		resetDisplayedData: function(item){
-			var amount = item.get('amount');
-			var price = item.get('singlePrice');
-			var options = item.get('selectedOptions');
-			
-			$('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
-			
-			for(var key in options){
-				$('select[key="' + key + '"]', this.el).val(options[key]);
-			}
-			
-			//set options
-			this.selectedOption = options;
-		},
-		setModel: function(model, storeNameId){
+		setModel: function(model, storeNameId, currentItem){
 			if(model) this.model = model;
 			if(storeNameId) this.storeNameId = storeNameId;
 			var m = this.model;
@@ -130,6 +116,20 @@
 					this.selectedPrice += ov.getSelectedPrice();
 				}
 				this._updateMoney();
+			}
+			if(currentItem){ // set selected value
+				var amount = currentItem.get('amount');
+				var price = currentItem.get('singlePrice');
+				var options = currentItem.get('selectedOptions');
+			
+				$('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
+			
+				for(var key in options){
+					$('select[key="' + key + '"]', this.el).val(options[key]);
+				}
+			
+				//set options
+				this._updateSelection();
 			}
 					
 			// refresh size
@@ -206,9 +206,15 @@
 			this.delegateEvents();
 			return this;
 	  	},
-	  	show: function(effectDir, buyAction, cancelAction){
-	  		this.buyAction = buyAction;
-	  		this.cancelAction = cancelAction;
+	  	show: function(effectDir, buyBtn, cancelBtn){
+	  		if(buyBtn && buyBtn.action) this.buyAction = buyBtn.action;
+	  		if(cancelBtn && cancelBtn.action) this.cancelAction = cancelBtn.action;
+	  		var buyBtnText = '購買', cancelBtnText = '取消';
+	  		if(buyBtn && buyBtn.text) buyBtnText = buyBtn.text;
+	  		if(cancelBtn && cancelBtn.text) cancelBtnText = cancelBtn.text;
+	  		$('#buyBtn .ButtonText', this.el).html(buyBtnText);
+	  		$('#cancelBtn .ButtonText', this.el).html(cancelBtnText);
+	  		
 	  		if(this.$el.css('display')!='none') return; //already shown
 	  		if(effectDir=='top'){
 	  			this.$el.css('-webkit-transform','translate3d(0, -100%, 0)');
