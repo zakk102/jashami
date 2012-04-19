@@ -39,6 +39,10 @@
 		var appId = LocalModel.get("appID");
 		if(!appId) LocalModel.set("appID", "@APPID@" + (new Date()).getTime() + "." + Math.random());
 
+	// app data
+		LocalModel.getMenuLastUpdateTime = function(isEditMode){ var d = this.get("MenuLastUpdateTime"+(isEditMode?"_EditMode":"")); return d; };
+		LocalModel.setMenuLastUpdateTime = function(date, isEditMode){ this.set("MenuLastUpdateTime"+(isEditMode?"_EditMode":""), date.getTime()); };
+
 	// phone data
 		LocalModel.getAppId = function(){ return this.get("appID"); };
 		LocalModel.setPhoneUUID = function(uuid){ this.set("phoneUUID", uuid); };
@@ -49,7 +53,7 @@
 				return result;
 			return this.getAppId();
 		};
-
+		
 		
 		window.myapp = window.myapp || {};
 		window.myapp.LocalModel = LocalModel;

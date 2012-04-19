@@ -33,15 +33,7 @@
 	<!-- my app -->
 	<script src="js/localModel.js"></script>
 	<script src="js/i18n/zh-tw.js"></script>
-	<script>
-	window.phonegapEnabled = true;
-		var supportedLang = 'zh-tw';
-		var defaultLang = 'zh-tw';
-		var language = window.navigator.userLanguage || window.navigator.language || defaultLang;
-		language = language.toLowerCase();
-		if(supportedLang.indexOf(language)<0) language = defaultLang;
-		i18n.set(window.languages[language]);
-	</script>
+	<script src="js/main.js"></script>
 	<script src="js/settings.js"></script>
 	<script src="js/utils.js"></script>
 	<script src="js/models/addressAndZipcode.js"></script>
@@ -69,28 +61,6 @@
 	<script src="js/pages/orderInfoPage.js"></script>
 	<script src="js/pages/userInfoPage.js"></script>
 	<script src="js/router.js"></script>
-	<script>
-		// phonegap
-		myapp.PG.Event.onDeviceReady(function(){
-			console.log("phonegap load");
-    		if(myapp.LocalModel) myapp.LocalModel.setPhoneUUID(myapp.PG.Device.getUUID());
-    		// android back key
-    		myapp.PG.Device.overrideBackButton();
-    		myapp.PG.Event.onBackKeyDown(function(){
-    			if(!window.enableBackButton) return;
-    			//TODO go back page, need to detect have to exit app or not
-    		});
-    		//TODO pause and resume
-    		//TODO native or web
-    		window.myapp.OrderTabView.prototype.useNative(window.phonegapEnabled);
-		});
-		// start
-		$(document).ready(function () {
-			$('#backgroundLogo').remove();
-			var app_router = new myapp.Router;
-    		Backbone.history.start();
-		});
-	</script>
 </head>
 
 <body>

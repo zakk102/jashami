@@ -1,5 +1,5 @@
 // Filename: js/widget/Selector.js
-(function(Images, Picker){
+(function(Utils, DeviceType, Images, Picker){
 	var template = [
 		// '<div>',
 			'<div class="selectedValue"></div>',
@@ -17,23 +17,35 @@
 			this.$el.html(_.template(template));
 			this.$el.on("click", function(){
 				var selectedValue = [];
-				for(var i in that._selectedKey){
-					title = that._selectedKey[i];
+				for(var title in that._selectedKey){
 					selectedValue.add = title+"="+that._selectedKey[title];
 				}
 				var callback = function(value){
-					var newValue = {};
 					var data = value.split("&");
 					for(var i=0,length=data.length; i<length; i++){
 						var s = data[i];
 						var ss = s.split("=");
-						if(ss.length<2) newValue[ss[0]] = "";
-						else newValue[ss[0]] = ss[1];
+						if(ss.length<2) that._selectedKey[ss[0]] = "";
+						else that._selectedKey[ss[0]] = ss[1];
 					}
-					that.$el.trigger("selectionChange", newValue);
+					that.updateDisplay();
+					that.$el.trigger("selectionChange", that.getSelectedValues());
 				};
-				//TODO iPad version
-				Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback);
+				if(DeviceType.getDeviceType()==DeviceType.iPad){// iPad version
+					var ele = that.el;
+					var x = Utils.getAbsoluteLeft(ele);
+					var y = Utils.getAbsoluteTop(ele);
+					var width = ele.clientWidth;
+					var height = ele.clientHeight;
+					/*console.log("si x = "+x);
+					console.log("si y = "+y);
+					console.log("si width = "+width);
+					console.log("si height = "+height);*/
+					var rect = [x, y, width, height];
+					Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback, rect);
+				}else{
+					Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback);
+				}
 			});
 		},
 		/*
@@ -95,6 +107,42 @@
 		setDisplayText: function(text){
 			$(".selectedValue", this.el).html(text);
 		},
+		setSelectedValues: function(values, options){
+			for(var title in values){
+				var value = values[title];
+				var op;
+				if(this._isDependent && title==this._childTitle){
+					var tkey = this._parentTitle;
+					var tkeyvalue = this._selectedKey[tkey];
+					tkey += ":" + this._childTitle + ":" + tkeyvalue;
+					op = this._options[tkey];
+				}else{
+					op = this._options[title];
+				}
+				for(var key in op){
+					if(op[key]==value){
+						this._selectedKey[title] = key;
+						break;
+					}
+				}
+			}
+			this.updateDisplay();
+			if(!options || !options.silent) this.$el.trigger("selectionChange", this.getSelectedValues());
+		},
+		getSelectedValues: function(){
+			var result = {};
+			for(var title in this._selectedKey){
+				if(this._isDependent && title==this._childTitle){
+					var tkey = this._parentTitle;
+					var tkeyvalue = this._selectedKey[tkey];
+					tkey += ":" + this._childTitle + ":" + tkeyvalue;
+					result[title] = this._options[tkey][this._selectedKey[title]];
+				}else{
+					result[title] = this._options[title][this._selectedKey[title]];
+				}
+			}
+			return result;
+		},
 		setWordsInLine: function(wordsInLine){
 			this._wordsInLine = wordsInLine; 
 			this.updateDisplay();
@@ -107,5 +155,7 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.NativeSelector = NativeSelector;
-})(	window.myapp.Images,
+})(	window.myapp.Utils,
+	window.myapp.Utils.DeviceType,
+	window.myapp.Images,
 	window.myapp.PG.Picker);

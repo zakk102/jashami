@@ -144,6 +144,13 @@
 				this.views.orderInfoPage = new Views.OrderInfoPageView();
 				this.loadToDOM(this.views.orderInfoPage.el);
 			}
+			
+			if(this.views.orderInfoPage){
+				if(!window.orderInfoPage){
+					window.orderInfoPage = this.views.orderInfoPage;
+				}
+			}
+			
 			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;
@@ -253,7 +260,7 @@
 
 
 /*
-to.css('-webkit-transform','translate3d(100%, 0, 0)');
+					to.css('-webkit-transform','translate3d(100%, 0, 0)');
 					to.css('-webkit-transition-property','-webkit-transform');
 					to.css('-webkit-transition-duration','300ms');
 					to.css('-webkit-transition-timing-function','ease-in-out');

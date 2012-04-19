@@ -23,6 +23,7 @@
 				}
 			}
 			selector.setModel(options, true, "");
+			selector.setDisplayText("請選擇縣市");
 		},
 		events: {
 			'selectionChange *': 'changeArea'
@@ -36,12 +37,15 @@
   			var zipcode = addressAndZipcode.address2zipcode(nv);
   			this.$el.trigger("locationChange", zipcode);
   		},
-		setSelection: function(value, option){
-			
+		setSelection: function(value, options){
+			var values = {};
+			values['city'] = value.substring(0, 3);
+			values['town'] = value.substring(3);
+			this.selector.setSelectedValues(values, options);
 		},
-		setSelection_zipcode: function(zipcode, option){
+		setSelection_zipcode: function(zipcode, options){
   			var value = addressAndZipcode.zipcode2address(zipcode);
-  			if(value != null) this.setSelection(value, option);
+  			if(value != null) this.setSelection(value, options);
   		},
 		render: function(){
 			return this;
