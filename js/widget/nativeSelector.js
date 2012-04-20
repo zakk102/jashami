@@ -1,10 +1,10 @@
 // Filename: js/widget/Selector.js
 (function(Utils, DeviceType, Images, Picker){
 	var template = [
-		'<span>',
-			'<span class="selectedValue"></span>',
-			'<span style="background-image: url('+Images.ArrowDownIcon2+'); background-size: 100%; background-position: 50% 50%; "></span>',
-		'</span>',
+		// '<div>',
+			'<div class="selectedValue"></div>',
+			'<div id="addr-sel-icon">▼</div>',
+		// '</div>',
 	].join('');
 	
 	var NativeSelector = Backbone.View.extend({

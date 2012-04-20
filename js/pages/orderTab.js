@@ -1,24 +1,35 @@
 // Filename: js/pages/orderTab.js
 (function(Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
-			'<div>', 
-				'<div class="AddressSelector"></div>',
-				'<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
-			'</div>',
+			// '<div class="district-panel">', 
+				// '<div class="AddressSelector"></div>',
+				// '<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
+			// '</div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
+			this.loadStore("110");
+
 			var that = this;
 			var scroller = new Scroller();
 			
+			$(this.el).append('<div id="district-sticker1"></div><div id="district-sticker2"></div><div class="district-panel"><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div><div id="stores-panel">');
+
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
-			$(this.el).html(scroller.render().el);
+			// (this.el).append('<div class="AddressSelector"></div>');	
+			// $(this.el).append('<div class="CircleButton"><div class="ButtonText">自動定位</div></div>');			
+			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
+			$('#stores-panel', this.el).append(scroller.render().el);
+			$(scroller.el).css('height', '100%');
+			
+			// $(this.el).append(scroller.render().el);
+			// $(this.el).html(scroller.render().el);
 			// $(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
-			$(this.el).css('display', '-webkit-box');	
-			$(this.el).css('-webkit-box-flex', '10');
-			$(scroller.el).css('width', '100%');
+			$(this.el).addClass('orderTab');
+			// $(scroller.el).css('width', '100%');
+			// $(scroller.el).css('-webkit-box-flex', '1');
 			
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
 			var ele = document.createElement('div');

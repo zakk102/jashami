@@ -1,5 +1,5 @@
 // Filename: js/pages/startPage.js
-(function(i18n, ImageResource, TabViews){
+(function(i18n, ImageResource, TouchWidget, TabViews){
 	var pageTemplate = [
 		'<div class="PageLeftPanel" style="display:block; position:absolute; width:200px; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms; -webkit-transform:translate3d(-100%, 0px, 0px);">',
 			'<div class="TabButton" href="orderTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('orderTab')+'</div>',
@@ -9,15 +9,18 @@
 		'</div>',
 		'<div class="PageMainPanel" style="width:100%; height:100%; display:-webkit-box; -webkit-box-orient:vertical; -webkit-transition-property:-webkit-transform; -webkit-transition-duration:300ms;">',
 			'<div class="header">',
-				'<div class="top"></div>',
+				// '<div class="top"></div>',
 				'<div class="center">',
-					'<div class="BackButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
+					'<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
 					'<div>',
-						'<img id="logo" src="'+ImageResource.JashamiLogo+'">',
+						'<a href="#orderTab"><img href="#historyTab" id="logo" src="'+ImageResource.JashamiLogo+'"></a>',
+						'<a href="#historyTab"><img id="logo" src="'+ImageResource.JashamiLogo+'"></a>',
+						'<a href="#feedbackTab"><img id="logo" src="'+ImageResource.JashamiLogo+'"></a>',
+						'<a href="#aboutUsTab"><img id="logo" src="'+ImageResource.JashamiLogo+'"></a>',
 					'</div>',
-					'<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg">♒</div></div></div>',
+					'<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
 				'</div>',
-				'<div class="bottom"></div>',
+				// '<div class="bottom"></div>',
 			'</div>',
 			'<div class="PageContent" style="width:100%; -webkit-box-flex:10; display:-webkit-box;">',
 			'</div>',
@@ -33,6 +36,7 @@
 			this.$el.attr("id","startPageView");
 			this.$el.attr("style","height:100%; width:100%;");
 			this.$el.css("-webkit-box-orient", "horizontal");
+			new TouchWidget({el:$('.BackButton', this.el)});
 		},
 		events:{
 			"click .PageContent":"hideFunctionPanel",
@@ -84,6 +88,7 @@
 	window.myapp = window.myapp || {};
 	window.myapp.StartPageView = StartPageView;
 })(i18n, window.myapp.Images,
+	window.myapp.Widget.TouchWidget,
 {	orderTab:window.myapp.OrderTabView, 
 	historyTab:window.myapp.HistoryTabView, 
 	feedbackTab:window.myapp.FeedbackTabView, 

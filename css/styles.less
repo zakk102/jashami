@@ -8,26 +8,42 @@
      -moz-border-radius: @px; /* FF1-3.6 */
           border-radius: @px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
-
-.linear-gradient(@start, @color-stop-1, @color-stop-2) {
-  background-color: @color-stop-1;
-  // background-image: -webkit-gradient(linear, @start, @end, from(@color-stop-1), to(@color-stop-2)); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2); /* FF3.6 */
-  background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2); /* IE10 */
-  background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Opera 11.10+ */
+.linear-gradient(@start, @end, @color1, @stop-1, @color2, @stop-2) {
+  background-color: color-stop(@stop-1, @color1);
+  background: -webkit-gradient(linear, @start, @end, color-stop(@stop-1, @color1), color-stop(@stop-2, @color2)); /* Android 2.3*/
+  background-image: -webkit-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2); /* FF3.6 */
+  background-image:     -ms-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2); /* IE10 */
+  background-image:      -o-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2); /* Opera 11.10+ */
   // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
 }
-.linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3) {
-  background-color: @color-stop-1;
-  // background-image: -webkit-gradient(linear, @start, @end, from(@color-stop-1), to(@color-stop-2)); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* FF3.6 */
-  background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* IE10 */
-  background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Opera 11.10+ */
+.linear-gradient(@start, @end, @color1, @stop-1, @color2, @stop-2, @color3, @stop-3) {
+  background-color: color-stop(@stop-1, @color1);
+  background: -webkit-gradient(linear, @start, @end, color-stop(@stop-1, @color1), color-stop(@stop-2, @color2), color-stop(@stop-3, @color3)); /* Android 2.3*/
+  background-image: -webkit-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2, @color3, @stop-3); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2, @color3, @stop-3); /* FF3.6 */
+  background-image:     -ms-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2, @color3, @stop-3); /* IE10 */
+  background-image:      -o-linear-gradient(@start, @color1 @stop-1, @color2 @stop-2, @color3, @stop-3); /* Opera 11.10+ */
   // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
 }
-
+// .linear-gradient(@start, @end, @color-stop-1, @color-stop-2) {
+  // background-color: @color-stop-1;
+  // background-image: -webkit-gradient(linear, @start, @end, @color-stop-1, @color-stop-2); /* Saf4+, Chrome */
+  // background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  // background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2); /* FF3.6 */
+  // background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2); /* IE10 */
+  // background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2); /* Opera 11.10+ */
+  // // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
+// }
+// .linear-gradient(@start, @end, @color-stop-1, @color-stop-2, @color-stop-3) {
+  // background-color: @color-stop-1;
+  // background-image: -webkit-gradient(linear, @start, @end, @color-stop-1, @color-stop-2, @color-stop-3); /* Saf4+, Chrome */
+  // background-image: -webkit-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  // background-image:    -moz-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* FF3.6 */
+  // background-image:     -ms-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* IE10 */
+  // background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Opera 11.10+ */
+  // // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
+// }
 //==============================================================
 // disable dragging of images, text selection and tap highlighting
 //==============================================================
@@ -81,15 +97,13 @@ select{
   min-width:7em;
 }
 
-
-
 body{
   position: absolute;
   margin: 0; 
   padding: 0;
   // background-image: url(../pic/back-w.jpg); 
   // background-size: 100%; 
-  background: url(../pic/seamlesspaper1_320.jpg) repeat scroll 0 0; 
+  background: url(../pic/paper_antique-white_150.jpg) repeat scroll 0 0; 
   height: 100%; 
   width: 100%; 
 }
@@ -100,6 +114,7 @@ body{
 
 @color-header-gray: rgb(243,244,239);
 @color-logo-orange: rgb(223,74,10);
+@color-sticker: rgba(50,200,200, 0.9);
 
 //==============================================================
 // Widgets
@@ -121,6 +136,11 @@ body{
       color:@button-color*1.5;
   }
 }
+.button-flat-rounded(@color: silver){ 
+  .button-flat;
+  .border-radius;
+}
+
 .button-convex-rounded (@color: silver){ 
   text-align:center;
   height:@button-height;
@@ -130,9 +150,9 @@ body{
   .border-radius;
   color: @color*0.5;
   // -webkit-box-shadow: inset -2px 0 2px @color*0.5;
-  .linear-gradient(bottom, @color 10%, @color*1.5 50%);
+  .linear-gradient(center bottom, center top, @color, 0.1, @color*1.5, 0.5);
   &:active{
-      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
+      .linear-gradient(center top, center bottom, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
   }
 }
@@ -142,26 +162,37 @@ body{
 .diamond-rounded (@color: silver){
   height:@diamond-height;
   width:@diamond-height;
-  .linear-gradient(right bottom, @color 10%, @color*1.5 50%);
+  .linear-gradient(right bottom, left top, @color, 0.1, @color*1.5, 0.5);
   .border-radius;
   -webkit-transform: rotate(45deg);
   &:active{
-      .linear-gradient(right bottom, @button-color*0.8 50%, @button-color*1.3 90%);
+      .linear-gradient(right bottom, left top, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
   }
 }
 
 //--Hearder
 .header {
-  -webkit-box-orient: vertical;
-
-  .top {
-    display:none;
-    position:relative;
-    height:0.4em;
-    background-color:@color-logo-orange;
+  // -webkit-box-orient: vertical;
+// 
+  // .top {
+    // display:none;
+    // position:relative;
+    // height:0.4em;
+    // background-color:@color-logo-orange;
+  // }
+  // .center {
+    // height:@height-header;
+    // border-top-style: solid;
+    // border-top-width: 1px;
+    // border-top-color:@color-logo-orange*2;
+  // }
+  .panel-light-from-top(@color){
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color:@color*2;
+    .linear-gradient(center bottom, center top, @color, 0.1, @color*1.5, 0.9);
   }
-
   .center {
     position:relative;
     display: -webkit-box;
@@ -171,25 +202,23 @@ body{
     z-index: 11;
     @height-header:3em;
     height:@height-header;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color:@color-logo-orange*2;
-    .linear-gradient(bottom, @color-logo-orange 10%, @color-logo-orange*1.5 90%);
+    background:url(../pic/seamlesspaper1_sub_150.jpg) repeat scroll 0 0;
+    // .panel-light-from-top(@color-logo-orange);
     box-shadow: 0px 0px 10px black;
     color: #fff;
     font-weight:bold;
     line-height:35px;
-    // padding:0px 10px;
-    // overflow:ellipsis;
     vertical-align:middle;
     text-align:center;
     .BackButton{
+      display:none;
       position:relative;
       height:@height-header;
       @width:@height-header*1.5;
       width:@width;
       .Button {
-        .button-convex-rounded(@button-color);
+        .button-flat;
+        // .button-convex-rounded(@button-color);
         position:absolute;
         top:50%;
         margin-top:-@button-height/2;
@@ -197,8 +226,6 @@ body{
         margin-left:-@button-width/2;
         .ButtonMsg{
           height:100%;
-          // width:80%;
-          // padding-right:0.5m;
           background-image:url('bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_114_list.png');
           background-repeat:no-repeat;
           background-position:center; 
@@ -213,16 +240,17 @@ body{
         margin-left:-@width/2 + 0.35em;
       }
     }
-    .BackButton:active .Button{
-      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
+    .BackButton.active .Button{
+      .linear-gradient(center top, center bottom, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
     }  
-    .BackButton:active .Pointer{
-      .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
+    .BackButton.active .Pointer{
+      .linear-gradient(left top, right bottom, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
     }
     .NextButton{
-     position:relative;
+      display:none;
+      position:relative;
       height:@height-header;
       @width:@height-header*1.5;
       width:@width;
@@ -247,11 +275,11 @@ body{
       }
     }
     .NextButton:active .Button{
-      .linear-gradient(top, @button-color*0.8 50%, @button-color*1.3 90%);
+      .linear-gradient(center top, center bottom, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
     }  
     .NextButton:active .Pointer{
-      .linear-gradient(left top, @button-color*0.8 50%, @button-color*1.3 90%);
+      .linear-gradient(left top, right bottom, @button-color*0.8, 0.5, @button-color*1.3, 0.9);
       color:@button-color*1.5;
     }
     #logo {
@@ -260,13 +288,13 @@ body{
     }
   }
   
-  .bottom {
-    display:none;
-    position:relative;
-    height:0.2em;
-    background-color:@color-logo-orange;
-    -webkit-box-shadow: 0px 0px 12px  #633a1e;
-  }
+  // .bottom {
+    // display:none;
+    // position:relative;
+    // height:0.2em;
+    // background-color:@color-logo-orange;
+    // -webkit-box-shadow: 0px 0px 12px  #633a1e;
+  // }
   
 }
 
@@ -311,20 +339,118 @@ body{
 //==============================================================
 // Panel: StoreList
 //==============================================================
-
-.StoreList{
+.orderTab{
+  position:relative;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-flex: 10;
   
-  .StoreBriefWidget3{
-    background:white;
+  .sticker(){
+    position:absolute;
+    z-index:5;    
+    height:1.8em;
+    background: @color-logo-orange;
+    -webkit-transform:rotate(-3deg);
+    box-shadow:0 1px 2px 0 black;
+  }
+  .sticker-txt(){
+    color:white;            
+    text-shadow:white 0 0 1px;
+  }
+  
+  #district-sticker1{
+    .sticker;
+    top:-0.2em;
+    left:0.2em;
+    width:8em;
+  }
+  #district-sticker2{
+    .sticker;
+    top:-0.2em;
+    left:9em; 
+    width:6em;
+  }
+  .district-panel{
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
     
-    .storeBriefWrap{
-      margin: 0.5em;
+    position:absolute;
+    z-index:6;
+    top:0;
+    left:0;
+    width:15em;
+    height:1.5em;
+    .AddressSelector{
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack:left;
+      -webkit-box-align:center;
+      padding-left:0.4em;
+      padding-right:1.5em;
       
-      .storeImg{
-        width:100%;
+      .AddressSelectionBox{
+        .SelectInput{
+          display: -webkit-box;
+          -webkit-box-orient: horizontal;
+          -webkit-box-pack:left;
+          -webkit-box-align:center;
+          .selectedValue{
+            .sticker-txt;
+          }
+          #addr-sel-icon{
+            .sticker-txt;
+             font-size:1.3em;
+             margin-top:0.15em;
+          }
+        }
+      }
+    }
+    .CircleButton{
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack:left;
+      -webkit-box-align:center;
+      .locating-txt{
+        .sticker-txt;
+      }
+      #locating-icon{
+        .sticker-txt;
+        font-size:1.5em;
       }
     }
   }
+
+  #stores-panel{
+    position:absolute;
+    z-index:4;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    .scroller{
+      // position:relative;
+      // display: -webkit-box;
+      // -webkit-box-flex:10;
+      // height:100%;
+    }
+    .StoreList{
+      margin-top:0.7em;
+      
+      .StoreBriefWidget3{
+        background:white;
+        
+        .storeBriefWrap{
+          margin: 0.5em;
+          
+          .storeImg{
+            width:100%;
+          }
+        }
+      }
+    }
+    }
 }
 
 //==============================================================

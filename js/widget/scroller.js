@@ -8,9 +8,10 @@
 			this.content = document.createElement('div');
 			this.container.appendChild(this.content);
 			this.el = this.container;
+			$(this.el).addClass('scroller');
+			$(this.el).css('-webkit-box-flex', '1');
 			this.container.style.overflow = 'hidden';
 			this.content.style.width = '100%';
-			//this.content.style.height = '100%';
 			this.scroll = new scrollLib(this.container, opt);
 			
 			var that = this;
