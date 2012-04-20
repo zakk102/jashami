@@ -1,3 +1,11 @@
+//==============================================================
+// Constants
+//==============================================================
+
+@color-header-gray: rgb(243,244,239);
+@color-logo-orange: rgb(223,74,10);
+@color-sticker: rgba(223,74,10, 0.9);
+
 
 //==============================================================
 // Cross-Browser CSS3 Rule Generator http://css3please.com/
@@ -87,15 +95,6 @@ ol, ul {
   list-style: disc;
 }
 img{ outline:none ; }
-select{
-  cursor: pointer;
-  -webkit-appearance: menulist-button;
-  left: 0;
-  top: 0;
-  height: 3em;
-  -webkit-tap-highlight-color: rgba(0,0,0,0); 
-  min-width:7em;
-}
 
 body{
   position: absolute;
@@ -107,14 +106,6 @@ body{
   height: 100%; 
   width: 100%; 
 }
-
-//==============================================================
-// Constants
-//==============================================================
-
-@color-header-gray: rgb(243,244,239);
-@color-logo-orange: rgb(223,74,10);
-@color-sticker: rgba(50,200,200, 0.9);
 
 //==============================================================
 // Widgets
@@ -204,7 +195,7 @@ body{
     height:@height-header;
     background:url(../pic/seamlesspaper1_sub_150.jpg) repeat scroll 0 0;
     // .panel-light-from-top(@color-logo-orange);
-    box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 6px black;
     color: #fff;
     font-weight:bold;
     line-height:35px;
@@ -349,7 +340,7 @@ body{
     position:absolute;
     z-index:5;    
     height:1.8em;
-    background: @color-logo-orange;
+    background: @color-sticker;
     -webkit-transform:rotate(-3deg);
     box-shadow:0 1px 2px 0 black;
   }
@@ -391,6 +382,46 @@ body{
       padding-right:1.5em;
       
       .AddressSelectionBox{
+        
+        position:relative;
+        width:12em;
+        height:1.5em;
+        
+        // select{
+          // cursor: pointer;
+          // -webkit-appearance: menulist-button;
+          // left: 0;
+          // top: 0;
+          // height: 1.5em;
+          // // -webkit-tap-highlight-color: rgba(0,0,0,0); 
+          // min-width:7em;
+          // background:@color-sticker;
+          // border:1px solid @color-sticker;
+        // }
+        .selector(){
+          cursor: pointer;
+          -webkit-appearance: menulist-button;
+          background:@color-sticker;
+          border:1px solid @color-sticker;         
+          color:white;
+        }
+        .country-selector{
+          .selector;
+          position:absolute;
+          top:0;
+          left:0em;
+          height: 1.5em;
+          min-width:7em;
+        }
+        .area-selector{
+          position:absolute;
+          top:0;
+          left:9.5em;
+          height: 1.5em;
+          min-width:7em;
+          .selector;   
+        }
+
         .SelectInput{
           display: -webkit-box;
           -webkit-box-orient: horizontal;

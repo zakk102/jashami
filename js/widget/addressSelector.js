@@ -1,7 +1,7 @@
 // Filename: js/widget/addressSelector.js
 (function(addressAndZipcode, countries, areas){
 	var selectorTemplate = [
-		'<div class="DateTimeSelectionBox">',
+		'<div class="AddressSelectionBox">',
 			'<select class="country-selector">',
 				'<option>請選擇縣市</option>',
 				'<% for(var i=0,length=countries.length; i<length; i++) { %>',
