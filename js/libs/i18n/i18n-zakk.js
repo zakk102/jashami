@@ -10,6 +10,9 @@
  * [configure]
  *  i18.set(LangJSON);
  * 	LangJSON is a JSON object
+ * 
+ * zakk add
+ * i18n.formatDate function
  */
 var i18n = (function () {
 
@@ -85,6 +88,15 @@ var i18n = (function () {
             var set = localize.hasOwnProperty('setting') ? localize.setting : setting;
             var r = set.format ? DateAdd('h', set.DST, d ? new Date(d) : new Date()) : (d ? new Date(d) : new Date());
             return r.format(set.format);
+        },
+        
+        /*
+         * 
+         */
+        formatDate: function (d, format) {
+        	var set = localize.hasOwnProperty('setting') ? localize.setting : setting;
+            var r = set.format ? DateAdd('h', set.DST, d ? new Date(d) : new Date()) : (d ? new Date(d) : new Date());
+            return r.format(format);
         },
 
         /*

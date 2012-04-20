@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(Scroller){
+(function(Scroller, DateTimeSelector){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
@@ -45,6 +45,9 @@
 			$(this.el).html(_.template(pageTemplate));
 			$("#userinfoList", this.el).append(this.scroller.render().el);
 			this.scroller.html(_.template(infoListTemplate));
+			
+			//time selector
+			this.timeSelector = new DateTimeSelector({el:$('.DateTimeSelectionBox', this.el)});
 		},
 		events:{
 			"click .BackButton":"goBack",
@@ -53,6 +56,9 @@
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
+		},
+		setAvailableTime: function(list){
+			this.timeSelector.setDataList(list);
 		},
 		render: function(){
 			// re-bind event
@@ -63,4 +69,5 @@
 	});
 	window.myapp = window.myapp || {};
 	window.myapp.UserInfoPageView = UserInfoPageView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.Scroller,
+	window.myapp.Widget.DateTimeSelector);
