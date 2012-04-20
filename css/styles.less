@@ -16,6 +16,11 @@
      -moz-border-radius: @px; /* FF1-3.6 */
           border-radius: @px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+// .box_shadow(@x:0, @y:0, @blur:1, @spread:0, @color) {
+  // -webkit-box-shadow: @x @y 4px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     // -moz-box-shadow: @x @y 4px 0px #ffffff; /* FF3.5 - 3.6 */
+          // box-shadow: @x @y 4px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+// }
 .linear-gradient(@start, @end, @color1, @stop-1, @color2, @stop-2) {
   background-color: color-stop(@stop-1, @color1);
   background: -webkit-gradient(linear, @start, @end, color-stop(@stop-1, @color1), color-stop(@stop-2, @color2)); /* Android 2.3*/
@@ -189,20 +194,53 @@ body{
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-align: center;
-    -webkit-box-pack: justify;
+    -webkit-box-pack: center;
     z-index: 11;
     @height-header:3em;
     height:@height-header;
     background:url(../pic/seamlesspaper1_sub_150.jpg) repeat scroll 0 0;
     // .panel-light-from-top(@color-logo-orange);
-    box-shadow: 0px 0px 6px black;
+    -webkit-box-shadow: 0px 0px 6px black;
     color: #fff;
     font-weight:bold;
     line-height:35px;
     vertical-align:middle;
     text-align:center;
+    
+    .function-panel{
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      width:12em;
+      height:3em;
+      .order-link{
+        width:2em;
+        height:2em;
+        background:@color-logo-orange;
+        -webkit-mask:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_000_glass.png);
+      }
+      .history-link{
+        width:2em;
+        height:2em;
+        background:@color-logo-orange;
+        -webkit-mask:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_000_glass.png);
+      }
+      .feedback-link{
+        width:2em;
+        height:2em;
+        background:@color-logo-orange;
+        -webkit-mask:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_000_glass.png);
+      }
+      .about-link{
+        width:2em;
+        height:2em;
+        background:@color-logo-orange;
+        -webkit-mask:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_000_glass.png);
+      }
+    }
     .BackButton{
-      display:none;
+      // display:none;
       position:relative;
       height:@height-header;
       @width:@height-header*1.5;
@@ -341,8 +379,8 @@ body{
     z-index:5;    
     height:1.8em;
     background: @color-sticker;
-    -webkit-transform:rotate(-3deg);
-    box-shadow:0 1px 2px 0 black;
+    -webkit-transform: rotate(45deg);
+    -webkit-box-shadow:0 1px 2px 0 black;
   }
   .sticker-txt(){
     color:white;            
@@ -362,93 +400,100 @@ body{
     width:6em;
   }
   .district-panel{
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
-    -webkit-box-pack:center;
-    -webkit-box-align:center;
-    
     position:absolute;
     z-index:6;
     top:0;
     left:0;
     width:15em;
     height:1.5em;
-    .AddressSelector{
+    .district-panel-inner{
       display: -webkit-box;
       -webkit-box-orient: horizontal;
-      -webkit-box-pack:left;
-      -webkit-box-align:center;
-      padding-left:0.4em;
-      padding-right:1.5em;
+      -webkit-box-pack:center;
+      -webkit-box-align:center; 
+      width:100%;
+      height:100%;
+      position:relative;
       
-      .AddressSelectionBox{
+      .AddressSelector{
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-pack:left;
+        -webkit-box-align:center;
+        position:absolute;
+        left:1em;
         
-        position:relative;
-        width:12em;
-        height:1.5em;
-        
-        // select{
-          // cursor: pointer;
-          // -webkit-appearance: menulist-button;
-          // left: 0;
-          // top: 0;
-          // height: 1.5em;
-          // // -webkit-tap-highlight-color: rgba(0,0,0,0); 
-          // min-width:7em;
-          // background:@color-sticker;
-          // border:1px solid @color-sticker;
-        // }
-        .selector(){
-          cursor: pointer;
-          -webkit-appearance: menulist-button;
-          background:@color-sticker;
-          border:1px solid @color-sticker;         
-          color:white;
-        }
-        .country-selector{
-          .selector;
-          position:absolute;
-          top:0;
-          left:0em;
-          height: 1.5em;
-          min-width:7em;
-        }
-        .area-selector{
-          position:absolute;
-          top:0;
-          left:9.5em;
-          height: 1.5em;
-          min-width:7em;
-          .selector;   
-        }
-
-        .SelectInput{
-          display: -webkit-box;
-          -webkit-box-orient: horizontal;
-          -webkit-box-pack:left;
-          -webkit-box-align:center;
-          .selectedValue{
-            .sticker-txt;
+        .AddressSelectionBox{
+          
+          position:relative;
+          // width:12em;
+          height:1.5em;
+          
+          // select{
+            // cursor: pointer;
+            // -webkit-appearance: menulist-button;
+            // left: 0;
+            // top: 0;
+            // height: 1.5em;
+            // // -webkit-tap-highlight-color: rgba(0,0,0,0); 
+            // min-width:7em;
+            // background:@color-sticker;
+            // border:1px solid @color-sticker;
+          // }
+          .selector(){
+            cursor: pointer;
+            -webkit-appearance: menulist-button;
+            background:@color-sticker;
+            border:1px solid @color-sticker;         
+            color:white;
           }
-          #addr-sel-icon{
-            .sticker-txt;
-             font-size:1.3em;
-             margin-top:0.15em;
+          .country-selector{
+            .selector;
+            position:absolute;
+            top:0;
+            left:0em;
+            height: 1.5em;
+            min-width:7em;
+          }
+          .area-selector{
+            position:absolute;
+            top:0;
+            left:9.5em;
+            height: 1.5em;
+            min-width:7em;
+            .selector;   
+          }
+  
+          .SelectInput{
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack:left;
+            -webkit-box-align:center;
+            .selectedValue{
+              .sticker-txt;
+            }
+            #addr-sel-icon{
+              .sticker-txt;
+               font-size:1.3em;
+               margin-top:0.15em;
+            }
           }
         }
       }
-    }
-    .CircleButton{
-      display: -webkit-box;
-      -webkit-box-orient: horizontal;
-      -webkit-box-pack:left;
-      -webkit-box-align:center;
-      .locating-txt{
-        .sticker-txt;
-      }
-      #locating-icon{
-        .sticker-txt;
-        font-size:1.5em;
+      .CircleButton{
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-pack:left;
+        -webkit-box-align:center;
+        position:absolute;
+        left:9.5em;
+        .locating-txt{
+          .sticker-txt;
+        }
+        #locating-icon{
+          .sticker-txt;
+          font-size:1.5em;
+        }
       }
     }
   }

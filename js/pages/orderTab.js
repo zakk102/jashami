@@ -14,7 +14,7 @@
 			var that = this;
 			var scroller = new Scroller();
 			
-			$(this.el).append('<div id="district-sticker1"></div><div id="district-sticker2"></div><div class="district-panel"><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div><div id="stores-panel">');
+			$(this.el).append('<div id="district-sticker1"></div><div id="district-sticker2"></div><div class="district-panel"><div class="district-panel-inner"><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div></div><div id="stores-panel">');
 
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
