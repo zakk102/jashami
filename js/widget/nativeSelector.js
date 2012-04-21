@@ -1,4 +1,4 @@
-// Filename: js/widget/Selector.js
+// Filename: js/widget/nativeSelector.js
 (function(Utils, DeviceType, Images, Picker){
 	var template = [
 		// '<div>',
@@ -90,6 +90,13 @@
 				else this._selectedKey[this._childTitle] = "";
 			}
 			this.updateDisplay();
+		},
+		clear: function(){
+			this._options = {}; //{title:{key:value}}
+			this._selectedKey = {}; //{title:key}
+			this._pickerOptionString = [];
+			this._parentTitle = "";
+			this._childTitle = "";
 		},
 		updateDisplay: function(){
 			var displayedString = "";

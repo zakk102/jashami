@@ -28,16 +28,16 @@
 			$(this.el).html(_.template(selectorTemplate));
 		},
 		events: {
-			'change .date-selector': 'changeDate',
-			'change .time-selector': 'changeTime'
+			'change .date-selector': 'dateChanged',
+			'change .time-selector': 'timeChanged'
   		},
-  		changeDate: function(e){
+  		dateChanged: function(e){
   			var value = parseInt($('.date-selector', this.el).val());
   			var timeList = this._sortedTimeList[new Date(value)];
   			$('.time-selector', this.el).html(_.template(timeTemplate, {data:timeList}));
   		},
-  		changeTime: function(e){
-  			
+  		timeChanged: function(e){
+  			this.$el.trigger("dateTimeSelectionChange", this.getSelection());
   		},
   		setDataList: function(data){
   			this._sortedTimeList = {};
@@ -57,7 +57,7 @@
   					if(D1.getYear()==D2.getYear()&&D1.getMonth==D2.getMonth&&D1.getDate()==D2.getDate()){ // the same date
 						timeList.push(d2);
 					}else{
-						var timeList = [];
+						timeList = [];
 						timeList.push(d2);
 						this._sortedTimeList[D2] = timeList;
 						dateList.push(d2);
@@ -68,7 +68,8 @@
   			}
   		},
   		getSelection: function(){
-  			
+  			var value = parseInt($('.time-selector', this.el).val());
+  			return isNaN(value)? undefined : new Date(value);
   		},
   		render: function(){
 			return this;
