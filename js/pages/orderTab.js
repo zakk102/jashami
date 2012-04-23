@@ -1,10 +1,13 @@
 // Filename: js/pages/orderTab.js
 (function(Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
-			// '<div class="district-panel">', 
-				// '<div class="AddressSelector"></div>',
-				// '<div class="CircleButton"><div class="ButtonText">自動定位</div></div>',
-			// '</div>'
+			'<div id="district-sticker1"></div>',
+			'<div id="district-sticker2"></div>',
+			'<div class="district-panel">',
+				'<div class="AddressSelector"></div>',
+				'<div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div>',
+			'</div>',
+			'<div id="stores-panel"></div>'
 	].join('');
 	
 	var OrderTabView = Backbone.View.extend({
@@ -13,23 +16,16 @@
 
 			var that = this;
 			var scroller = new Scroller();
-			
+			 
 			$(this.el).append('<div class="district-panel"><div class="district-panel-inner"><div id="district-sticker1"></div><div id="district-sticker2"></div><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div></div><div id="stores-panel">');
 
 			this.scroller = scroller;
-			scroller.html(_.template(tabTemplate));
-			// (this.el).append('<div class="AddressSelector"></div>');	
-			// $(this.el).append('<div class="CircleButton"><div class="ButtonText">自動定位</div></div>');			
+			
+			$(this.el).html(_.template(tabTemplate));
 			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
 			$('#stores-panel', this.el).append(scroller.render().el);
 			$(scroller.el).css('height', '100%');
-			
-			// $(this.el).append(scroller.render().el);
-			// $(this.el).html(scroller.render().el);
-			// $(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).addClass('orderTab');
-			// $(scroller.el).css('width', '100%');
-			// $(scroller.el).css('-webkit-box-flex', '1');
 			
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
 			var ele = document.createElement('div');

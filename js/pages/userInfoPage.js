@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(Scroller){
+(function(Scroller, DateTimeSelector, NativeTimeSelector){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
@@ -45,22 +45,46 @@
 			$(this.el).html(_.template(pageTemplate));
 			$("#userinfoList", this.el).append(this.scroller.render().el);
 			this.scroller.html(_.template(infoListTemplate));
+			
+			this.useNative(window.phonegapEnabled);
+			//this.useNative(true);
+			$(window).bind('useNative', function(e){
+				that.useNative(e.data);
+			});
+			
+			//time selector
+			//this.timeSelector = new DateTimeSelector({el:$('.DateTimeSelectionBox', this.el)});
 		},
 		events:{
-			"click .BackButton":"goBack",
+			"click .BackButton":"goBack"
 		},
 		goBack: function(){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
 		},
+		setAvailableTime: function(list){
+			this.timeSelector.setDataList(list);
+		},
 		render: function(){
 			// re-bind event
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
-	  	}
+	  	},
+	  	useNative: function(isNative){
+			var timeSelector;
+			if(isNative){
+				timeSelector = new NativeTimeSelector();
+			}else{
+				timeSelector = new DateTimeSelector();
+			}
+			this.timeSelector = timeSelector;
+			$('.DateTimeSelectionBox', this.el).html(this.timeSelector.render().el);
+		}
 	});
 	window.myapp = window.myapp || {};
 	window.myapp.UserInfoPageView = UserInfoPageView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.Scroller,
+	window.myapp.Widget.DateTimeSelector,
+	window.myapp.Widget.NativeTimeSelector);
