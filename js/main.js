@@ -6,6 +6,8 @@
 	if(supportedLang.indexOf(language)<0) language = defaultLang;
 	i18n.set(window.languages[language]);
 
+	window.phonegapEnabled = true;
+
 // phonegap
 	myapp.PG.Event.onDeviceReady(function(){
 		console.log("phonegap load");
