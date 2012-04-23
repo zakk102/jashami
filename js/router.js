@@ -61,7 +61,7 @@
 				}
 			});
 	    },
-		defaultAction: function(actions){
+		defaultAction: function(){
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){

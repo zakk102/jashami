@@ -1,0 +1,34 @@
+{
+	"storeID":"五十嵐",
+	"type":"delivery",
+	"customerName":"zakk",
+	"customerPhone":"0926260605"
+	"customerDeviceID":"@APPID@2342334523423.324234",
+	"customerAddress":"台北市信義區基隆路一段180號7樓",
+	"wantDate":235346456352342,
+	"autoLocalization":{
+		"lat":25.3434
+		"lng":120.234234
+		"address":"台北市信義區基隆路地下道"
+	},
+	"buyList":[
+		{
+			"productNameId": "五十嵐台北_茉莉綠茶",
+			"selectedOptions":{
+				"甜度":"10分糖",
+				"冷熱":"正常冰",
+				"份量":"大",
+				"加料":"不用加料"
+			},
+			"singlePrice": 25,
+			"amount": 1,
+			"orderName":"Evan"
+		}
+	],
+	"notes":{
+		"公司行號":"",
+		"統一編號":"",
+		"備註":""
+	},
+	"sum":25
+}
