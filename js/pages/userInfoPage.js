@@ -1,10 +1,10 @@
 //Filename: js/pages/userInfoPage.js
-(function(Scroller, DateTimeSelector, NativeTimeSelector){
+(function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
 			'<div id="title"></div>',
-			'<div></div>',
+			'<div><div class="HeaderButton NextButton"><span class="Pointer"></span><span class="Button">送出</span></div></div>',
 		'</div>',
 		'<div id="userinfoList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>'
@@ -56,12 +56,37 @@
 			//this.timeSelector = new DateTimeSelector({el:$('.DateTimeSelectionBox', this.el)});
 		},
 		events:{
-			"click .BackButton":"goBack"
+			"click .BackButton":"goBack",
+			"click .NextButton":"sendOrder"
 		},
-		goBack: function(){
+		goBack: function(e){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
+		},
+		sendOrder: function(e){
+			// test
+			$.ajax({
+				type: 'GET',
+  				url: './testData/sendOrder',
+  				dataType: 'json',
+  				success: function(data){
+    				console.log(data);
+    				$.ajax({
+    					type: 'POST',
+  						url: OrderServiceUrl+'?action=sendOrder',
+  						dataType: 'json',
+    					data:JSON.stringify(data), 
+    					success: function(response){ 
+					  		console.log(response);
+					  	}
+					});
+				},
+				error: function(xhr, type){
+				    console.log(xhr);
+				    console.log(type);
+				}
+  			});
 		},
 		setAvailableTime: function(list){
 			this.timeSelector.setDataList(list);
@@ -85,6 +110,7 @@
 	});
 	window.myapp = window.myapp || {};
 	window.myapp.UserInfoPageView = UserInfoPageView;
-})(	window.myapp.Widget.Scroller,
+})(	window.myapp.Api.OrderServiceUrl,
+	window.myapp.Widget.Scroller,
 	window.myapp.Widget.DateTimeSelector,
 	window.myapp.Widget.NativeTimeSelector);
