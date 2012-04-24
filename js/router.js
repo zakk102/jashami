@@ -9,6 +9,7 @@
 			'storePage/:store/:product': 'productPage',
 			'oderInfoPage/:store': 'orderInfoPage',
 			'userInfoPage/:store': 'userInfoPage',
+			'orderResultPage/:store': 'orderResultPage',
 			// Default
 			'*actions': 'defaultAction'
 		},
@@ -57,6 +58,11 @@
 				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
 					that.transitionEffectType = 'hSlide';
 					if(oldUrl.indexOf('#oderInfoPage')>=0 || oldUrl.indexOf('#storePage')>=0){ // from order info page, slide from right
+						that.transitionDir = 'right';
+					}
+				}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
+					that.transitionEffectType = 'hSlide';
+					if(oldUrl.indexOf('#userInfoPage')>=0){ // from user info page, slide from right
 						that.transitionDir = 'right';
 					}
 				}
@@ -179,10 +185,27 @@
 				this.views.userInfoPage = new Views.UserInfoPageView();
 				this.loadToDOM(this.views.userInfoPage.el);
 			}
+			this.views.userInfoPage.setStore(store);
 			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;
 			this.views.userInfoPage.render();
+		},
+		orderResultPage: function(store){
+			if(!this.views.orderResultPage){ // load the orderResult page into DOM
+				this.views.orderResultPage = new Views.OrderResultPageView();
+				this.loadToDOM(this.views.orderResultPage.el);
+			}
+			if(!window.myapp.orderNumber){
+				window.myapp.orderNumber = 0;
+			} 
+			this.views.orderResultPage.setOrderNumber(window.myapp.orderNumber);
+			this.views.orderResultPage.setStore(store);
+			this.changePage(this.views.orderResultPage.render().el, this.transitionEffectType, this.transitionDir);
+			this.transitionEffectType = null;
+			this.transitionDir = null;
+			this.views.orderResultPage.render();
+			this.views.orderResultPage.cleanShoppingCart(store);
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');
@@ -256,7 +279,8 @@
 {	StartPageView:window.myapp.StartPageView,
 	StorePageView:window.myapp.StorePageView,
 	OrderInfoPageView:window.myapp.OrderInfoPageView,
-	UserInfoPageView:window.myapp.UserInfoPageView
+	UserInfoPageView:window.myapp.UserInfoPageView,
+	OrderResultPageView:window.myapp.OrderResultPageView
 });
 
 
