@@ -97,8 +97,9 @@
 			that.transitionEffectType = null;
 			that.transitionDir = null;
 			if(!window.menuData){
+				//only occur in the direct access to store page
 				window.menuData = new MenuData();
-				window.menuData.fetch({success:function(){
+				window.menuData.getMenuByZipCode('110', function(index){
 					that.views.storePage.resetDisplayedData();
 					that.views.storePage.refreshGridSize();
 					that.views.storePage.resetScroller();
@@ -107,7 +108,9 @@
 						that.views.orderInfoPage = new Views.OrderInfoPageView();
 						that.loadToDOM(that.views.orderInfoPage.el);
 					}
-				}});
+				},function(xhr, type){
+					console.log(type);
+				});
 			}else{
 				that.views.storePage.resetDisplayedData();
 				that.views.storePage.refreshGridSize();

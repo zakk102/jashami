@@ -22,7 +22,7 @@
 			$(this.el).html(_.template(tabTemplate));
 			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
 			$('#stores-panel', this.el).append(this.scroller.render().el);
-			$(this.scroller.el).css('height', '100%');
+			// $(this.scroller.el).css('height', '100%');
 			$(this.el).addClass('orderTab');
 			
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width());

@@ -13,6 +13,9 @@
 			this.container.style.overflow = 'hidden';
 			this.content.style.width = '100%';
 			this.scroll = new scrollLib(this.container, opt);
+			$(this.el).css('position', 'absolute');
+			$(this.el).css('height', '100%');
+			$(this.el).css('width', '100%');
 			
 			var that = this;
 			var refresh = function(e){

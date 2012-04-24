@@ -1,25 +1,50 @@
 //Filename: js/pages/storePage.js
 (function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
-		'<div class="header">',
-			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
-			'<div id="title"></div>',
-			'<div></div>',
-		'</div>',
-		'<div id="storeContent" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
-//			'<div id="productPanel" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
-//			'<div id="" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
-		'</div>',
-		'<div class="ShoppingCar">',
-			'<div style="position: relative; " class="Car">',
-				'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; top: 0%; right: 0%; bottom: 0%; width: 25%; ">',
-					'<a class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
-						'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
-					'</a>',
+		'<div class="PageMainPanel">',
+			'<div class="header-wrap">',
+				'<div class="header-shadow"></div>',
+				'<div class="header-outer">',
+					'<div class="header">',
+						// '<div class="top"></div>',
+						'<div class="center">',
+							'<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
+							'<div class="function-panel">',
+								'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon"></div><div class="function-txt">訂餐</div></div></a>',
+								'<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon"></div><div class="function-txt">紀錄</div></div></a>',
+								'<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon"></div><div class="function-txt">意見</div></div></a>',
+								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',
+							'</div>',
+							'<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
+						'</div>',
+						// '<div class="bottom"></div>',
+					'</div>',
 				'</div>',
-				'<div class="ShoppingCartPanel"></div>',
+			'</div>',
+			'<div class="PageContent" id="storeContent">',
+				'<div id="segmentPanel"></div>',
+			'</div>',
+			'<div class="ShoppingCar">',
+				'<div style="position: relative; " class="Car">',
+					'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; top: 0%; right: 0%; bottom: 0%; width: 25%; ">',
+						'<a class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
+							'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
+						'</a>',
+					'</div>',
+					'<div class="ShoppingCartPanel"></div>',
+				'</div>',
 			'</div>',
 		'</div>'
+
+		// '<div class="header">',
+			// '<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
+			// '<div id="title"></div>',
+			// '<div></div>',
+		// '</div>',
+		// '<div id="storeContent" style="">',
+// //			'<div id="productPanel" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
+// //			'<div id="" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: justify;"></div>',
+		// '</div>',
 	].join('');
 	
 	var productWidgetTemplate = [
@@ -27,7 +52,7 @@
 			'<img class="ProductBoxWidget2-img" src="<%= img %>"/>',
 			'<div class="ProductBoxWidget2-info">',
 				'<div class="ProductBoxWidget2-name"><%= name %></div>',
-				'<div class="ProductBoxWidget2-price"><%= price %>元</div>',
+				'<div class="ProductBoxWidget2-price"><%= price %></div>',
 			'</div>',
 		'</div>'
 	].join('');
@@ -54,7 +79,7 @@
 
 			// segment widget
 			this._segmentPanelWidth = $(window).width()>640?60:30;
-			this.segmentPanel = new Scroller();
+//			this.segmentPanel = new Scroller();
 			
 			// product panel
 			if(!window.productPanel){
@@ -64,9 +89,10 @@
 
 			// this page
 			$(this.el).html(_.template(pageTemplate));
+			$("#segmentPanel", this.el).addClass('ScrollBar Segment');
 			$("#storeContent", this.el).append(this.scroller.render().el);
-			$("#storeContent", this.el).append(this.segmentPanel.render().el);
-			$(this.segmentPanel.getContent()).addClass('ScrollBar Segment');
+//			$("#storeContent", this.el).append(this.segmentPanel.render().el);
+//			$(this.segmentPanel.getContent()).addClass('ScrollBar Segment');
 	
 			// shopping cart panel
 			if(!window.shoppingCartPanel){
@@ -75,27 +101,27 @@
 			}
 			
 			// grid setting
-			this._col = 3;
+			this._col = 2;
 			this._gridWidth = 100;
 			this._gridHeight = 75;
-			this._gridHMargin = 2;
+			this._gridHMargin = 4;
 			this._gridVMargin = 3;
-			this._minCol = 3;
-			this._minGridWidth = $(window).width()<=640?100:150;
-			this._maxGridWidth = $(window).width()<=640?150:200;
+			this._minCol = 2;
+			this._minGridWidth = $(window).width()<=640?150:200;
+			this._maxGridWidth = $(window).width()<=640?200:250;
 			
 			$(window).bind('resize', function(){
-				that._minGridWidth = $(window).width()<=640?100:150;
-				that._maxGridWidth = $(window).width()<=640?150:200;
-				that._segmentPanelWidth = $(window).width()>640?60:30;
+				that._minGridWidth = $(window).width()<=640?150:200;
+				that._maxGridWidth = $(window).width()<=640?200:250;
+				that._segmentPanelWidth = 0;//$(window).width()>640?60:30;
 				var widgetWidth = $(window).width()-that._segmentPanelWidth;
 				that.calAndSetGridSize(that._segmentPanelWidth, widgetWidth);
 			});
 		},
 		refreshGridSize: function(){
-			this._minGridWidth = $(window).width()<=640?100:150;
-			this._maxGridWidth = $(window).width()<=640?150:200;
-			this._segmentPanelWidth = $(window).width()>640?60:30;
+			this._minGridWidth = $(window).width()<=640?150:200;
+			this._maxGridWidth = $(window).width()<=640?200:250;
+			this._segmentPanelWidth = 0;//$(window).width()>640?60:30;
 			var widgetWidth = $(window).width()-this._segmentPanelWidth;
 			this.calAndSetGridSize(this._segmentPanelWidth, widgetWidth);	
 		},
@@ -135,11 +161,12 @@
 		},
 		resetScroller: function(){
 			this.scroller.scrollTo(0, 0);
-			this.segmentPanel.scrollTo(0, 0);
+//			this.segmentPanel.scrollTo(0, 0);
 		},
 		resetDisplayedData: function(){
 			this.scroller.getContent().empty();
-			this.segmentPanel.getContent().empty();
+//			this.segmentPanel.getContent().empty();
+			$("#segmentPanel", this.el).empty();
 		},
   		setModel: function(model){
   			if(model) this.model = model;
@@ -204,7 +231,8 @@
 					qqq = cateName.indexOf('@')+1;
 					if(qqq>0) cate = cateName.substring(qqq);
 					segment.innerHTML = '<div>'+cate+'</div>';
-					that.segmentPanel.getContent().append(segment);
+//					that.segmentPanel.getContent().append(segment);
+					$("#segmentPanel", that.el).append(segment);
 					$(segment).width(that._segmentPanelWidth);
 					$(segment).attr('loc', 'cateName'+count);
 				}
@@ -215,7 +243,7 @@
 				_.each(products, dd);
 				$(cateWidget).css('margin-bottom', '0px'); // reset the margin of last line
 				that.scroller.render();
-				that.segmentPanel.render();
+//				that.segmentPanel.render();
 				$('.SegmentWidget', that.el).bind('click', function(e){
 					var loc = $(e.currentTarget).attr('loc');
 	  				that.scroller.scrollToElement($('#'+loc).get(0));
