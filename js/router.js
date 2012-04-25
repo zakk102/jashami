@@ -59,6 +59,8 @@
 						that.transitionDir = 'right';
 					}
 				}
+				// App event
+				window.myapp.AppEvent.goPage();
 			});
 	    },
 		defaultAction: function(){

@@ -32,6 +32,7 @@ apps="\
 ./js/models/menuData.js \
 ./js/models/order.js \
 ./js/models/shoppingCartData.js \
+./js/models/appEvent.js \
 ./js/images.js \
 ./js/widget/touchWidget.js \
 ./js/widget/scroller.js \

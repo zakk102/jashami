@@ -28,6 +28,7 @@
 		$('#backgroundLogo').remove();
 		window.app_router = new myapp.Router;
 		Backbone.history.start();
+		window.myapp.AppEvent.onStart();
 	});
 	
 
