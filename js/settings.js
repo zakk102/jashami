@@ -9,6 +9,13 @@
 			var wWidth = containerWidth - this.StoreBriefHmargin;
 			var col = Math.floor(wWidth/400)+1;
 			return (wWidth-this.StoreBriefHmargin*(col-1))/col;
+		},
+		'isOpenNow': function(){
+			var d = new Date();
+			var h = d.getHours(), m = d.getMinutes();
+			if( h<9 || (h==9&&m<=30) ) return false; //0:00~9:30
+			if( h>19 || (h==19&&m>=30) ) return false; //19:30~24:00
+			return true;
 		}
 	};
 	

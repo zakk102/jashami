@@ -59,9 +59,13 @@
 						that.transitionDir = 'right';
 					}
 				}
-				// App event
+				// App event tracking: page changed
 				window.myapp.AppEvent.goPage();
+				window.myapp.GoogleAnalytics.goPage();
 			});
+			// App event tracking: first page
+			window.myapp.AppEvent.goPage();
+			window.myapp.GoogleAnalytics.goPage();
 	    },
 		defaultAction: function(){
 			this.startPage('orderTab');
