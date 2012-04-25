@@ -17,7 +17,7 @@
 				  	}
 				});
 			}else{
-				console.log('develop mode, disable event sending: '+data.eventCategory+' '+data.eventAction+' '+data.eventLabel);
+				console.log('develop mode, disable event sending: '+data.eventCategory+' '+data.eventAction+' '+data.eventLabel+' '+data.eventPararmeter);
 			}
 		},
 		onStart: function(){
@@ -44,7 +44,9 @@
 			var data = {};
 			data.eventCategory = "Page";
 			data.eventAction = "Enter";
-			data.eventLabel = window.location.hash;
+			var hash = window.location.hash;
+			data.eventLabel = hash.substring(0, hash.indexOf('/'));;
+			data.eventPararmeter = hash.substring(hash.indexOf('/')+1);;
 			this.sendEvent(data);
 		}
 	};
