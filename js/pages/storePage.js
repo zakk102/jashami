@@ -8,14 +8,17 @@
 					'<div class="header">',
 						// '<div class="top"></div>',
 						'<div class="center">',
-							'<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
-							'<div class="function-panel">',
-								'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon"></div><div class="function-txt">訂餐</div></div></a>',
-								'<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon"></div><div class="function-txt">紀錄</div></div></a>',
-								'<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon"></div><div class="function-txt">意見</div></div></a>',
-								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',
+							'<div class="BackButton">',
+								'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
 							'</div>',
-							'<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
+							'<div id="title" class="function-panel">',
+								// '<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">訂餐</div></div>',											// '<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon"></div><div class="function-txt">紀錄</div></div></a>',
+								// '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon"></div><div class="function-txt">意見</div></div></a>',
+								// '<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',					
+							'</div>',
+							'<div class="NextButton">',
+								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">查看</div></div></a>',					
+							'</div>',
 						'</div>',
 						// '<div class="bottom"></div>',
 					'</div>',
@@ -23,15 +26,10 @@
 			'</div>',
 			'<div class="PageContent" id="storeContent">',
 				'<div id="segmentPanel"></div>',
-			'</div>',
-			'<div class="ShoppingCar">',
-				'<div style="position: relative; " class="Car">',
-					'<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; top: 0%; right: 0%; bottom: 0%; width: 25%; ">',
-						'<a class="Button" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">',
-							'<div><img src="'+ImageResource.ShoppingCarIcon+'"></div><div class="ButtonText">查看</div>',
-						'</a>',
-					'</div>',
-					'<div class="ShoppingCartPanel"></div>',
+				'<div class="ShoppingCar">',
+					// '<div style="position: relative; " class="Car">',
+						'<div class="ShoppingCartPanel"></div>',
+					// '</div>',
 				'</div>',
 			'</div>',
 		'</div>'
@@ -198,11 +196,10 @@
 				if(img){
 					el.style.width = that._gridWidth +'px';
 					//el.style.height = that._gridHeight*2+that._gridVMargin +'px';
-					el.style.height = that._gridHeight*3+that._gridVMargin +'px';
+					el.style.height = that._gridHeight*3+that._gridVMargin*2 +'px';
 					$(el).html(_.template(productWidgetTemplate,{img:img, name:pname, price:pprice}));
 				}else{
 					el.style.width = that._gridWidth +'px';
-					//el.style.height = that._gridHeight +'px';
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
@@ -255,7 +252,7 @@
 			},30);			
 			// shopping car
 			var storeNameId = this.model.get('storeNameId');
-			$('.ShoppingCar a.Button', this.el).attr('href', '#oderInfoPage/'+storeNameId);
+			$('#order-info', this.el).attr('href', '#oderInfoPage/'+storeNameId);
 			if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
 			var shoppingCarts = window.shoppingCartCollection;
 			var shoppingCart = shoppingCarts.get(storeNameId);
