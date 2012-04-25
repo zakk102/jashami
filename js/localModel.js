@@ -53,7 +53,13 @@
 				return result;
 			return this.getAppId();
 		};
-		
+	// user data
+		LocalModel.setUserName = function(name){ this.set("userName", name); };	
+		LocalModel.getUserName = function(){ return this.get("userName"); };
+		LocalModel.setUserPhoneNumber = function(phoneNumber){ this.set("userPhoneNumber", phoneNumber); };	
+		LocalModel.getUserPhoneNumber = function(){ return this.get("userPhoneNumber"); };
+		LocalModel.setUserAddress = function(address){ this.set("userAddress", address); };
+		LocalModel.getUserAddress = function(){ return this.get("userAddress"); };	
 		
 		window.myapp = window.myapp || {};
 		window.myapp.LocalModel = LocalModel;

@@ -6,12 +6,13 @@
 	if(supportedLang.indexOf(language)<0) language = defaultLang;
 	i18n.set(window.languages[language]);
 
-	window.phonegapEnabled = true;
+	//window.phonegapEnabled = true;
 
 // phonegap
 	myapp.PG.Event.onDeviceReady(function(){
 		console.log("phonegap load");
 		window.phonegapEnabled = true;
+		window.enableBackButton = true;
 		if(myapp.LocalModel) myapp.LocalModel.setPhoneUUID(myapp.PG.Device.getUUID());
 		// android back key
 		myapp.PG.Device.overrideBackButton();
@@ -19,7 +20,13 @@
 			if(!window.enableBackButton) return;
 			//TODO go back page, need to detect have to exit app or not
 		});
-		//TODO pause and resume
+		// pause and resume
+		myapp.PG.Event.onPause(function(){
+			window.myapp.AppEvent.onPause();
+		});
+		myapp.PG.Event.onResume(function(){
+			window.myapp.AppEvent.onResume();
+		});
 		// native or web ui
 		$(window).trigger('useNative', true);
 	});
@@ -28,6 +35,7 @@
 		$('#backgroundLogo').remove();
 		window.app_router = new myapp.Router;
 		Backbone.history.start();
+		window.myapp.AppEvent.onStart();
 	});
 	
 

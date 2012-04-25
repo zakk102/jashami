@@ -41,6 +41,8 @@
 	<script src="js/models/menuData.js"></script>
 	<script src="js/models/order.js"></script>
 	<script src="js/models/shoppingCartData.js"></script>
+	<script src="js/models/appEvent.js"></script>
+	<script src="js/models/googleAnalytics.js"></script>
 	<script src="js/images.js"></script>
 	<script src="js/widget/touchWidget.js"></script>
 	<script src="js/widget/scroller.js"></script>
@@ -64,6 +66,17 @@
 	<script src="js/pages/orderInfoPage.js"></script>
 	<script src="js/pages/userInfoPage.js"></script>
 	<script src="js/router.js"></script>
+	
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-26522452-1']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>  
 </head>
 
 <body>

@@ -176,6 +176,10 @@
 			$("#title", this.el).html(storeName);
 			// product items
 			var products = this.model.get('menuId').get('products').models;
+			products.comparator = function(arg0, arg1){
+				arg0.get('category')<arg1.get('category')?-1:1;
+			};
+			//products.sort();
 			var cateName;
 			var cateWidget;
 			var count = 0;

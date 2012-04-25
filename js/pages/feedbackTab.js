@@ -1,5 +1,5 @@
 // Filename: js/pages/feedbackTab.js
-(function(Scroller){
+(function(Scroller, FeedbackServiceUrl, LocalModel){
 	var tabTemplate = [
 		"<div class='about_text' style='width:100%;'>",
 			"感謝您使用Jashami(甲蝦米)<br/>",
@@ -17,7 +17,6 @@
 			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate));
 			$(this.el).html(scroller.el);
-			// $(this.el).css('background-color', 'rgba(255, 255, 255, 0.75)');
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
 			$(scroller.el).css('width', '100%');
@@ -33,10 +32,32 @@
 	   	sendFeedback: function(){
 	   		var recommandation = $('#recommendation', this.el).val();
 	   		var opinion = $('#opinion', this.el).val();
-	   		alert('sendFeedback' + recommandation + opinion);
+	   		var data = {};
+	   		data.UUID = LocalModel.getUUID();
+	   		data.appName = "o2oist";
+	   		data.customerName = LocalModel.getUserName();
+	   		data.customerPhoneNumber = LocalModel.getUserPhoneNumber();
+	   		data.feedbacks = {};
+	   		data.feedbacks.recommandation = recommandation;
+	   		data.feedbacks.opinion = opinion;
+	   		$.ajax({
+				type: 'POST',
+				url: FeedbackServiceUrl+'?action=sendFeedback',
+				dataType: 'json',
+				data:JSON.stringify(data), 
+				success: function(response){ 
+			  		console.log(response);
+			  		alert('謝謝您的寶貴意見');
+			  	},
+			  	error: function(xhr, type){
+				    alert('謝謝您的寶貴意見');
+				}
+			});
 	   	}
 	});
 	
 	window.myapp = window.myapp || {};
 	window.myapp.FeedbackTabView = FeedbackTabView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Widget.Scroller,
+	window.myapp.Api.FeedbackServiceUrl,
+	window.myapp.LocalModel);

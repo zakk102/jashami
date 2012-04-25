@@ -50,8 +50,14 @@
   			var that = this;
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
+  				// save 
+  				window.autoLocalization = window.autoLocalization || {};
+  				window.autoLocalization.lat = location.latitude;
+  				window.autoLocalization.lng = location.longitude;
+  				// get address
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
     				var addr = address.results[0].formatted_address;
+    				window.autoLocalization.address = addr; // save
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
     			},function(error){
