@@ -1,12 +1,12 @@
 // Filename: js/pages/orderTab.js
 (function(Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
-			'<div id="district-sticker1"></div>',
-			'<div id="district-sticker2"></div>',
-			'<div class="district-panel">',
+			'<div class="district-panel"><div class="district-panel-inner">',
+				'<div id="district-sticker1"></div>',
+				'<div id="district-sticker2"></div>',
 				'<div class="AddressSelector"></div>',
 				'<div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div>',
-			'</div>',
+			'</div></div>',
 			'<div id="stores-panel"></div>'
 	].join('');
 	
@@ -15,16 +15,14 @@
 			this.loadStore("110");
 
 			var that = this;
-			var scroller = new Scroller();
+			this.scroller = new Scroller();
 			 
-			$(this.el).append('<div class="district-panel"><div class="district-panel-inner"><div id="district-sticker1"></div><div id="district-sticker2"></div><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div></div><div id="stores-panel">');
-
-			this.scroller = scroller;
+			// $(this.el).append('<div class="district-panel"><div class="district-panel-inner"><div id="district-sticker1"></div><div id="district-sticker2"></div><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div></div><div id="stores-panel">');s.scroller = scroller;
 			
 			$(this.el).html(_.template(tabTemplate));
 			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
-			$('#stores-panel', this.el).append(scroller.render().el);
-			$(scroller.el).css('height', '100%');
+			$('#stores-panel', this.el).append(this.scroller.render().el);
+			$(this.scroller.el).css('height', '100%');
 			$(this.el).addClass('orderTab');
 			
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
