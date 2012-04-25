@@ -1,4 +1,4 @@
-java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks \
+ioslibs="\
 ./js/libs/phonegap/phonegap-ios.js \
 ./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
@@ -7,6 +7,22 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=i
 ./js/libs/backbone/backbone-min.js \
 ./js/libs/backbone/backbone-relational.js \
 ./js/libs/iscroll/iscroll.js \
+./js/libs/masonry/masonry.min.js \
+"
+
+androidlibs="\
+./js/libs/phonegap/phonegap-android.js \
+./js/libs/phonegap/phonegap-zakk.js \
+./js/libs/i18n/i18n-zakk.js \
+./js/libs/zepto/zepto.min.js \
+./js/libs/underscore/underscore-min.js \
+./js/libs/backbone/backbone-min.js \
+./js/libs/backbone/backbone-relational.js \
+./js/libs/iscroll/iscroll.js \
+./js/libs/masonry/masonry.min.js \
+"
+
+apps="\
 ./js/localModel.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \
@@ -17,6 +33,7 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=i
 ./js/models/order.js \
 ./js/models/shoppingCartData.js \
 ./js/images.js \
+./js/widget/touchWidget.js \
 ./js/widget/scroller.js \
 ./js/widget/addressSelector.js \
 ./js/widget/timeSelector.js \
@@ -38,4 +55,8 @@ java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=i
 ./js/pages/orderInfoPage.js \
 ./js/pages/userInfoPage.js \
 ./js/router.js \
---js_output_file=complied.js
+"
+
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $ioslibs --js_output_file=complied_ioslibs.js
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $androidlibs --js_output_file=complied_androidlibs.js
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $apps --charset UTF-8 --js_output_file=complied_apps.js
