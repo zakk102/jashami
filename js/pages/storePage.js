@@ -17,7 +17,7 @@
 								// '<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',					
 							'</div>',
 							'<div class="NextButton">',
-								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">查看</div></div></a>',					
+								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">購物車</div></div></a>',					
 							'</div>',
 						'</div>',
 						// '<div class="bottom"></div>',
@@ -26,11 +26,11 @@
 			'</div>',
 			'<div class="PageContent" id="storeContent">',
 				'<div id="segmentPanel"></div>',
-				'<div class="ShoppingCar">',
+				'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="ShoppingCar">',
 					// '<div style="position: relative; " class="Car">',
 						'<div class="ShoppingCartPanel"></div>',
 					// '</div>',
-				'</div>',
+				'</div></a>',
 			'</div>',
 		'</div>'
 
@@ -176,10 +176,7 @@
 			$("#title", this.el).html(storeName);
 			// product items
 			var products = this.model.get('menuId').get('products').models;
-			products.comparator = function(arg0, arg1){
-				arg0.get('category')<arg1.get('category')?-1:1;
-			};
-			//products.sort();
+			this.model.get('menuId').get('products').sort();
 			var cateName;
 			var cateWidget;
 			var count = 0;
@@ -207,6 +204,7 @@
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
+				$('.ProductBoxWidget2-name', el).text().length>8?$('.ProductBoxWidget2-name', el).addClass('long-name'):$('.ProductBoxWidget2-name', el).removeClass('long-name');
 				var cate = p.get('category');
 				cate = cate.substring(cate.indexOf('.')+1);
 				if(cate==cateName){

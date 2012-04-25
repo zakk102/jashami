@@ -39,6 +39,11 @@
 	});
 	
 	var Menu = Backbone.RelationalModel.extend({
+		initialize: function(){
+			this.get('products').comparator = function(arg0, arg1){
+				return arg0.get('category')<arg1.get('category')?-1:1;
+			};
+		},
 	    idAttribute: 'menuId',
 	    relations: [{
 	            type: Backbone.HasMany,
