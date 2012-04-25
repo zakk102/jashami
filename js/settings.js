@@ -17,5 +17,5 @@
 	window.myapp.Api.BasicUrl = "http://api2.majashami.appspot.com/api/";
 	window.myapp.Api.MenuServiceUrl = window.myapp.Api.BasicUrl + "MenuService";
 	window.myapp.Api.OrderServiceUrl = window.myapp.Api.BasicUrl + "OrderService";
-	window.myapp.Api.AppEventServiceUrl = window.myapp.Api.BasicUrl + "AppEvevntService";
+	window.myapp.Api.AppEventServiceUrl = window.myapp.Api.BasicUrl + "AppEventService";
 })();

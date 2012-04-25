@@ -37,6 +37,7 @@
 			var data = {};
 			data.eventCategory = "App";
 			data.eventAction = "Resume";
+			data.eventLabel = window.location.hash;
 			this.sendEvent(data);
 		},
 		goPage: function(){
