@@ -48,7 +48,7 @@
 	].join('');
 	
 	var productWidgetTemplate = [
-		'<div class="ProductBoxWidget2">',
+		'<div class="ProductBoxWidget2 ProductBoxWidget2-image">',
 			'<img class="ProductBoxWidget2-img" src="<%= img %>"/>',
 			'<div class="ProductBoxWidget2-info">',
 				'<div class="ProductBoxWidget2-name"><%= name %></div>',
@@ -57,10 +57,10 @@
 		'</div>'
 	].join('');
 	var productWidgetTemplate_noImg = [
-		'<div class="ProductBoxWidget2">',
+		'<div class="ProductBoxWidget2 ProductBoxWidget2-text">',
 			'<div class="ProductBoxWidget2-infoNoImg">',
 				'<div class="ProductBoxWidget2-name"><%= name %></div>',
-				'<div class="ProductBoxWidget2-price"><%= price %>元</div>',
+				'<div class="ProductBoxWidget2-price"><%= price %></div>',
 			'</div>',
 		'</div>'
 	].join('');
@@ -103,9 +103,9 @@
 			// grid setting
 			this._col = 2;
 			this._gridWidth = 100;
-			this._gridHeight = 75;
-			this._gridHMargin = 4;
-			this._gridVMargin = 3;
+			this._gridHeight = 25;
+			this._gridHMargin = 8;
+			this._gridVMargin = 6;
 			this._minCol = 2;
 			this._minGridWidth = $(window).width()<=640?150:200;
 			this._maxGridWidth = $(window).width()<=640?200:250;
@@ -152,8 +152,10 @@
 				var grid = $(grids.get(i));
 				grid.css('width', that._gridWidth);
 				if($('img', grid).length){
-					grid.css('height', that._gridHeight*2+that._gridVMargin);
+					//grid.css('height', that._gridHeight*2+that._gridVMargin);
+					grid.css('height', that._gridHeight*3+that._gridVMargin);
 				}else{
+					//grid.css('height', that._gridHeight);
 					grid.css('height', that._gridHeight);
 				}
 			}
@@ -195,10 +197,12 @@
 //$(el).bind('click', function(){window.history.pushState(pid, "page 2", window.location+'/'+pid);});
 				if(img){
 					el.style.width = that._gridWidth +'px';
-					el.style.height = that._gridHeight*2+that._gridVMargin +'px';
+					//el.style.height = that._gridHeight*2+that._gridVMargin +'px';
+					el.style.height = that._gridHeight*3+that._gridVMargin +'px';
 					$(el).html(_.template(productWidgetTemplate,{img:img, name:pname, price:pprice}));
 				}else{
 					el.style.width = that._gridWidth +'px';
+					//el.style.height = that._gridHeight +'px';
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
