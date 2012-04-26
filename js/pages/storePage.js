@@ -267,25 +267,12 @@
   		},
   		events:{
 			"click .BackButton":"goBack",
-			"click .NextButton":"checkOut",
 			"click .Grid":"showProduct"
 		},
 		goBack: function(){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
-		},
-		checkOut: function(){
-			var storeNameId = this.model.get('storeNameId');
-			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
-			var sum = shoppingCart.get('sum');
-			var deliveryLimit = shoppingCart.get('deliveryLimit');
-			
-			if(sum >= deliveryLimit){
-				location.href = "#userInfoPage/"+this.model.id;
-			}else{
-				alert('未達外送額度');
-			}
 		},
 		showProduct: function(e){
 			// get product id
@@ -317,3 +304,21 @@
 	window.myapp.View.ShoppingCartPanel,
 	window.myapp.Model.ShoppingCart,
 	window.myapp.Model.ShoppingCartCollection);
+
+
+
+/*
+	"click .NextButton":"checkOut",
+		checkOut: function(){
+			var storeNameId = this.model.get('storeNameId');
+			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var sum = shoppingCart.get('sum');
+			var deliveryLimit = shoppingCart.get('deliveryLimit');
+			
+			if(sum >= deliveryLimit){
+				location.href = "#userInfoPage/"+this.model.id;
+			}else{
+				alert('未達外送額度');
+			}
+		},
+ */
