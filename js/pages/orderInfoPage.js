@@ -99,7 +99,7 @@
 			
 			if(sum >= deliveryLimit){
 				var href = "#userInfoPage/"+this.model.id;
-				Backbone.history.navigate(href, {trigger: false, replace: false});
+				Backbone.history.navigate(href, {trigger: true, replace: false});
 			}else{
 				alert('未達外送額度');
 			}
