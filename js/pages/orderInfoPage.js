@@ -11,8 +11,8 @@
 			'<div><div class="AccordionArrow"></div><div>數量</div></div>',
 			'<div><div class="AccordionArrow"></div><div>價錢</div></div>',
 		'</div>',
-		'<div class="OrderListPanel" style="color:#000; background-color:rgba(255, 255, 255, 0.75); -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;"></div>',
-		'<div id="orderList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div class="OrderListPanel" style="color:#000; background-color:rgba(255, 255, 255, 0.75); -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal; position: relative;"></div>',
+//		'<div id="orderList" style="-webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>',
 		'<div class="TotalMoneyPanel"><div>',
 			'<div>總共</div>',
@@ -71,6 +71,9 @@
 			var storeName = this.model.get('displayedName');
 			$("#title", this.el).html(storeName);
 			
+			// check out url
+			$('#checkOutBtn', this.el).attr('href', '#userInfoPage/'+this.model.id);
+			
 			this.resetDisplayedData();
 		},
 		events:{
@@ -91,17 +94,15 @@
 			
 			shoppingCart.clearBuyList();
 		},
-		checkOut: function(){
+		checkOut: function(e){
 			var storeNameId = this.model.get('storeNameId');
 			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
 			var sum = shoppingCart.get('sum');
 			var deliveryLimit = shoppingCart.get('deliveryLimit');
 			
-			if(sum >= deliveryLimit){
-				var href = "#userInfoPage/"+this.model.id;
-				Backbone.history.navigate(href, {trigger: true, replace: false});
-			}else{
+			if(sum < deliveryLimit){
 				alert('未達外送額度');
+				e.preventDefault();
 			}
 		},
 		updateItem: function(e){

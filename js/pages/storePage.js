@@ -254,7 +254,7 @@
 			},30);			
 			// shopping car
 			var storeNameId = this.model.get('storeNameId');
-			$('#order-info', this.el).attr('href', '#oderInfoPage/'+storeNameId);
+			$('#order-info', this.el).attr('href', '#orderInfoPage/'+storeNameId);
 			if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
 			var shoppingCarts = window.shoppingCartCollection;
 			var shoppingCart = shoppingCarts.get(storeNameId);

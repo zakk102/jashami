@@ -7,7 +7,7 @@
 			'startPage/:tab': 'startPage',
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
-			'oderInfoPage/:store': 'orderInfoPage',
+			'orderInfoPage/:store': 'orderInfoPage',
 			'userInfoPage/:store': 'userInfoPage',
 			'orderResultPage/:store': 'orderResultPage',
 			// Default
@@ -50,14 +50,14 @@
 					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
 						that.transitionDir = 'right';
 					}
-				}else if(newUrl.indexOf('#oderInfoPage')>=0){ // to order info page
+				}else if(newUrl.indexOf('#orderInfoPage')>=0){ // to order info page
 					that.transitionEffectType = 'hSlide';
 					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
 						that.transitionDir = 'right';
 					}
 				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
 					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#oderInfoPage')>=0 || oldUrl.indexOf('#storePage')>=0){ // from order info page, slide from right
+					if(oldUrl.indexOf('#orderInfoPage')>=0){ // from order info page, slide from right
 						that.transitionDir = 'right';
 					}
 				}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
