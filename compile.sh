@@ -46,6 +46,7 @@ apps="\
 ./js/widget/accordion.js \
 ./js/views/storeBrief.js \
 ./js/views/productOption.js \
+./js/views/nativeProductOption.js \
 ./js/views/productPanel.js \
 ./js/views/shoppingCartPanel.js \
 ./js/pages/orderTab.js \

@@ -55,6 +55,12 @@
 			}
 			return data;
 		},
+		setSelected: function(data, options){
+			for(var key in data){
+				$('select[key="' + key + '"]', this.el).val(data[key]);
+			}
+			if(!options || !options.silent) this.$el.trigger("selectionChange", this.getSelectedValues());
+		},
 		getSelectedPrice: function(){
 			var m = this.model;
 			var result = 0;
