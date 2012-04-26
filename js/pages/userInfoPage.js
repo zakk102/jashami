@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(Scroller){
+(function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
@@ -19,7 +19,7 @@
 				'<tr><td><div>手機</div></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></td></tr>',
 				'<tr><td><div>地址</div></td><td>',
 					'<table cellspacing="0" cellpadding="0" style="width: 100%; "><tbody><tr>',
-						'<td align="left" style="vertical-align: middle; " width="200px"><div style="font-size: 12pt; ">台北市信義區</div></td>',
+						'<td align="left" style="vertical-align: middle; " width="200px"><div style="font-size: 12pt; "><%= location %></div></td>',
 						'<td align="left" style="vertical-align: middle; "><input type="Text" placeholder="必填" class="INPUT address" style=""></td>',
 					'</tr></tbody></table>',
 				'</td></tr>',
@@ -44,18 +44,28 @@
 			// this page
 			$(this.el).html(_.template(pageTemplate));
 			$("#userinfoList", this.el).append(this.scroller.render().el);
-			this.scroller.html(_.template(infoListTemplate));
+			this.scroller.html(_.template(infoListTemplate, { location: window.myapp.location }));
+			
+			this.useNative(window.phonegapEnabled);
+			//this.useNative(true);
+			$(window).bind('useNative', function(e){
+				that.useNative(e.data);
+			});
+			
+			//time selector
+			//this.timeSelector = new DateTimeSelector({el:$('.DateTimeSelectionBox', this.el)});
 		},
 		events:{
 			"click .BackButton":"goBack",
 			"click .NextButton":"sendOrder"
 		},
-		goBack: function(){
+		goBack: function(e){
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
 		},
 		sendOrder: function(){
+			var that = this;
 			var send = false;
 			var message = [
 				'按下確定後，訂單就會成立，送至系統處理。\n',
@@ -69,8 +79,53 @@
 			if(this.isFromValided()){
 				send = confirm(message);
 				if(send) {
+					var name = $.trim($('.name', this.el).val());
+					var tel = $.trim($('.tel', this.el).val());
+					var address = window.myapp.location + $.trim($('.address', this.el).val());
+					var company = $.trim($('.company', this.el).val());
+					var invoice = $.trim($('.invoice', this.el).val());
+					var remarks = $.trim($('.remarks', this.el).val());
+					var deviceID = window.myapp.LocalModel.getUUID();
+					var wantDate = this.timeSelector.getSelection().getTime();
+					var buyList = window.shoppingCartCollection.get(this.store).get('buyList').toJSON();
+					var sum = window.shoppingCartCollection.get(this.store).get('sum');
+					
+					var data = {
+						"storeID":this.store,
+						"type":"Delivery",
+						"customerName":name,
+						"customerPhone":tel,
+						"customerDeviceID":deviceID,
+						"customerAddress":address,
+						"wantDate":wantDate,
+						"buyList":buyList,
+						"notes":{
+							"公司行號":company,
+							"統一編號":invoice,
+							"備註":remarks
+						},
+						"sum":sum
+					};
+					
+					if(window.autoLocalization){
+						data.autoLocalization = window.autoLocalization;
+					}
 					// send order info to server
-					location.href = '#orderResultPage/' + this.store;
+					$.ajax({
+		    			type: 'POST',
+		  				url: OrderServiceUrl+'?action=sendOrder',
+		  				dataType: 'json',
+		    			data:JSON.stringify(data), 
+		    			success: function(response){ 
+							console.log(response);
+							window.myapp.orderNumber = response.orderID;
+							location.href = '#orderResultPage/' + that.store;
+						},
+						error: function(xhr, type){
+							console.log(xhr);
+							console.log(type);
+						}
+					});
 				}
 			}
 		},
@@ -110,14 +165,31 @@
 		setStore: function(store){
 			this.store = store;
 		},
+		setAvailableTime: function(list){
+			this.timeSelector.setDataList(list);
+		},
 		render: function(){
 			// re-bind event
 			$('#title', this.el).html(this.store);
+			this.scroller.html(_.template(infoListTemplate, { location: window.myapp.location }));
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
-	  	}
+	  	},
+	  	useNative: function(isNative){
+			var timeSelector;
+			if(isNative){
+				timeSelector = new NativeTimeSelector();
+			}else{
+				timeSelector = new DateTimeSelector();
+			}
+			this.timeSelector = timeSelector;
+			$('.DateTimeSelectionBox', this.el).html(this.timeSelector.render().el);
+		}
 	});
 	window.myapp = window.myapp || {};
 	window.myapp.UserInfoPageView = UserInfoPageView;
-})(window.myapp.Widget.Scroller);
+})(	window.myapp.Api.OrderServiceUrl,
+	window.myapp.Widget.Scroller,
+	window.myapp.Widget.DateTimeSelector,
+	window.myapp.Widget.NativeTimeSelector);

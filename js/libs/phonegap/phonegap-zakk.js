@@ -38,7 +38,7 @@
 	var PGP = PhoneGap.plugins;
 	var PG = {};
 	
-	// device
+	// Device
 	var Device = {};
 	PG.Device = Device;
 	Device.getUUID = function(){ return device.uuid; };
@@ -58,13 +58,41 @@
 		}
 	};
 	
-	// event
+	// Event
 	var Event = {};
 	PG.Event = Event;
 	Event.onDeviceReady = function(f){ $(document).bind("deviceready", f); };
 	Event.onPause = function(f){ $(document).bind("pause", f); };
 	Event.onResume = function(f){ $(document).bind("resume", f); };
 	Event.onBackKeyDown = function(f){ $(document).bind("backbutton", f); };
+	
+	// File
+	var File = {};
+	PG.File = File;
+	File.write = function(fileName, text, successCallback, failCallback){
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+			fileSystem.root.getFile(fileName, {create: true}, function(fileEntry){
+				fileEntry.createWriter(function(writer){
+					writer.onwrite = function(evt) { console.log("onwrite file"); successCallback(); };
+					writer.write(text);
+				}, failCallback);
+			}, failCallback);
+		}, failCallback);
+	};
+	File.read = function(fileName, successCallback, failCallback){
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+			fileSystem.root.getFile(fileName, {create: false}, function(fileEntry){
+				fileEntry.file(function(file){
+					var reader = new FileReader();
+			        reader.onloadend = function(evt) { 
+			        	console.log("Read as text"); 
+			        	successCallback(evt.target.result); 
+			        };
+        			reader.readAsText(file);
+				}, failCallback);
+			}, failCallback);
+		}, failCallback);
+	};
 	
 	// Geolocation
 	var Geolocation = {};
@@ -82,7 +110,7 @@
 		PGP.httpRequest.requestInBackground(url, 
 		function(responseData){
 			console.log("getAddressFromGeo http success");
-			var o = eval( '(' + responseData + ')' );
+			var o = JSON.parse(responseData);
 			successCallback(o);
 		},
 		function(errorMsg){

@@ -1,5 +1,5 @@
 // Filename: router.js
-(function(MenuData, LoadingPanel, Views){
+(function(OrderServiceUrl, MenuData, LoadingPanel, Views){
 	var TransitionEffectTypes = 'hSlide';
 	var AppRouter = Backbone.Router.extend({
 		routes: {
@@ -68,7 +68,7 @@
 				}
 			});
 	    },
-		defaultAction: function(actions){
+		defaultAction: function(){
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
@@ -103,6 +103,7 @@
 			that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
 			that.transitionEffectType = null;
 			that.transitionDir = null;
+			that.views.storePage.render();
 			if(!window.menuData){
 				window.menuData = new MenuData();
 				window.menuData.fetch({success:function(){
@@ -181,10 +182,26 @@
 			}
 		},
 		userInfoPage: function(store){
+			var that = this;
 			if(!this.views.userInfoPage){ // load the userInfo page into DOM
 				this.views.userInfoPage = new Views.UserInfoPageView();
 				this.loadToDOM(this.views.userInfoPage.el);
 			}
+			this.views.userInfoPage.setStore(store);
+			this.views.userInfoPage.setAvailableTime([]);
+			if(window.loadingPanel) window.loadingPanel.connectionOut();
+			$.ajax({
+				type: 'GET',
+				url: OrderServiceUrl+'?action=getAvailableDeliveryTime&storeID='+store,
+				dataType: 'json',
+				success: function(data){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+					that.views.userInfoPage.setAvailableTime(data.time);
+				},
+				error: function(xhr, type){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+				}
+			});
 			this.views.userInfoPage.setStore(store);
 			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
@@ -274,7 +291,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Router = AppRouter;
 	
-})(	window.myapp.Model.MenuData,
+})(	window.myapp.Api.OrderServiceUrl,
+	window.myapp.Model.MenuData,
 	window.myapp.Widget.LoadingPanel,
 {	StartPageView:window.myapp.StartPageView,
 	StorePageView:window.myapp.StorePageView,
@@ -285,7 +303,7 @@
 
 
 /*
-to.css('-webkit-transform','translate3d(100%, 0, 0)');
+					to.css('-webkit-transform','translate3d(100%, 0, 0)');
 					to.css('-webkit-transition-property','-webkit-transform');
 					to.css('-webkit-transition-duration','300ms');
 					to.css('-webkit-transition-timing-function','ease-in-out');

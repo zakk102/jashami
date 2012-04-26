@@ -98,8 +98,6 @@
 			var deliveryLimit = shoppingCart.get('deliveryLimit');
 			
 			if(sum >= deliveryLimit){
-				// test
-				window.myapp.orderNumber = '123-456-7890';
 				location.href = "#userInfoPage/"+this.model.id;
 			}else{
 				alert('未達外送額度');

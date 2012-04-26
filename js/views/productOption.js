@@ -62,7 +62,7 @@
 			result += m.values[mSelected];
 			if(m.subOption){
 				var s = m.subOption;
-				var options = s.values[mSelected]
+				var options = s.values[mSelected];
 				result += options[$('.salve', this.el).val()];
 			}
 			return result;
