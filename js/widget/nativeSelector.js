@@ -18,15 +18,17 @@
 			this.$el.on("click", function(){
 				var selectedValue = [];
 				for(var title in that._selectedKey){
-					selectedValue.add = title+"="+that._selectedKey[title];
+					selectedValue.push(title+"="+that._selectedKey[title]);
 				}
 				var callback = function(value){
+					selectedValue = [];
 					var data = value.split("&");
 					for(var i=0,length=data.length; i<length; i++){
 						var s = data[i];
 						var ss = s.split("=");
 						if(ss.length<2) that._selectedKey[ss[0]] = "";
 						else that._selectedKey[ss[0]] = ss[1];
+						selectedValue.push(ss[0]+"="+that._selectedKey[ss[0]]);
 					}
 					that.updateDisplay();
 					that.$el.trigger("selectionChange", that.getSelectedValues());
@@ -81,7 +83,7 @@
 						this._parentTitle = title;
 					}
 				}else{
-					this._selectedKey[title] = op.key[0];
+					this._selectedKey[title] = Object.keys(op)[0];
 				}
 			}
 			if(this._isDependent){

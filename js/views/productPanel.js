@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(Scroller, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
+(function(Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="HeaderPanel">',
 			'<div id="cancelBtn"><div class="HeaderButton"><div class="ButtonText">取消</div></div></div>',
@@ -80,8 +80,8 @@
 			
 			$('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
 			
-			for(var key in options){
-				$('select[key="' + key + '"]', this.el).val(options[key]);
+			for(var index in this.optionWidget){
+				this.optionWidget[index].setSelected(options, {silent:true});
 			}
 			
 			//set options
@@ -123,7 +123,9 @@
 						$('.OptionBox', this.el).append(_.template(noteTemplate, {title:option.title, content:keys[0]}));
 						continue;
 					}
-					var ov = new ProductOptionView({model:option});
+					var ov;
+					if(window.phonegapEnabled) ov = new NativeProductOptionView({model:option});
+					else ov = new ProductOptionView({model:option});
 					$('.OptionBox', this.el).append(ov.render().el);
 					this.optionWidget.push(ov);
 					this.selectedOption = $.extend(this.selectedOption, ov.getSelected());
@@ -253,6 +255,7 @@
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
 })( window.myapp.Widget.Scroller, 
+	window.myapp.View.NativeProductOptionView,
 	window.myapp.View.ProductOptionView,
 	window.myapp.Model.BuyItem,
 	window.myapp.Model.ShoppingCart,
