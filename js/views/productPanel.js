@@ -57,7 +57,7 @@
 			this.$el.addClass('Base');
 			this.$el.attr("id","productPageView");
 			this.$el.attr("style","height:100%; width:100%;");
-			this.$el.css('background-image', 'url(pic/back-w.jpg)');
+			//this.$el.css('background-image', 'url(pic/back-w.jpg)');
 			this.$el.css('z-index', '999');
 			this.$el.css('position', 'absolute');
 			this.$el.hide();

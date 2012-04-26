@@ -98,7 +98,8 @@
 			var deliveryLimit = shoppingCart.get('deliveryLimit');
 			
 			if(sum >= deliveryLimit){
-				location.href = "#userInfoPage/"+this.model.id;
+				var href = "#userInfoPage/"+this.model.id;
+				Backbone.history.navigate(href, {trigger: false, replace: false});
 			}else{
 				alert('未達外送額度');
 			}

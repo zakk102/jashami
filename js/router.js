@@ -66,7 +66,13 @@
 						that.transitionDir = 'right';
 					}
 				}
+				// App event tracking: page changed
+				window.myapp.AppEvent.goPage();
+				window.myapp.GoogleAnalytics.goPage();
 			});
+			// App event tracking: first page
+			window.myapp.AppEvent.goPage();
+			window.myapp.GoogleAnalytics.goPage();
 	    },
 		defaultAction: function(){
 			this.startPage('orderTab');
@@ -105,8 +111,9 @@
 			that.transitionDir = null;
 			that.views.storePage.render();
 			if(!window.menuData){
+				//only occur in the direct access to store page
 				window.menuData = new MenuData();
-				window.menuData.fetch({success:function(){
+				window.menuData.getMenuByZipCode('110', function(index){
 					that.views.storePage.resetDisplayedData();
 					that.views.storePage.refreshGridSize();
 					that.views.storePage.resetScroller();
@@ -115,7 +122,9 @@
 						that.views.orderInfoPage = new Views.OrderInfoPageView();
 						that.loadToDOM(that.views.orderInfoPage.el);
 					}
-				}});
+				},function(xhr, type){
+					console.log(type);
+				});
 			}else{
 				that.views.storePage.resetDisplayedData();
 				that.views.storePage.refreshGridSize();

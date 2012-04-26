@@ -2,35 +2,37 @@
 (function(i18n, ImageResource, TouchWidget, TabViews){
 	var pageTemplate = [
 		'<div class="PageLeftPanel">',
-			'<div class="TabButton" href="orderTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('orderTab')+'</div>',
-			'<div class="TabButton" href="historyTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('historyTab')+'</div>',
-			'<div class="TabButton" href="feedbackTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('feedbackTab')+'</div>',
-			'<div class="TabButton" href="aboutUsTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('aboutUsTab')+'</div>',
+//			'<div class="TabButton" href="orderTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('orderTab')+'</div>',
+//			'<div class="TabButton" href="historyTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('historyTab')+'</div>',
+//			'<div class="TabButton" href="feedbackTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('feedbackTab')+'</div>',
+//			'<div class="TabButton" href="aboutUsTab"><div class="imgWrap"><img class="icon" src="./css/bootstrap/img/glyphicons_free/glyphicons/png/glyphicons_039_notes.png"></div>'+i18n._('aboutUsTab')+'</div>',
 		'</div>',
 		'<div class="PageMainPanel">',
-			'<div class="header-shadow"></div>',
-			'<div class="header-outer">',
-				'<div class="header">',
-					// '<div class="top"></div>',
-					'<div class="center">',
-						'<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
-						'<div class="function-panel">',
-							'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon"></div><div class="function-txt">訂餐</div></div></a>',
-							'<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon"></div><div class="function-txt">紀錄</div></div></a>',
-							'<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon"></div><div class="function-txt">意見</div></div></a>',
-							'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',
+			'<div class="header-wrap">',
+				'<div class="header-shadow"></div>',
+				'<div class="header-outer">',
+					'<div class="header">',
+						// '<div class="top"></div>',
+						'<div class="center">',
+							// '<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
+							'<div class="function-panel">',
+								'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.SearchIcon+');"></div><div class="function-txt">訂餐</div></div></a>',
+					            '<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.FileIcon+');"></div><div class="function-txt">紀錄</div></div></a>',
+				                '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.CommentsIcon+');"></div><div class="function-txt">意見</div></div></a>',
+								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.JashamiIcon+');"></div><div class="function-txt">關於</div></div></a>',
+							'</div>',
+							// '<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
 						'</div>',
-						'<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
+						// '<div class="bottom"></div>',
 					'</div>',
-					// '<div class="bottom"></div>',
 				'</div>',
 			'</div>',
-			'<div class="content-wrap">',
-				'<div class="header-fake">',
-				'</div>',
-				'<div class="PageContent">',
-				'</div>',
+			// '<div class="content-wrap">',
+				// '<div class="header-fake">',
+				// '</div>',
+			'<div class="PageContent">',
 			'</div>',
+			// '</div>',
 		'</div>'
 	].join('');
 
@@ -43,7 +45,9 @@
 			this.$el.attr("id","startPageView");
 			this.$el.attr("style","height:100%; width:100%;");
 			this.$el.css("-webkit-box-orient", "horizontal");
-			new TouchWidget({el:$('.BackButton', this.el)});
+			new TouchWidget({el:$('.link-wrap', this.el)});
+			// new TouchWidget({el:$('.BackButton', this.el)});
+			// new TouchWidget({el:$('.BackButton', this.el)});
 		},
 		events:{
 			"click .PageContent":"hideFunctionPanel",

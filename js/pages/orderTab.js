@@ -22,7 +22,7 @@
 			$(this.el).html(_.template(tabTemplate));
 			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
 			$('#stores-panel', this.el).append(this.scroller.render().el);
-			$(this.scroller.el).css('height', '100%');
+			// $(this.scroller.el).css('height', '100%');
 			$(this.el).addClass('orderTab');
 			
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
@@ -50,8 +50,14 @@
   			var that = this;
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
+  				// save 
+  				window.autoLocalization = window.autoLocalization || {};
+  				window.autoLocalization.lat = location.latitude;
+  				window.autoLocalization.lng = location.longitude;
+  				// get address
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
     				var addr = address.results[0].formatted_address;
+    				window.autoLocalization.address = addr; // save
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
     			},function(error){

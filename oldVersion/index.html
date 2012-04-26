@@ -1,0 +1,31 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<title>Jashami 2012(c)</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+	<script>
+		var load = function(){
+			var userAgent = window.navigator.userAgent.toLowerCase();
+			if(userAgent.indexOf("android")>=0){
+				document.getElementById('storeType').innerText = ' Market ';
+			}else if (userAgent.indexOf("iphone")>=0 || userAgent.indexOf("ipad")>=0 || userAgent.indexOf("ipod")>=0) {
+				document.getElementById('storeType').innerText = ' App Store';
+			}else{
+				document.getElementById('storeType').innerText = '';
+			}
+		}
+	</script>
+</head>
+<body style='' onload="load()">
+	<div style='position: absolute; top: 10px; left:5px; background: red; -webkit-border-radius: 25px; min-width: 50px; text-align: center; color: white;'>新</div>
+	<div style='color:white; text-align: left; background-color: #F6AB00; -webkit-border-radius: 0.5em; margin: 15px 0px 15px 0px; padding-left:33px'>甲蝦米-行動得來速</div>
+	<div style='padding-left:25px;'>1. 定位找附近店家<br/>2. 更方便的操作</div>
+	<div>請至<span id="storeType"></span>更新</div>
+</body>
+</html>
