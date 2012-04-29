@@ -25,13 +25,14 @@
 				'</div>',
 			'</div>',
 			'<div class="PageContent" id="storeContent">',
-				'<div id="segmentPanel"></div>',
-				'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="ShoppingCar">',
-					// '<div style="position: relative; " class="Car">',
-						'<div class="ShoppingCartPanel"></div>',
-					// '</div>',
-				'</div></a>',
 			'</div>',
+			'<div id="segmentPanel-outer"><div id="segmentPanel"></div></div>',
+			'<div id="order-info-sticker1"></div>',
+			'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="ShoppingCar">',
+				// '<div style="position: relative; " class="Car">',
+					'<div class="ShoppingCartPanel"></div>',
+				// '</div>',
+			'</div></a>',
 		'</div>'
 
 		// '<div class="header">',
@@ -72,6 +73,7 @@
 			
 			// scroller
 			this.scroller = new Scroller();
+			$(this.scroller.content).addClass('scroller-content');
 //			$(this.scroller.el).css('width', '100%');
 //			$(this.scroller.el).css('-webkit-box-flex', '1');
 
@@ -220,20 +222,25 @@
 					cateNameWidget.innerHTML = cate;
 					// category widget
 					cateWidget = document.createElement('div');
-					cateWidget.className = 'FlexGridContainer color1';
+					cateWidget.className = 'FlexGridContainer color'+count;
 					// for segment localization
 					cateWidget.id = 'cateName'+count;
-					cateWidget.style.paddingTop = '15px';
-					cateWidget.style.marginBottom = '-15px';
+					//cateWidget.style.paddingTop = '15px';
+					//cateWidget.style.marginBottom = '-15px';
 					$(cateWidget).append(cateNameWidget);
 					$(cateWidget).append(el);
 					that.scroller.getContent().append(cateWidget);
 					// segment widget
 					var segment = document.createElement('div');
-					segment.className = 'SegmentWidget color1';
+					segment.className = 'SegmentWidget';
+					$(segment).addClass('tag'+count);
 					qqq = cateName.indexOf('@')+1;
 					if(qqq>0) cate = cateName.substring(qqq);
-					segment.innerHTML = '<div>'+cate+'</div>';
+					var name = document.createElement('div');
+					name.className = 'tag-name color'+count;
+					name.innerHTML = cate;
+					$(segment).append(name);
+					// segment.innerHTML = '<div class="tag-name">'+cate+'</div>';
 //					that.segmentPanel.getContent().append(segment);
 					$("#segmentPanel", that.el).append(segment);
 					$(segment).width(that._segmentPanelWidth);
@@ -244,7 +251,7 @@
 			// render product widgets & bind events
 			setTimeout(function(){ // wait time to let browser show above code
 				_.each(products, dd);
-				$(cateWidget).css('margin-bottom', '0px'); // reset the margin of last line
+				//$(cateWidget).css('margin-bottom', '0px'); // reset the margin of last line
 				that.scroller.render();
 //				that.segmentPanel.render();
 				$('.SegmentWidget', that.el).bind('click', function(e){
