@@ -10,7 +10,7 @@
 					'<div class="Name"><%= name %></div>',
 					'<div class="Msg"><%= msg %></div>',
 				'</div>',
-				'<div class="Bar"><div></div></div>',
+				// '<div class="Bar"><div></div></div>',
 				'<div class="Status"></div>',
 			'</div>',
 			'</div>',

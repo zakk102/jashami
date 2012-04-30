@@ -25,7 +25,7 @@
 			// $(this.scroller.el).css('height', '100%');
 			$(this.el).addClass('orderTab');
 			
-			this.itemWidth = Settings.getStoreBriefWidth($(window).width());
+			this.itemWidth = Settings.getStoreBriefWidth($(window).width())-20;
 			var ele = document.createElement('div');
 			$(ele).addClass('StoreList clearfix masonry centered');
 			$(this.scroller.content).append(ele);

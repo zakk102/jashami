@@ -188,6 +188,14 @@ body{
   .border-radius;
   -webkit-transform: rotate(45deg);
 }
+.sticker(){
+  position:absolute;
+  z-index:19;    
+  height:1.8em;
+  background: @color-sticker;
+  -webkit-transform: rotate(-2deg);
+  -webkit-box-shadow:0 0px 1px 0 @color-sticker;
+}
 
 .PageMainPanel{
   position:relative;
@@ -234,7 +242,7 @@ body{
     .header-outer{
       position:absolute;
       z-index:50;
-      left:-2px;
+      left:-5px;
       height:100%;
       width:100%;
       .header {
@@ -244,7 +252,8 @@ body{
         left:0;
         width:100%;
         height:100%;
-        -webkit-box-shadow:1px 1px 1px rgba(100, 100, 100, 0.7);
+        border-bottom:1px solid rgb(200, 180, 130);
+        // -webkit-box-shadow:1px 1px 1px rgba(100, 100, 100, 0.7);
         .panel-light-from-top(@color){
           border-top-style: solid;
           border-top-width: 1px;
@@ -487,102 +496,115 @@ body{
     width:100%;
       // height:100%;
     // }
-    #segmentPanel{
-      position:absolute;
-      z-index:30;
-      right:0em;
-      bottom:0em;
-    }
-    .ShoppingCar{
-      position:absolute;
-      bottom:0.5em;
-      display: -webkit-box;
-      -webkit-box-orient: horizontal;
-      -webkit-box-align: center;
-      -webkit-box-pack: justify;
-      -webkit-box-shadow: 1px 1px 4px #633a1e;
-      z-index: 11;
-      color: #ffffff;
-      width:15em;
-      height: 2em;
-      background:@color-logo-orange*0.9;
-        .Car {
-          z-index: 12;
-          height: 100%;
-          width:100%;
-          padding: 0.3em 0.3em;
-          overflow:visible;
-        }
-        .Msg {
-          z-index: 12;
-        }
-    }
-    .ShoppingCar .Button {
-      color: white;
-      margin-right: 10px;
-      height: 70%;
-      vertical-align: middle;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-box-align: center;
-      -webkit-box-pack: center;
-      border:2px solid #260c03;
-      border-bottom:none;
-        background:-webkit-gradient(linear,center top, center bottom,
-       from(#6c1813),
-       color-stop(14%, #b63127),
-       color-stop(90%, #541612),
-       to(#95706e));
-        border-radius: 8px 8px 0px 0px;
-        -webkit-box-shadow: inset 0px 4px 8px #260c03;
-    }
-    .ShoppingCar .Button.Pressed{
-      background:-webkit-gradient(linear,center bottom, center top,
-       from(#6c1813),
-       color-stop(14%, #b63127),
-       color-stop(90%, #541612),
-       to(#95706e));
-       -webkit-box-shadow: none;
-       border:none;
-    }
-
-    .ProgressBarPanel {
-      position:relative;
-      display: -webkit-box;
-      -webkit-box-orient: horizontal;
-      -webkit-box-align: center;
-      -webkit-box-pack: center;
-      position: absolute; 
-      left: 0px; 
-      right: 0px; 
-      top: 0px; 
-      bottom: 0px;    
-      .sum{
-      }
-      .ProgressBar {
-        margin:3px 5px 3px 5px;
-        width: 100px;
-        height: 10px;
-        // background-color:black;
-        border: 2px solid whitesmoke;
-        -webkit-border-radius:7px;
-        .Progress {
-          background-color: #34C6CD;
-          // -webkit-box-shadow: 0px 0px 10px 1px rgba(198,9,9,0.5);
-          -webkit-border-radius:10px;
-          height: 100%;
-        }
-      }
-      .ProgressMsgOk{
-        
-      }
-      .ProgressMsgNotOk{
-        
-      }
-    }
 
   }
+  #segmentPanel-outer{  
+    position:absolute;
+    z-index:30;
+    right:0.3em;
+    top:@height-header + 0.1em;
+    #segmentPanel{
+      position:relative;
+    }
+  }
   
+  #order-info-sticker1{
+    .sticker;
+    z-index:19;
+    top:@height-header - 0.2em;
+    left:0.2em;
+    width:11em;
+    height:2.2em;
+  }
+  .ShoppingCar{
+    position:absolute;
+    top:@height-header + 0.2em;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    // -webkit-box-shadow: 1px 1px 4px #633a1e;
+    z-index: 20;
+    color: #ffffff;
+    width: 11em;
+    height: 1.6em;
+    // background:@color-logo-orange;
+    left:0.2em;
+    border-radius:5px;
+      .Car {
+        z-index: 12;
+        height: 100%;
+        width:100%;
+        padding: 0.3em 0.3em;
+        overflow:visible;
+      }
+      .Msg {
+        z-index: 12;
+      }
+  }
+  .ShoppingCar .Button {
+    color: white;
+    margin-right: 10px;
+    height: 70%;
+    vertical-align: middle;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    border:2px solid #260c03;
+    border-bottom:none;
+      background:-webkit-gradient(linear,center top, center bottom,
+     from(#6c1813),
+     color-stop(14%, #b63127),
+     color-stop(90%, #541612),
+     to(#95706e));
+      border-radius: 8px 8px 0px 0px;
+      -webkit-box-shadow: inset 0px 4px 8px #260c03;
+  }
+  .ShoppingCar .Button.Pressed{
+    background:-webkit-gradient(linear,center bottom, center top,
+     from(#6c1813),
+     color-stop(14%, #b63127),
+     color-stop(90%, #541612),
+     to(#95706e));
+     -webkit-box-shadow: none;
+     border:none;
+  }
+
+  .ProgressBarPanel {
+    position:relative;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    position: absolute; 
+    left: 0px; 
+    right: 0px; 
+    top: 0px; 
+    bottom: 0px;    
+    .sum{
+    }
+    .ProgressBar {
+      margin:3px 5px 3px 5px;
+      width: 4em;
+      height: 0.8em;
+      // background-color:black;
+      border: 2px solid whitesmoke;
+      -webkit-border-radius:7px;
+      .Progress {
+        background-color: #34C6CD;
+        // -webkit-box-shadow: 0px 0px 10px 1px rgba(198,9,9,0.5);
+        -webkit-border-radius:10px;
+        height: 100%;
+      }
+    }
+    .ProgressMsgOk{
+      
+    }
+    .ProgressMsgNotOk{
+      
+    }
+  }  
   
 }
 
@@ -633,6 +655,7 @@ body{
 //==============================================================
 // Panel: StoreList
 //==============================================================
+      
 .orderTab{
   position:relative;
   display: -webkit-box;
@@ -657,14 +680,6 @@ body{
       position:relative;
       z-index:inherit;
       
-      .sticker(){
-        position:absolute;
-        z-index:4;    
-        height:1.8em;
-        background: @color-sticker;
-        -webkit-transform: rotate(-2deg);
-        -webkit-box-shadow:0 0px 1px 0 @color-sticker;
-      }
       .sticker-txt(){
         color:white;            
         text-shadow:white 0 0 1px;
@@ -776,12 +791,7 @@ body{
     left:0;
     width:100%;
     height:100%;
-    .scroller{
-      // position:relative;
-      // display: -webkit-box;
-      // -webkit-box-flex:10;
-      // height:100%;
-    }
+    
     .StoreList{
       margin-top:0.7em;
       
@@ -809,11 +819,11 @@ body{
                 color:dimGray;
               }
             }
-            .Bar{
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-box-pack: center;
-            }
+            // .Bar{
+              // display: -webkit-box;
+              // -webkit-box-orient: vertical;
+              // -webkit-box-pack: center;
+            // }
             .Status{
               width: 25%;
               display: -webkit-box;
@@ -839,19 +849,30 @@ body{
   width:100%;
   clear: both;
   overflow:hidden;
+
+  padding-top:3em;
+  margin-bottom:-3em;
   
   .FlexGridContainerTitle{
+    // position:absolute;
+    // left:0em;
+    width:48%;
     border: none;
-    opacity:0.5;
+    // opacity:0.7;
     margin:5px;
     // margin: 5px 30px 5px 30px;
     line-height:1.5em;
     height:1.5em;
-    font-size:1.3em;
-    text-align: center;
+    font-size:1em;
+    text-align: left;
     font-weight:bold;
     color:#FFF;
+    background:url(../pic/type-tag.jpg) repeat scroll 0 0;
     // border-radius: 5px;
+    // border-bottom-left-radius: 20px;
+    // border-top-left-radius: 20px;
+    // border-bottom-right-radius: 2px;
+    // border-top-right-radius: 2px;
   }
   .Grid{
     -webkit-box-sizing:border-box;
@@ -899,6 +920,9 @@ body{
         text-align: left;
         font-weight: bold;
       }
+      .long-name{
+        font-size:0.7em;
+      }
       .ProductBoxWidget2-price{
         position: absolute;
         right: 0em;
@@ -918,28 +942,141 @@ body{
   
 }
 @tag-color-1:#450900;
-.color1 > .FlexGridContainerTitle{ background:@tag-color-1;}
-.color2 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#861405),to(#EA5514)); }
-.color3 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#EA5514),to(#F6AB00)); }
-.color4 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#006530),to(#81C048)); }
-.color5 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#1D2088),to(#00A0E9)); }
-.color6 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#480367),to(#A44C99)); }
-.color7 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#F49F32),to(#FCF15D)); }
-// .color1 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#450900),to(#94531B)); }
-// .color2 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#861405),to(#EA5514)); }
-// .color3 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#EA5514),to(#F6AB00)); }
-// .color4 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#006530),to(#81C048)); }
-// .color5 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#1D2088),to(#00A0E9)); }
-// .color6 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#480367),to(#A44C99)); }
-// .color7 > .FlexGridContainerTitle{ background:-webkit-gradient(linear,left top, right top, from(#F49F32),to(#FCF15D)); }
+@tag-color-2:#861405;
+@tag-color-3:#EA5514;
+@tag-color-4:#006530;
+@tag-color-5:#1D2088;
+@tag-color-6:#480367;
+@tag-color-7:#F49F32;
+// @tag-color-1:crimson;//tomato;
+// @tag-color-2:orangered;
+// @tag-color-3:goldenrod;
+// @tag-color-4:limegreen;
+// @tag-color-5:darkturquoise;
+// @tag-color-6:dodgerblue;
+// @tag-color-7:#F49F32;
 
+@tag-color-g-1:-webkit-gradient(linear,left bottom, left top, from(#450900),to(#64531B));
+@tag-color-g-2:-webkit-gradient(linear,left bottom, left top, from(#861405),to(#AA5514));
+@tag-color-g-3:-webkit-gradient(linear,left bottom, left top, from(#EA5514),to(#E6AB00));
+@tag-color-g-4:-webkit-gradient(linear,left bottom, left top, from(#006530),to(#21C048));
+@tag-color-g-5:-webkit-gradient(linear,left bottom, left top, from(#1D2088),to(#2D2088));
+@tag-color-g-6:-webkit-gradient(linear,left bottom, left top, from(#480367),to(#644C99));
+@tag-color-g-7:-webkit-gradient(linear,left bottom, left top, from(#F49F32),to(#FCF15D));
+
+// @tag-color-g-1:-webkit-gradient(linear,left bottom, left top, from(#450900),to(#94531B));
+// @tag-color-g-2:-webkit-gradient(linear,left bottom, left top, from(#861405),to(#EA5514));
+// @tag-color-g-3:-webkit-gradient(linear,left bottom, left top, from(#EA5514),to(#F6AB00));
+// @tag-color-g-4:-webkit-gradient(linear,left bottom, left top, from(#006530),to(#81C048));
+// @tag-color-g-5:-webkit-gradient(linear,left bottom, left top, from(#1D2088),to(#00A0E9));
+// @tag-color-g-6:-webkit-gradient(linear,left bottom, left top, from(#480367),to(#A44C99));
+// @tag-color-g-7:-webkit-gradient(linear,left bottom, left top, from(#F49F32),to(#FCF15D));
+
+// .color1 > .FlexGridContainerTitle{ background:@tag-color-1;}
+// .color2 > .FlexGridContainerTitle{ background:@tag-color-2;}
+// .color3 > .FlexGridContainerTitle{ background:@tag-color-3;}
+// .color4 > .FlexGridContainerTitle{ background:@tag-color-4;}
+// .color5 > .FlexGridContainerTitle{ background:@tag-color-5;}
+// .color6 > .FlexGridContainerTitle{ background:@tag-color-6;}
+// .color7 > .FlexGridContainerTitle{ background:@tag-color-7;}
 
 .Segment{
-  .SegmentWidget{
-    
+  .tag1{
+    top:0em;
+    right:4.1em;
   }
-  
+  .tag2{
+    top:0.2em;
+    right:0em;
+  }
+  .tag3{
+    top:2.2em;
+    right:4.1em;
+  }
+  .tag4{
+    top:2.4em;
+    right:0em;
+  }
+  .tag5{
+    top:4.4em;
+    right:4.1em;
+  }
+  .tag6{
+    top:4.6em;
+    right:0em;
+  }
+  .SegmentWidget{
+    position:absolute;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    width: 4.2em;
+    height:2.2em;
+    // background-color:rgba(255,9,9,0.5);
+    background:url(../pic/type-tag.jpg) repeat scroll 0 0;
+    border-radius:5px;
+    -webkit-box-shadow:0px 0px 3px black;
+    // opacity:0.9;
+    // display: -webkit-box;
+    // -webkit-box-orient: horizontal;
+    // -webkit-box-pack: right;
+    // -webkit-box-align: right;
+    // overflow: hidden;
+    .tag-name{
+      // opacity:0.95;
+      font-size:0.8em;
+      text-align:center;
+      // position:absolute;
+      // -webkit-box-shadow: 0px 1px 3px dimgray;
+      color:white;
+      width: 4.5em;
+      height:2.0em;
+      line-height:1.8em;
+      border-radius:5px;
+      border:2px dashed white;
+      &:active{
+        color:@color-logo-orange*2;
+        border-color:@color-logo-orange*2;
+      }
+      // border-bottom-left-radius: 20px;
+      // border-top-left-radius: 20px;
+      // border-bottom-right-radius: 2px;
+      // border-top-right-radius: 2px;
+      // display: -webkit-box;
+      // -webkit-box-orient: horizontal;
+      // -webkit-box-pack: center;
+      // -webkit-box-align: right;
+      // overflow:visible;
+      // margin-left: 50%;
+    } 
+    // .color1{ background:@tag-color-1;}
+    // .color2{ background:@tag-color-2;}
+    // .color3{ background:@tag-color-3;}
+    // .color4{ background:@tag-color-4;}
+    // .color5{ background:@tag-color-5;}
+    // .color6{ background:@tag-color-6;}
+    // .color7{ background:@tag-color-7;}
+  }
+
 }
+//==============================================================
+// scroller margin
+//==============================================================
+
+.scroller{
+  
+  .scroller-content > div:first-child{
+    padding-top:3em;
+  }
+  .scroller-content > div:last-child{
+    padding-bottom:12em;
+  }
+  // position:relative;
+  // display: -webkit-box;
+  // -webkit-box-flex:10;
+  // height:100%;
+}
+
 //==============================================================
 // Pinterest-like layout: Masonry
 //==============================================================
@@ -960,22 +1097,3 @@ margin: 0 auto;
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-
-// 
-// .HeaderPanel > div:nth-child(2) > div{
-  // font-size:1.3em;
-// }
-// .HeaderPanel > div:nth-child(2) img{
-  // width: 175px !important;
-  // height: 54px !important;
-  // background-size: 175px;
-// }
-// .HeaderPanel > div:first-child, .HeaderPanel > div:last-child {
-  // min-width:3.5em;
-// }
-// .HeaderPanel > div:first-child, .HeaderButton.NextButton{
-  // margin-left: 0.8em;
-// }
-// .HeaderPanel > div:last-child, .HeaderButton.NextButton{
-  // margin-right: 0.8em;
-// }
