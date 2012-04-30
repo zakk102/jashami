@@ -67,6 +67,16 @@
 		var d = R * c;
 		return d;
 	}
+	Utils.getLocationParameter = function(name){
+		name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		var regexS = "[\\?&]"+name+"=([^&#]*)";
+	  	var regex = new RegExp( regexS );
+	  	var results = regex.exec( window.location.href );
+	  	if( results == null )
+	    	return "";
+	  	else
+	    	return results[1];
+	};
 	
 // device type	
 	Utils.DeviceType = {'Other':1, 'Android':2, 'iPhone':3, 'iPod':4, 'iPad':5};
