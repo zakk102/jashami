@@ -341,8 +341,9 @@ body{
             -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_202_shopping_cart.png);
           }
           #buy{
-            -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_209_cart_in.png);
+            -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd.png);
           }
+
         }
         .link-wrap:active .function-txt{
               color:@color-logo-orange*2;
@@ -1147,25 +1148,169 @@ body{
 #OrderInfoPageView{
   height:100%;
   width:100%;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
   
+  .order-info-list-panel{
+    -webkit-box-flex: 1;
+    margin:1em;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    
+    .TakeOutTypeMsg, .OrderInfoListTitle, .TotalMoneyPanel{
+      color: white;
+      padding: 7px;
+      display: -webkit-box;
+      -webkit-box-pack: justify;
+      font-size: 1em;
+      min-height: 1.3em;
+      height:1.3em;
+      text-align: right;
+      background:orange;
+    }
+    .OrderListPanel{
+      color:#000; 
+      -webkit-box-flex: 10;
+      display: -webkit-box; 
+      -webkit-box-orient: horizontal; 
+      position: relative;
+
+      .OrderInfoList{
+        .order-item-wrap{
+          position:relative;
+          overflow: hidden;
+          padding:7px;
+          color: #260c03;
+          // background:-webkit-gradient(linear,center top, center bottom,
+           // from(#8e888b),
+           // color-stop(2%, #fbf9f7),
+           // color-stop(98%,#c5c0c1),
+           // to(white));
+          margin-top: 1em;
+          margin-bottom: 1em;
+          display: -webkit-box;
+          -webkit-box-orient: horizontal;
+          -webkit-box-pack: justify;
+          -webkit-box-align: center;
+          background:rgba(255, 255, 255, 0.6);
+
+          .icon{
+            position:absolute;
+            width:3em;
+            height:3em;
+            background:@color-logo-orange;
+            &:active{
+              background:@color-logo-orange*2;
+            }
+          }
+          #removeItem{
+            -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_197_remove.png);
+            left:0;
+            top:0;
+          }
+          #updateItem{
+            -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_151_edit.png);
+            right:0;
+            top:0;
+          }
+
+          .orderName {
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            position: absolute;
+            margin-top: -1em;
+            margin-left: 21%;
+            width: 70%;
+          }
+          .orderName > div {
+            border: black solid 2px;
+            line-height: 30px;
+            text-align: center;
+            background: -webkit-gradient(linear,center top, center bottom, from(#5D311A), color-stop(2%, #F38D48), color-stop(98%,#CE6522), to(white));
+            padding: 0 5px 0 5px;
+            margin-left: -30%;
+          }
+          img:first-child {
+            position: absolute;
+            width: 2em;
+            margin: -1em 0em 0em -0.4em;
+          }
+          img:last-child {
+            position: absolute;
+            width: 2em;
+            margin: -1em 0em 0em -2em;
+          }
+        }
+      }
+    }
+    .TotalMoneyPanel{
+      
+    }
+    .OrderInfo{
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      
+      .Button{
+        display:-webkit-box;
+        -webkit-box-orient:horizontal;
+        -webkit-box-pack:center;
+        -webkit-box-align:center;
+        
+        border: 5px solid white;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        -webkit-border-radius: 0.3em;
+        background: @color-logo-orange;
+        min-width: 6.5em;
+        // background:-webkit-gradient(linear,center top, center bottom,
+         // from(#6c1813),
+         // color-stop(14%, #b63127),
+         // color-stop(90%, #541612),
+         // to(#95706e));
+        border-radius: 0.5em;
+        border: none;
+        height:2em;
+        line-height:2em;
+        text-align: center;
+        color:white;
+        
+        .icon{
+          // position:absolute;
+          width:2em;
+          height:2em;
+          background:white;
+          // &:active{
+            // background:@color-logo-orange*2;
+          // }
+        }
+        #clear-icon{
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_197_remove.png);
+          // left:0;
+          // top:0;
+        }
+        #buy-icon{
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd.png);
+        }
+
+      }
+      .Button:active{
+        background:@color-logo-orange*2;
+        // background:-webkit-gradient(linear,center bottom, center top,
+         // from(#6c1813),
+         // color-stop(14%, #b63127),
+         // color-stop(90%, #541612),
+         // to(#95706e));
+      }
+
+    }
+  }
 }
 
 
 /* -------------Order List Panel-------------*/
-.TakeOutTypeMsg, .OrderInfoListTitle, .TotalMoneyPanel{
-  color: #4F050F;
-  padding: 7px;
-  display: -webkit-box;
-  -webkit-box-pack: justify;
-  font-size: 16px;
-  min-height: 20px;
-  text-align: right;
-   background:-webkit-gradient(linear,center top, center bottom,
-   from(#5d311a),
-   color-stop(2%, #f38d48),
-   color-stop(98%,#ce6522),
-   to(white));
-}
 .TotalMoneyPanel{
   -webkit-box-orient: vertical;
 }
@@ -1184,48 +1329,6 @@ body{
 .BuyItemCell > div:nth-child(2){ width:15%; }
 .BuyItemCell > div:last-child{ width:22%; }
 .ScrollPanel{ padding-top:0.5em; background-color: rgba(255, 255, 255, 0.75); }
-.OrderInfoList > div{
-  overflow: hidden;
-  padding:7px;
-  color: #260c03;
-  background:-webkit-gradient(linear,center top, center bottom,
-   from(#8e888b),
-   color-stop(2%, #fbf9f7),
-   color-stop(98%,#c5c0c1),
-   to(white));
-  margin-top: 1em;
-  margin-bottom: 1em;
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: justify;
-  -webkit-box-align: center;
-}
-.OrderInfoList > div > .orderName {
-  display: -webkit-box;
-  -webkit-box-pack: center;
-  position: absolute;
-  margin-top: -1em;
-  margin-left: 21%;
-  width: 70%;
-}
-.OrderInfoList > div > .orderName > div {
-  border: black solid 2px;
-  line-height: 30px;
-  text-align: center;
-  background: -webkit-gradient(linear,center top, center bottom, from(#5D311A), color-stop(2%, #F38D48), color-stop(98%,#CE6522), to(white));
-  padding: 0 5px 0 5px;
-  margin-left: -30%;
-}
-.OrderInfoList > div > img:first-child {
-  position: absolute;
-  width: 2em;
-  margin: -1em 0em 0em -0.4em;
-}
-.OrderInfoList > div > img:last-child {
-  position: absolute;
-  width: 2em;
-  margin: -1em 0em 0em -2em;
-}
 .OrderInfoList .BuyItemCell{
   text-align: right;
   display: -webkit-box;
@@ -1233,7 +1336,7 @@ body{
   -webkit-box-pack: justify;
   -webkit-box-align: center;
   width:100%;
-  padding:1em 5px 0px 0em;
+  padding:2em 0px 0px 0em;
 }
 .OrderInfoList .BuyItemCell .ProductName{
   font-size:1.3em;
@@ -1264,41 +1367,6 @@ body{
        color-stop(20%,#a47c58),
        color-stop(80%,#584234),
    to(#948982));
-}
-.OrderInfo.Btns {
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  background-color: rgba(255, 255, 255, 0.75);
-}
-.OrderInfo.Btns > .Button{
-  border: 5px solid white;
-  color: white;
-  padding: 5px;
-  margin: 5px;
-  -webkit-border-radius: 0.3em;
-  background: #E0A255;
-  min-width: 5em;
-  background:-webkit-gradient(linear,center top, center bottom,
-   from(#6c1813),
-   color-stop(14%, #b63127),
-   color-stop(90%, #541612),
-   to(#95706e));
-       border-radius: 4px;
-       border: none;
-       height:30px;
-       line-height:30px;
-       text-align: center;
-       font-size:1.1em;
-       color:white;
-}
-.OrderInfo.Btns > .Button:active{
-  background:-webkit-gradient(linear,center bottom, center top,
-   from(#6c1813),
-   color-stop(14%, #b63127),
-   color-stop(90%, #541612),
-   to(#95706e));
 }
 
 /* -------------User Info-------------*/
