@@ -1,29 +1,67 @@
 //Filename: js/views/productPanel.js
 (function(Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
-		'<div class="HeaderPanel">',
-			'<div id="cancelBtn"><div class="HeaderButton"><div class="ButtonText">取消</div></div></div>',
-			'<div id="title"></div>',
-			'<div id="buyBtn"><div class="HeaderButton"><div class="ButtonText">購買</div></div></div>',
+		'<div class="header-wrap">',
+			'<div class="header-shadow"></div>',
+			'<div class="header-outer">',
+				'<div class="header">',
+					'<div class="center">',
+						'<div class="BackButton" id="cancelBtn">',
+							'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+						'</div>',
+						'<div id="title" class="function-panel">',
+						'</div>',
+						'<div class="NextButton" id="buyBtn">',
+							'<div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
+						'</div>',
+					'</div>',
+				'</div>',
+			'</div>',
 		'</div>',
-		'<div class="ProductDialog" id="productContent" style="background-color:rgba(255, 255, 255, 0.75) ; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div class="ProductDialog" id="productContent">',
 		'</div>'
 	].join('');
 	
 	var productWidgetTemplate = [
-		'<img class="Img" src="<%= img %>" style="<% if(!img || img.length<3) print(\"display:none;\"); %>" />',
-		'<div><%= name %></div>',
-		'<div><%= info %></div>',
-		'<div style="display: -webkit-box;">',
-			'<div class="AmountPanel" style="-webkit-box-flex:1; ">',
-				'<div class="AmountOption Horizontal"><div class="Btns">',
-					'<div class="Button" id="plusBtn"><div class="ButtonText">＋</div></div>',
-					'<div class="Button" id="minusBtn"><div class="ButtonText">－</div></div>',
-				'</div></div>',
+		'<div class="product-box">',
+			'<div class="amount-wrap">',
+				'<div class="image-wrap">',
+					'<img class="Img" src="<%= img %>" style="<% if(!img || img.length<3) print(\"display:none;\"); %>" />',
+					'<div class="name"><%= name %></div>',
+					'<div id="amount-panel">',
+						'<div id="plusBtn" class="tag"><div id="add-tag-inner" class="tag-inner">',
+							'<div id="add-icon" class="icon"></div>',
+						'</div></div>',
+						'<div class="tag"><div id="amount-tag-inner" class="tag-inner">',
+							'<div id="amount-tag-content" class="tag-content">',
+								'<div id="product-box-amount"><%= amount%></div>',
+								'<div>份</div>',
+							'</div>',
+						'</div></div>',
+						'<div class="tag"><div id="total-tag-inner" class="tag-inner">',
+							'<div id="total-tag-content" class="tag-content">',
+								'<div style="font-size:0.9em">小計</div>',
+								'<div id="product-box-total"><%= price*amount%></div>',
+							'</div>',
+						'</div></div>',
+						'<div id="minusBtn" class="tag"><div id="sub-tag-inner" class="tag-inner">',
+							'<div id="sub-icon" class="icon"></div>',
+						'</div></div>',
+					'</div>',
+				'</div>',
+				'<div class="intro"><%= info %></div>',
 			'</div>',
-			'<div class="Price" style="-webkit-box-flex: 999;"></div>',
-		'</div>',
-		'<div class="OptionBox"></div>'
+			// '<div style="display: -webkit-box;">',
+				// '<div class="AmountPanel" style="-webkit-box-flex:1; ">',
+					// '<div class="AmountOption Horizontal"><div class="Btns">',
+						// '<div class="Button" id="plusBtn"><div class="ButtonText">＋</div></div>',
+						// '<div class="Button" id="minusBtn"><div class="ButtonText">－</div></div>',
+					// '</div></div>',
+				// '</div>',
+				// '<div class="Price" style="-webkit-box-flex: 999;"></div>',
+			// '</div>',
+			'<div class="OptionBox"></div>',
+		'</div>'
 	].join('');
 	
 	var priceTemplate = '<%=price%> X <%=amount%> = <%=price*amount%>元';
@@ -56,10 +94,10 @@
 			this.$el.html(_.template(pageTemplate));
 			this.$el.addClass('Base');
 			this.$el.attr("id","productPageView");
-			this.$el.attr("style","height:100%; width:100%;");
-			//this.$el.css('background-image', 'url(pic/back-w.jpg)');
-			this.$el.css('z-index', '999');
-			this.$el.css('position', 'absolute');
+			// this.$el.attr("style","height:100%; width:100%;");
+			// //this.$el.css('background-image', 'url(pic/back-w.jpg)');
+			// this.$el.css('z-index', '999');
+			// this.$el.css('position', 'absolute');
 			this.$el.hide();
 			
 			// scroller
@@ -76,6 +114,9 @@
 		setModel: function(model, storeNameId, currentItem){
 			if(model) this.model = model;
 			if(storeNameId) this.storeNameId = storeNameId;
+  			//  title
+			var storeName = window.menuData.get('stores').get(storeNameId).get('displayedName');
+			$("#title", this.el).html(storeName);
 			var m = this.model;
 			var name = m.get('displayedName');
 			var price = m.get('price');
@@ -85,9 +126,11 @@
 			this.scroller.html(_.template(productWidgetTemplate,{
 				name:name,
 				img:img,
+				amount:this.amount,
+				price:price,
 				info:intro,
 			}));
-			$('.Price', this.el).html(_.template(priceTemplate,{price:price, amount:this.amount}));
+			// $('.Price', this.el).html(_.template(priceTemplate,{price:price, amount:this.amount}));
 			// options
 /*			if(!m.get('optionList')){
 				var ol = new window.myapp.Model.ProductOptionList();
@@ -124,7 +167,7 @@
 				var price = currentItem.get('singlePrice');
 				var options = currentItem.get('selectedOptions');
 			
-				$('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
+				// $('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
 			
 				for(var index in this.optionWidget){
 					this.optionWidget[index].setSelected(options, {silent:true});
@@ -144,7 +187,7 @@
 			}
 			
 			var that = this;
-			this.hide('top', function(){
+			this.hide('bottom', function(){
 				if(that.callback){
 					that.callback();
 					that.callback = null;
@@ -159,7 +202,7 @@
 				this.buyAction = null;
 			}else{//default action
 				var that = this;
-				this.hide('bottom', function(){
+				this.hide('top', function(){
 					//get shoppingCart
 					if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
 					var shoppingCarts = window.shoppingCartCollection;
@@ -191,18 +234,23 @@
 			this._updateMoney();
 		},
 		_updateMoney: function(){
-			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			// $('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			$('#product-box-total', this.el).html(this.selectedPrice*this.amount);
 		},
 		_addAmount: function(){
 			this.amount++;
 			var price = this.model.get('price');
-			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			// $('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			$('#product-box-amount', this.el).html(this.amount);
+			$('#product-box-total', this.el).html(this.selectedPrice*this.amount);
 		},
 		_minusAmount: function(){
 			this.amount--;
 			if(this.amount<1) this.amount=1;
 			var price = this.model.get('price');
-			$('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			// $('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
+			$('#product-box-amount', this.el).html(this.amount);
+			$('#product-box-total', this.el).html(this.selectedPrice*this.amount);
 		},
 		render: function(){
 			this.delegateEvents();

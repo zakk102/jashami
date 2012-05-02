@@ -2,7 +2,7 @@
 (function(NativeSelector){
 	var template = [
 		'<div class="OptionPanel WebOptionPanel">',
-			'<div class="OptionTitle"><%= title %>：</div>',
+			'<div class="OptionTitle"><%= title %></div>',
 			'<div class="SelectInput"></div>',
 		'</div>'
 	].join('');

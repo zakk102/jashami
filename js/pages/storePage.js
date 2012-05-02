@@ -6,21 +6,16 @@
 				'<div class="header-shadow"></div>',
 				'<div class="header-outer">',
 					'<div class="header">',
-						// '<div class="top"></div>',
 						'<div class="center">',
 							'<div class="BackButton">',
 								'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
 							'</div>',
 							'<div id="title" class="function-panel">',
-								// '<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">訂餐</div></div>',											// '<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon"></div><div class="function-txt">紀錄</div></div></a>',
-								// '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon"></div><div class="function-txt">意見</div></div></a>',
-								// '<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon"></div><div class="function-txt">關於</div></div></a>',					
 							'</div>',
 							'<div class="NextButton">',
 								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">購物車</div></div></a>',					
 							'</div>',
 						'</div>',
-						// '<div class="bottom"></div>',
 					'</div>',
 				'</div>',
 			'</div>',
@@ -28,6 +23,7 @@
 			'</div>',
 			'<div id="segmentPanel-outer"><div id="segmentPanel"></div></div>',
 			'<div id="order-info-sticker1"></div>',
+			'<div id="order-info-sticker1-shadow"></div>',
 			'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="ShoppingCar">',
 				// '<div style="position: relative; " class="Car">',
 					'<div class="ShoppingCartPanel"></div>',
@@ -206,7 +202,7 @@
 					el.style.height = that._gridHeight +'px';
 					$(el).html(_.template(productWidgetTemplate_noImg,{name:pname, price:pprice}));
 				}
-				$('.ProductBoxWidget2-name', el).text().length>8?$('.ProductBoxWidget2-name', el).addClass('long-name'):$('.ProductBoxWidget2-name', el).removeClass('long-name');
+				$('.ProductBoxWidget2-name', el).text().length>7?$('.ProductBoxWidget2-name', el).addClass('long-name'):$('.ProductBoxWidget2-name', el).removeClass('long-name');
 				var cate = p.get('category');
 				cate = cate.substring(cate.indexOf('.')+1);
 				if(cate==cateName){
@@ -285,7 +281,7 @@
 			// get product id
 			pid = $(e.currentTarget).attr('pid');
 			// show product panel
-			window.productPanel.show('top');
+			window.productPanel.show('bottom');
 			// set product data
 			var menuId = this.model.get('menuId').get('menuId');
 			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid), this.model.get('storeNameId'));

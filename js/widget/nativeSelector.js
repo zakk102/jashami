@@ -2,8 +2,8 @@
 (function(Utils, DeviceType, Images, Picker){
 	var template = [
 		// '<div>',
-			'<div class="selectedValue"></div>',
-			'<div id="addr-sel-icon">▼</div>',
+			'<span class="selectedValue"></span>',
+			'<span class="option-sel-icon">▼</span>',
 		// '</div>',
 	].join('');
 	

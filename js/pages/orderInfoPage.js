@@ -1,10 +1,22 @@
 //Filename: js/pages/orderInfoPage.js
 (function(ImageResource, Scroller, ProductPanel){
 	var pageTemplate = [
-		'<div class="HeaderPanel">',
-			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
-			'<div id="title"></div>',
-			'<div></div>',
+		'<div class="header-wrap">',
+			'<div class="header-shadow"></div>',
+			'<div class="header-outer">',
+				'<div class="header">',
+					'<div class="center">',
+						'<div class="BackButton">',
+							'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+						'</div>',
+						'<div id="title" class="function-panel">',
+						'</div>',
+						'<div id="checkOutBtn" class="NextButton">',
+							'<div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">購物車</div></div>',					
+						'</div>',
+					'</div>',
+				'</div>',
+			'</div>',
 		'</div>',
 		'<div class="OrderInfoListTitle">',
 			'<div><div class="AccordionArrow"></div><div>已點餐點</div></div>',
@@ -22,8 +34,8 @@
 		'</div></div>',
 		'<div class="OrderInfo Btns">',
 			'<div class="Button" id="clearAllBtn"><div class="ButtonText">清除全部</div></div>',
-			'<a class="Button" id="checkOutBtn"><div class="ButtonText">結帳</div></a>',
-		'</div>'
+			// '<a class="Button" ><div class="ButtonText">結帳</div></a>',
+			'</div>'
 	].join('');
 	
 	var orderInfoListTemplate = [
@@ -55,7 +67,6 @@
 		initialize: function(){
 			$(this.el).addClass('Base');
 			$(this.el).attr("id","OrderInfoPageView");
-			$(this.el).attr("style","height:100%; width:100%;");
 			
 			// scroller
 			var scroller = new Scroller();
