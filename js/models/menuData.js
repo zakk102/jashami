@@ -1,5 +1,5 @@
 //Filename: js/models/menuData.js
-(function(Api){
+(function(Api, Utils){
 
 	var ProductOption = Backbone.Model.extend({
 		Single: 'singleOption',
@@ -41,6 +41,9 @@
 	var Menu = Backbone.RelationalModel.extend({
 		initialize: function(){
 			this.get('products').comparator = function(arg0, arg1){
+				if(arg0.get('category')===arg1.get('category')){
+					return arg0.get('displayedIndex')<arg1.get('displayedIndex')?-1:1;
+				}
 				return arg0.get('category')<arg1.get('category')?-1:1;
 			};
 		},
@@ -97,6 +100,9 @@
 			//this.url = "/~zakk/develop/jashami/testData/menuData";
 		},
 */
+		initialize: function(){
+			this.setEditMode(Utils.getLocationParameter('isTestMode'));
+		},
 		_getMenuFromServer: function(zipCode, successCallback, failCallback){
 			var that = this;
 			var url = Api.MenuServiceUrl+"?action=getMenuByZipcode&zipCode="+zipCode+"&isEditMode="+this.isEditMode;
@@ -158,4 +164,5 @@
 	window.myapp.Model.Menu = Menu;
 	window.myapp.Model.Store = Store;
 	window.myapp.Model.MenuData = MenuData;
-})(window.myapp.Api);
+})(	window.myapp.Api,
+	window.myapp.Utils);

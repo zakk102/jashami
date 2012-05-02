@@ -58,6 +58,7 @@
 			{
 				"productNameId": "五十嵐台北_茉莉綠茶",
 				"displayedName": "茉莉綠茶",
+				"displayedIndex": 1,
 				"price": 20,
 				"category": "1.找好茶",
 				"imgUrl": "",
@@ -98,6 +99,7 @@
 			},{
 				"productNameId": "五十嵐台北_阿薩姆紅茶",
 				"displayedName": "阿薩姆紅茶",
+				"displayedIndex": 2,
 				"price": 20,
 				"category": "1.找好茶",
 				"imgUrl": "",
@@ -107,6 +109,7 @@
 			},{
 				"productNameId": "五十嵐台北_奶茶",
 				"displayedName": "奶茶",
+				"displayedIndex": 3,
 				"price": 30,
 				"category": "3.找奶茶",
 				"imgUrl": "",
@@ -121,6 +124,7 @@
 			{
 				"productNameId": "三元喜事菜單_豬腳便當",
 				"displayedName": "豬腳便當",
+				"displayedIndex": 1,
 				"price": 89,
 				"category": "1.便當",
 				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%B1%AC%E8%85%B3%E4%BE%BF%E7%95%B6.png.jpg",
@@ -130,6 +134,7 @@
 			},{
 				"productNameId": "三元喜事菜單_蹄膀(腿庫)便當",
 				"displayedName": "蹄膀(腿庫)便當",
+				"displayedIndex": 2,
 				"price": 95,
 				"category": "1.便當",
 				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E4%BE%BF%E7%95%B6_%E8%85%BF%E5%BA%AB%E4%BE%BF%E7%95%B6.png.jpg",
@@ -139,6 +144,7 @@
 			},{
 				"productNameId": "三元喜事菜單_白菜滷",
 				"displayedName": "白菜滷",
+				"displayedIndex": 3,
 				"price": 40,
 				"category": "3.小菜、湯品@小菜湯品",
 				"imgUrl": "http://commondatastorage.googleapis.com/o2oist/%E4%B8%89%E5%85%83%E5%96%9C%E4%BA%8B/%E5%B0%8F%E8%8F%9C_%E7%99%BD%E8%8F%9C%E6%BB%B7.png.jpg",
