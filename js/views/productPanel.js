@@ -23,7 +23,7 @@
 	].join('');
 	
 	var productWidgetTemplate = [
-		'<div class="product-box<% if(img&&img.length>3) print(\" noImg\"); %>">',
+		'<div class="product-box<% if(!img||img.length<3) print(\" noImg\"); %>">',
 			'<div class="amount-wrap">',
 				'<div class="image-wrap">',
 					'<img class="Img" src="<%= img %>" style="<% if(!img || img.length<3) print(\"display:none;\"); %>" />',
