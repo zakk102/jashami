@@ -1002,6 +1002,7 @@ body{
             bottom: 0em;
             // left: 0.5em;
             height: 1.5em;
+            line-height: 1.5em;
             background: rgba(255, 255, 255, 0.7);
             width: 85%;
             color: orangered;
@@ -1142,6 +1143,26 @@ body{
           }
         }
       }
+    }
+    .noImg{
+      .amount-wrap{
+        
+        .image-wrap{
+          margin:0.4em;
+          height: 4em;
+          @image-padding:0.5em;
+          .name{
+            width: 80%;
+            height:2em;
+            line-height:2em;
+            font-size:1.5em;
+          }
+        }
+      }
+      .OptionBox{
+        width:80%;
+      }
+      
     }
   }
 }
@@ -1309,7 +1330,6 @@ body{
   }
 }
 
-
 /* -------------Order List Panel-------------*/
 .TotalMoneyPanel{
   -webkit-box-orient: vertical;
@@ -1400,7 +1420,10 @@ body{
   margin-bottom:7px;
   -webkit-box-orient: horizontal;
 }
-
+#UserInfoPageView{
+  height:100%;
+  width:100%;
+}
 //==============================================================
 // loading Panel
 //==============================================================

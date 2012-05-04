@@ -12,7 +12,7 @@
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="checkOutBtn NextButton">',
-							'<div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
+							'<a><div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',

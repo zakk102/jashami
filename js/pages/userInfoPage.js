@@ -1,11 +1,29 @@
 //Filename: js/pages/userInfoPage.js
 (function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector){
 	var pageTemplate = [
-		'<div class="HeaderPanel">',
-			'<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
-			'<div id="title"></div>',
-			'<div><div class="HeaderButton NextButton"><span class="Button">送出</span><span class="Pointer"></span></div></div>',
+		'<div class="header-wrap">',
+			'<div class="header-shadow"></div>',
+			'<div class="header-outer">',
+				'<div class="header">',
+					'<div class="center">',
+						'<div class="BackButton" id="cancelBtn">',
+							'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+						'</div>',
+						'<div id="title" class="function-panel">',
+						'</div>',
+						'<div class="NextButton" id="buyBtn">',
+							'<div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">送給客服</div></div>',					
+						'</div>',
+					'</div>',
+				'</div>',
+			'</div>',
 		'</div>',
+		// '<div class="HeaderPanel">',
+			// '<div><div class="HeaderButton BackButton"><span class="Pointer"></span><span class="Button">返回</span></div></div>',
+			// '<div id="title"></div>',
+			// '<div><div class="HeaderButton NextButton"><span class="Button">送出</span><span class="Pointer"></span></div></div>',
+		// '</div>',
+		
 		'<div id="userinfoList" style="color: #000; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
 		'</div>'
 	].join('');
@@ -34,7 +52,6 @@
 		initialize: function(){
 			$(this.el).addClass('Base');
 			$(this.el).attr("id","UserInfoPageView");
-			$(this.el).attr("style","height:100%; width:100%;");
 			
 			// scroller
 			this.scroller = new Scroller();
