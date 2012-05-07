@@ -1200,7 +1200,7 @@ body{
   
   .order-info-list-panel{
     -webkit-box-flex: 1;
-    margin:1em;
+    // margin:1em;
     display:-webkit-box;
     -webkit-box-orient:vertical;
     
@@ -1233,8 +1233,8 @@ body{
            // color-stop(2%, #fbf9f7),
            // color-stop(98%,#c5c0c1),
            // to(white));
-          margin-top: 1em;
-          margin-bottom: 1em;
+          margin: 1em;
+          // margin-bottom: 1em;
           display: -webkit-box;
           -webkit-box-orient: horizontal;
           -webkit-box-pack: justify;
@@ -1415,45 +1415,54 @@ body{
    to(#948982));
 }
 /* -------------User Info-------------*/
-.UserInfo {
-  position:relative;
-  z-index: 11;
-  width:100%;
-  top:10px;
-}
-.UserInfo > tbody > tr > td > .INPUT{
-  margin-bottom: 7px;
-}
-.INPUT{
-  background:rgba(255,255,255,0.9);
-  border-width:0;  
-}
-
-.UserInfo > tbody > tr > td{
-  vertical-align:middle;
-}
-.UserInfo > tbody > tr > td:first-child {
-  width:15%;
-  padding:2px 2px 2px 5px;
-  letter-spacing:1px;
-  text-align:left;
-}
-
-.UserInfo > tbody > tr > td:last-child {
-  width:80%;
-  padding:2px;
-}
-
-.UserInfo > tbody > tr > td:last-child > div{
-  width: 90%;
-  display: -webkit-box;
-  margin-bottom:7px;
-  -webkit-box-orient: horizontal;
-}
 #UserInfoPageView{
   height:100%;
   width:100%;
+  
+  .UserInfo {
+    position:relative;
+    z-index: 11;
+    width:100%;
+    top:10px;
+    
+    .userinfo-paragraph{
+      
+      line-height: 2em;
+      text-align: center;
+  
+      .line{
+        
+      }
+      .INPUT{
+        background:rgba(255,255,255,0.9);
+        border-width:0;  
+      }
+    }
+    
+  }
 }
+// 
+// .UserInfo > tbody > tr > td{
+  // vertical-align:middle;
+// }
+// .UserInfo > tbody > tr > td:first-child {
+  // width:15%;
+  // padding:2px 2px 2px 5px;
+  // letter-spacing:1px;
+  // text-align:left;
+// }
+// 
+// .UserInfo > tbody > tr > td:last-child {
+  // width:80%;
+  // padding:2px;
+// }
+// 
+// .UserInfo > tbody > tr > td:last-child > div{
+  // width: 90%;
+  // display: -webkit-box;
+  // margin-bottom:7px;
+  // -webkit-box-orient: horizontal;
+// }
 
 
 
