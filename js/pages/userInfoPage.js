@@ -37,7 +37,7 @@
 				'<tr><td><div>手機</div></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></td></tr>',
 				'<tr><td><div>地址</div></td><td>',
 					'<table cellspacing="0" cellpadding="0" style="width: 100%; "><tbody><tr>',
-						'<td align="left" style="vertical-align: middle; " width="200px"><div style="font-size: 12pt; "><%= location %></div></td>',
+						'<td align="left" style="vertical-align: middle; " width="200px"><div class="location" style="font-size: 12pt; "></div></td>',
 						'<td align="left" style="vertical-align: middle; "><input type="Text" placeholder="必填" class="INPUT address" style=""></td>',
 					'</tr></tbody></table>',
 				'</td></tr>',
@@ -154,13 +154,25 @@
 			
 			if(name === ''){
 				name = prompt('請輸入您的稱呼！');
-			}else if(tel === ''){
+				name = $.trim(name);
+			}
+			
+			if(tel === ''){
 				tel = prompt('請輸入手機號碼！');
-			}else if(!this.isTel(tel)){
+				tel = $.trim(tel);
+			}
+			
+			if(!this.isTel(tel)){
 				tel = prompt('手機格式錯誤，請輸入正確的手機號碼！', tel);
-			}else if(address === ''){
+				tel = $.trim(tel);
+			}
+			
+			if(address === ''){
 				address = prompt('請輸入您的地址！');
-			} else {
+				address = $.trim(address);
+			} 
+			
+			if(name !== "" && this.isTel(tel) && address !== ""){
 				valided = true;
 			}
 			
@@ -188,7 +200,7 @@
 		render: function(){
 			// re-bind event
 			$('#title', this.el).html(this.store);
-			this.scroller.html(_.template(infoListTemplate, { location: window.myapp.location }));
+			$('.location', this.el).html(window.myapp.location);
 			this.scroller.render();
 			this.delegateEvents();
 			return this;
