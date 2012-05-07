@@ -51,8 +51,8 @@
 		'<div class="UserInfo">',
 				'<p class=userinfo-paragraph>',
 				'<span class="userinfo-line"><span class="info-title">我是</span><input type="Text" placeholder="必填" class="INPUT name"></span><br />',
-				'<span class="userinfo-line"><span class="info-title">請在</span><span class="DateTimeSelectionBox"></span></span><br />',
-				'<span class="userinfo-line"><span class="info-title">送到</span><span><%= location %></span><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
+				'<span class="userinfo-line"><span class="info-title">我要在</span><span class="DateTimeSelectionBox"></span></span><br />',
+				'<span class="userinfo-line"><span class="info-title">送到</span><span><%= location %>的</span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
 				'<span class="userinfo-line"><span class="info-title">手機</span></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">公司行號</span></td><td><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">統一編號</span></td><td><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
@@ -167,13 +167,25 @@
 			
 			if(name === ''){
 				name = prompt('請輸入您的稱呼！');
-			}else if(tel === ''){
+				name = $.trim(name);
+			}
+			
+			if(tel === ''){
 				tel = prompt('請輸入手機號碼！');
-			}else if(!this.isTel(tel)){
+				tel = $.trim(tel);
+			}
+			
+			if(!this.isTel(tel)){
 				tel = prompt('手機格式錯誤，請輸入正確的手機號碼！', tel);
-			}else if(address === ''){
+				tel = $.trim(tel);
+			}
+			
+			if(address === ''){
 				address = prompt('請輸入您的地址！');
-			} else {
+				address = $.trim(address);
+			} 
+			
+			if(name !== "" && this.isTel(tel) && address !== ""){
 				valided = true;
 			}
 			
@@ -201,7 +213,7 @@
 		render: function(){
 			// re-bind event
 			$('#title', this.el).html(this.store);
-			this.scroller.html(_.template(infoListTemplate, { location: window.myapp.location }));
+			$('.location', this.el).html(window.myapp.location);
 			this.scroller.render();
 			this.delegateEvents();
 			return this;

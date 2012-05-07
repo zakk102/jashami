@@ -1,10 +1,10 @@
 // Filename: js/widget/timeSelector.js
 (function(){
 	var selectorTemplate = [
-		'<div class="DateTimeSelectionBox">',
+//		'<div class="DateTimeSelectionBox">',
 			'<select class="date-selector"></select>',
 			'<select class="time-selector"></select>',
-		'</div>'
+//		'</div>'
 	].join('');
 	
 	var dateTemplate = [
