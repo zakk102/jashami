@@ -135,22 +135,32 @@
 		    			data:JSON.stringify(data), 
 		    			success: function(response){ 
 							console.log(response);
-							window.myapp.orderNumber = response.orderID;
-							location.href = '#orderResultPage/' + that.store;
+							if(response.msg !== 'null'){
+								window.myapp.orderNumber = response.orderID;
+								location.href = '#orderResultPage/' + that.store;	
+							}else{
+								alert(response.msg);
+							}
 						},
 						error: function(xhr, type){
 							console.log(xhr);
 							console.log(type);
+							alert(type);
 						}
 					});
 				}
 			}
 		},
 		isFromValided: function(){
+			var wantDate = this.timeSelector.getSelection();
 			var name = $.trim($('.name', this.el).val());
 			var tel = $.trim($('.tel', this.el).val());
 			var address = $.trim($('.address', this.el).val());
 			var valided = false;
+			
+			if(wantDate === undefined){
+				alert('請選擇送達時間！');
+			}
 			
 			if(name === ''){
 				name = prompt('請輸入您的稱呼！');
@@ -172,7 +182,7 @@
 				address = $.trim(address);
 			} 
 			
-			if(name !== "" && this.isTel(tel) && address !== ""){
+			if(wantDate !== undefined && name !== "" && this.isTel(tel) && address !== ""){
 				valided = true;
 			}
 			
