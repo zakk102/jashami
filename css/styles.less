@@ -297,7 +297,7 @@ body{
           -webkit-box-pack: center;
           
           height:100%;
-          width:2.5em;
+          width:3em;
           .function-txt{
             color:@color-logo-orange*1.5;
             font-size:0.6em;
@@ -1107,14 +1107,16 @@ body{
       .OptionBox{
         margin: 0.4em;
         .ProductOption{
-          background:rgba(255,255,255,0.6);
-          margin-bottom: 0.3em;
+          // background:rgba(255,255,255,0.6);
+          // margin-bottom: 0.3em;
           // parent
           
           // children
           display: -webkit-box;
           -webkit-box-pack: center;
           -webkit-box-align: center;
+          -webkit-box-orient: vertical;
+          
           .OptionPanel{
             display: -webkit-box;
             -webkit-box-pack: justify;
@@ -1141,6 +1143,25 @@ body{
               }
             }
           }
+          .WebOptionPanel{
+            
+          }
+        }
+        .OptionPanel{
+          background:rgba(255,255,255,0.6);
+          margin-bottom: 0.5em;
+          display: -webkit-box;
+          -webkit-box-pack: justify;
+          -webkit-box-align: center;
+          height:2em;
+          width: 100%;
+          .OptionTitle{
+            background:orange;
+            border:0.25em solid orange;
+            color:white;
+            height: 1.5em;
+            line-height: 1.5em;
+          }          
         }
       }
     }
@@ -1148,19 +1169,24 @@ body{
       .amount-wrap{
         
         .image-wrap{
-          margin:0.4em;
+          margin: 1em;
           height: 4em;
           @image-padding:0.5em;
           .name{
-            width: 80%;
+            width: 75%;
             height:2em;
             line-height:2em;
             font-size:1.5em;
           }
+          #amount-panel{
+            top:0;
+            right:1.2em;
+          }
         }
       }
       .OptionBox{
-        width:80%;
+        width:75%;
+        margin:1em;
       }
       
     }
@@ -1388,7 +1414,6 @@ body{
        color-stop(80%,#584234),
    to(#948982));
 }
-
 /* -------------User Info-------------*/
 .UserInfo {
   position:relative;
@@ -1399,6 +1424,11 @@ body{
 .UserInfo > tbody > tr > td > .INPUT{
   margin-bottom: 7px;
 }
+.INPUT{
+  background:rgba(255,255,255,0.9);
+  border-width:0;  
+}
+
 .UserInfo > tbody > tr > td{
   vertical-align:middle;
 }
@@ -1423,6 +1453,54 @@ body{
 #UserInfoPageView{
   height:100%;
   width:100%;
+}
+
+
+
+.historyTab{
+  @padding:1em;
+  padding:@padding;
+  .refresh-panel{
+    position:relative;
+    // display:-webkit-box;
+    // -webkit-box-orient:horizontal;
+    // -webkit-box-pack:center;
+    // -webkit-box-align:left;
+    .icon{
+      position:absolute;
+      width:2em;
+      height:2em;
+      background:orange;
+      opacity:0.5;
+      // &:active{
+        // background:@color-logo-orange*2;
+      // }
+    }
+    .refresh-label{
+      position:absolute;
+      left:2em;
+      height:2em;
+      line-height:2em;
+    }
+    #pulldown-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_212_down_arrow.png);
+    }
+    #pullup-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd.png);
+    }
+  }
+  .OrderHistory{
+    position:absolute;
+    top:2em+@padding;
+  }
+
+  #pullDown{
+    
+  }
+  #pullUp{
+    
+  }
+  
 }
 //==============================================================
 // loading Panel

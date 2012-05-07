@@ -11,9 +11,11 @@
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
-						'<div class="checkOutBtn NextButton">',
-							'<a><div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
-						'</div>',
+						'<a href="#userInforPage" class="checkOutBtn">',
+							'<div class="NextButton">',
+								'<div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
+							'</div>',
+						'</a>',
 					'</div>',
 				'</div>',
 			'</div>',
@@ -38,10 +40,12 @@
 					'<div id="clear-icon" class="icon"></div>',
 					'<div class="ButtonText">清除全部</div>',
 				'</div>',
-				'<div class="Button checkOutBtn">',
-					'<div id="buy-icon" class="icon"></div>',
-					'<div class="ButtonText">購買</div>',
-				'</div>',
+				'<a href="#userInforPage" class="checkOutBtn">',
+					'<div class="Button checkOutBtn">',
+						'<div id="buy-icon" class="icon"></div>',
+						'<div class="ButtonText">購買</div>',
+					'</div>',
+				'</a>',
 				// '<a class="Button" ><div class="ButtonText">結帳</div></a>',
 			'</div>',
 		'</div>'
@@ -92,7 +96,7 @@
 			$("#title", this.el).html(storeName);
 			
 			// check out url
-			$('.checkOutBtn', this.el).attr('href', '#userInfoPage/'+this.model.id);
+			$('a.checkOutBtn', this.el).attr('href', '#userInfoPage/'+this.model.id);
 			
 			this.resetDisplayedData();
 		},
