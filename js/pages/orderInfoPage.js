@@ -1,5 +1,5 @@
 //Filename: js/pages/orderInfoPage.js
-(function(ImageResource, Scroller, ProductPanel){
+(function(ImageResource, Scroller, ProductPanel, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -97,6 +97,17 @@
 			
 			this.resetDisplayedData();
 		},
+		_getShoppingCar: function(storeNameId){
+			if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
+			var shoppingCarts = window.shoppingCartCollection;
+			var shoppingCart = shoppingCarts.get(storeNameId);
+			if(!shoppingCart){
+				var deliveryLimit = this.model.get('deliveryLimit');
+				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+				shoppingCarts.add(shoppingCart);
+			}
+			return shoppingCart;
+		},
 		events:{
 			"click .BackButton":"goBack",
 			"click #clearAllBtn":"clearAll",
@@ -111,13 +122,13 @@
 		},
 		clearAll: function(){
 			var storeNameId = this.model.get('storeNameId');
-			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var shoppingCart = this._getShoppingCar(storeNameId);
 			
 			shoppingCart.clearBuyList();
 		},
 		checkOut: function(e){
 			var storeNameId = this.model.get('storeNameId');
-			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var shoppingCart = this._getShoppingCar(storeNameId);
 			var sum = shoppingCart.get('sum');
 			var deliveryLimit = shoppingCart.get('deliveryLimit');
 			
@@ -129,22 +140,14 @@
 		updateItem: function(e){
 			var index = e.currentTarget.getAttribute("index");
 			var storeNameId = this.model.get('storeNameId');
-			var item = window.shoppingCartCollection.get(storeNameId).get('buyList').at(index);
+			var shoppingCart = this._getShoppingCar(storeNameId);
+			var item = shoppingCart.get('buyList').at(index);
 			var pid = item.get('productNameId');
 			var product = window.menuData.get('stores').get(storeNameId).get('menuId').get('products').get(pid);
 			
 			var productPanel = window.productPanel;
 			productPanel.show('top', {text:'確定', action:function(){
 				productPanel.hide('top', function() {
-					//get shoppingCart
-					if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
-					var shoppingCarts = window.shoppingCartCollection;
-					var shoppingCart = shoppingCarts.get(productPanel.storeNameId);
-					if(!shoppingCart){
-						var deliveryLimit = productPanel.model.get('deliveryLimit');
-						shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
-						shoppingCarts.add(shoppingCart);
-					}
 					//update product to shoppingCart
 					item.set('selectedOptions', $.extend({},productPanel.selectedOption));
 					item.set('singlePrice', productPanel.selectedPrice);
@@ -168,14 +171,14 @@
 		removeItem: function(e){
 			var index = e.currentTarget.getAttribute("index");
 			var storeNameId = this.model.get('storeNameId');
-			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var shoppingCart = this._getShoppingCar(storeNameId);
 			var item = shoppingCart.get('buyList').at(index);
 			
 			shoppingCart.removeBuyItem(item);
 		},
 		resetDisplayedData: function(){
 			var storeNameId = this.model.get('storeNameId');
-			var shoppingCart = window.shoppingCartCollection.get(storeNameId);
+			var shoppingCart = this._getShoppingCar(storeNameId);
 			this.scroller.html(_.template(orderInfoListTemplate, { 'shoppingCart':shoppingCart }));
 			
 			$('.OrderListPanel', this.el).html(this.scroller.render().el);
@@ -196,4 +199,6 @@
 	window.myapp.OrderInfoPageView = OrderInfoPageView;
 })(	window.myapp.Images,
 	window.myapp.Widget.Scroller,
-	window.myapp.View.ProductPanel);
+	window.myapp.View.ProductPanel,
+	window.myapp.Model.ShoppingCart,
+	window.myapp.Model.ShoppingCartCollection);

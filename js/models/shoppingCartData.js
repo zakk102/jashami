@@ -17,7 +17,7 @@
 		idAttribute: 'storeNameId',
 		initialize: function(){
 			this.set('buyList',new BuyList());
-			this.updateDisplay();
+			//this.updateDisplay();
 		},
 		updateDisplay: function(){
 			var buyList = this.get('buyList');
@@ -44,8 +44,9 @@
 			if(!options || !options.slient) this.updateDisplay();
 		},
 		updateBuyItem: function(index, buyItem, options){
-			this.get('buyList').remove(buyItem);
-			this.get('buyList').push(buyItem);
+			//this.get('buyList').remove(buyItem);
+			//this.get('buyList').push(buyItem);
+			this.get('buyList').models[index] = buyItem;
 			if(!options || !options.slient) this.updateDisplay();
 		},
 		clearBuyList: function(options){
