@@ -217,6 +217,9 @@
 		setTitle: function(title){
 			$('#title', this.el).html(title);
 		},
+		setStore: function(store){
+			this.store = store;
+		},
 		setAvailableTime: function(list){
 			this.timeSelector.setDataList(list);
 		},
