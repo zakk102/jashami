@@ -55,7 +55,8 @@
 				'<div id="removeItem" class="icon" index="<%= i %>" ></div>',
 				'<div class="BuyItemCell">',
 					'<div class="ProductInfoPanel">',
-						'<div class="ProductName"><%= buyList.at(i).get("productNameId") %></div>',
+						'<% var pid = buyList.at(i).get("productNameId"); pid = pid.substring(pid.indexOf("_")+1); %>',
+						'<div class="ProductName"><%= pid %></div>',
 						'<div class="OptionPanel">',
 							'<% var selectedOptions = buyList.at(i).get("selectedOptions"); %>',
 							'<% for(var key in selectedOptions){ %>',
@@ -134,7 +135,7 @@
 			
 			var productPanel = window.productPanel;
 			productPanel.show('top', {text:'確定', action:function(){
-				productPanel.hide('bottom', function() {
+				productPanel.hide('top', function() {
 					//get shoppingCart
 					if(!window.shoppingCartCollection) window.shoppingCartCollection = new ShoppingCartCollection();
 					var shoppingCarts = window.shoppingCartCollection;
@@ -148,8 +149,13 @@
 					item.set('selectedOptions', $.extend({},productPanel.selectedOption));
 					item.set('singlePrice', productPanel.selectedPrice);
 					item.set('amount', productPanel.amount);
-					shoppingCart.updateBuyItem(item);
+					//shoppingCart.updateBuyItem(item);
+					shoppingCart.updateDisplay();
 					
+					window.history.go(-1);
+				});
+			}}, {text:'取消', action:function(){
+				productPanel.hide('top', function() {
 					window.history.go(-1);
 				});
 			}});

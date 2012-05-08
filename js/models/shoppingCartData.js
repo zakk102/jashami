@@ -43,7 +43,7 @@
 			this.get('buyList').remove(buyItem);
 			if(!options || !options.slient) this.updateDisplay();
 		},
-		updateBuyItem: function(buyItem, options){
+		updateBuyItem: function(index, buyItem, options){
 			this.get('buyList').remove(buyItem);
 			this.get('buyList').push(buyItem);
 			if(!options || !options.slient) this.updateDisplay();
