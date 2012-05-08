@@ -1,5 +1,5 @@
 //Filename: js/pages/storePage.js
-(function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData, ShoppingCartCollection){
+(function(ImageResource, Scroller, ProductPanel, ShoppingCartPanel, ShoppingCartData, ShoppingCartCollection, TouchWidget){
 	var pageTemplate = [
 		'<div class="PageMainPanel">',
 			'<div class="header-wrap">',
@@ -8,12 +8,12 @@
 					'<div class="header">',
 						'<div class="center">',
 							'<div class="BackButton">',
-								'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+								'<div class="link-wrap" id="back-link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
 							'</div>',
 							'<div id="title" class="function-panel">',
 							'</div>',
-							'<div class="NextButton">',
-								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">購物車</div></div></a>',					
+							'<div class="NextButton" >',
+								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap" id="order-info-link-wrap"><div id="order-info-link" class="icon"></div><div class="function-txt">購物車</div></div></a>',					
 							'</div>',
 						'</div>',
 					'</div>',
@@ -67,6 +67,9 @@
 			$(this.el).attr("id","storePageView");
 			$(this.el).attr("style","height:100%; width:100%;");
 			
+			new TouchWidget({el:$('#back-link-wrap', this.el)});
+			new TouchWidget({el:$('#order-info-link-wrap', this.el)});
+
 			// scroller
 			this.scroller = new Scroller();
 			$(this.scroller.content).addClass('scroller-content');
@@ -306,7 +309,8 @@
 	window.myapp.View.ProductPanel,
 	window.myapp.View.ShoppingCartPanel,
 	window.myapp.Model.ShoppingCart,
-	window.myapp.Model.ShoppingCartCollection);
+	window.myapp.Model.ShoppingCartCollection,
+	window.myapp.Widget.TouchWidget);
 
 
 

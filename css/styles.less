@@ -200,7 +200,7 @@ body{
 }
 
 //--header
-@height-header:3em;
+@height-header:3.3em;
 .header-wrap{
   position:relative;
   height:@height-header;
@@ -300,9 +300,9 @@ body{
           width:3em;
           .function-txt{
             color:@color-logo-orange*1.5;
-            font-size:0.6em;
-            height:0.6em;
-            line-height:0.3em;
+            font-size:0.8em;
+            height:0.8em;
+            line-height:0.2em;
             width:100%;
             // margin:0.1em;
             // padding:0.3em;
@@ -348,18 +348,60 @@ body{
           }
 
         }
-        .link-wrap:active .function-txt{
+        #order-link-wrap.active .function-txt{
               color:@color-logo-orange*2;
         }
-        .link-wrap:active .icon{
+        #order-link-wrap.active .icon{
               background:@color-logo-orange*2;
         }
-        .link-wrap.active .function-txt{
+        #history-link-wrap.active .function-txt{
               color:@color-logo-orange*2;
         }
-        .link-wrap.active .icon{
+        #history-link-wrap.active .icon{
               background:@color-logo-orange*2;
         }
+        #feedback-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #feedback-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        #about-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #about-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        #back-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #back-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        #order-info-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #order-info-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        #buy-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #buy-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        #waiter-link-wrap.active .function-txt{
+              color:@color-logo-orange*2;
+        }
+        #waiter-link-wrap.active .icon{
+              background:@color-logo-orange*2;
+        }
+        // .link-wrap.active .function-txt{
+              // color:@color-logo-orange*2;
+        // }
+        // .link-wrap.active .icon{
+              // background:@color-logo-orange*2;
+        // }
       }
     }
   }
@@ -389,32 +431,13 @@ body{
   #segmentPanel-outer{  
     position:absolute;
     z-index:30;
-    right:1em;
-    top:@height-header + 0.1em;
+    right:0.5em;
+    top:@height-header + 0.2em;
     #segmentPanel{
       position:relative;
     }
   }
-  
-  #order-info-sticker1{
-    .sticker;
-    z-index:19;
-    top:@height-header - 0.2em;
-    left:0.2em;
-    width:11em;
-    height:2.2em;
-  }
-  #order-info-sticker1-shadow{
-    .sticker;
-    background:none;
-    // opacity:0.9;
-    -webkit-box-shadow: -0.01em 0.4em 5px rgba(100, 100, 100, 0.3);
-    z-index:10;
-    top:@height-header - 0.2em;
-    left:0.2em;
-    width:11em;
-    height:2.2em;
-  }
+  @shoppingcar-width:10em;
   .ShoppingCar{
     position:absolute;
     top:@height-header + 0.2em;
@@ -425,7 +448,7 @@ body{
     // -webkit-box-shadow: 1px 1px 4px #633a1e;
     z-index: 20;
     color: #ffffff;
-    width: 11em;
+    width: @shoppingcar-width;
     height: 1.6em;
     // background:@color-logo-orange;
     left:0.2em;
@@ -469,6 +492,25 @@ body{
      -webkit-box-shadow: none;
      border:none;
   }
+  #order-info-sticker1{
+    .sticker;
+    z-index:19;
+    top:@height-header - 0.2em;
+    left:0.2em;
+    width:@shoppingcar-width;
+    height:2.2em;
+  }
+  #order-info-sticker1-shadow{
+    .sticker;
+    background:none;
+    // opacity:0.9;
+    -webkit-box-shadow: -0.01em 0.4em 5px rgba(100, 100, 100, 0.3);
+    z-index:10;
+    top:@height-header - 0.2em;
+    left:0.2em;
+    width:@shoppingcar-width;
+    height:2.2em;
+  }
 
   .ProgressBarPanel {
     position:relative;
@@ -480,12 +522,13 @@ body{
     left: 0px; 
     right: 0px; 
     top: 0px; 
-    bottom: 0px;    
+    bottom: 0px;
+    font-size:0.9em;
     .sum{
     }
     .ProgressBar {
       margin:3px 5px 3px 5px;
-      width: 4em;
+      width: 3.5em;
       height: 0.8em;
       // background-color:black;
       border: 2px solid whitesmoke;
@@ -1541,6 +1584,100 @@ body{
     border-radius:0.5em;
     border:0.5em solid orangered;
     // margin:1em;
+  }
+}
+
+#about-panel{
+  width:100%;
+  display:-webkit-box;
+  -webkit-box-flex:10;
+  color:darkslategray;
+  // padding:1em;
+  #intro{
+    margin-top:1em;
+    line-height:2em;
+    text-align:center;
+    width:100%;
+    .intro-step{
+      @height:2.5em;
+      display: inline-block;
+      margin-bottom:0.7em;
+      margin-top:0.7em;
+      .intro-step-index{
+        display: inline-block;
+        background: orange;
+        color: white;
+        width: 1.5em;
+        height: 1.5em;
+        line-height: 1.5em;
+        font-weight: bold;
+        font-size: 1.8em;
+        position: relative;
+        top: -0.3em;
+        left: 1.3em;
+      }
+      .intro-step-icon-wrap{
+        background: white;
+        height: @height;
+        display: inline-block;
+        padding: 0 1em 0 3em;
+              
+        .intro-step-icon{
+          display:inline-block;
+          background:orange;
+          color:white;
+          width:@height;
+          height:@height;
+        }
+        #intro-step1-icon{
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_027_search.png);
+        }
+        #intro-step2-icon{
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_209_cart_in.png);
+        }
+        #intro-step3-icon{
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_139_phone.png);
+        }
+        #intro-step4-icon{
+          -webkit-mask-box-image:url(icons/jashami-logo-toung.png);
+        }
+        .intro-step-text{
+          color:orange;
+          font-size:1.5em;
+        }
+      }
+    }
+  }
+  .button{
+    display:inline-block;
+    height:1.8em;
+    line-height:1.8em;
+    width:auto;
+    background:orangered;
+    margin:0.2em;
+    padding:0 0.4em 0 0.3em;
+    color:white;
+    border-radius:0.4em;
+    .icon{
+      display:inline-block;
+      height:1.8em;
+      width:1.8em;
+      background:white;
+      position:relative;
+      top:-0.15em;
+    }
+    #about-call-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_139_phone.png);
+    }
+    #about-email-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_124_message_plus.png);
+    }
+    #fanpage-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_320_facebook.png);
+    }
+  }
+  #about-call{
+    
   }
 }
 //==============================================================

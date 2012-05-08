@@ -16,10 +16,10 @@
 						'<div class="center">',
 							// '<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
 							'<div class="function-panel">',
-								'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.SearchIcon+');"></div><div class="function-txt">訂餐</div></div></a>',
-					            '<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.FileIcon+');"></div><div class="function-txt">紀錄</div></div></a>',
-				                '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.CommentsIcon+');"></div><div class="function-txt">意見</div></div></a>',
-								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.JashamiIcon+');"></div><div class="function-txt">關於</div></div></a>',
+								'<a class="link" href="#startPage/orderTab"><div class="link-wrap" id="order-link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.SearchIcon+');"></div><div class="function-txt">訂餐</div></div></a>',
+					            '<a class="link" href="#startPage/historyTab"><div class="link-wrap" id="history-link-wrap"><div id="history-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.FileIcon+');"></div><div class="function-txt">紀錄</div></div></a>',
+				                '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap" id="feedback-link-wrap"><div id="feedback-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.CommentsIcon+');"></div><div class="function-txt">意見</div></div></a>',
+								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap" id="about-link-wrap"><div id="about-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.JashamiIcon+');"></div><div class="function-txt">關於</div></div></a>',
 							'</div>',
 							// '<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
 						'</div>',
@@ -45,9 +45,10 @@
 			this.$el.attr("id","startPageView");
 			this.$el.attr("style","height:100%; width:100%;");
 			this.$el.css("-webkit-box-orient", "horizontal");
-			new TouchWidget({el:$('.link-wrap', this.el)});
-			// new TouchWidget({el:$('.BackButton', this.el)});
-			// new TouchWidget({el:$('.BackButton', this.el)});
+			new TouchWidget({el:$('#order-link-wrap', this.el)});
+			new TouchWidget({el:$('#history-link-wrap', this.el)});
+			new TouchWidget({el:$('#feedback-link-wrap', this.el)});
+			new TouchWidget({el:$('#about-link-wrap', this.el)});
 		},
 		events:{
 			"click .PageContent":"hideFunctionPanel",
