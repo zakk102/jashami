@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector){
+(function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector, LocalModel){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -81,9 +81,22 @@
 			$(window).bind('useNative', function(e){
 				that.useNative(e.data);
 			});
-			
-			//time selector
-			//this.timeSelector = new DateTimeSelector({el:$('.DateTimeSelectionBox', this.el)});
+		},
+		_saveUserInput: function(){
+			var name = $.trim($('.name', this.el).val());
+			var tel = $.trim($('.tel', this.el).val());
+			var address = $.trim($('.address', this.el).val());
+			LocalModel.setUserName(name);
+			LocalModel.setUserPhoneNumber(tel);
+			LocalModel.setUserAddress(address);
+		},
+		_restoreUserInput: function(){
+			var name = LocalModel.getUserName();
+			var tel = LocalModel.getUserPhoneNumber();
+			var address = LocalModel.getUserAddress();
+			$('.name', this.el).val(name);
+			$('.tel', this.el).val(tel);
+			$('.address', this.el).val(address);
 		},
 		events:{
 			"click .BackButton":"goBack",
@@ -93,6 +106,7 @@
 			if(window.inTransition) return;
 			window.isGoBack = true;
 			window.history.back();
+			this._saveUserInput();
 		},
 		sendOrder: function(){
 			var that = this;
@@ -107,6 +121,7 @@
 			].join('');
 			
 			if(this.isFromValided()){
+				this._saveUserInput();
 				send = confirm(message);
 				if(send) {
 					var name = $.trim($('.name', this.el).val());
@@ -169,41 +184,39 @@
 			var name = $.trim($('.name', this.el).val());
 			var tel = $.trim($('.tel', this.el).val());
 			var address = $.trim($('.address', this.el).val());
-			var valided = false;
 			
 			if(wantDate === undefined){
 				alert('請選擇送達時間！');
+				return false;
 			}
 			
-			if(name === ''){
+			while(name === ''){
 				name = prompt('請輸入您的稱呼！');
+				if(name === null) return false;
 				name = $.trim(name);
 			}
+			$('.name', this.el).val(name);
 			
-			if(tel === ''){
+			while(tel === ''){
 				tel = prompt('請輸入手機號碼！');
+				if(name === null) return false;
 				tel = $.trim(tel);
 			}
 			
-			if(!this.isTel(tel)){
+			while(!this.isTel(tel)){
 				tel = prompt('手機格式錯誤，請輸入正確的手機號碼！', tel);
+				if(name === null) return false;
 				tel = $.trim(tel);
 			}
+			$('.tel', this.el).val(tel);
 			
-			if(address === ''){
+			while(address === ''){
 				address = prompt('請輸入您的地址！');
 				address = $.trim(address);
-			} 
-			
-			if(wantDate !== undefined && name !== "" && this.isTel(tel) && address !== ""){
-				valided = true;
 			}
+			$('.address', this.el).val(address); 
 			
-			$('.name', this.el).val(name);
-			$('.tel', this.el).val(tel);
-			$('.address', this.el).val(address);
-			
-			return valided;
+			return true;
 		},
 		isTel: function(tel){
 			var reg = /^([0-9]|[\-])+$/;
@@ -229,6 +242,7 @@
 			else $('.location', this.el).html('');
 			this.scroller.render();
 			this.delegateEvents();
+			this._restoreUserInput();
 			return this;
 	  	},
 	  	useNative: function(isNative){
@@ -247,4 +261,5 @@
 })(	window.myapp.Api.OrderServiceUrl,
 	window.myapp.Widget.Scroller,
 	window.myapp.Widget.DateTimeSelector,
-	window.myapp.Widget.NativeTimeSelector);
+	window.myapp.Widget.NativeTimeSelector,
+	window.myapp.LocalModel);
