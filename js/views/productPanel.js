@@ -18,7 +18,7 @@
 				'</div>',
 			'</div>',
 		'</div>',
-		'<div class="ProductDialog" id="productContent">',
+		'<div class="ProductDialog" id="productContent" style="display:-webkit-box">',
 		'</div>'
 	].join('');
 	
@@ -102,6 +102,8 @@
 			
 			// scroller
 			this.scroller = new Scroller();
+			$(this.scroller.el).css('position','relative');
+			$(this.scroller.el).css('height','');
 			$("#productContent", this.el).append(this.scroller.render().el);
 		},
 		events:{
