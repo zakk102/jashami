@@ -156,12 +156,14 @@
 						data.autoLocalization = window.autoLocalization;
 					}
 					// send order info to server
+					if(window.loadingPanel) window.loadingPanel.connectionOut();
 					$.ajax({
 		    			type: 'POST',
 		  				url: OrderServiceUrl+'?action=sendOrder',
 		  				dataType: 'json',
 		    			data:JSON.stringify(data), 
 		    			success: function(response){ 
+		    				if(window.loadingPanel) window.loadingPanel.connectionIn();
 							console.log(response);
 							if(response.msg !== 'null'){
 								window.myapp.orderNumber = response.orderID;
@@ -171,6 +173,7 @@
 							}
 						},
 						error: function(xhr, type){
+							if(window.loadingPanel) window.loadingPanel.connectionIn();
 							console.log(xhr);
 							console.log(type);
 							alert(type);
