@@ -227,18 +227,17 @@
 				return reg.exec(tel);
 			}
 		},
-		setStore: function(store){
-			this.store = store;
-		},
 		setTitle: function(title){
 			$('#title', this.el).html(title);
+		},
+		setStore: function(store){
+			this.store = store;
 		},
 		setAvailableTime: function(list){
 			this.timeSelector.setDataList(list);
 		},
 		render: function(){
 			// re-bind event
-			//$('#title', this.el).html(this.store);
 			if(window.myapp.location) $('.location', this.el).html(window.myapp.location+"的");
 			else $('.location', this.el).html('');
 			this.scroller.render();
