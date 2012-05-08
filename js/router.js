@@ -8,6 +8,7 @@
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
 			'orderInfoPage/:store': 'orderInfoPage',
+			'orderInfoPage/:store/:index': 'orderEditPage',
 			'userInfoPage/:store': 'userInfoPage',
 			'orderResultPage/:store': 'orderResultPage',
 			// Default
@@ -75,6 +76,7 @@
 			window.myapp.GoogleAnalytics.goPage();
 	    },
 		defaultAction: function(){
+			console.log('do default action.');
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
@@ -172,6 +174,9 @@
 			},function(xhr, type){
 				console.log(type);
 			});
+		},
+		orderEditPage : function(store, index){
+			console.log('do orderEditPage function.');
 		},
 		userInfoPage: function(store){
 			var storeName = window.menuData.get('stores').get(store).get('displayedName');
