@@ -191,12 +191,14 @@
 			}
 		},
 		userInfoPage: function(store){
+			var storeName = window.menuData.get('stores').get(store).get('displayedName');
 			var that = this;
+	
 			if(!this.views.userInfoPage){ // load the userInfo page into DOM
 				this.views.userInfoPage = new Views.UserInfoPageView();
 				this.loadToDOM(this.views.userInfoPage.el);
 			}
-			this.views.userInfoPage.setStore(store);
+			this.views.userInfoPage.setStore(storeName);
 			this.views.userInfoPage.setAvailableTime([]);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			$.ajax({
@@ -211,7 +213,6 @@
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				}
 			});
-			this.views.userInfoPage.setStore(store);
 			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;
