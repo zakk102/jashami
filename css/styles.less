@@ -297,7 +297,7 @@ body{
           -webkit-box-pack: center;
           
           height:100%;
-          width:2.5em;
+          width:3em;
           .function-txt{
             color:@color-logo-orange*1.5;
             font-size:0.6em;
@@ -342,6 +342,9 @@ body{
           }
           #buy{
             -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd.png);
+          }
+          #waiter{
+            -webkit-mask-box-image:url(icons/jashami-logo-toung.png);
           }
 
         }
@@ -1002,6 +1005,7 @@ body{
             bottom: 0em;
             // left: 0.5em;
             height: 1.5em;
+            line-height: 1.5em;
             background: rgba(255, 255, 255, 0.7);
             width: 85%;
             color: orangered;
@@ -1106,14 +1110,16 @@ body{
       .OptionBox{
         margin: 0.4em;
         .ProductOption{
-          background:rgba(255,255,255,0.6);
-          margin-bottom: 0.3em;
+          // background:rgba(255,255,255,0.6);
+          // margin-bottom: 0.3em;
           // parent
           
           // children
           display: -webkit-box;
           -webkit-box-pack: center;
           -webkit-box-align: center;
+          -webkit-box-orient: vertical;
+          
           .OptionPanel{
             display: -webkit-box;
             -webkit-box-pack: justify;
@@ -1140,8 +1146,52 @@ body{
               }
             }
           }
+          .WebOptionPanel{
+            
+          }
+        }
+        .OptionPanel{
+          background:rgba(255,255,255,0.6);
+          margin-bottom: 0.5em;
+          display: -webkit-box;
+          -webkit-box-pack: justify;
+          -webkit-box-align: center;
+          height:2em;
+          width: 100%;
+          .OptionTitle{
+            background:orange;
+            border:0.25em solid orange;
+            color:white;
+            height: 1.5em;
+            line-height: 1.5em;
+          }          
         }
       }
+    }
+    .noImg{
+      .amount-wrap{
+        
+        .image-wrap{
+          margin: 1em;
+          height: 4em;
+          @image-padding:0.5em;
+          .name{
+            width: 75%;
+            height:2em;
+            line-height:2em;
+            font-size:1.5em;
+          }
+          #amount-panel{
+            top:0;
+            right:1.2em;
+          }
+        }
+      }
+      .OptionBox{
+        width:75%;
+        margin:1em;
+      }
+      
     }
   }
 }
@@ -1153,7 +1203,7 @@ body{
   
   .order-info-list-panel{
     -webkit-box-flex: 1;
-    margin:1em;
+    // margin:1em;
     display:-webkit-box;
     -webkit-box-orient:vertical;
     
@@ -1186,8 +1236,8 @@ body{
            // color-stop(2%, #fbf9f7),
            // color-stop(98%,#c5c0c1),
            // to(white));
-          margin-top: 1em;
-          margin-bottom: 1em;
+          margin: 1em;
+          // margin-bottom: 1em;
           display: -webkit-box;
           -webkit-box-orient: horizontal;
           -webkit-box-pack: justify;
@@ -1309,7 +1359,6 @@ body{
   }
 }
 
-
 /* -------------Order List Panel-------------*/
 .TotalMoneyPanel{
   -webkit-box-orient: vertical;
@@ -1368,39 +1417,132 @@ body{
        color-stop(80%,#584234),
    to(#948982));
 }
-
 /* -------------User Info-------------*/
-.UserInfo {
-  position:relative;
-  z-index: 11;
+#UserInfoPageView{
+  height:100%;
   width:100%;
-  top:10px;
+  
+  .UserInfo {
+    position:relative;
+    z-index: 11;
+    width:100%;
+    top:10px;
+    
+    .userinfo-paragraph{
+      
+      line-height: 2em;
+      text-align: center;
+  
+      .line{
+        
+      }
+      .INPUT{
+        background:rgba(255,255,255,0.9);
+        border-width:0;  
+      }
+    }
+    
+  }
 }
-.UserInfo > tbody > tr > td > .INPUT{
-  margin-bottom: 7px;
-}
-.UserInfo > tbody > tr > td{
-  vertical-align:middle;
-}
-.UserInfo > tbody > tr > td:first-child {
-  width:15%;
-  padding:2px 2px 2px 5px;
-  letter-spacing:1px;
-  text-align:left;
+// 
+// .UserInfo > tbody > tr > td{
+  // vertical-align:middle;
+// }
+// .UserInfo > tbody > tr > td:first-child {
+  // width:15%;
+  // padding:2px 2px 2px 5px;
+  // letter-spacing:1px;
+  // text-align:left;
+// }
+// 
+// .UserInfo > tbody > tr > td:last-child {
+  // width:80%;
+  // padding:2px;
+// }
+// 
+// .UserInfo > tbody > tr > td:last-child > div{
+  // width: 90%;
+  // display: -webkit-box;
+  // margin-bottom:7px;
+  // -webkit-box-orient: horizontal;
+// }
+
+
+
+.historyTab{
+  @padding:1em;
+  padding:@padding;
+  .refresh-panel{
+    position:relative;
+    // display:-webkit-box;
+    // -webkit-box-orient:horizontal;
+    // -webkit-box-pack:center;
+    // -webkit-box-align:left;
+    .icon{
+      position:absolute;
+      width:2em;
+      height:2em;
+      background:orange;
+      opacity:0.5;
+      // &:active{
+        // background:@color-logo-orange*2;
+      // }
+    }
+    .refresh-label{
+      position:absolute;
+      left:2em;
+      height:2em;
+      line-height:2em;
+    }
+    #pulldown-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_212_down_arrow.png);
+    }
+    #pullup-icon{
+      -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd.png);
+    }
+  }
+  .OrderHistory{
+    position:absolute;
+    top:2em+@padding;
+  }
+
+  #pullDown{
+    
+  }
+  #pullUp{
+    
+  }
+  
 }
 
-.UserInfo > tbody > tr > td:last-child {
-  width:80%;
-  padding:2px;
+.about_text{
+  margin:1em;
+  line-height:1.5em;
+  .INPUT{
+    background:rgba(255,255,255,0.9);
+    border-width:0;
+    width: 100%;
+    border-radius: 0.5em;
+  }
+  #recommendation{
+    height: 2em;
+  }
+  #opinion{
+    height: 5em;
+  }
 }
-
-.UserInfo > tbody > tr > td:last-child > div{
-  width: 90%;
-  display: -webkit-box;
-  margin-bottom:7px;
-  -webkit-box-orient: horizontal;
+.submit-paragraph{
+  text-align: center;
+  #sendFeedbackBtn{
+    background:orangered;
+    padding-left:1em;
+    padding-right:1em;
+    color:white;
+    border-radius:0.5em;
+    border:0.5em solid orangered;
+    // margin:1em;
+  }
 }
-
 //==============================================================
 // loading Panel
 //==============================================================

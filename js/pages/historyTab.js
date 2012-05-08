@@ -1,20 +1,22 @@
 // Filename: js/pages/historyTab.js
 (function(Scroller, Accordion, OrderHistory){
 	var tabTemplate = [
-		'<div id="pullDown"></div>',
-		'<div class="OrderHistory">',
-			'<div>',
-				'<div class="gwt-Label">點餐紀錄:</div>',
-				'<div class="OrderHistoryPanelTitle">',
-					'<div class="gwt-Label">✭</div>',
-					'<div class="gwt-Label">送餐時間</div>',
-					'<div class="gwt-Label">編號</div>',
-					'<div class="gwt-Label">狀態</div>',
+		'<div class="historyTab">',
+			'<div id="pullDown" class="refresh-panel"></div>',
+			'<div class="OrderHistory">',
+				'<div>',
+					'<div class="gwt-Label">點餐紀錄:</div>',
+					'<div class="OrderHistoryPanelTitle">',
+						'<div class="gwt-Label">✭</div>',
+						'<div class="gwt-Label">送餐時間</div>',
+						'<div class="gwt-Label">編號</div>',
+						'<div class="gwt-Label">狀態</div>',
+					'</div>',
 				'</div>',
+				'<div class="OrderHistoryPanel"></div>',
 			'</div>',
-			'<div class="OrderHistoryPanel"></div>',
-		'</div>',
-		'<div id="pullUp"></div>',
+			'<div id="pullUp" class="refresh-panel"></div>',
+		'</div>'
 	].join('');
 	
 	var orderHeaderTemplate = [
@@ -96,12 +98,14 @@
 				},error:function(){
 					console.log('get order history failed');
 				}});
-			}
+			};
 			scroller.setPullToRefresh({
 				pullDownEl: pullDownEl, 
-				pullDownAction: pullDownAction
+				pullDownAction: pullDownAction,
+				pullDownOffset: 0,
+				pullUpOffset: 0
 			});
-			
+			scroller.scrollTo(0,0,0);
 		},
 		events:{
 			"toggle .Accordion": "toggleCallback"

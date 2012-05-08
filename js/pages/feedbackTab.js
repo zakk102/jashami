@@ -1,14 +1,14 @@
 // Filename: js/pages/feedbackTab.js
 (function(Scroller, FeedbackServiceUrl, LocalModel){
 	var tabTemplate = [
-		"<div class='about_text' style='width:100%;'>",
-			"感謝您使用Jashami(甲蝦米)<br/>",
-			"您希望哪些商家擁有Jashami的服務，請推薦給我們：",
-			"<input id='recommendation' type='Text' class='INPUT Text'>",
-			"請留下您的寶貴意見，我們將為您提供更好的服務:",
-			"<input id='opinion' type='Text' class='INPUT Text'>",
-			"<a id='sendFeedbackBtn' class='SubmitButton'>送出</a>",
-		"</div>",
+		"<p class='about_text' >",
+			// "感謝您使用甲蝦米<br/>",
+			"我希望這些店家可以加入甲蝦米：<br/>",
+			"<input id='recommendation' type='Text' class='INPUT Text'><br/><br/>",
+			"我想對甲蝦米說：<br/>",
+			"<input id='opinion' type='Text' class='INPUT Text'><br/>",
+		"</p>",
+		"<p class='submit-paragraph'><a id='sendFeedbackBtn' class='SubmitButton'>送出</a></p>"
 	].join('');
 	
 	var FeedbackTabView = Backbone.View.extend({
