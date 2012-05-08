@@ -6,7 +6,7 @@
 	if(supportedLang.indexOf(language)<0) language = defaultLang;
 	i18n.set(window.languages[language]);
 
-	window.phonegapEnabled = true;
+	//window.phonegapEnabled = true;
 
 // phonegap
 	myapp.PG.Event.onDeviceReady(function(){
@@ -30,6 +30,7 @@
 		// native or web ui
 		$(window).trigger('useNative', true);
 	});
+	
 // start
 	$(document).ready(function () {
 		$('#backgroundLogo').remove();
