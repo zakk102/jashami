@@ -53,7 +53,7 @@
   			pullUpOffset = opt.pullUpOffset;
   			pullUpAction = opt.pullUpAction;
   			pullDownAction = opt.pullDownAction;
-  			if(pullDownEl) pullDownEl.html('<div id="pulldown-icon" class="icon"></div><div class="pullDownLabel refresh-label">'+pulldown_label+'</div>');
+  			if(pullDownEl) pullDownEl.html('<div id="pulldown-icon" class="icon" style="-webkit-transition-duration:500ms;"></div><div class="pullDownLabel refresh-label">'+pulldown_label+'</div>');
   			if(pullUpEl) pullUpEl.html('<div id="pullup-icon" class="icon"></div><div class="pullUpLabel refresh-label">'+pullup_label+'</div>');
   			
   			this.render({
@@ -72,6 +72,7 @@
 					if (pullDownEl && this.y > 10 && !pullDownEl.hasClass('flip')) {
 						pullDownEl.addClass('flip');
 						$('.pullDownLabel', pullDownEl).html(refresh_label);
+						$('.icon', pullDownEl).css('-webkit-transform','rotate(-180deg)');
 						this.minScrollY = 0;
 					} else if (pullDownEl && this.y < 10 && pullDownEl.hasClass('flip')) {
 						pullDownEl.removeClass('flip');
@@ -91,6 +92,7 @@
 					if (pullDownEl && pullDownEl.hasClass('flip')) {
 						pullDownEl.removeClass('flip').addClass('loading');
 						$('.pullDownLabel', pullDownEl).html(loading_label);
+						$('.icon', pullDownEl).css('-webkit-transform','rotate(0deg)');
 						pullDownAction();	// Execute custom function (ajax call?)
 					} else if (pullUpEl && pullUpEl.hasClass('flip')) {
 						pullUpEl.removeClass('flip').addClass('loading');

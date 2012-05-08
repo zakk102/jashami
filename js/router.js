@@ -8,6 +8,7 @@
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
 			'orderInfoPage/:store': 'orderInfoPage',
+			'orderInfoPage/:store/:index': 'orderEditPage',
 			'userInfoPage/:store': 'userInfoPage',
 			'orderResultPage/:store': 'orderResultPage',
 			// Default
@@ -75,6 +76,7 @@
 			window.myapp.GoogleAnalytics.goPage();
 	    },
 		defaultAction: function(){
+			console.log('do default action.');
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
@@ -113,28 +115,19 @@
 			if(!window.menuData){
 				//only occur in the direct access to store page
 				window.menuData = new MenuData();
-				window.menuData.getMenuByZipCode('110', function(index){
-					that.views.storePage.resetDisplayedData();
-					that.views.storePage.refreshGridSize();
-					that.views.storePage.resetScroller();
-					that.views.storePage.setModel(window.menuData.get('stores').get(store));
-					if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
-						that.views.orderInfoPage = new Views.OrderInfoPageView();
-						that.loadToDOM(that.views.orderInfoPage.el);
-					}
-				},function(xhr, type){
-					console.log(type);
-				});
-			}else{
+			}
+			window.menuData.getMenuOfStore(store, function(s){
 				that.views.storePage.resetDisplayedData();
 				that.views.storePage.refreshGridSize();
 				that.views.storePage.resetScroller();
-				that.views.storePage.setModel(window.menuData.get('stores').get(store));
+				that.views.storePage.setModel(s);
 				if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
 					that.views.orderInfoPage = new Views.OrderInfoPageView();
 					that.loadToDOM(that.views.orderInfoPage.el);
 				}
-			}
+			},function(xhr, type){
+				console.log(type);
+			});
 		},
 		productPage: function(store, product){
 			// product panel
@@ -160,12 +153,7 @@
 			if(!this.views.orderInfoPage){ // load the orderInfo page into DOM
 				this.views.orderInfoPage = new Views.OrderInfoPageView();
 				this.loadToDOM(this.views.orderInfoPage.el);
-			}
-			
-			if(this.views.orderInfoPage){
-				if(!window.orderInfoPage){
-					window.orderInfoPage = this.views.orderInfoPage;
-				}
+				window.orderInfoPage = this.views.orderInfoPage;
 			}
 			
 			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
@@ -175,27 +163,34 @@
 			var that = this;
 			if(!window.menuData){
 				window.menuData = new MenuData();
-				window.menuData.fetch({success:function(){
-					that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
-					if(!that.views.userInfoPage){ // pre-load the user info page into DOM
-						that.views.userInfoPage = new Views.UserInfoPageView();
-						that.loadToDOM(that.views.userInfoPage.el);
-					}
-				}});
-			}else{
-				that.views.orderInfoPage.setModel(window.menuData.get('stores').get(store));
-				if(!that.views.userInfoPage){ // pre-load the user info page into DOM
-					that.views.userInfoPage = new Views.UserInfoPageView();
-					that.loadToDOM(that.views.userInfoPage.el);
-				}
 			}
+			window.menuData.getMenuOfStore(store, function(s){
+				that.views.orderInfoPage.setModel(s);
+			},function(xhr, type){
+				console.log(type);
+			});
+		},
+		orderEditPage : function(store, index){
+			console.log('do orderEditPage function.');
 		},
 		userInfoPage: function(store){
+			var storeName = window.menuData.get('stores').get(store).get('displayedName');
 			var that = this;
+	
 			if(!this.views.userInfoPage){ // load the userInfo page into DOM
 				this.views.userInfoPage = new Views.UserInfoPageView();
 				this.loadToDOM(this.views.userInfoPage.el);
 			}
+			// set store menu data
+			var that = this;
+			if(!window.menuData){
+				window.menuData = new MenuData();
+			}
+			window.menuData.getMenuOfStore(store, function(s){
+				if(s) s = s.get('displayedName');
+				else s = store;
+				that.views.userInfoPage.setTitle(s);
+			});
 			this.views.userInfoPage.setStore(store);
 			this.views.userInfoPage.setAvailableTime([]);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
@@ -211,7 +206,6 @@
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				}
 			});
-			this.views.userInfoPage.setStore(store);
 			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
 			this.transitionEffectType = null;
 			this.transitionDir = null;

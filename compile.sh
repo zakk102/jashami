@@ -23,6 +23,7 @@ androidlibs="\
 "
 
 apps="\
+./js/applicationCache.js \
 ./js/localModel.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \

@@ -30,6 +30,7 @@
 		// native or web ui
 		$(window).trigger('useNative', true);
 	});
+	
 // start
 	$(document).ready(function () {
 		$('#backgroundLogo').remove();
