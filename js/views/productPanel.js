@@ -168,13 +168,14 @@
 				var options = currentItem.get('selectedOptions');
 			
 				// $('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
-			
+				this.amount = amount;
+				$('#product-box-amount', this.el).html(this.amount);
+				this.selectedPrice = price;
+				$('#product-box-total', this.el).html(this.selectedPrice*this.amount);
+				this.selectedOption = options;
 				for(var index in this.optionWidget){
 					this.optionWidget[index].setSelected(options, {silent:true});
 				}
-				
-				//set options
-				this.selectedOption = options;
 			}
 					
 			// refresh size
@@ -184,17 +185,17 @@
 			if(this.cancelAction){
 				this.cancelAction();
 				this.cancelAction = null;
+			}else{//default action
+				var that = this;
+				this.hide('bottom', function(){
+					if(that.callback){
+						that.callback();
+						that.callback = null;
+					}else{
+						window.history.go(-1);
+					}
+				});
 			}
-			
-			var that = this;
-			this.hide('bottom', function(){
-				if(that.callback){
-					that.callback();
-					that.callback = null;
-				}else{
-					window.history.go(-1);
-				}
-			});
 		},
 		_buy: function(){
 			if(this.buyAction){
@@ -262,8 +263,8 @@
 	  		var buyBtnText = '購買', cancelBtnText = '取消';
 	  		if(buyBtn && buyBtn.text) buyBtnText = buyBtn.text;
 	  		if(cancelBtn && cancelBtn.text) cancelBtnText = cancelBtn.text;
-	  		$('#buyBtn .ButtonText', this.el).html(buyBtnText);
-	  		$('#cancelBtn .ButtonText', this.el).html(cancelBtnText);
+	  		$('#buyBtn .function-txt', this.el).html(buyBtnText);
+	  		$('#cancelBtn .function-txt', this.el).html(cancelBtnText);
 	  		
 	  		if(this.$el.css('display')!='none') return; //already shown
 	  		if(effectDir=='top'){

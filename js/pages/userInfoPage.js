@@ -52,7 +52,7 @@
 				'<p class=userinfo-paragraph>',
 				'<span class="userinfo-line"><span class="info-title">我是</span><input type="Text" placeholder="必填" class="INPUT name"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">我要在</span><span class="DateTimeSelectionBox"></span></span><br />',
-				'<span class="userinfo-line"><span class="info-title">送到</span><span><%= location %>的</span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
+				'<span class="userinfo-line"><span class="info-title">送到</span><span class="location"><%= location %></span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
 				'<span class="userinfo-line"><span class="info-title">手機</span></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">公司行號</span></td><td><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">統一編號</span></td><td><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
@@ -214,16 +214,16 @@
 				return reg.exec(tel);
 			}
 		},
-		setStore: function(store){
-			this.store = store;
+		setTitle: function(title){
+			$('#title', this.el).html(title);
 		},
 		setAvailableTime: function(list){
 			this.timeSelector.setDataList(list);
 		},
 		render: function(){
 			// re-bind event
-			$('#title', this.el).html(this.store);
-			$('.location', this.el).html(window.myapp.location);
+			if(window.myapp.location) $('.location', this.el).html(window.myapp.location+"的");
+			else $('.location', this.el).html('');
 			this.scroller.render();
 			this.delegateEvents();
 			return this;

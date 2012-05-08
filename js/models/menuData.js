@@ -131,12 +131,44 @@
 				}
 			});
 		},
+		_getMenuOfStoreFromServer: function(storeID, successCallback, failCallback){
+			var that = this;
+			var url = Api.MenuServiceUrl+"?action=getMenuOfStore&storeID="+storeID+"&isEditMode="+this.isEditMode;
+			if(window.loadingPanel) window.loadingPanel.connectionOut();
+			$.ajax({
+				type: 'GET',
+				url: url, 
+				dataType: 'json',
+				success: function(data){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+					that.get('stores').add(data.stores);
+					that.get('menus').add(data.menus);
+					if(successCallback){
+						var store = that.get('stores').get(storeID);
+						successCallback(store);
+					} 
+				},
+				error: function(xhr, type){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+				    console.log('_getMenuOfStoreFromServer: Ajax error!');
+				    if(failCallback) failCallback(xhr, type);
+				}
+			});
+		},
 		getMenuByZipCode: function(zipCode, successCallback, failCallback){
 			var index = this.get('zipCodeIndexs').get(zipCode);
 			if(index){
 				if(successCallback) successCallback(index);
 			}else{
 				this._getMenuFromServer(zipCode, successCallback, failCallback);
+			}
+		},
+		getMenuOfStore: function(storeID, successCallback, failCallback){
+			var store = this.get('stores').get(storeID);
+			if(store){
+				if(successCallback) successCallback(store);
+			}else{
+				this._getMenuOfStoreFromServer(storeID, successCallback, failCallback);
 			}
 		},
 		setEditMode: function(isEditMode){
