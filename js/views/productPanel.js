@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
+(function(ImageResource, Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -7,12 +7,12 @@
 				'<div class="header">',
 					'<div class="center">',
 						'<div class="BackButton" id="cancelBtn">',
-							'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+							'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="buyBtn">',
-							'<div class="link-wrap"><div id="buy" class="icon"></div><div class="function-txt">購買</div></div>',					
+							'<div class="link-wrap"><div id="buy" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd"]+');"></div><div class="function-txt">購買</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -30,7 +30,7 @@
 					'<div class="name"><%= name %></div>',
 					'<div id="amount-panel">',
 						'<div id="plusBtn" class="tag"><div id="add-tag-inner" class="tag-inner">',
-							'<div id="add-icon" class="icon"></div>',
+							'<div id="add-icon" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_190_circle_plus"]+');"></div>',
 						'</div></div>',
 						'<div class="tag"><div id="amount-tag-inner" class="tag-inner">',
 							'<div id="amount-tag-content" class="tag-content">',
@@ -45,7 +45,7 @@
 							'</div>',
 						'</div></div>',
 						'<div id="minusBtn" class="tag"><div id="sub-tag-inner" class="tag-inner">',
-							'<div id="sub-icon" class="icon"></div>',
+							'<div id="sub-icon" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_191_circle_minus"]+');"></div>',
 						'</div></div>',
 					'</div>',
 				'</div>',
@@ -311,7 +311,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
-})( window.myapp.Widget.Scroller, 
+})( window.myapp.Images,
+	window.myapp.Widget.Scroller, 
 	window.myapp.View.NativeProductOptionView,
 	window.myapp.View.ProductOptionView,
 	window.myapp.Model.BuyItem,

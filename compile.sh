@@ -61,6 +61,6 @@ apps="\
 ./js/router.js \
 "
 
-java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $ioslibs --js_output_file=complied_ioslibs.js
-java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $androidlibs --js_output_file=complied_androidlibs.js
-java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $apps --charset UTF-8 --js_output_file=complied_apps.js
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $ioslibs --js_output_file=compiled_ioslibs.js
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $androidlibs --js_output_file=compiled_androidlibs.js
+java -jar ./compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_off=internetExplorerChecks $apps --charset UTF-8 --js_output_file=compiled_apps.js
