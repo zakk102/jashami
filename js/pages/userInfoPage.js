@@ -222,7 +222,8 @@
 			return true;
 		},
 		isTel: function(tel){
-			var reg = /^([0-9]|[\-])+$/;
+			//var reg = /^([0-9]|[\-])+$/;
+			var reg = /^[0]{1}[9]{1}\d{2}[- ]?\d{3}[- ]?\d{3}$/;
 			if(tel.length < 10 || tel.length > 12){
 				return false;
 			}
