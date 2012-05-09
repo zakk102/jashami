@@ -12,7 +12,7 @@
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="waiterBtn">',
-							'<div class="link-wrap"><div id="waiter" class="icon"></div><div class="function-txt">送給客服</div></div>',					
+							'<div class="link-wrap"><div id="waiter" class="icon"></div><div class="function-txt">給客服</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',

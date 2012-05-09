@@ -1,5 +1,8 @@
 // Filename: js/widget/accordion.js
+
+
 (function(){
+	
 	var Accordion = Backbone.View.extend({
 		initialize: function(){
 			$(this.el).addClass('Accordion');
@@ -9,8 +12,10 @@
 		},
 		add: function(header, content){
 			var container = document.createElement('div');
+			var c_outer = document.createElement('div');
 			var h = document.createElement('div');
 			var c = document.createElement('div');
+			$(c_outer).addClass('AccordionContent-outer');
 			$(h).addClass('AccordionHeader');
 			$(c).addClass('AccordionContent');
 			$(container).addClass('Collapse');
@@ -19,6 +24,7 @@
 			$(c).html(content);
 			$(container).append(h);
 			$(container).append(c);
+			// $('.AccordionContent-outer', this.el).append(c);
 			this.$el.append(container);
 		},
 		toggleAccordionStack: function(e){

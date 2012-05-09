@@ -9,6 +9,7 @@
 			this.$el.addClass("DateTimeSelectionBox");
 			this.$el.html(_.template(template));
 			var selector = new NativeSelector({el:$(".SelectInput",this.el)});
+			selector.setWordsInLine(100);
 			this.selector = selector;
 		},
 		events: {

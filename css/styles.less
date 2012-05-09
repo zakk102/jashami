@@ -310,7 +310,7 @@ body{
               // color:@color-logo-orange;
             // }
           }
-          .icon{              
+          .icon{
             width:2.5em;
             height:2.5em;
             background:@color-logo-orange*1.5;
@@ -345,6 +345,9 @@ body{
           }
           #waiter{
             -webkit-mask-box-image:url(icons/jashami-logo-toung.png);
+          }
+          #back2order-link{
+            -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_020_home.png);
           }
 
         }
@@ -735,8 +738,11 @@ body{
     height:100%;
     
     .StoreList{
-      margin-top:0.7em;
-      
+      margin-top:1.5em;
+      margin-bottom:1.5em;
+      padding-top:1.5em;
+      padding-bottom:1.5em;
+
       .StoreBriefWidget3{
         background:white;
         
@@ -1487,29 +1493,52 @@ body{
     
   }
 }
-// 
-// .UserInfo > tbody > tr > td{
-  // vertical-align:middle;
-// }
-// .UserInfo > tbody > tr > td:first-child {
-  // width:15%;
-  // padding:2px 2px 2px 5px;
-  // letter-spacing:1px;
-  // text-align:left;
-// }
-// 
-// .UserInfo > tbody > tr > td:last-child {
-  // width:80%;
-  // padding:2px;
-// }
-// 
-// .UserInfo > tbody > tr > td:last-child > div{
-  // width: 90%;
-  // display: -webkit-box;
-  // margin-bottom:7px;
-  // -webkit-box-orient: horizontal;
-// }
 
+#OrderResultPageView{
+  // position:relative;
+  color:#000; 
+  height:100%; 
+  width:100%;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  
+  #orderResult{
+    // color: #000; 
+    width:100%;
+    -webkit-box-flex: 1;
+    .FinishPanel{
+      padding:1em;
+      height:100%;
+      .finish-panel-innner{
+        position:relative;
+        height:100%;
+        // width:100%;
+        // margin:1em;
+        #ok-icon{
+          position:relative;
+          left:15%;
+          z-index:9999;
+          width:3em;
+        }
+        #message{
+          padding-top:1em;
+          padding-bottom:1em;
+          box-sizing: border-box;
+          position:relative;
+          top:-1.2em;
+          line-height:1.5em;
+          font-size:1.2em;
+          text-align:center;
+          // display:block;
+          // border:0.2em solid white;
+          background:rgba(255,255,255,0.7);
+          border-radius:0.5em;
+          margin: 0 15% 0 15%;
+        }
+      }
+    }
+  }
+}
 
 
 .historyTab{
@@ -1526,13 +1555,14 @@ body{
       width:2em;
       height:2em;
       background:orange;
-      opacity:0.5;
+      // opacity:0.5;
       // &:active{
         // background:@color-logo-orange*2;
       // }
     }
     .refresh-label{
       position:absolute;
+      color:darkslategray;
       left:2em;
       height:2em;
       line-height:2em;
@@ -1545,8 +1575,30 @@ body{
     }
   }
   .OrderHistory{
-    position:absolute;
-    top:2em+@padding;
+    position:relative;
+    top:2em;//+@padding;
+    width:100%;
+    
+    .OrderHistoryPanelTitle{
+      box-sizing:border-box;
+      background:white;
+      width:100%;
+      color: darkslategray;
+      padding: 5px;
+      // vertical-align: middle !important;
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-pack: justify;
+      -webkit-box-align: center;
+      font-size: 16px;
+      min-height: 20px;
+      margin-bottom: 10px;
+      
+      .column-name{
+        
+      }
+
+    }
   }
 
   #pullDown{
@@ -1557,6 +1609,101 @@ body{
   }
   
 }
+/****** Accordion ********/
+.Accordion > div {    /* stack */
+  position: relative;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  z-index: 11;
+  width: 100%;
+}
+.AccordionHeader{ /* header */
+  color: white;
+  padding: 5px;
+  vertical-align: middle;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: justify;
+  -webkit-box-align: center;
+  font-size: 16px;
+  min-height: 20px;
+  margin-bottom: 10px;
+  background:orange;
+  border-radius:0.4em;
+
+  // background:-webkit-gradient(linear,center top, center bottom,
+   // from(#f38d48),
+   // color-stop(98%,#ce6522),
+   // to(white));
+    // border:1px solid #8e888b;
+  .AccordionArrow {
+    border: .4em solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    height: 0.001em;
+    width: 0.001em;
+    margin-left:2px;
+  }
+}
+
+// .Accordion > div.Expand > div > .AccordionArrow {
+// }
+.Expand{
+  .AccordionHeader{
+    margin-bottom: 0px;
+    position: relative;
+    z-index: 50;
+  }
+  .AccordionArrow{
+    position: relative;
+    top: .3em;
+    left: -.2em;
+    border-top-color:  white;
+    border-left-color: transparent;
+  }
+}
+/*
+.Accordion > div > div:first-child.Pressed {
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%,  from(gold), color-stop(0.5, orange), color-stop(0.5,coral), to(darkorange));
+}
+*/
+
+.AccordionContent{ /* content */
+  overflow: hidden;
+  padding:0 0.4em 0 1.5em;
+  position:relative;
+  z-index:30;
+  top:-0.5em;
+  color: #260c03;
+  // background:-webkit-gradient(linear,center top, center bottom,
+   // from(#fbf9f7),
+   // color-stop(98%,#c5c0c1),
+   // to(white));
+  -webkit-transition-property: height;
+  -webkit-transition-duration: 200ms;
+  -webkit-transition-timing-function: ease;
+  .content-wrapper{
+    background: rgba(255,255,255,0.7);
+    color:darkslategray;
+    // border-radius:0.5em;
+    padding:1em;
+    .BuyList{
+      font-size:0.8em;
+      margin-left:1.5em;
+    }
+  }
+}
+
+.Accordion > div.Expand > div:last-child {
+  margin-bottom: 10px;
+}
+
+.Accordion > div.Collapse > div:last-child {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 
 .about_text{
   margin:1em;

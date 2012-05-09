@@ -4,14 +4,11 @@
 		'<div class="historyTab">',
 			'<div id="pullDown" class="refresh-panel"></div>',
 			'<div class="OrderHistory">',
-				'<div>',
-					'<div class="gwt-Label">點餐紀錄:</div>',
-					'<div class="OrderHistoryPanelTitle">',
-						'<div class="gwt-Label">✭</div>',
-						'<div class="gwt-Label">送餐時間</div>',
-						'<div class="gwt-Label">編號</div>',
-						'<div class="gwt-Label">狀態</div>',
-					'</div>',
+				'<div class="OrderHistoryPanelTitle">',
+					'<div class="column-name"></div>',
+					'<div class="column-name">送餐時間</div>',
+					'<div class="column-name">編號</div>',
+					'<div class="column-name">狀態</div>',
 				'</div>',
 				'<div class="OrderHistoryPanel"></div>',
 			'</div>',
@@ -27,6 +24,7 @@
 	].join('');
 	
 	var orderContentTemplate = [
+	'<div class="content-wrapper">',
 		'<div class="TakeOutLabel"><%',
 			'if(storePhone){ print(store+"("+storePhone+")"+":"); }',
 			'else{ print(store+":"); }',
@@ -57,7 +55,8 @@
 			'}',
 		'%>',
 		'</ul>',
-		'<div class="TotalMoney"><%= "總共"+total+"元" %></div>'
+		'<div class="TotalMoney"><%= "總共"+total+"元" %></div>',
+	'</div>'
 	].join('');
 	
 	var HistoryTabView = Backbone.View.extend({
