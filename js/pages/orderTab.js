@@ -113,19 +113,23 @@
 				};
 				stores.sort();
 				$('.StoreList', that.el).empty();
-				that._itemCount = stores.models.length;
-				that._loadedImg = 0;
+				var itemCount = 0;
+				var loadedImg = 0;
+				var currentChain = '';
 				_.each(stores.models, function(m, index){
+					if(m.get('chainStore')==currentChain) return; // skip the stores in the same chain store
 					var storeBrief = new StoreBrief({model:m}).render();
 					storeBrief.$el.css('width', that.itemWidth+'px');
 					$('.StoreList', that.el).append(storeBrief.el);
+					currentChain = m.get('chainStore');
+					itemCount ++;
 				});
 				
 				//re-fresh the scroller to know the new size of the scroller
 				//re-fresh masonry
 				$('img', this.el).bind('load', function(){
-					that._loadedImg ++;
-					if(that._loadedImg==that._itemCount){
+					loadedImg ++;
+					if(loadedImg==itemCount){
 						that.masonry.reload();
 						that.scroller.render();
 					}
