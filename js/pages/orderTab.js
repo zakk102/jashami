@@ -5,7 +5,7 @@
 				'<div id="district-sticker1"></div>',
 				'<div id="district-sticker2"></div>',
 				'<div class="AddressSelector"></div>',
-				'<div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div>',
+				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon"></span></div>',
 			'</div></div>',
 			'<div id="stores-panel"></div>'
 	].join('');

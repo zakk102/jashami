@@ -55,7 +55,7 @@
 			if(today.getYear()==date.getYear()&&today.getMonth==date.getMonth&&today.getDate()==date.getDate()){
 				return "今天";
 			}else{
-				return i18n.formatDate(date ,"m 月 d 日 (D)");
+				return i18n.formatDate(date ,"明天以後的m 月 d 日 (D)");
 			}
 			
 		},

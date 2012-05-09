@@ -57,6 +57,7 @@
   // background-image:      -o-linear-gradient(@start, @color-stop-1, @color-stop-2, @color-stop-3); /* Opera 11.10+ */
   // // background-image:         linear-gradient(to @end, @color-stop-1, @color-stop-2);
 // }
+
 //==============================================================
 // disable dragging of images, text selection and tap highlighting
 //==============================================================
@@ -113,6 +114,18 @@ body{
   height: 100%; 
   width: 100%;
   overflow:hidden;
+@media screen and (min-width: 1000px) {
+  font-size:145%;
+}  
+@media screen and (max-width: 1000px) {
+  font-size:130%;
+}  
+@media screen and (max-width: 760px) {
+  font-size:115%;
+}  
+@media screen and (max-width: 500px) {
+  font-size:100%;
+}  
 
 }
 
@@ -193,7 +206,7 @@ body{
 .sticker(){
   position:absolute;
   z-index:19;    
-  height:1.8em;
+  height:2.5em;
   background: @color-sticker;
   -webkit-transform: rotate(-2deg);
   -webkit-box-shadow:0 0px 1px 0 @color-sticker;
@@ -233,7 +246,7 @@ body{
       left:0;
       width:100%;
       height:100%;
-      border-bottom:1px solid rgb(200, 180, 130);
+      border-bottom:1px solid rgb(210, 210, 150);
       // -webkit-box-shadow:1px 1px 1px rgba(100, 100, 100, 0.7);
       .panel-light-from-top(@color){
         border-top-style: solid;
@@ -250,7 +263,7 @@ body{
         -webkit-box-pack: center;
         height:100%;
         width:100%;
-        background:url(../pic/seamlesspaper1_sub_150.jpg) repeat scroll 0 0;
+        background:url(../pic/paper_warm.png) repeat scroll 0 0;
         color: #fff;
         font-weight:bold;
         line-height:35px;
@@ -289,6 +302,12 @@ body{
           -webkit-box-flex:1;
           width:12em;
           height:3em;
+        }
+        #title{
+          color:orangered;
+          font-size:1.3em;
+          position:relative;
+          top:-0.3em;
         }
         .link-wrap{
           display:-webkit-box;
@@ -612,9 +631,18 @@ body{
     position:absolute;
     z-index:20;
     top:0;
-    left:0;
-    width:15em;
-    height:1.5em;
+    @media screen and (min-width:360px){
+      left:20%;
+    }
+    @media screen and (max-width:360px){
+      left:10%;
+    }
+    @media screen and (max-width:320px){
+      left:0;
+    }
+    width:16em;
+    @district-height:2.5em;
+    height:@district-height;
     .district-panel-inner{
       display: -webkit-box;
       -webkit-box-orient: horizontal;
@@ -639,7 +667,7 @@ body{
         .sticker;
         top:-0.2em;
         left:9em; 
-        width:6em;
+        width:6.5em;
       }
       .AddressSelector{
         display: -webkit-box;
@@ -648,6 +676,7 @@ body{
         -webkit-box-align:center;
         position:absolute;
         left:1em;
+        top:0.5em;
         z-index:inherit;
         
         .AddressSelectionBox{
@@ -703,9 +732,12 @@ body{
               .sticker-txt;
             }
             .option-sel-icon{
-              .sticker-txt;
-               // font-size:2em;
-               margin-top:0.15em;
+              display:inline-block;
+              height:1.5em;
+              width:1.5em;
+              background:white;
+              -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_220_play_button.png);
+              -webkit-transform:rotate(90deg);
             }
           }
         }
@@ -718,12 +750,17 @@ body{
         position:absolute;
         z-index:inherit;
         left:9.5em;
+        top:0.5em;
         .locating-txt{
           .sticker-txt;
         }
         #locating-icon{
-          .sticker-txt;
-          font-size:1.2em;
+          display:inline-block;
+          height:1.5em;
+          width:1.5em;
+          background:white;
+          -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_239_riflescope.png);
+          // -webkit-transform:rotate(90deg);
         }
       }
     }
@@ -738,10 +775,10 @@ body{
     height:100%;
     
     .StoreList{
-      margin-top:1.5em;
-      margin-bottom:1.5em;
-      padding-top:1.5em;
-      padding-bottom:1.5em;
+      margin-top:2em;
+      margin-bottom:2em;
+      padding-top:2em;
+      padding-bottom:2em;
 
       .StoreBriefWidget3{
         background:white;
@@ -869,8 +906,12 @@ body{
         font-weight: bold;
       }
       .long-name{
-        font-size:0.75em;
+        // @media screen and (max-width: 400px) {
+          font-size:0.75em;
+          line-height:1.5em;
+        // }  
       }
+
       .ProductBoxWidget2-price{
         position: absolute;
         right: 0em;
@@ -1488,6 +1529,16 @@ body{
       .INPUT{
         background:rgba(255,255,255,0.9);
         border-width:0;  
+      }
+      #addr-line{
+        .INPUT{
+          @media screen and (min-width:400px){
+            width:27em;
+          }
+          @media screen and (max-width:400px){
+            width:20em;
+          }
+        }
       }
     }
     

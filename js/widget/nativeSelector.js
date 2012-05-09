@@ -3,7 +3,7 @@
 	var template = [
 		// '<div>',
 			'<span class="selectedValue"></span>',
-			'<span class="option-sel-icon">▼</span>',
+			'<span class="option-sel-icon"></span>',
 		// '</div>',
 	].join('');
 	
