@@ -18,7 +18,15 @@
 		myapp.PG.Device.overrideBackButton();
 		myapp.PG.Event.onBackKeyDown(function(){
 			if(!window.enableBackButton) return;
-			//TODO go back page, need to detect have to exit app or not
+			// go back page, need to detect have to exit app or not
+			var url = window.location.hash;
+			if(url==='' || url.indexOf('startPage')>=0){ // start page, exit the app
+				myapp.PG.Device.exitApp();
+			}else if(url.indexOf('orderResultPage')>=0){ // finish page, disable the back button
+				return;
+			}else{
+				window.history.go(-1);
+			}
 		});
 		// pause and resume
 		myapp.PG.Event.onPause(function(){

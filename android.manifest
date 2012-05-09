@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# Update Date: 2012/05/09 14:51
+# Note: must change this every time for cache to invalidate
+ 
+CACHE:
+ios.html
+compiled_androidlibs.js
+compiled_apps.js
+css/compiled.css
+pic/white_logo.png
+pic/seamlesspaper1_sub_150.jpg
+pic/paper_antique-white_150.jpg
+pic/type-tag.jpg
+
+ 
+# All other resources require the user to be online.
+NETWORK:
+*
+
+FALLBACK:

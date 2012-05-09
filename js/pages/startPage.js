@@ -16,10 +16,10 @@
 						'<div class="center">',
 							// '<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
 							'<div class="function-panel">',
-								'<a class="link" href="#startPage/orderTab"><div class="link-wrap" id="order-link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.SearchIcon+');"></div><div class="function-txt">訂餐</div></div></a>',
-					            '<a class="link" href="#startPage/historyTab"><div class="link-wrap" id="history-link-wrap"><div id="history-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.FileIcon+');"></div><div class="function-txt">紀錄</div></div></a>',
-				                '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap" id="feedback-link-wrap"><div id="feedback-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.CommentsIcon+');"></div><div class="function-txt">意見</div></div></a>',
-								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap" id="about-link-wrap"><div id="about-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource.JashamiIcon+');"></div><div class="function-txt">關於</div></div></a>',
+								'<a class="link" href="#startPage/orderTab"><div class="link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_027_search"]+');"></div><div class="function-txt">訂餐</div></div></a>',
+					            '<a class="link" href="#startPage/historyTab"><div class="link-wrap"><div id="history-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_036_file"]+');"></div><div class="function-txt">紀錄</div></div></a>',
+				                '<a class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="feedback-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_309_comments"]+');"></div><div class="function-txt">意見</div></div></a>',
+								'<a class="link" href="#startPage/aboutUsTab"><div class="link-wrap"><div id="about-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">關於</div></div></a>',
 							'</div>',
 							// '<div class="NextButton"><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></div>',
 						'</div>',
@@ -27,12 +27,8 @@
 					'</div>',
 				'</div>',
 			'</div>',
-			// '<div class="content-wrap">',
-				// '<div class="header-fake">',
-				// '</div>',
 			'<div class="PageContent">',
 			'</div>',
-			// '</div>',
 		'</div>'
 	].join('');
 

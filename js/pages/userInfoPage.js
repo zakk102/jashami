@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector, LocalModel){
+(function(ImageResource, OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector, LocalModel){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -7,12 +7,12 @@
 				'<div class="header">',
 					'<div class="center">',
 						'<div class="BackButton" id="cancelBtn">',
-							'<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',					
+							'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="waiterBtn">',
-							'<div class="link-wrap"><div id="waiter" class="icon"></div><div class="function-txt">給客服</div></div>',					
+							'<div class="link-wrap"><div id="waiter" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">送給客服</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -222,7 +222,8 @@
 			return true;
 		},
 		isTel: function(tel){
-			var reg = /^([0-9]|[\-])+$/;
+			//var reg = /^([0-9]|[\-])+$/;
+			var reg = /^[0]{1}[9]{1}\d{2}[- ]?\d{3}[- ]?\d{3}$/;
 			if(tel.length < 10 || tel.length > 12){
 				return false;
 			}
@@ -261,7 +262,8 @@
 	});
 	window.myapp = window.myapp || {};
 	window.myapp.UserInfoPageView = UserInfoPageView;
-})(	window.myapp.Api.OrderServiceUrl,
+})(	window.myapp.Images,
+	window.myapp.Api.OrderServiceUrl,
 	window.myapp.Widget.Scroller,
 	window.myapp.Widget.DateTimeSelector,
 	window.myapp.Widget.NativeTimeSelector,
