@@ -24,6 +24,8 @@
 				myapp.PG.Device.exitApp();
 			}else if(url.indexOf('orderResultPage')>=0){ // finish page, disable the back button
 				return;
+			}else{
+				window.history.go(-1);
 			}
 		});
 		// pause and resume
