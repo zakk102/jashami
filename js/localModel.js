@@ -42,6 +42,8 @@
 	// app data
 		LocalModel.getMenuLastUpdateTime = function(isEditMode){ var d = this.get("MenuLastUpdateTime"+(isEditMode?"_EditMode":"")); return d; };
 		LocalModel.setMenuLastUpdateTime = function(date, isEditMode){ this.set("MenuLastUpdateTime"+(isEditMode?"_EditMode":""), date.getTime()); };
+		LocalModel.getLocationServiceStatus = function(){ return this.get("LocationServiceStatus"); };
+		LocalModel.setLocationServiceStatus = function(status){ this.set("LocationServiceStatus", status); };
 
 	// phone data
 		LocalModel.getAppId = function(){ return this.get("appID"); };
@@ -60,6 +62,8 @@
 		LocalModel.getUserPhoneNumber = function(){ return this.get("userPhoneNumber"); };
 		LocalModel.setUserAddress = function(address){ this.set("userAddress", address); };
 		LocalModel.getUserAddress = function(){ return this.get("userAddress"); };	
+		LocalModel.setUserDistrict = function(district){ this.set("userDistrict", district); };
+		LocalModel.getUserDistrict = function(){ return this.get("userDistrict"); };	
 		
 		window.myapp = window.myapp || {};
 		window.myapp.LocalModel = LocalModel;

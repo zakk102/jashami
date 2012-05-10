@@ -156,6 +156,41 @@
 			this._wordsInLine = wordsInLine; 
 			this.updateDisplay();
 		},
+		showSelector: function(){
+			var that = this;
+			var selectedValue = [];
+			for(var title in that._selectedKey){
+				selectedValue.push(title+"="+that._selectedKey[title]);
+			}
+			var callback = function(value){
+				selectedValue = [];
+				var data = value.split("&");
+				for(var i=0,length=data.length; i<length; i++){
+					var s = data[i];
+					var ss = s.split("=");
+					if(ss.length<2) that._selectedKey[ss[0]] = "";
+					else that._selectedKey[ss[0]] = ss[1];
+					selectedValue.push(ss[0]+"="+that._selectedKey[ss[0]]);
+				}
+				that.updateDisplay();
+				that.$el.trigger("selectionChange", that.getSelectedValues());
+			};
+			if(DeviceType.getDeviceType()==DeviceType.iPad){// iPad version
+				var ele = that.el;
+				var x = Utils.getAbsoluteLeft(ele);
+				var y = Utils.getAbsoluteTop(ele);
+				var width = ele.clientWidth;
+				var height = ele.clientHeight;
+				/*console.log("si x = "+x);
+				console.log("si y = "+y);
+				console.log("si width = "+width);
+				console.log("si height = "+height);*/
+				var rect = [x, y, width, height];
+				Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback, rect);
+			}else{
+				Picker.showPicker(that._isDependent, that._pickerOptionString, selectedValue, callback);
+			}
+  		},
 		render: function(){
 			return this;
 		}

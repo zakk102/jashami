@@ -55,6 +55,7 @@
 		return str.indexOf(suffix, str.length - suffix.length) !== -1;
 	};
 	Utils.getDistanceFromLatLng = function(lat0, lng0, lat1, lng1){
+		if(!lat0 || !lng0 || lat1 || lng1) return 99999; // null, return super long
 		var R = 6371; // km
 		var dLat = (lat2-lat1) * Math.PI / 180;
 		var dLng = (lng2-lng1) * Math.PI / 180;

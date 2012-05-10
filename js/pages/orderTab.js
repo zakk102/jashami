@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
+(function(LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div class="district-panel"><div class="district-panel-inner">',
 				'<div id="district-sticker1"></div>',
@@ -12,8 +12,6 @@
 	
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
-			this.loadStore("110");
-
 			var that = this;
 			this.scroller = new Scroller();
 			 
@@ -40,13 +38,40 @@
 			//this.useNative(true);
 			$(window).bind('useNative', function(e){
 				that.useNative(e.data);
+				that.loadDefaultMenu();
 			});
+			this.loadDefaultMenu();
+		},
+		loadDefaultMenu: function(){
+			var that = this;
+			var locaStatus = LocalModel.getLocationServiceStatus();
+			var osType = Utils.DeviceType.getDeviceType();
+			//TODO load default menu
+			if(window.phonegapEnabled){ // load from autoLocate
+				if(osType==Utils.DeviceType.Android){ // android, run autoLocate
+					this.autoLocate();
+				}else if(!locaStatus || locaStatus==null){ // not auth auto locate yet, show selecter
+					if(this.addressSelector.showSelector) this.addressSelector.showSelector();
+				}else{ // auto locate auth OK or failed last time, run autoLocate
+					this.autoLocate(undefined, undefined, undefined, function(){
+						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
+					});
+				}
+			}else if(osType==Utils.DeviceType.Other){ // load from last selection
+				var last = LocalModel.getUserDistrict();
+				if(last && last!='null' && last.length>2){
+					this.addressSelector.setSelection(last);
+					//TODO fix cannot catch location change event
+					window.myapp.location = last;
+					this.loadStore(window.addressAndZipcode.address2zipcode(last));
+				}
+			}
 		},
 		events: {
 			"click .CircleButton":"autoLocate",
 			"locationChange .AddressSelector":"locationChange"
   		},
-  		autoLocate: function(){
+  		autoLocate: function(event, data, successCallBack, errorCallBack){
   			var that = this;
   			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			Geolocation.getCurrentPosition(function(location){
@@ -54,24 +79,30 @@
   				window.autoLocalization = window.autoLocalization || {};
   				window.autoLocalization.lat = location.latitude;
   				window.autoLocalization.lng = location.longitude;
+  				LocalModel.setLocationServiceStatus('OK');
   				// get address
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
     				var addr = address.results[0].formatted_address;
     				window.autoLocalization.address = addr; // save
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    				if(successCallBack) successCallBack();
     			},function(error){
     				console.log(error);
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    				if(errorCallBack) errorCallBack();
     			});
     		},function(error){
     			console.log(error);
     			if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			LocalModel.setLocationServiceStatus('authFailed');
+    			if(errorCallBack) errorCallBack();
     		});
   		},
   		locationChange: function(e){
   			var location = window.addressAndZipcode.zipcode2address(e.data);
   			window.myapp.location = location;
+  			LocalModel.setUserDistrict(location);
   			this.loadStore(e.data);
   		},
   		loadStore: function(zipcode) {
@@ -81,23 +112,21 @@
 			menudata.getMenuByZipCode(zipcode, function(index){
 				var stores = index.get('stores');
 				stores.comparator = function(arg0, arg1){
-					if(!menudata._lat || !menudata._lng){ //沒有定位，無法算距離
+					if(!window.autoLocalization){ //沒有定位，無法算距離
 						if(arg0.get('chainStore')!=arg1.get('chainStore')){ // 不同連鎖
-							//return arg0.get('index').localeCompare(arg1.get('index'));
 							return arg0.get('index')<arg1.get('index') ? -1 : 1;
 						}else{ // 比外送額度
 							var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
 							return dl0==dl1 ? 0 : dl0<dl1? -1 : 1;
 						}
 					}else{
-						if(!arg0.get('chainStore')==arg1.get('chainStore')){ // 不同連鎖
-							//return arg0.get('index').localeCompare(arg1.get('index'));
+						if(arg0.get('chainStore')!=arg1.get('chainStore')){ // 不同連鎖
 							return arg0.get('index')<arg1.get('index') ? -1 : 1;
 						}else{
 							//2.5公里以內比外送額度，2.5公里以外比距離
 							//兩家店相差很近(1km以內)比外送額度
-							var d1 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg0.get('lat'), arg0.get('lng'));
-							var d2 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg1.get('lat'), arg1.get('lng'));
+							var d1 = Utils.getDistanceFromLatLng(window.autoLocalization.lat, window.autoLocalization.lng, arg0.get('lat'), arg0.get('lng'));
+							var d2 = Utils.getDistanceFromLatLng(window.autoLocalization.lat, window.autoLocalization.lng, arg1.get('lat'), arg1.get('lng'));
 							if( (d1<2.5 && d2<2.5) || Math.abs(d1-d2)<1 ){
 								var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
 								if(dl0==dl1){ //外送額度一樣，比距離
@@ -129,10 +158,10 @@
 				//re-fresh masonry
 				$('img', this.el).bind('load', function(){
 					loadedImg ++;
-					if(loadedImg==itemCount){
+					//if(loadedImg==itemCount){
 						that.masonry.reload();
 						that.scroller.render();
-					}
+					//}
 				});
 				that.masonry.reload();
 				that.scroller.render();
@@ -166,7 +195,9 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-})(	window.myapp.Settings,
+	
+})(	window.myapp.LocalModel,
+	window.myapp.Settings,
 	window.myapp.PG.Geolocation,
 	window.myapp.Utils,
 	window.myapp.Model.MenuData,
@@ -174,80 +205,3 @@
 	window.myapp.View.StoreBrief,
 	window.myapp.Widget.AddressSelector,
 	window.myapp.Widget.NativeAddressSelector);
-
-
-/*
-			var that = this;
-			var menudata = new MenuData();
-			//menudata.setAPI("getMenuByZipcode", {zipCode:zipcode, isEditMode:false});
-			menudata.setAPI("getWholeMenu", {isEditMode:true});
-			if(window.loadingPanel) window.loadingPanel.connectionOut();
-			menudata.fetch({success:function(model, resp){
-				//test
-				if(window.phonegapEnabled){
-					window.myapp.PG.File.read(zipcode+".txt", function(text){
-						console.log(text.substring(0,20));
-					},function(error){
-						console.log(error.code);
-					});
-				}
-				return;
-				// write to file
-				if(window.phonegapEnabled){
-					window.myapp.PG.File.write(zipcode+".txt", JSON.stringify(resp), function(){
-						console.log("write success");
-					},function(error){
-						console.log(error.code);
-					});
-				}
-				if(window.loadingPanel) window.loadingPanel.connectionIn();
-				window.menuData = model;
-				// sort store by index, deliveryLimit and Distance
-				var stores = menudata.get('stores');
-				stores.comparator = function(arg0, arg1){
-					if(!menudata._lat || !menudata._lng){ //沒有定位，無法算距離
-						if(arg0.get('chainStore')!=arg1.get('chainStore')){ // 不同連鎖
-							return arg0.get('index').localeCompare(arg1.get('index'));
-						}else{ // 比外送額度
-							var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
-							return dl0==dl1 ? 0 : dl0<dl1? -1 : 1;
-						}
-					}else{
-						if(!arg0.get('chainStore')==arg1.get('chainStore')){ // 不同連鎖
-							return arg0.get('index').localeCompare(arg1.get('index'));
-						}else{
-							//2.5公里以內比外送額度，2.5公里以外比距離
-							//兩家店相差很近(1km以內)比外送額度
-							var d1 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg0.get('lat'), arg0.get('lng'));
-							var d2 = Utils.getDistanceFromLatLng(menudata._lat, menudata._lng, arg1.get('lat'), arg1.get('lng'));
-							if( (d1<2.5 && d2<2.5) || Math.abs(d1-d2)<1 ){
-								var dl0 = arg0.get('deliveryLimit'), dl1 = arg1.get('deliveryLimit');
-								if(dl0==dl1){ //外送額度一樣，比距離
-									return d1==d2 ? 0 : d1<d2? -1 : 1;
-								}else{
-									return dl0==dl1 ? 0 : dl0<dl1? -1 : 1;
-								}
-							}else{
-								return d1==d2 ? 0 : d1<d2? -1 : 1;
-							}
-						}
-					}
-				};
-				stores.sort();
-				$('.StoreList', that.el).empty();
-				_.each(stores.models, function(m, index){
-					var storeBrief = new StoreBrief({model:m});
-					$('.StoreList', that.el).append(storeBrief.render().el);
-				});
-				//re-fresh the scroller to know the new size of the scroller
-				$('img', this.el).bind('load', function(){
-					that.scroller.render();
-				});
-				that.scroller.render();
-			},error:function(originalModel, resp, options){
-				if(window.loadingPanel) window.loadingPanel.connectionIn();
-				console.log(resp.status);
-				// try to read from file
-				
-			}});
-*/

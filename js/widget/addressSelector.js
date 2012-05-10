@@ -52,7 +52,7 @@
 			$('.area-selector', this.el).val(area);
 			
 			if( (!option || !option.silent) && currentVal!=area){ 
-				this.$el.trigger("locationChange",area); 
+				this.$el.trigger("locationChange", area); 
 			}
   		},
   		setSelection_zipcode: function(zipcode, option){
