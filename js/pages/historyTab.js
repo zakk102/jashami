@@ -56,8 +56,16 @@
 		'%>',
 		'</ul>',
 		'<div class="TotalMoney"><%= "總共"+total+"元" %></div>',
+		'<div><%= notes %></div>',
 	'</div>'
 	].join('');
+	
+	var orderStatus = {};
+	orderStatus.New = "未回覆";
+	orderStatus.Accepted = "已確認";
+	orderStatus.Rejected = "無法出餐";
+	orderStatus.Processing = "連線中";
+	orderStatus.Finished = "完成";
 	
 	var HistoryTabView = Backbone.View.extend({
 		initialize: function(){
@@ -88,8 +96,14 @@
 					// re-render order widget history list
 					accordion.clear();
 					_.each(orderHistory.models, function(m, index){
-						var header = _.template(orderHeaderTemplate, {send:new Date(m.get('submitDate')), want:new Date(m.get('wantDate')), ID: m.get('orderID'), status:m.get('status')});
-						var content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney')});
+						var note = '';
+						var notes = m.get('notes');
+						for(var key in notes){
+							if(key=='sellerRejectReason') note += '無法出餐原因：'+notes[key]+'<br/>';
+							else note += key+'：'+notes[key]+'<br/>';
+						}
+						var header = _.template(orderHeaderTemplate, {send:new Date(m.get('submitDate')), want:new Date(m.get('wantDate')), ID: m.get('orderID'), status:orderStatus[m.get('status')]});
+						var content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney'), notes:note});
 						accordion.add(header, content);
 					});
 					// re-fresh scroller boundery
