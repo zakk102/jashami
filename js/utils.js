@@ -92,7 +92,7 @@
 		}else if(userAgent.indexOf("iphone")>=0) {
 			return this.iPhone;
 		}else {
-			return this.Others;
+			return this.Other;
 		}
 	};
 	
