@@ -83,6 +83,8 @@
 	  		$('.PageContent', this.el).children().hide();
 			$(this.tabs[tab].el).css('display', '-webkit-box');
 			this.tabs[tab].render();
+			$('.function-panel a', this.$el).removeClass('active');
+			$('.function-panel a[href*="'+tab+'"]', this.$el).addClass('active');
 	  	},
 	  	toTab2: function(e){
 	  		var href = $(e.currentTarget).attr('href');
