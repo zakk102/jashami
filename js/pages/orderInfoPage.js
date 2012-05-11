@@ -53,6 +53,10 @@
 			'<% var buyList = shoppingCart.get("buyList") %>',
 			'<div class="order-item-wrap">',
 				'<div id="removeItem" class="icon" index="<%= i %>" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_197_remove"]+');"></div>',
+				'<% var orderName = buyList.at(i).get("orderName"); %>',
+				'<% if(orderName && orderName.length>0){ %>',
+				'<div style="position:absolute;width:100%;text-align:center;"><%= orderName %></div>',
+				'<% } %>',
 				'<div class="BuyItemCell">',
 					'<div class="ProductInfoPanel">',
 						'<% var pid = buyList.at(i).get("productNameId"); pid = pid.substring(pid.indexOf("_")+1); %>',
@@ -61,6 +65,10 @@
 							'<% var selectedOptions = buyList.at(i).get("selectedOptions"); %>',
 							'<% for(var key in selectedOptions){ %>',
 								'<div><%=  key %>：<%=  selectedOptions[key] %></div>',
+							'<% } %>',
+							'<% var remarks = buyList.at(i).get("remarks"); %>',
+							'<% if(remarks && remarks.length>0){ %>',
+							'<div>附註：<%= remarks %></div>',
 							'<% } %>',
 						'</div>',
 					'</div>',
@@ -152,6 +160,8 @@
 					item.set('selectedOptions', $.extend({},productPanel.selectedOption));
 					item.set('singlePrice', productPanel.selectedPrice);
 					item.set('amount', productPanel.amount);
+					item.set('orderName', productPanel.getOrderName());
+					item.set('remarks', productPanel.getRemarks());
 					//shoppingCart.updateBuyItem(item);
 					shoppingCart.updateDisplay();
 					

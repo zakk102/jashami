@@ -19,6 +19,9 @@
 			this.set('buyList',new BuyList());
 			//this.updateDisplay();
 		},
+		_buyItemComparator: function(arg0, arg1){
+			//TODO
+		},
 		updateDisplay: function(){
 			var buyList = this.get('buyList');
 			var sum = 0;

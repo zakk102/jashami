@@ -61,6 +61,16 @@
 				// '<div class="Price" style="-webkit-box-flex: 999;"></div>',
 			// '</div>',
 			'<div class="OptionBox"></div>',
+			'<div class="NoteBox">',
+				'<div class="OptionPanel WebOptionPanel">',
+					'<div class="OptionTitle">附註：</div>',
+					'<div><input type="Text" placeholder="任何您想補充說明的" class="INPUT remarks" style="width=100%;"></div>',
+				'</div>',
+				'<div class="OptionPanel WebOptionPanel">',
+					'<div class="OptionTitle">訂購者：</div>',
+					'<div><input type="Text" placeholder="幫助紀錄誰點了什麼" class="INPUT orderName" style="width=100%;"></div>',
+				'</div>',
+			'</div>',
 		'</div>'
 	].join('');
 	
@@ -168,6 +178,8 @@
 				var amount = currentItem.get('amount');
 				var price = currentItem.get('singlePrice');
 				var options = currentItem.get('selectedOptions');
+				var orderName = currentItem.get('orderName');
+				var remarks = currentItem.get('remarks');
 			
 				// $('.Price', this.el).html(_.template(priceTemplate,{ 'price':price, 'amount':amount }));
 				this.amount = amount;
@@ -178,6 +190,8 @@
 				for(var index in this.optionWidget){
 					this.optionWidget[index].setSelected(options, {silent:true});
 				}
+				$('.orderName', this.el).val(orderName);
+				$('.remarks', this.el).val(remarks);
 			}
 					
 			// refresh size
@@ -219,7 +233,9 @@
 					shoppingCart.addBuyItem(new BuyItem({	productNameId: that.model.get('productNameId'), 
 															selectedOptions: $.extend({},that.selectedOption),
 															singlePrice: that.selectedPrice,
-															amount:that.amount
+															amount:that.amount,
+															orderName: that.getOrderName(),
+															remarks: that.getRemarks()
 														}));
 					window.history.go(-1);
 				});	
@@ -254,6 +270,12 @@
 			// $('.Price', this.el).html(_.template(priceTemplate,{price:this.selectedPrice, amount:this.amount}));
 			$('#product-box-amount', this.el).html(this.amount);
 			$('#product-box-total', this.el).html(this.selectedPrice*this.amount);
+		},
+		getOrderName: function(){
+			return $.trim($('.orderName', this.el).val());
+		},
+		getRemarks: function(){
+			return $.trim($('.remarks', this.el).val());
 		},
 		render: function(){
 			this.delegateEvents();
