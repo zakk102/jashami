@@ -16,11 +16,30 @@
 		},
 		idAttribute: 'storeNameId',
 		initialize: function(){
-			this.set('buyList',new BuyList());
+			var buyList = new BuyList();
+			buyList.comparator = this._buyItemComparator;
+			this.set('buyList', buyList);
 			//this.updateDisplay();
 		},
 		_buyItemComparator: function(arg0, arg1){
-			//TODO
+			var orderName0 = arg0.get('orderName');
+			var orderName1 = arg1.get('orderName');
+			if(orderName0!=orderName1){
+				return orderName0.localeCompare(orderName1);
+			}
+			if(arg0.get('productNameId')==arg1.get('productNameId')){
+				if(arg0.get('amount')==arg1.get('amount')){
+					var selectedOption0 = arg0.get('selectedOptions');
+					var selectedOption1 = arg1.get('selectedOptions');
+					for(var key in selectedOption0){
+						if(selectedOption0[key]!=selectedOption1[key]){
+							return -1;
+						}
+					}
+					return arg0.get('remarks').localeCompare(arg1.get('remarks'));
+				}
+			}
+			return arg0.get('productNameId').localeCompare(arg1.get('productNameId'));
 		},
 		updateDisplay: function(){
 			var buyList = this.get('buyList');
@@ -40,6 +59,7 @@
 		},
 		addBuyItem: function(buyItem, options){
 			this.get('buyList').push(buyItem);
+			this.get('buyList').sort();
 			if(!options || !options.slient) this.updateDisplay();
 		},
 		removeBuyItem: function(buyItem, options){
@@ -50,6 +70,7 @@
 			//this.get('buyList').remove(buyItem);
 			//this.get('buyList').push(buyItem);
 			this.get('buyList').models[index] = buyItem;
+			this.get('buyList').sort();
 			if(!options || !options.slient) this.updateDisplay();
 		},
 		clearBuyList: function(options){
@@ -57,6 +78,9 @@
 			this.set('sum', 0);
 			this.get('buyList').reset();
 			if(!options || !options.slient) this.updateDisplay();
+		},
+		sortBuyList: function(){
+			this.get('buyList').sort();
 		}
 	});
 	

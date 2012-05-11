@@ -163,6 +163,7 @@
 					item.set('orderName', productPanel.getOrderName());
 					item.set('remarks', productPanel.getRemarks());
 					//shoppingCart.updateBuyItem(item);
+					shoppingCart.sortBuyList();
 					shoppingCart.updateDisplay();
 					
 					window.history.go(-1);
