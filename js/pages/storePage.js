@@ -161,7 +161,7 @@
 			$('.SegmentWidget', that.el).width(segmentWidth);
 		},
 		resetScroller: function(){
-			this.scroller.scrollTo(0, 0);
+			this.scroller.scrollTo(0, 0, 0);
 //			this.segmentPanel.scrollTo(0, 0);
 		},
 		resetDisplayedData: function(){

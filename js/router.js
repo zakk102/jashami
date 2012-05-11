@@ -119,8 +119,8 @@
 			window.menuData.getMenuOfStore(store, function(s){
 				that.views.storePage.resetDisplayedData();
 				that.views.storePage.refreshGridSize();
-				that.views.storePage.resetScroller();
 				that.views.storePage.setModel(s);
+				that.views.storePage.resetScroller();
 				if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
 					that.views.orderInfoPage = new Views.OrderInfoPageView();
 					that.loadToDOM(that.views.orderInfoPage.el);
