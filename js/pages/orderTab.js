@@ -1,11 +1,11 @@
 // Filename: js/pages/orderTab.js
-(function(LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
+(function(Images, LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div class="district-panel"><div class="district-panel-inner">',
 				'<div id="district-sticker1"></div>',
 				'<div id="district-sticker2"></div>',
 				'<div class="AddressSelector"></div>',
-				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon"></span></div>',
+				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_239_riflescope"]+');"></span></div>',
 			'</div></div>',
 			'<div id="stores-panel"></div>'
 	].join('');
@@ -46,20 +46,27 @@
 			var that = this;
 			var locaStatus = LocalModel.getLocationServiceStatus();
 			var osType = Utils.DeviceType.getDeviceType();
+			var last = LocalModel.getUserDistrict();
 			//TODO load default menu
 			if(window.phonegapEnabled){ // load from autoLocate
 				if(osType==Utils.DeviceType.Android){ // android, run autoLocate
 					this.autoLocate();
-				}else if(!locaStatus || locaStatus==null){ // not auth auto locate yet, show selecter
-					if(this.addressSelector.showSelector) this.addressSelector.showSelector();
+				}else if(!locaStatus || locaStatus==null){ // not auth auto locate yet
+					if(last && last!=null && last.length>2){ // show last location
+						this.addressSelector.setSelection(last);
+						//TODO fix cannot catch location change event
+						window.myapp.location = last;
+						this.loadStore(window.addressAndZipcode.address2zipcode(last));
+					}else if(this.addressSelector.showSelector){ //show selecter
+						this.addressSelector.showSelector();
+					}
 				}else{ // auto locate auth OK or failed last time, run autoLocate
 					this.autoLocate(undefined, undefined, undefined, function(){
 						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
 					});
 				}
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
-				var last = LocalModel.getUserDistrict();
-				if(last && last!='null' && last.length>2){
+				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);
 					//TODO fix cannot catch location change event
 					window.myapp.location = last;
@@ -196,7 +203,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
 	
-})(	window.myapp.LocalModel,
+})(	window.myapp.Images,
+	window.myapp.LocalModel,
 	window.myapp.Settings,
 	window.myapp.PG.Geolocation,
 	window.myapp.Utils,

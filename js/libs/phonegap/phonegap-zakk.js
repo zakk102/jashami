@@ -3,6 +3,32 @@
 	PhoneGap.plugins = PhoneGap.plugins || {};
 	window.plugins = window.plugins || {}; // bug fix
 	
+	
+	// childBrowser
+	function ChildBrowser() {}
+	ChildBrowser._onLocationChange = function(newLoc){
+		window.plugins.childBrowser.onLocationChange(newLoc);
+	};
+	ChildBrowser._onClose = function(){
+		window.plugins.childBrowser.onClose();
+	};
+	ChildBrowser._onOpenExternal = function(){
+		window.plugins.childBrowser.onOpenExternal();
+	};
+	// Show a webpage, will result in a callback to onLocationChange
+	ChildBrowser.prototype.showWebPage = function(loc){
+		PhoneGap.exec("ChildBrowserCommand.showWebPage", loc);
+	};
+	// close the browser, will NOT result in close callback
+	ChildBrowser.prototype.close = function(){
+		PhoneGap.exec("ChildBrowserCommand.close");
+	};
+	PhoneGap.addConstructor(function() {
+		PhoneGap.plugins.childBrowser = new ChildBrowser();
+		window.plugins.childBrowser = PhoneGap.plugins.childBrowser;
+	});	
+	
+	
 	// http request
 	function HttpRequest() {};
 	HttpRequest.prototype.request = function(urlString, successCallback, failCallback){
@@ -37,6 +63,13 @@
 (function(){
 	var PGP = PhoneGap.plugins;
 	var PG = {};
+	
+	// ChildBrowser
+	var ChildBrowser = {};
+	PG.ChildBrowser = ChildBrowser;
+	ChildBrowser.go = function(url){
+		PGP.childBrowser.showWebPage(url);
+	}
 	
 	// Device
 	var Device = {};
