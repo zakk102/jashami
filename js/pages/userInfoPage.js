@@ -1,5 +1,5 @@
 //Filename: js/pages/userInfoPage.js
-(function(ImageResource, OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector, LocalModel){
+(function(ImageResource, OrderServiceUrl, Scroller, DateTimeSelector, NativeTimeSelector, LocalModel, TouchWidget){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -7,12 +7,12 @@
 				'<div class="header">',
 					'<div class="center">',
 						'<div class="BackButton" id="cancelBtn">',
-							'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
+							'<div class="link-wrap" id="back-link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="waiterBtn">',
-							'<div class="link-wrap"><div id="waiter" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">給客服</div></div>',					
+							'<div class="link-wrap" id="waiter-link-wrap"><div id="waiter" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">給客服</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -81,6 +81,10 @@
 			$(window).bind('useNative', function(e){
 				that.useNative(e.data);
 			});
+			
+			new TouchWidget({el:$('#back-link-wrap', this.el)});
+			new TouchWidget({el:$('#waiter-link-wrap', this.el)});
+			
 		},
 		_saveUserInput: function(){
 			var name = $.trim($('.name', this.el).val());
@@ -267,4 +271,5 @@
 	window.myapp.Widget.Scroller,
 	window.myapp.Widget.DateTimeSelector,
 	window.myapp.Widget.NativeTimeSelector,
-	window.myapp.LocalModel);
+	window.myapp.LocalModel,
+	window.myapp.Widget.TouchWidget);

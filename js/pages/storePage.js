@@ -8,12 +8,12 @@
 					'<div class="header">',
 						'<div class="center">',
 							'<div class="BackButton">',
-								'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
+								'<div class="link-wrap" id="back-link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 							'</div>',
 							'<div id="title" class="function-panel">',
 							'</div>',
 							'<div class="NextButton">',
-								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap"><div id="order-info-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_202_shopping_cart"]+');"></div><div class="function-txt">購物車</div></div></a>',					
+								'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="link-wrap" id="order-info-link-wrap"><div id="order-info-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_202_shopping_cart"]+');"></div><div class="function-txt">購物車</div></div></a>',					
 							'</div>',
 						'</div>',
 					'</div>',
@@ -67,9 +67,6 @@
 			$(this.el).attr("id","storePageView");
 			$(this.el).attr("style","height:100%; width:100%;");
 			
-			new TouchWidget({el:$('#back-link-wrap', this.el)});
-			new TouchWidget({el:$('#order-info-link-wrap', this.el)});
-
 			// scroller
 			this.scroller = new Scroller();
 			$(this.scroller.content).addClass('scroller-content');
@@ -116,6 +113,10 @@
 				var widgetWidth = $(window).width()-that._segmentPanelWidth;
 				that.calAndSetGridSize(that._segmentPanelWidth, widgetWidth);
 			});
+			
+			new TouchWidget({el:$('#back-link-wrap', this.el)});
+			new TouchWidget({el:$('#order-info-link-wrap', this.el)});
+			
 		},
 		refreshGridSize: function(){
 			this._minGridWidth = $(window).width()<=640?150:200;
