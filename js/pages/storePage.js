@@ -266,7 +266,7 @@
 			var shoppingCart = shoppingCarts.get(storeNameId);
 			if(!shoppingCart){
 				var deliveryLimit = this.model.get('deliveryLimit');
-				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit, menu:this.model.get('menuId')});
 				shoppingCarts.add(shoppingCart);
 			}
 			shoppingCart.updateDisplay();

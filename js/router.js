@@ -124,6 +124,7 @@
 				if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
 					that.views.orderInfoPage = new Views.OrderInfoPageView();
 					that.loadToDOM(that.views.orderInfoPage.el);
+					window.orderInfoPage = that.views.orderInfoPage;
 				}
 			},function(xhr, type){
 				console.log(type);
