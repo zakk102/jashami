@@ -170,6 +170,7 @@
 			$("#segmentPanel", this.el).empty();
 		},
   		setModel: function(model){
+  			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			if(model) this.model = model;
   			var that = this;
   			//  title
@@ -257,6 +258,7 @@
 					var loc = $(e.currentTarget).attr('loc');
 	  				that.scroller.scrollToElement($('#'+loc).get(0));
 				});
+				if(window.loadingPanel) window.loadingPanel.connectionIn();
 			},30);			
 			// shopping car
 			var storeNameId = this.model.get('storeNameId');
