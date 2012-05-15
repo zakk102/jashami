@@ -5,7 +5,7 @@
 			'<div class="header-shadow"></div>',
 			'<div class="header-outer">',
 				'<div class="header">',
-					'<div class="center" style="background:url('+ImageResource["pic/paper_warm"]+') repeat scroll 0 0;">',
+					'<div class="center" style="background:url('+Images["pic/paper_warm"]+') repeat scroll 0 0;">',
 						'<div class="BackButton" id="cancelBtn">',
 							// '<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',									
 						'</div>',
@@ -65,12 +65,12 @@
 			"click .NextButton":"historyTab"
 		},
 		historyTab: function(){
-			location.href = '#startPage/historyTab';
+			Backbone.history.navigate('#startPage/historyTab', {trigger: true, replace: false});
 		},
 		homePage: function(){
 			// clear shopping car
-			if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
-			location.href = '#startPage';
+			//if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
+			Backbone.history.navigate('#startPage', {trigger: true, replace: false});
 		},
 		setStore: function(store){
 			this.store = store;

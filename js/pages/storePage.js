@@ -298,7 +298,7 @@
 			// push state to url
 			var href = "";
 			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
-			else href = window.location.hash+'/'+pid;
+			else href = window.location.hash+'/'+encodeURIComponent(pid);
 			Backbone.history.navigate(href, {trigger: false, replace: false});
 		},
 		render: function(){
