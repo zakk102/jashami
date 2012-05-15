@@ -483,14 +483,32 @@ body{
   }
   #segmentPanel-outer{  
     position:absolute;
-    z-index:30;
-    right:0.5em;
-    top:@height-header + 0.2em;
+    z-index:50;
+    @media screen and (min-width: 1000px) {
+      right:8.0em;
+      top:3.2em;
+    }  
+    @media screen and (max-width: 1000px) {
+      right:4.0em;
+      top:3.2em;
+    }  
+    @media screen and (max-width: 760px) {
+      right:2.0em;
+      top:3.2em;
+    }  
+    @media screen and (max-width: 500px) {
+      right:1.0em;
+    }
+    @media screen and (max-width:360px){
+      right:0.2em;
+    }
+     
+    top:@height-header - 0.5em;
     #segmentPanel{
       position:relative;
     }
   }
-  @shoppingcar-width:10em;
+  @shoppingcar-width:11em;
   .ShoppingCar{
     position:absolute;
     top:@height-header + 0.2em;
@@ -545,13 +563,15 @@ body{
      -webkit-box-shadow: none;
      border:none;
   }
+  @sticker-width:@shoppingcar-width;
+  @sticker-height:2.4em;
   #order-info-sticker1{
     .sticker;
     z-index:19;
     top:@height-header - 0.2em;
     left:0.2em;
-    width:@shoppingcar-width;
-    height:2.2em;
+    width:@sticker-width;
+    height:@sticker-height;
   }
   #order-info-sticker1-shadow{
     .sticker;
@@ -561,8 +581,8 @@ body{
     z-index:10;
     top:@height-header - 0.2em;
     left:0.2em;
-    width:@shoppingcar-width;
-    height:2.2em;
+    width:@sticker-width;
+    height:@sticker-height;
   }
 
   .ProgressBarPanel {
@@ -574,15 +594,17 @@ body{
     position: absolute; 
     left: 0px; 
     right: 0px; 
-    top: 0px; 
+    top: 0.5em; 
     bottom: 0px;
     font-size:0.9em;
+    color:white;
     .sum{
     }
     .ProgressBar {
       margin:3px 5px 3px 5px;
       width: 3.5em;
       height: 0.8em;
+      -webkit-box-sizing: border-box;
       // background-color:black;
       border: 2px solid whitesmoke;
       -webkit-border-radius:7px;
@@ -1001,37 +1023,15 @@ body{
 // .color7 > .FlexGridContainerTitle{ background:@tag-color-7;}
 
 .Segment{
-  .tag1{
-    top:0em;
-    right:4.1em;
-  }
-  .tag2{
-    top:0.2em;
-    right:0em;
-  }
-  .tag3{
-    top:2em;
-    right:4.1em;
-  }
-  .tag4{
-    top:2.2em;
-    right:0em;
-  }
-  .tag5{
-    top:4em;
-    right:4.1em;
-  }
-  .tag6{
-    top:4.4em;
-    right:0em;
-  }
+  @tag-width:4.2em;
+  @tag-height:2.0em;
   .SegmentWidget{
     position:absolute;
     display: -webkit-box;
     -webkit-box-align: center;
     -webkit-box-pack: center;
-    width: 4.2em;
-    height:2.0em;
+    width: @tag-width;
+    height: @tag-height;
     // background-color:rgba(255,9,9,0.5);
     background:url(../pic/type-tag.png) repeat scroll 0 0;
     border-radius:5px;
@@ -1076,6 +1076,199 @@ body{
     // .color5{ background:@tag-color-5;}
     // .color6{ background:@tag-color-6;}
     // .color7{ background:@tag-color-7;}
+  }
+
+  @media screen and (min-width: 1000px) {
+    @left-base:14em;
+    @odd-top:0em;
+    @even-top:1.9em;
+    @margin:0.3em;
+    .tag1{
+      top:@odd-top;
+      right:@left-base;
+    }
+    .tag2{
+      top:@even-top;
+      right:@left-base - 2em;
+    }
+    .tag3{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin);
+    }
+    .tag4{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin);
+    }
+    .tag5{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin)*2;
+    }
+    .tag6{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin)*2;
+    }  
+    .tag7{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin)*3;
+    }
+    .tag8{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin)*3;
+    }
+  }  
+  @media screen and (max-width: 1000px) {
+    @left-base:12em;
+    @odd-top:0em;
+    @even-top:1.9em;
+    @margin:0.3em;
+    .tag1{
+      top:@odd-top;
+      right:@left-base;
+    }
+    .tag2{
+      top:@even-top;
+      right:@left-base - 2em;
+    }
+    .tag3{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin);
+    }
+    .tag4{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin);
+    }
+    .tag5{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin)*2;
+    }
+    .tag6{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin)*2;
+    }  
+    .tag7{
+      top:@odd-top;
+      right:@left-base - (@tag-width+@margin)*3;
+    }
+    .tag8{
+      top:@even-top;
+      right:@left-base - 2em - (@tag-width+@margin)*3;
+    }
+  }  
+  @media screen and (max-width: 760px) {
+    @left-base:9em;
+    @1-top:0em;
+    @2-top:1.9em;
+    @3-top:3.8em;
+    @margin:0.4em;
+    @hor_offset:0.5em;
+    .tag1{
+      top:@1-top;
+      right:@left-base;
+    }
+    .tag2{
+      top:@2-top;
+      right:@left-base - @hor_offset;
+    }
+    .tag3{
+      top:@3-top;
+      right:@left-base - @hor_offset*2;
+    }
+    .tag4{
+      top:@1-top;
+      right:@left-base - (@tag-width+@margin);
+    }
+    .tag5{
+      top:@2-top;
+      right:@left-base - @hor_offset - (@tag-width+@margin);
+    }
+    .tag6{
+      top:@3-top;
+      right:@left-base - @hor_offset*2 - (@tag-width+@margin);
+    }  
+    .tag7{
+      top:@1-top;
+      right:@left-base - (@tag-width+@margin)*2;
+    }
+    .tag8{
+      top:@2-top;
+      right:@left-base - @hor_offset - (@tag-width+@margin)*2;
+    }
+  }  
+  @media screen and (max-width: 500px) {
+    @odd-right:4.1em;
+    @even-right:0em;
+    @margin:0.2em;
+    right:0.5em;
+    .tag1{
+      top:0em;
+      right:@odd-right;
+    }
+    .tag2{
+      top:1em;
+      right:@even-right;
+    }
+    .tag3{
+      top:0em + @tag-height+@margin;
+      right:@odd-right;
+    }
+    .tag4{
+      top:1em + @tag-height+@margin;
+      right:@even-right;
+    }
+    .tag5{
+      top:0em + (@tag-height+@margin)*2;
+      right:@odd-right;
+    }
+    .tag6{
+      top:1em + (@tag-height+@margin)*2;
+      right:@even-right;
+    }
+    .tag7{
+      top:0em + (@tag-height+@margin)*3;
+      right:@odd-right;
+    }
+    .tag8{
+      top:1em + (@tag-height+@margin)*3;
+      right:@even-right;
+    }
+  }
+  @media screen and (max-width:360px){
+    @odd-right:4.1em;
+    @even-right:0em;
+    @margin:0.2em;
+    right:0em;
+    .tag1{
+      top:0em;
+      right:@odd-right;
+    }
+    .tag2{
+      top:1em;
+      right:@even-right;
+    }
+    .tag3{
+      top:0em + @tag-height+@margin;
+      right:@odd-right;
+    }
+    .tag4{
+      top:1em + @tag-height+@margin;
+      right:@even-right;
+    }
+    .tag5{
+      top:0em + (@tag-height+@margin)*2;
+      right:@odd-right;
+    }
+    .tag6{
+      top:1em + (@tag-height+@margin)*2;
+      right:@even-right;
+    }
+    .tag7{
+      top:0em + (@tag-height+@margin)*3;
+      right:@odd-right;
+    }
+    .tag8{
+      top:1em + (@tag-height+@margin)*3;
+      right:@even-right;
+    }
   }
 
 }
@@ -1229,7 +1422,7 @@ body{
         }
       }
       .OptionBox, .NoteBox{
-        margin: 0.4em;
+        // margin: 0.4em;
         .ProductOption{
           // background:rgba(255,255,255,0.6);
           // margin-bottom: 0.3em;
@@ -1288,6 +1481,7 @@ body{
           }          
         }
       }
+      .OptionBox
     }
     .noImg{
       .amount-wrap{

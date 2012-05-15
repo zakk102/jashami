@@ -24,11 +24,13 @@
 			'<div id="segmentPanel-outer"><div id="segmentPanel"></div></div>',
 			'<div id="order-info-sticker1"></div>',
 			'<div id="order-info-sticker1-shadow"></div>',
-			'<a id="order-info" class="link" href="#startPage/feedbackTab"><div class="ShoppingCar">',
+			'<div class="ShoppingCar">',
 				// '<div style="position: relative; " class="Car">',
+					'<a id="order-info" class="link" href="#startPage/feedbackTab">',
 					'<div class="ShoppingCartPanel"></div>',
+					'</a>',
 				// '</div>',
-			'</div></a>',
+			'</div>',
 		'</div>'
 
 		// '<div class="header">',

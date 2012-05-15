@@ -113,7 +113,7 @@
 			// scroller
 			this.scroller = new Scroller();
 			$(this.scroller.el).css('position','relative');
-			$(this.scroller.el).css('height','');
+			$(this.scroller.el).css('height','100%');
 			$("#productContent", this.el).append(this.scroller.render().el);
 
 			new TouchWidget({el:$('#back-link-wrap', this.el)});

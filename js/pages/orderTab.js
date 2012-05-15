@@ -49,22 +49,23 @@
 			var last = LocalModel.getUserDistrict();
 			//TODO load default menu
 			if(window.phonegapEnabled){ // load from autoLocate
-				if(osType==Utils.DeviceType.Android){ // android, run autoLocate
-					this.autoLocate();
-				}else if(!locaStatus || locaStatus==null){ // not auth auto locate yet
-					if(last && last!=null && last.length>2){ // show last location
-						this.addressSelector.setSelection(last);
-						//TODO fix cannot catch location change event
-						window.myapp.location = last;
-						this.loadStore(window.addressAndZipcode.address2zipcode(last));
-					}else if(this.addressSelector.showSelector){ //show selecter
-						this.addressSelector.showSelector();
-					}
-				}else{ // auto locate auth OK or failed last time, run autoLocate
-					this.autoLocate(undefined, undefined, undefined, function(){
-						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
-					});
-				}
+				// if(osType==Utils.DeviceType.Android){ // android, run autoLocate
+					// this.autoLocate();
+				// }else if(!locaStatus || locaStatus==null){ // not auth auto locate yet
+					// if(last && last!=null && last.length>2){ // show last location
+						// this.addressSelector.setSelection(last);
+						// //TODO fix cannot catch location change event
+						// window.myapp.location = last;
+						// this.loadStore(window.addressAndZipcode.address2zipcode(last));
+					// }else if(this.addressSelector.showSelector){ //show selecter
+						// this.addressSelector.showSelector();
+					// }
+				// }else{ // auto locate auth OK or failed last time, run autoLocate
+					// this.autoLocate(undefined, undefined, undefined, function(){
+						// if(that.addressSelector.showSelector) that.addressSelector.showSelector();
+					// });
+				// }
+				this.loadStore("110");
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
 				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);
