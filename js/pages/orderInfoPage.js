@@ -1,5 +1,5 @@
 //Filename: js/pages/orderInfoPage.js
-(function(ImageResource, Scroller, ProductPanel, ShoppingCartData, ShoppingCartCollection){
+(function(ImageResource, Scroller, ProductPanel, ShoppingCartData, ShoppingCartCollection, TouchWidget){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -7,12 +7,12 @@
 				'<div class="header">',
 					'<div class="center">',
 						'<div class="BackButton">',
-							'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
+							'<div class="link-wrap" id="back-link-wrap" ><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton">',
-							'<a class="checkOutBtn link-wrap" href="#userInfoPage"><div id="buy" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd"]+');"></div><div class="function-txt">購買</div></a>',					
+							'<a id="buy-link-wrap" class="checkOutBtn link-wrap" href="#userInfoPage"><div id="buy" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd"]+');"></div><div class="function-txt">購買</div></a>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -92,6 +92,10 @@
 			
 			// this page
 			$(this.el).html(_.template(pageTemplate));
+
+			new TouchWidget({el:$('#back-link-wrap', this.el)});
+			new TouchWidget({el:$('#buy-link-wrap', this.el)});
+
 		},
 		setModel: function(model){
 			if(model) this.model = model;
@@ -219,4 +223,5 @@
 	window.myapp.Widget.Scroller,
 	window.myapp.View.ProductPanel,
 	window.myapp.Model.ShoppingCart,
-	window.myapp.Model.ShoppingCartCollection);
+	window.myapp.Model.ShoppingCartCollection,
+	window.myapp.Widget.TouchWidget);

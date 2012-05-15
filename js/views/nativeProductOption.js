@@ -3,7 +3,8 @@
 	var template = [
 		'<div class="OptionPanel WebOptionPanel">',
 			'<div class="OptionTitle"><%= title %></div>',
-			'<div class="SelectInput"></div>',
+			'<span class="SelectInput"></span>',
+			'<span class="option-sel-icon"></span>',
 		'</div>'
 	].join('');
 	
@@ -15,10 +16,10 @@
 			this.selector = selector;
 		},
 		events:{
-			'selectionChange *': 'selectionChanged'
+			'selectionChange .SelectInput': 'selectionChanged'
 		},
 		selectionChanged: function(){
-			this.$el.trigger('selectionChange');
+			this.$el.trigger('productOptionSelectionChange');
 		},
 		getSelected: function(){
 			return this.selector.getSelectedValues();
