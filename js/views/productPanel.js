@@ -121,7 +121,7 @@
 			"click #buyBtn":"_buy",
 			"click #plusBtn":"_addAmount",
 			"click #minusBtn":"_minusAmount",
-			"selectionChange .ProductOption":"_updateSelection"
+			"productOptionSelectionChange .ProductOption":"_updateSelection"
 		},
 		setModel: function(model, storeNameId, currentItem){
 			if(model) this.model = model;
