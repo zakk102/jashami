@@ -12,7 +12,7 @@
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="waiterBtn">',
-							'<div class="link-wrap" id="waiter-link-wrap"><div id="waiter" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">給客服</div></div>',					
+							'<div class="link-wrap" id="waiter-link-wrap"><div id="waiter" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/icons/jashami-logo-toung"]+');"></div><div class="function-txt">送出</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -52,11 +52,11 @@
 			'<p class="userinfo-paragraph" id="ErrorMsg">服務時間已過</p>',
 			'<p class="userinfo-paragraph" id="userinfo-paragraph">',
 				'<span class="userinfo-line"><span class="info-title">我是</span><input type="Text" placeholder="必填" class="INPUT name"></span><br />',
-				'<span class="userinfo-line"><span class="info-title">我要在</span><span class="DateTimeSelectionBox"></span></span><br />',
+				'<span class="userinfo-line"><span class="info-title">我要</span><span class="DateTimeSelectionBox"></span></span>',
 				'<span id="addr-line" class="userinfo-line"><span class="info-title">送到</span><span class="location"><%= location %></span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
-				'<span class="userinfo-line"><span class="info-title">手機</span></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></span><br />',
-				'<span class="userinfo-line"><span class="info-title">公司行號</span></td><td><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
-				'<span class="userinfo-line"><span class="info-title">統一編號</span></td><td><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
+				'<span class="userinfo-line"><span class="info-title">手機</span><input type="Tel" placeholder="必填" class="INPUT tel"></span><br />',
+				'<span class="userinfo-line"><span class="info-title">公司行號</span><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
+				'<span class="userinfo-line"><span class="info-title">統一編號</span><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">附註</span><input type="Text" placeholder="選填，任何您想補充說明的" class="INPUT remarks"></span>',
 			'</p>',
 		'</div>'
@@ -76,6 +76,8 @@
 			$(this.el).html(_.template(pageTemplate));
 			$("#userinfoList", this.el).append(this.scroller.render().el);
 			this.scroller.html(_.template(infoListTemplate, { location: window.myapp.location }));
+			$("#ErrorMsg", this.el).hide();
+			$("#userinfo-paragraph", this.el).show();
 			
 			this.useNative(window.phonegapEnabled);
 			//this.useNative(true);
