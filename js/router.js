@@ -193,7 +193,6 @@
 				that.views.userInfoPage.setTitle(s);
 			});
 			this.views.userInfoPage.setStore(store);
-			this.views.userInfoPage.setAvailableTime([]);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			$.ajax({
 				type: 'GET',

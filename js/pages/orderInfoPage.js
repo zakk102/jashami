@@ -68,7 +68,7 @@
 							'<% } %>',
 							'<% var remarks = buyList.at(i).get("remarks"); %>',
 							'<% if(remarks && remarks.length>0){ %>',
-							'<div>附註<%= remarks %></div>',
+							'<div>附註：<%= remarks %></div>',
 							'<% } %>',
 						'</div>',
 					'</div>',
