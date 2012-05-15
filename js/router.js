@@ -101,6 +101,8 @@
 				window.productPanel.$el.hide();
 			}
 			var that = this;
+			console.log(window.location.href);
+			console.log(that.views.storePage.$el.attr('url'));
 			if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
 				that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
 				that.transitionEffectType = null;
@@ -148,7 +150,8 @@
 			// show product panel
 			window.productPanel.$el.show();
 			// load store page in background
-			this.changePage(this.views.storePage.el);
+			//TODO fix url: this will change storePage's url attribute, we don't want that
+			//this.changePage(this.views.storePage.el);
 		},
 		orderInfoPage: function(store){
 			if(!this.views.orderInfoPage){ // load the orderInfo page into DOM
@@ -187,11 +190,7 @@
 			if(!window.menuData){
 				window.menuData = new MenuData();
 			}
-			window.menuData.getMenuOfStore(store, function(s){
-				if(s) s = s.get('displayedName');
-				else s = store;
-				that.views.userInfoPage.setTitle(s);
-			});
+			this.views.userInfoPage.setTitle(storeName);
 			this.views.userInfoPage.setStore(store);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
 			$.ajax({

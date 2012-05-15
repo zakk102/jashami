@@ -174,7 +174,8 @@
 							console.log(response);
 							if(response.msg !== 'null'){
 								window.myapp.orderNumber = response.orderID;
-								location.href = '#orderResultPage/' + that.store;	
+								var href = '#orderResultPage/' + encodeURIComponent(that.store);
+								Backbone.history.navigate(href, {trigger: true, replace: false});
 							}else{
 								alert(response.msg);
 							}
