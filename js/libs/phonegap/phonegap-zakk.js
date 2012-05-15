@@ -79,6 +79,8 @@
 	Device.overrideBackButton = function(){ 
 		if (device && typeof device.overrideBackButton == "function") {
 			device.overrideBackButton();
+		}else if (App && typeof App.overrideBackButton == "function") {
+			App.overrideBackButton(true);
 		}
 	};
 	Device.exitApp = function(){
@@ -94,10 +96,10 @@
 	// Event
 	var Event = {};
 	PG.Event = Event;
-	Event.onDeviceReady = function(f){ $(document).bind("deviceready", f); };
-	Event.onPause = function(f){ $(document).bind("pause", f); };
-	Event.onResume = function(f){ $(document).bind("resume", f); };
-	Event.onBackKeyDown = function(f){ $(document).bind("backbutton", f); };
+	//Event.onDeviceReady = function(f){ document.addEventListener("deviceready", f, false); };
+	Event.onPause = function(f){ document.addEventListener("pause", f); };
+	Event.onResume = function(f){ document.addEventListener("resume", f); };
+	Event.onBackKeyDown = function(f){ document.addEventListener("backbutton", f); };
 	
 	// File
 	var File = {};
