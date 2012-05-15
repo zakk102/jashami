@@ -16,10 +16,10 @@
 			this.selector = selector;
 		},
 		events:{
-			'selectionChange *': 'selectionChanged'
+			'selectionChange .SelectInput': 'selectionChanged'
 		},
 		selectionChanged: function(){
-			this.$el.trigger('selectionChange');
+			this.$el.trigger('productOptionSelectionChange');
 		},
 		getSelected: function(){
 			return this.selector.getSelectedValues();

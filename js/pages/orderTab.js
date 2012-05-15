@@ -90,19 +90,19 @@
   				LocalModel.setLocationServiceStatus('OK');
   				// get address
     			Geolocation.getAddressFromGeo(location.latitude, location.longitude, function(address){
+    				if(window.loadingPanel) window.loadingPanel.connectionIn();
     				var addr = address.results[0].formatted_address;
     				window.autoLocalization.address = addr; // save
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
-    				if(window.loadingPanel) window.loadingPanel.connectionIn();
     				if(successCallBack) successCallBack();
     			},function(error){
-    				console.log(error);
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
+    				console.log(error);
     				if(errorCallBack) errorCallBack();
     			});
     		},function(error){
-    			console.log(error);
     			if(window.loadingPanel) window.loadingPanel.connectionIn();
+    			console.log(error);
     			LocalModel.setLocationServiceStatus('authFailed');
     			if(errorCallBack) errorCallBack();
     		});

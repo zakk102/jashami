@@ -9,7 +9,7 @@
 	
 	var dateTemplate = [
 		'<% for(var i=0,length=data.length; i<length; i++) { %>',
-			'<% var date = new Date(data[i]), today=new Date(), text=i18n.formatDate(date, "m 月 d 日 (D)"); %>',
+			'<% var date = new Date(data[i]), today=new Date(), text=i18n.formatDate(date, "明天以後的 m 月 d 日 (D)"); %>',
 			'<% if(today.getYear()==date.getYear()&&today.getMonth==date.getMonth&&today.getDate()==date.getDate()){text="今天";} %>',
 			'<option value="<%= date.getTime() %>"><%= text %></option>',
 		'<% } %>'

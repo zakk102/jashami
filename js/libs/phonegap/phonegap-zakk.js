@@ -1,64 +1,3 @@
-// phonegap plugins
-(function(){
-	PhoneGap.plugins = PhoneGap.plugins || {};
-	window.plugins = window.plugins || {}; // bug fix
-	
-	
-	// childBrowser
-	function ChildBrowser() {}
-	ChildBrowser._onLocationChange = function(newLoc){
-		window.plugins.childBrowser.onLocationChange(newLoc);
-	};
-	ChildBrowser._onClose = function(){
-		window.plugins.childBrowser.onClose();
-	};
-	ChildBrowser._onOpenExternal = function(){
-		window.plugins.childBrowser.onOpenExternal();
-	};
-	// Show a webpage, will result in a callback to onLocationChange
-	ChildBrowser.prototype.showWebPage = function(loc){
-		PhoneGap.exec("ChildBrowserCommand.showWebPage", loc);
-	};
-	// close the browser, will NOT result in close callback
-	ChildBrowser.prototype.close = function(){
-		PhoneGap.exec("ChildBrowserCommand.close");
-	};
-	PhoneGap.addConstructor(function() {
-		PhoneGap.plugins.childBrowser = new ChildBrowser();
-		window.plugins.childBrowser = PhoneGap.plugins.childBrowser;
-	});	
-	
-	
-	// http request
-	function HttpRequest() {};
-	HttpRequest.prototype.request = function(urlString, successCallback, failCallback){
-		return PhoneGap.exec(successCallback, failCallback, "HTTPRequest", "grabURL", [urlString]);
-	};
-	HttpRequest.prototype.requestInBackground = function(urlString, successCallback, failCallback){
-		return PhoneGap.exec(successCallback, failCallback, "HTTPRequest", "grabURLInBackground", [urlString]);
-	};
-	PhoneGap.addConstructor(function() {
-		PhoneGap.plugins.httpRequest = new HttpRequest();
-	});	
-	
-	//picker
-	function Picker() {
-    	this._callback;
-	}
-	Picker.prototype.show = function(options, cb) {
-	    this._callback = cb;
-	    PhoneGap.exec("Picker.show", options);
-	}
-	Picker.prototype._selected = function(selectedValue) {
-	    if (this._callback)
-	        this._callback(selectedValue);
-	}
-	PhoneGap.addConstructor(function() {
-	    PhoneGap.plugins.picker = new Picker();
-	    window.plugins.picker = PhoneGap.plugins.picker; // bug fix
-	});
-})();
-
 // phonegap interface
 (function(){
 	var PGP = PhoneGap.plugins;
@@ -94,10 +33,10 @@
 	// Event
 	var Event = {};
 	PG.Event = Event;
-	Event.onDeviceReady = function(f){ $(document).bind("deviceready", f); };
-	Event.onPause = function(f){ $(document).bind("pause", f); };
-	Event.onResume = function(f){ $(document).bind("resume", f); };
-	Event.onBackKeyDown = function(f){ $(document).bind("backbutton", f); };
+	//Event.onDeviceReady = function(f){ document.addEventListener("deviceready", f, false); };
+	Event.onPause = function(f){ document.addEventListener("pause", f); };
+	Event.onResume = function(f){ document.addEventListener("resume", f); };
+	Event.onBackKeyDown = function(f){ document.addEventListener("backbutton", f); };
 	
 	// File
 	var File = {};
@@ -165,10 +104,10 @@
 	Picker.showPicker = function(dependent, values, setValues, callback, rect){
 		var option = {};
 		option.dependent = dependent;
-		option.components = values;
-		option.setValues = setValues;
+		option.components = values || [];
+		option.setValues = setValues || [];
 		option.maximunWordsInLine = 24;
-		option.rect = rect;
+		option.rect = rect || [];
 		
 		PGP.picker.show( option, function(selectedValue){
 			callback(selectedValue);

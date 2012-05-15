@@ -9,7 +9,7 @@
 	// window.phonegapEnabled = true;
 
 // phonegap
-	myapp.PG.Event.onDeviceReady(function(){
+	document.addEventListener("deviceready", function(){
 		console.log("phonegap load");
 		window.phonegapEnabled = true;
 		window.enableBackButton = true;
@@ -37,7 +37,7 @@
 		});
 		// native or web ui
 		$(window).trigger('useNative', true);
-	});
+	}, false);
 	
 // start
 	$(document).ready(function () {
