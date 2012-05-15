@@ -4,6 +4,7 @@ CACHE MANIFEST
  
 CACHE:
 ios.html
+ios.manifest
 compiled_ioslibs.js
 compiled_apps.js
 css/compiled.css
