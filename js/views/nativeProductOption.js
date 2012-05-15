@@ -4,7 +4,6 @@
 		'<div class="OptionPanel WebOptionPanel">',
 			'<div class="OptionTitle"><%= title %></div>',
 			'<span class="SelectInput"></span>',
-			'<span class="option-sel-icon"></span>',
 		'</div>'
 	].join('');
 	
