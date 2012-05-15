@@ -5,7 +5,7 @@
 			'<div class="header-shadow"></div>',
 			'<div class="header-outer">',
 				'<div class="header">',
-					'<div class="center">',
+					'<div class="center" style="background:url('+ImageResource["pic/paper_warm"]+') repeat scroll 0 0;">',
 						'<div class="BackButton" id="cancelBtn">',
 							// '<div class="link-wrap"><div id="back-link" class="icon"></div><div class="function-txt">返回</div></div>',									
 						'</div>',
