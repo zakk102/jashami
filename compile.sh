@@ -1,5 +1,6 @@
 ioslibs="\
 ./js/libs/phonegap/phonegap-ios.js \
+./js/libs/phonegap/phonegap-plugin-ios.js \
 ./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
 ./js/libs/zepto/zepto.min.js \
@@ -12,6 +13,7 @@ ioslibs="\
 
 androidlibs="\
 ./js/libs/phonegap/phonegap-android.js \
+./js/libs/phonegap/phonegap-plugin-android.js \
 ./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
 ./js/libs/zepto/zepto.min.js \

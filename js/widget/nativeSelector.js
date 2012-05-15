@@ -16,6 +16,7 @@
 			this.$el.addClass("SelectInput");
 			this.$el.html(_.template(template));
 			this.$el.on("click", function(){
+				console.log("ddddd");
 				var selectedValue = [];
 				for(var title in that._selectedKey){
 					selectedValue.push(title+"="+that._selectedKey[title]);

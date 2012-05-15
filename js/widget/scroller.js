@@ -1,5 +1,5 @@
 // Filename: js/widget/scroller.js
-(function(ImageResource, scrollLib){
+(function(DeviceType, ImageResource, scrollLib){
 	var loading_label="更新中...";
 	var refresh_label="放開後馬上更新";
 	var pulldown_label="向下拉可以更新";
@@ -53,7 +53,9 @@
   			pullUpOffset = opt.pullUpOffset;
   			pullUpAction = opt.pullUpAction;
   			pullDownAction = opt.pullDownAction;
-  			if(pullDownEl) pullDownEl.html('<div id="pulldown-icon" class="icon" style="-webkit-transition-duration:500ms; -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_212_down_arrow"]+')"></div><div class="pullDownLabel refresh-label">'+pulldown_label+'</div>');
+  			var wtd = 500;
+  			if(DeviceType.getDeviceType()==DeviceType.Android) wtd = 0;
+  			if(pullDownEl) pullDownEl.html('<div id="pulldown-icon" class="icon" style="-webkit-transition-duration:'+wtd+'ms; -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_212_down_arrow"]+')"></div><div class="pullDownLabel refresh-label">'+pulldown_label+'</div>');
   			if(pullUpEl) pullUpEl.html('<div id="pullup-icon" class="icon"></div><div class="pullUpLabel refresh-label">'+pullup_label+'</div>');
   			
   			this.render({
@@ -126,5 +128,6 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Widget = window.myapp.Widget || {};
 	window.myapp.Widget.Scroller = Scroller;
-})(	window.myapp.Images,
+})(	window.myapp.Utils.DeviceType,
+	window.myapp.Images,
 	iScroll);

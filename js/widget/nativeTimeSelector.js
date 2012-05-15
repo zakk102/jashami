@@ -19,7 +19,7 @@
   			this.$el.trigger("dateTimeSelectionChange", this.getSelection());
 		},
 		setDataList: function(data){
-			if(!data || data.length<1){
+			if(!data || data.length<1){ // no avaolable time
 				this.selector.clear();
 				return;
 			}
@@ -55,7 +55,7 @@
 			if(today.getYear()==date.getYear()&&today.getMonth==date.getMonth&&today.getDate()==date.getDate()){
 				return "今天";
 			}else{
-				return i18n.formatDate(date ,"明天以後的m 月 d 日 (D)");
+				return i18n.formatDate(date ,"明天以後的 m 月 d 日 (D)");
 			}
 			
 		},

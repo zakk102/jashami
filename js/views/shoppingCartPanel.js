@@ -9,7 +9,7 @@
 				'<% if(shoppingCartSum >= deliveryLimit){ %>',
 					'<div class="ProgressMsgOk">可外送</div>',
 				'<% }else{ %>',
-					'<div style="" class="ProgressMsgNotOk">不滿 <%= deliveryLimit %></div>',
+					'<div style="" class="ProgressMsgNotOk"><%= deliveryLimit %></div>',
 				'<% } %>',
 				// '<div class="gwt-Label"><%= shoppingCartSum %>/<%= deliveryLimit %></div>',
 			'</div>',
@@ -28,14 +28,23 @@
 			return this;
 		},
 		resetDisplayedData: function(model){
-			var shoppingCartSum = model.get('sum');
+			var storeID = model.get('storeNameId');
 			var deliveryLimit = model.get('deliveryLimit');
-			var progress = shoppingCartSum/deliveryLimit*100;
-
-			if(progress >= 100){
-				progress = 100;
+			var shoppingCartSum = model.get('sum');
+			if(storeID.indexOf('85度C')<0){
+				var progress = shoppingCartSum/deliveryLimit*100;
+				if(progress >= 100){
+					progress = 100;
+				}
+				$(this.el).html(_.template(pageTemplate, { 'shoppingCartSum':shoppingCartSum, 'deliveryLimit':'未滿 '+deliveryLimit, 'progress':progress }));
+			}else{
+				var sum = model.getSum('飲料');
+				var progress = sum/deliveryLimit*100;
+				if(progress >= 100){
+					progress = 100;
+				}
+				$(this.el).html(_.template(pageTemplate, { 'shoppingCartSum':shoppingCartSum, 'deliveryLimit':'飲料未滿 '+deliveryLimit, 'progress':progress }));
 			}
-			$(this.el).html(_.template(pageTemplate, { 'shoppingCartSum':shoppingCartSum, 'deliveryLimit':deliveryLimit, 'progress':progress }));
 		}
 	});
 	

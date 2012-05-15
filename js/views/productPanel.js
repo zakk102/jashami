@@ -225,8 +225,8 @@
 					var shoppingCarts = window.shoppingCartCollection;
 					var shoppingCart = shoppingCarts.get(that.storeNameId);
 					if(!shoppingCart){
-						var deliveryLimit = this.model.get('deliveryLimit');
-						shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+						var deliveryLimit = that.model.get('deliveryLimit');
+						shoppingCart = new ShoppingCartData({storeNameId:that.storeNameId, deliveryLimit:deliveryLimit});
 						shoppingCarts.add(shoppingCart);
 					}
 					//add products to shoppingCart

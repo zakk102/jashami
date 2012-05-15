@@ -111,7 +111,7 @@
 			var shoppingCart = shoppingCarts.get(storeNameId);
 			if(!shoppingCart){
 				var deliveryLimit = this.model.get('deliveryLimit');
-				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit});
+				shoppingCart = new ShoppingCartData({storeNameId:storeNameId, deliveryLimit:deliveryLimit, menu:this.model.get('menuId')});
 				shoppingCarts.add(shoppingCart);
 			}
 			return shoppingCart;
@@ -137,8 +137,13 @@
 		checkOut: function(e){
 			var storeNameId = this.model.get('storeNameId');
 			var shoppingCart = this._getShoppingCar(storeNameId);
-			var sum = shoppingCart.get('sum');
+			var sum;
 			var deliveryLimit = shoppingCart.get('deliveryLimit');
+			if(storeNameId.indexOf('85度C')<0){
+				sum = shoppingCart.getSum();
+			}else{
+				sum = shoppingCart.getSum('飲料');
+			}
 			
 			if(sum < deliveryLimit){
 				alert('未達外送額度');
@@ -164,6 +169,7 @@
 					item.set('remarks', productPanel.getRemarks());
 					//shoppingCart.updateBuyItem(item);
 					shoppingCart.sortBuyList();
+					shoppingCart.update();
 					shoppingCart.updateDisplay();
 					
 					window.history.go(-1);
@@ -188,6 +194,7 @@
 			shoppingCart.removeBuyItem(item);
 		},
 		resetDisplayedData: function(){
+			if(!this.model) return; // not init yet
 			var storeNameId = this.model.get('storeNameId');
 			var shoppingCart = this._getShoppingCar(storeNameId);
 			this.scroller.html(_.template(orderInfoListTemplate, { 'shoppingCart':shoppingCart }));

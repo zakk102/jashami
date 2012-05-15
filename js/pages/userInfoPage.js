@@ -49,7 +49,8 @@
 	// ].join('');
 	var infoListTemplate = [
 		'<div class="UserInfo">',
-				'<p class=userinfo-paragraph>',
+			'<p class="userinfo-paragraph" id="ErrorMsg">服務時間已過</p>',
+			'<p class="userinfo-paragraph" id="userinfo-paragraph">',
 				'<span class="userinfo-line"><span class="info-title">我是</span><input type="Text" placeholder="必填" class="INPUT name"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">我要在</span><span class="DateTimeSelectionBox"></span></span><br />',
 				'<span id="addr-line" class="userinfo-line"><span class="info-title">送到</span><span class="location"><%= location %></span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
@@ -57,7 +58,7 @@
 				'<span class="userinfo-line"><span class="info-title">公司行號</span></td><td><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">統一編號</span></td><td><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">附註</span><input type="Text" placeholder="選填，任何您想補充說明的" class="INPUT remarks"></span>',
-				'</p>',
+			'</p>',
 		'</div>'
 	].join('');
 	
@@ -238,7 +239,14 @@
 			this.store = store;
 		},
 		setAvailableTime: function(list){
-			this.timeSelector.setDataList(list);
+			if(list && list.length>0){
+				$("#ErrorMsg", this.el).hide();
+				$("#userinfo-paragraph", this.el).show();
+				this.timeSelector.setDataList(list);
+			}else{
+				$("#ErrorMsg", this.el).show();
+				$("#userinfo-paragraph", this.el).hide();
+			}
 		},
 		render: function(){
 			// re-bind event
