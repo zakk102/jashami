@@ -62,6 +62,8 @@
 			"click .NextButton":"homePage"
 		},
 		homePage: function(){
+			// clear shopping car
+			if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
 			location.href = '#startPage';
 		},
 		setStore: function(store){

@@ -108,7 +108,11 @@
 	});
 	
 	var ShoppingCartCollection = Backbone.Collection.extend({
-		model:ShoppingCart
+		model:ShoppingCart,
+		clear: function(){
+			this.remove(this.models);
+			this.reset();
+		}
 	});
 	
 	window.myapp = window.myapp || {};
