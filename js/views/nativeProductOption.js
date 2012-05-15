@@ -3,7 +3,7 @@
 	var template = [
 		'<div class="OptionPanel WebOptionPanel">',
 			'<div class="OptionTitle"><%= title %></div>',
-			'<span class="SelectInput"></span>',
+			'<div class="SelectInput"></div>',
 		'</div>'
 	].join('');
 	

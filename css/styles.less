@@ -102,6 +102,8 @@ ol, ul {
 }
 img{ outline:none ; }
 
+input{ height: 2em; min-width: 20em;}
+
 a{text-decoration: none;}
 
 body{
@@ -114,19 +116,18 @@ body{
   height: 100%; 
   width: 100%;
   overflow:hidden;
-@media screen and (min-width: 1000px) {
-  font-size:145%;
-}  
-@media screen and (max-width: 1000px) {
-  font-size:130%;
-}  
-@media screen and (max-width: 760px) {
-  font-size:115%;
-}  
-@media screen and (max-width: 500px) {
-  font-size:100%;
-}  
-
+  @media screen and (min-width: 1000px) {
+    font-size:145%;
+  }  
+  @media screen and (max-width: 1000px) {
+    font-size:130%;
+  }  
+  @media screen and (max-width: 760px) {
+    font-size:115%;
+  }  
+  @media screen and (max-width: 500px) {
+    font-size:100%;
+  }  
 }
 
 //==============================================================
@@ -1451,13 +1452,16 @@ body{
               color:white;
               height: 2.0em;
               line-height: 2.0em;
-            border-left-width: 0.5em;
-            border-right-width: 0.5em;
+              border-left-width: 0.5em;
+              border-right-width: 0.5em;
+              -webkit-box-flex: 1;
             }
             .SelectInput{
               height: 2.0em;
               line-height: 2.0em;
               margin-right:0.25em;
+              -webkit-box-flex:10;
+              text-align: right;
               .selectedValue{
                 color:darkslategray;
               }
@@ -1495,7 +1499,16 @@ body{
           }
         }
       }
-      .OptionBox
+      .AdditionBox{
+        .InputBox{
+          -webkit-box-flex: 10;
+          text-align: right;
+          input{
+            width: 90%;
+            margin: 0 5px 0 0;
+          }
+        }
+      }
     }
     .noImg{
       .image-intro-wrap{

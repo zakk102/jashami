@@ -15,7 +15,7 @@
 			'不清楚？有疑問？<br/>',
 			'<a href="tel:0227638295" id="about-call" class="button"><span id="about-call-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_139_phone"]+');"></span>打電話</a>',
 			'或<a href="mailto:service@o2oist.com" id="about-email" class="button"><span id="about-email-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_124_message_plus"]+');"></span>寄信</a>給客服<br/>', 
-			//'到<a class="button outButton" href="http://www.facebook.com/o2oist?v=feed" target="_blank"><span id="fanpage-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_320_facebook"]+');"></span>粉絲頁</a>給我們加油打氣！',
+			'到<a class="button outButton" href="http://www.facebook.com/o2oist?v=feed" target="_blank"><span id="fanpage-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_320_facebook"]+');"></span>粉絲頁</a>給我們加油打氣！',
 			'</p>',
 		'</div>'
 	].join('');
