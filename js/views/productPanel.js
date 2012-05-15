@@ -27,7 +27,7 @@
 			'<div class="image-intro-wrap">',
 				'<div class="image-wrap">',
 					'<img class="Img" src="<%= img %>" style="<% if(!img || img.length<3) print(\"display:none;\"); %>" />',
-					'<div class="name"><%= name %></div>',
+					'<div class="name<% if(name.length>9) print(\" long-name\"); %>"><%= name %></div>',
 				'</div>',
 				'<div class="intro"><%= info %></div>',
 			'</div>',

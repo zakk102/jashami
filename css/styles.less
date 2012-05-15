@@ -102,7 +102,7 @@ ol, ul {
 }
 img{ outline:none ; }
 
-input{ height: 2em; min-width: 20em;}
+input{ height: 2em;}
 
 a{text-decoration: none;}
 
@@ -1329,8 +1329,6 @@ body{
             width: 85%;
             color: orangered;
           }
-          
-          
         }
         .intro{
           font-size: 0.95em;
@@ -1460,12 +1458,21 @@ body{
               height: 2.0em;
               line-height: 2.0em;
               margin-right:0.25em;
-              -webkit-box-flex:10;
+              -webkit-box-flex:1000;
               text-align: right;
+              position: relative;
               .selectedValue{
                 color:darkslategray;
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 0 2em 0 0;
               }
               .option-sel-icon{
+                position: absolute;
+                top: 0%;
+                right: 0%;
                 display:inline-block;
                 height:2.0em;
                 width:2em;
@@ -1522,6 +1529,12 @@ body{
             height:2em;
             line-height:2em;
             font-size:1.5em;
+            text-align: center;
+          }
+          .name.long-name{
+            font-size: 1em;
+            height: 3em;
+            line-height: 3em;
           }
         }
       }
@@ -1772,6 +1785,8 @@ body{
 #UserInfoPageView{
   height:100%;
   width:100%;
+  
+  input{min-width:20em;}
   
   .UserInfo {
     position:relative;
