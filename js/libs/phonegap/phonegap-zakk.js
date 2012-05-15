@@ -18,8 +18,6 @@
 	Device.overrideBackButton = function(){ 
 		if (device && typeof device.overrideBackButton == "function") {
 			device.overrideBackButton();
-		}else if (App && typeof App.overrideBackButton == "function") {
-			App.overrideBackButton(true);
 		}
 	};
 	Device.exitApp = function(){
