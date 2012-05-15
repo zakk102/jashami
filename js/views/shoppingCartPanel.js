@@ -6,7 +6,7 @@
 				'<div class="sum">$<%= shoppingCartSum %></div>',				
 				'<div class="ProgressBar"><div style="width: <%= progress %>%;" class="Progress"></div></div>',
 				// '<div class="gwt-Label" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">總共$</div>',	
-				'<% if(shoppingCartSum >= deliveryLimit){ %>',
+				'<% if(progress >= 100){ %>',
 					'<div class="ProgressMsgOk">可外送</div>',
 				'<% }else{ %>',
 					'<div style="" class="ProgressMsgNotOk"><%= deliveryLimit %></div>',

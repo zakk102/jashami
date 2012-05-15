@@ -34,7 +34,7 @@
 			'for(var i=0, length=buyList.length; i<length; i++){',
 				'var bi=buyList[i];',
 				'var pname=bi.productNameId, amount=bi.amount, singlePrice=bi.singlePrice, orderName=bi.orderName, option="", orderNameString="";', 
-				'name=name.split("_")[1];',
+				'pname=pname.split("_")[1];',
 				'var opt=bi.selectedOptions, keySet=Object.keys(opt);',
 				'if(orderName && orderName.length>0 && orderName!="null"){',
 					'orderNameString="<span style=\'background:-webkit-gradient(linear,center top, center bottom, from(#5D311A), color-stop(2%, #F38D48), color-stop(98%,#CE6522), to(white));\'>"+orderName+"</span>";',

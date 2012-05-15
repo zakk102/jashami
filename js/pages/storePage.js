@@ -6,7 +6,7 @@
 				'<div class="header-shadow"></div>',
 				'<div class="header-outer">',
 					'<div class="header">',
-						'<div class="center">',
+						'<div class="center" style="background:url('+ImageResource["pic/paper_warm"]+') repeat scroll 0 0;">',
 							'<div class="BackButton">',
 								'<div class="link-wrap" id="back-link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 							'</div>',
@@ -173,6 +173,7 @@
 			$("#segmentPanel", this.el).empty();
 		},
   		setModel: function(model){
+  			if(window.loadingPanel) window.loadingPanel.connectionOut();
   			if(model) this.model = model;
   			var that = this;
   			//  title
@@ -219,6 +220,7 @@
 					// category title
 					var cateNameWidget = document.createElement('div');
 					cateNameWidget.className = 'FlexGridContainerTitle';
+					$(cateNameWidget).css('background','url('+ImageResource["pic/type-tag"]+') repeat scroll 0 0');
 					var qqq = cateName.indexOf('@');
 					if(qqq>=0) cate = cateName.substring(0, qqq);
 					cateNameWidget.innerHTML = cate;
@@ -235,6 +237,7 @@
 					// segment widget
 					var segment = document.createElement('div');
 					segment.className = 'SegmentWidget';
+					$(segment).css('background','url('+ImageResource["pic/type-tag"]+') repeat scroll 0 0');
 					$(segment).addClass('tag'+count);
 					qqq = cateName.indexOf('@')+1;
 					if(qqq>0) cate = cateName.substring(qqq);
@@ -260,6 +263,7 @@
 					var loc = $(e.currentTarget).attr('loc');
 	  				that.scroller.scrollToElement($('#'+loc).get(0));
 				});
+				if(window.loadingPanel) window.loadingPanel.connectionIn();
 			},30);			
 			// shopping car
 			var storeNameId = this.model.get('storeNameId');
