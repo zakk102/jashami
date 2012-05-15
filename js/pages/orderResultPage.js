@@ -36,7 +36,7 @@
 				// '<br/>',
 				'<span id="text">訂單送到甲蝦米客服了<br/>',
 				'會回<span id="about-call-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_139_phone"]+');"></span>電話或',
-				'<span id="about-email-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_124_message_plus"]+');"></span>簡訊給你\\妳<br/>',
+				'<span id="about-email-icon" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_124_message_plus"]+');"></span>簡訊給你<br/>',
 				'請到「紀錄」查詢</span>',
 				'</p>',
 			'</div>',
@@ -69,7 +69,7 @@
 		},
 		homePage: function(){
 			// clear shopping car
-			//if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
+			if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
 			Backbone.history.navigate('#startPage', {trigger: true, replace: false});
 		},
 		setStore: function(store){
