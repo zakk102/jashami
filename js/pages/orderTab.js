@@ -65,6 +65,7 @@
 						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
 					});
 				}
+				// this.loadStore("110");
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
 				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);

@@ -1,5 +1,5 @@
 //Filename: js/pages/orderResultPage.js
-(function(Images, Scroller){
+(function(Images, Scroller, TouchWidget){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -12,7 +12,7 @@
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="waiterBtn">',
-							'<div class="link-wrap"><div id="back2order-link" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_020_home"]+');"></div><div class="function-txt">回首頁</div></div>',					
+							'<div id="history-link-wrap" class="link-wrap" ><div id="history-link" class="icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_036_file"]+');"></div><div class="function-txt">看紀錄</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -57,9 +57,15 @@
 			$(this.el).html(_.template(pageTemplate));
 			$('#orderResult', this.el).html(this.scroller.render().el);
 			this.scroller.html(_.template(orderResultTemplate, { orderNumber:0 }));			
+
+			new TouchWidget({el:$('#history-link-wrap', this.el)});
+
 		},
 		events:{
-			"click .NextButton":"homePage"
+			"click .NextButton":"historyTab"
+		},
+		historyTab: function(){
+			location.href = '#startPage/historyTab';
 		},
 		homePage: function(){
 			// clear shopping car
@@ -88,4 +94,5 @@
 	window.myapp = window.myapp || {};
 	window.myapp.OrderResultPageView = OrderResultPageView;
 })(	window.myapp.Images,
-	window.myapp.Widget.Scroller);
+	window.myapp.Widget.Scroller,
+	window.myapp.Widget.TouchWidget);

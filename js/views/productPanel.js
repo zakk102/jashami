@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(ImageResource, Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection){
+(function(ImageResource, Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection, TouchWidget){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -7,12 +7,12 @@
 				'<div class="header">',
 					'<div class="center">',
 						'<div class="BackButton" id="cancelBtn">',
-							'<div class="link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
+							'<div class="link-wrap" id="back-link-wrap"><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',
 						'<div id="title" class="function-panel">',
 						'</div>',
 						'<div class="NextButton" id="buyBtn">',
-							'<div class="link-wrap"><div id="buy" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd"]+');"></div><div class="function-txt">購買</div></div>',					
+							'<div class="link-wrap" id="buy-link-wrap"><div id="buy" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_227_usd"]+');"></div><div class="function-txt">購買</div></div>',					
 						'</div>',
 					'</div>',
 				'</div>',
@@ -113,8 +113,12 @@
 			// scroller
 			this.scroller = new Scroller();
 			$(this.scroller.el).css('position','relative');
-			$(this.scroller.el).css('height','');
+			$(this.scroller.el).css('height','100%');
 			$("#productContent", this.el).append(this.scroller.render().el);
+
+			new TouchWidget({el:$('#back-link-wrap', this.el)});
+			new TouchWidget({el:$('#buy-link-wrap', this.el)});
+
 		},
 		events:{
 			"click #cancelBtn":"_cancel",
@@ -339,4 +343,5 @@
 	window.myapp.View.ProductOptionView,
 	window.myapp.Model.BuyItem,
 	window.myapp.Model.ShoppingCart,
-	window.myapp.Model.ShoppingCartCollection);
+	window.myapp.Model.ShoppingCartCollection,
+	window.myapp.Widget.TouchWidget);
