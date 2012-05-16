@@ -7,6 +7,7 @@
 	].join('');
 	
 	var LoadingPanel = Backbone.View.extend({
+		defaultMsg: '請稍等...',
 		initialize: function(){
 			this.conn = 0;
 			$(this.el).attr('id','loadingPanel');
@@ -21,6 +22,13 @@
 			this.conn--;
 			if(this.conn<0) this.conn = 0;
 			this._update();
+		},
+		resetMsg: function(msg){
+			if(!msg || msg.length<1){
+				$('loading-text', this.el).html(this.defaultMsg);
+			}else{
+				$('loading-text', this.el).html(msg);
+			}
 		},
 		_update: function(){
 			if(this.conn>0){
