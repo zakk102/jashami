@@ -180,6 +180,7 @@
   		},
 		render: function(){
 			this.scroller.render();
+			this.masonry.reload();
 			this.delegateEvents();
 			return this;
 		},
