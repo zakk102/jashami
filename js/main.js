@@ -1,3 +1,6 @@
+// app version
+	window.myapp.updateTime = "2012/05/17 00:50";
+
 // i18n
 	var supportedLang = 'zh-tw';
 	var defaultLang = 'zh-tw';
