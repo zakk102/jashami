@@ -8,14 +8,6 @@
 	cacheStatusValues[5] = 'obsolete';
 	
 	var cache = window.applicationCache;
-	cache.addEventListener('cached', logEvent, false);
-	cache.addEventListener('checking', logEvent, false);
-	cache.addEventListener('downloading', logEvent, false);
-	cache.addEventListener('error', logEvent, false);
-	cache.addEventListener('noupdate', logEvent, false); 
-	cache.addEventListener('obsolete', logEvent, false);
-	cache.addEventListener('progress', logEvent, false);
-	cache.addEventListener('updateready', logEvent, false);
 	
 	function logEvent(e) {
 		var online, status, type, message;
@@ -35,6 +27,14 @@
 
 	function isOnline() { return navigator.onLine; }
     
+    cache.addEventListener('cached', logEvent, false);
+	cache.addEventListener('checking', logEvent, false);
+	cache.addEventListener('downloading', logEvent, false);
+	cache.addEventListener('error', logEvent, false);
+	cache.addEventListener('noupdate', logEvent, false); 
+	cache.addEventListener('obsolete', logEvent, false);
+	cache.addEventListener('progress', logEvent, false);
+	cache.addEventListener('updateready', logEvent, false);
     cache.addEventListener('updateready', function(e){
     	if (cacheStatusValues[cache.status] != 'idle') {
     		cache.swapCache();
@@ -52,7 +52,7 @@
     }
 	cache.addEventListener('downloading', downloadCacheCallback);
 	cache.addEventListener('progress', downloadCacheCallback);
-	cache.addEventListener('updateready', downloadCacheCallback);
-	cache.addEventListener('cached', downloadCacheCallback);
-	cache.addEventListener('error', downloadCacheCallback);
+	cache.addEventListener('updateready', readyCacheCallback);
+	cache.addEventListener('cached', readyCacheCallback);
+	cache.addEventListener('error', readyCacheCallback);
 })();
