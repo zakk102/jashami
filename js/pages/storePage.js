@@ -297,9 +297,10 @@
 			window.productPanel.setModel(this.model.get('menuId').get('products').get(pid), this.model.get('storeNameId'));
 			// push state to url
 			var href = "";
-			if(window.location.hash.indexOf(pid)>=0) href = window.location.hash;
+			if(window.location.hash.indexOf(encodeURIComponent(pid))>=0) href = window.location.hash;
 			else href = window.location.hash+'/'+encodeURIComponent(pid);
 			Backbone.history.navigate(href, {trigger: false, replace: false});
+			this.onShowProduct = false;
 		},
 		render: function(){
 			// re-bind event
