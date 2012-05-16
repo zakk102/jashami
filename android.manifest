@@ -3,13 +3,13 @@ CACHE MANIFEST
 # Note: must change this every time for cache to invalidate
  
 CACHE:
-ios.html
+android.html
+android.manifest
 compiled_androidlibs.js
 compiled_apps.js
 css/compiled.css
 pic/white_logo.png
 pic/paper_antique-white_150.jpg
-
  
 # All other resources require the user to be online.
 NETWORK:

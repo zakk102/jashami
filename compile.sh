@@ -60,6 +60,7 @@ apps="\
 ./js/pages/storePage.js \
 ./js/pages/orderInfoPage.js \
 ./js/pages/userInfoPage.js \
+./js/pages/orderResultPage.js \
 ./js/router.js \
 "
 
