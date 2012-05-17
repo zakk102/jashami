@@ -4,6 +4,8 @@
 			'<div class="district-panel"><div class="district-panel-inner">',
 				'<div id="district-sticker1"></div>',
 				'<div id="district-sticker2"></div>',
+				'<div id="district-sticker1-shadow"></div>',
+				'<div id="district-sticker2-shadow"></div>',
 				'<div class="AddressSelector"></div>',
 				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_239_riflescope"]+');"></span></div>',
 			'</div></div>',
@@ -49,23 +51,23 @@
 			var last = LocalModel.getUserDistrict();
 			//TODO load default menu
 			if(window.phonegapEnabled){ // load from autoLocate
-				if(osType==Utils.DeviceType.Android){ // android, run autoLocate
-					this.autoLocate();
-				}else if(!locaStatus || locaStatus==null){ // not auth auto locate yet
-					if(last && last!=null && last.length>2){ // show last location
-						this.addressSelector.setSelection(last);
-						//TODO fix cannot catch location change event
-						window.myapp.location = last;
-						this.loadStore(window.addressAndZipcode.address2zipcode(last));
-					}else if(this.addressSelector.showSelector){ //show selecter
-						this.addressSelector.showSelector();
-					}
-				}else{ // auto locate auth OK or failed last time, run autoLocate
-					this.autoLocate(undefined, undefined, undefined, function(){
-						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
-					});
-				}
-				// this.loadStore("110");
+				// if(osType==Utils.DeviceType.Android){ // android, run autoLocate
+					// this.autoLocate();
+				// }else if(!locaStatus || locaStatus==null){ // not auth auto locate yet
+					// if(last && last!=null && last.length>2){ // show last location
+						// this.addressSelector.setSelection(last);
+						// //TODO fix cannot catch location change event
+						// window.myapp.location = last;
+						// this.loadStore(window.addressAndZipcode.address2zipcode(last));
+					// }else if(this.addressSelector.showSelector){ //show selecter
+						// this.addressSelector.showSelector();
+					// }
+				// }else{ // auto locate auth OK or failed last time, run autoLocate
+					// this.autoLocate(undefined, undefined, undefined, function(){
+						// if(that.addressSelector.showSelector) that.addressSelector.showSelector();
+					// });
+				// }
+				this.loadStore("260");
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
 				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);

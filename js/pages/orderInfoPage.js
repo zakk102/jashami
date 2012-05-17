@@ -5,7 +5,7 @@
 			'<div class="header-shadow"></div>',
 			'<div class="header-outer">',
 				'<div class="header">',
-					'<div class="center" style="background:url('+ImageResource["pic/paper_warm"]+') repeat scroll 0 0;">',
+					'<div class="center" style="background:url('+ImageResource["pic/paper_light_yellow"]+') repeat scroll 0 0;">',
 						'<div class="BackButton">',
 							'<div class="link-wrap" id="back-link-wrap" ><div id="back-link" class="icon" style="-webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_216_circle_arrow_left"]+');"></div><div class="function-txt">返回</div></div>',					
 						'</div>',

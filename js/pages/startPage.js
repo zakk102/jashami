@@ -13,7 +13,7 @@
 				'<div class="header-outer">',
 					'<div class="header">',
 						// '<div class="top"></div>',
-						'<div class="center" style="background:url('+ImageResource["pic/paper_warm"]+') repeat scroll 0 0;">',
+						'<div class="center" style="background:url('+ImageResource["pic/paper_light_yellow"]+') repeat scroll 0 0;">',
 							// '<div class="BackButton"><a><div class="Pointer"></div><div class="Button"><div class="ButtonMsg"></div></div></a></div>',
 							'<div class="function-panel">',
 								'<a class="link" href="#startPage/orderTab"><div class="link-wrap" id="order-link-wrap"><div id="order-link" class="icon" style=" -webkit-mask-box-image:url('+ImageResource["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_027_search"]+');"></div><div class="function-txt">訂餐</div></div></a>',

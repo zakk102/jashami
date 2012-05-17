@@ -4,7 +4,7 @@
 
 @color-header-gray: rgb(243,244,239);
 @color-logo-orange: rgb(223,74,10);
-@color-sticker: rgba(223,74,10, 0.9);
+@color-sticker: rgba(223,74,10, 0.95);
 // @easternblue:
 
 //==============================================================
@@ -19,7 +19,7 @@
 // .box_shadow(@x:0, @y:0, @blur:1, @spread:0, @color) {
   // -webkit-box-shadow: @x @y 4px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
      // -moz-box-shadow: @x @y 4px 0px #ffffff; /* FF3.5 - 3.6 */
-          // box-shadow: @x @y 4px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+          // box-shadowdistrict-sticker1: @x @y 4px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
 // }
 .linear-gradient(@start, @end, @color1, @stop-1, @color2, @stop-2) {
   background-color: color-stop(@stop-1, @color1);
@@ -231,7 +231,7 @@ body{
     // background:rgba(100, 100, 100, 0.5);
     // .linear-gradient(center top, center bottom, rgba(50, 50, 50, 0.4), 0.3, rgba(100, 100, 100, 0.3), 0.6);
     -webkit-box-shadow:
-      -0.01em 0.4em 5px rgba(100, 100, 100, 0.3);
+      0.2em 0.4em 5px rgba(100, 100, 100, 0.3);
       // -0.4em 0.8em 8px rgba(100, 100, 100, 0.3);
   }
   .header-outer{
@@ -716,7 +716,7 @@ body{
       #district-sticker1{
         .sticker;
         top:-0.2em;
-        left:0.2em;
+        left:0.5em;
         width:8em;
       }
       #district-sticker2{
@@ -724,6 +724,22 @@ body{
         top:-0.2em;
         left:9em; 
         width:6.5em;
+      }
+      #district-sticker1-shadow{
+        .sticker;
+        top:-0.2em;
+        left:0.5em;
+        width:8em;
+        background:none;
+        -webkit-box-shadow: 0.2em 0.3em 5px 0 rgba(100,100,100,0.3);
+      }
+      #district-sticker2-shadow{
+        .sticker;
+        top:-0.2em;
+        left:9em; 
+        width:6.5em;
+        background:none;
+        -webkit-box-shadow: 0.2em 0.3em 5px 0 rgba(100,100,100,0.3);
       }
       .AddressSelector{
         display: -webkit-box;
@@ -946,12 +962,24 @@ body{
         height:1.2em;
         width:100%;
         background:rgba(255,255,255,0.6);
+        .long-name{
+          // @media screen and (max-width: 400px) {
+            font-size:0.75em;
+            line-height:1.5em;
+          // }  
+        }
       }
       .ProductBoxWidget2-infoNoImg{
         height:2em;
         line-height:2em;
         position: relative;
         width:100%;
+        .long-name{
+          // @media screen and (max-width: 400px) {
+            font-size:0.75em;
+            // line-height:1.5em;
+          // }  
+        }
       }
       .ProductBoxWidget2-name{
         position: absolute;
@@ -960,12 +988,6 @@ body{
         color: #260c03;
         text-align: left;
         font-weight: bold;
-      }
-      .long-name{
-        // @media screen and (max-width: 400px) {
-          font-size:0.75em;
-          line-height:1.5em;
-        // }  
       }
 
       .ProductBoxWidget2-price{
@@ -1297,7 +1319,7 @@ body{
       position:relative;
       width:100%;
       height:auto;
-      padding: 1em;
+      padding: 0.8em;
       -webkit-box-sizing: border-box;
       // margin: 3%;
       .image-intro-wrap{
@@ -1325,7 +1347,7 @@ body{
             // left: 0.5em;
             height: 1.5em;
             line-height: 1.5em;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             width: 85%;
             color: orangered;
           }
@@ -1348,8 +1370,8 @@ body{
             right: 0.2em;
             height:auto;
             box-sizing: border-box;
-            @tag-height:3.3em;
-            @tag-width:3.1em;
+            @tag-height:3em;
+            @tag-width:3.2em;
             @tag-padding:0.2em;
             .tag{
               height:@tag-height;
@@ -1425,11 +1447,13 @@ body{
           #sub-icon:active{
             background:orange;
           }
-      .OptionBox, .NoteBox{
+      .OptionBox{
         // margin: 0.4em;
         .ProductOption{
           // background:rgba(255,255,255,0.6);
-          // margin-bottom: 0.3em;
+          // margin-left: 0.5em;
+          // margin-right: 0.5em;
+          margin-bottom: 0.5em;
           // parent
           
           // children
@@ -1445,24 +1469,32 @@ body{
             height: 2.5em;
             width: 100%;
             .OptionTitle{
-              background:orange;
               border:0.25em solid orange;
-              color:white;
+              color:orange;
               height: 2.0em;
               line-height: 2.0em;
-              border-left-width: 0.5em;
-              border-right-width: 0.5em;
               -webkit-box-flex: 1;
+              border-bottom-left-radius: 1em;
+              border-top-left-radius: 1em;
+              color: orange;
+              background: rgba(255,255,255,0.6 );//rgba(255, 160, 0, 0.2);
+              padding-left:0.5em;
+              padding-right: 0.5em;
             }
             .SelectInput{
               height: 2.0em;
               line-height: 2.0em;
-              margin-right:0.25em;
+              // margin-right:0.25em;
               -webkit-box-flex:1000;
               text-align: right;
               position: relative;
+              background:orange;
+              border:0.25em solid orange;
+              border-bottom-right-radius: 1em;
+              border-top-right-radius: 1em;
               .selectedValue{
-                color:darkslategray;
+                // color:darkslategray;
+                color:white;
                 display: block;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -1476,7 +1508,7 @@ body{
                 display:inline-block;
                 height:2.0em;
                 width:2em;
-                background:orange;
+                background:white;
                 // -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_220_play_button.png);
                 -webkit-transform:rotate(90deg);
                 // color:darkslategray;
@@ -1487,8 +1519,10 @@ body{
           .WebOptionPanel{
           }
         }
+      }
+      .NoteBox{
         .OptionPanel{
-          background:rgba(255,255,255,0.6);
+          // background:rgba(255,255,255,0.6);
           margin-bottom: 0.5em;
           display: -webkit-box;
           -webkit-box-pack: justify;
@@ -1496,13 +1530,17 @@ body{
           height:2.5em;
           width: 100%;
           .OptionTitle{
-            background:orange;
-            border:0.25em solid orange;
-            color:white;
-            height: 2.0em;
-            line-height: 2.0em;
-            border-left-width: 0.5em;
-            border-right-width: 0.5em;
+              border:0.25em solid orange;
+              color:orange;
+              height: 2.0em;
+              line-height: 2.0em;
+              -webkit-box-flex: 1;
+              border-bottom-left-radius: 1em;
+              border-top-left-radius: 1em;
+              color: white;
+              background: orange;//rgba(255, 160, 0, 0.2);
+              padding-left:0.5em;
+              padding-right: 0.5em;
           }
         }
       }
@@ -1510,9 +1548,17 @@ body{
         .InputBox{
           -webkit-box-flex: 10;
           text-align: right;
+          background:orange;
+          border-top-right-radius:1em;
+          border-bottom-right-radius:1em;
+
           input{
-            width: 90%;
-            margin: 0 5px 0 0;
+            width: 100%;
+            font-size: 1em;
+            height: 2.5em;
+            border: 0.25em solid orange;
+            // border-left-width:1em;
+            -webkit-box-sizing: border-box;
           }
         }
       }
