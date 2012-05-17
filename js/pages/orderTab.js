@@ -4,6 +4,8 @@
 			'<div class="district-panel"><div class="district-panel-inner">',
 				'<div id="district-sticker1"></div>',
 				'<div id="district-sticker2"></div>',
+				'<div id="district-sticker1-shadow"></div>',
+				'<div id="district-sticker2-shadow"></div>',
 				'<div class="AddressSelector"></div>',
 				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_239_riflescope"]+');"></span></div>',
 			'</div></div>',
@@ -65,7 +67,7 @@
 						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
 					});
 				}
-				// this.loadStore("110");
+				// this.loadStore("260");
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
 				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);

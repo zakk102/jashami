@@ -6,7 +6,7 @@
 			'<div class="OrderHistory">',
 				'<div class="OrderHistoryPanelTitle">',
 					'<div class="column-name"></div>',
-					'<div class="column-name">送達時間</div>',
+					'<div class="column-name">送到時間</div>',
 					'<div class="column-name">編號</div>',
 					'<div class="column-name">狀態</div>',
 				'</div>',
