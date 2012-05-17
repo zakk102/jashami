@@ -1,3 +1,14 @@
+# update compiled time to manifest
+_now=$(date)
+sed -i '' '2 s/#.* Compiled time/'"# $_now Compiled time"'/' ios.manifest
+sed -i '' '2 s/#.* Compiled time/'"# $_now Compiled time"'/' android.manifest
+
+# update compiled time to main.js
+sed -i '' 's/window.myapp.compiledTime = ".*"./window.myapp.compiledTime = "'"$_now"'";/' js/main.js
+
+
+# Start compiling
+
 ioslibs="\
 ./js/libs/phonegap/phonegap-ios.js \
 ./js/libs/phonegap/phonegap-plugin-ios.js \
