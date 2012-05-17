@@ -1,3 +1,6 @@
+// app version
+	window.myapp.updateTime = "2012/05/17 00:50";
+
 // i18n
 	var supportedLang = 'zh-tw';
 	var defaultLang = 'zh-tw';
@@ -6,7 +9,7 @@
 	if(supportedLang.indexOf(language)<0) language = defaultLang;
 	i18n.set(window.languages[language]);
 
-	 window.phonegapEnabled = true;
+	// window.phonegapEnabled = true;
 
 // phonegap
 	document.addEventListener("deviceready", function(){

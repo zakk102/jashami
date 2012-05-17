@@ -18,8 +18,8 @@
 	
 	var orderHeaderTemplate = [
 		'<div class="AccordionArrow"></div>',
-		'<div><%= want.format("m/d H:i") %></div>',
-		'<div><%= send.format("md")+"-"+ID.substring(ID.length-3) %></div>',
+		'<div><%= i18n.formatDate(want, "m/d H:i") %></div>',
+		'<div><%= i18n.formatDate(send, "md")+"-"+ID.substring(ID.length-3) %></div>',
 		'<div><%= status %></div>'			
 	].join('');
 	

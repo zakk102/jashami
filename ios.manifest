@@ -1,14 +1,15 @@
 CACHE MANIFEST
-# Update Date: 2012/05/15 22:30
+# Update Date: 2012/05/17 00:50
 # Note: must change this every time for cache to invalidate
  
 CACHE:
-ios.html
-compiled_ioslibs.js
-compiled_apps.js
-css/compiled.css
-pic/white_logo.png
-pic/paper_antique-white_150.jpg
+./ios.html
+./ios.manifest
+./compiled_ioslibs.js
+./compiled_apps.js
+./css/compiled.css
+./pic/white_logo.png
+./pic/paper_antique-white_150.jpg
 
  
 # All other resources require the user to be online.
