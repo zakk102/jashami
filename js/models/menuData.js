@@ -116,6 +116,10 @@
 				dataType: 'json',
 				success: function(data){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
+					if(!data.zipCodeIndexs){
+						alert("讀取菜單失敗，請再試一次");
+						return;
+					}
 					that.get('zipCodeIndexs').add(data.zipCodeIndexs);
 					that.get('stores').add(data.stores);
 					that.get('menus').add(data.menus);
@@ -127,6 +131,7 @@
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				    console.log('_getMenuFromServer: Ajax error!');
+				    alert("讀取菜單失敗，請再試一次");
 				    if(failCallback) failCallback(xhr, type);
 				}
 			});
@@ -151,6 +156,7 @@
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				    console.log('_getMenuOfStoreFromServer: Ajax error!');
+				    alert("讀取菜單失敗，請再試一次");
 				    if(failCallback) failCallback(xhr, type);
 				}
 			});
