@@ -14,6 +14,8 @@
 	var Device = {};
 	PG.Device = Device;
 	Device.getUUID = function(){ return device.uuid; };
+	Device.getName = function(){ return device.name; };
+	Device.getVersion = function(){ return device.version; };
 	Device.getPhoneGapVersion = function(){ return device.phonegap; };
 	Device.overrideBackButton = function(){ 
 		if (device && typeof device.overrideBackButton == "function") {

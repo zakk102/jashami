@@ -26,4 +26,5 @@
 	window.myapp.Api.OrderServiceUrl = window.myapp.Api.BasicUrl + "OrderService";
 	window.myapp.Api.AppEventServiceUrl = window.myapp.Api.BasicUrl + "AppEventService";
 	window.myapp.Api.FeedbackServiceUrl = window.myapp.Api.BasicUrl + "FeedbackService";
+	window.myapp.Api.DeviceInfoServiceUrl = window.myapp.Api.BasicUrl + "PushNotificationService";
 })();

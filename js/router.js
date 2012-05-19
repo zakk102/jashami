@@ -101,8 +101,6 @@
 				window.productPanel.$el.hide();
 			}
 			var that = this;
-			console.log(window.location.href);
-			console.log(that.views.storePage.$el.attr('url'));
 			if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
 				that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
 				that.transitionEffectType = null;
