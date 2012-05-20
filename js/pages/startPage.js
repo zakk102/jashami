@@ -41,10 +41,10 @@
 			this.$el.attr("id","startPageView");
 			this.$el.attr("style","height:100%; width:100%;");
 			this.$el.css("-webkit-box-orient", "horizontal");
-			new TouchWidget({el:$('#order-link-wrap', this.el)});
-			new TouchWidget({el:$('#history-link-wrap', this.el)});
-			new TouchWidget({el:$('#feedback-link-wrap', this.el)});
-			new TouchWidget({el:$('#about-link-wrap', this.el)});
+			// new TouchWidget({el:$('#order-link-wrap', this.el)});
+			// new TouchWidget({el:$('#history-link-wrap', this.el)});
+			// new TouchWidget({el:$('#feedback-link-wrap', this.el)});
+			// new TouchWidget({el:$('#about-link-wrap', this.el)});
 		},
 		events:{
 			"click .PageContent":"hideFunctionPanel",

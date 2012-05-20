@@ -93,8 +93,10 @@
 	
 	var noteTemplate = [
 		'<div class="OptionPanel WebOptionPanel">',
-			'<div class="OptionTitle"><%= title %>：</div>',
-			'<div><%= content  %></div>',
+			'<div class="notebox">',
+				'<div class="OptionTitle"><%= title %></div>',
+				'<div class="content"><%= content  %></div>',
+			'</div>',
 		'</div>'
 	].join('');
 	

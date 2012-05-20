@@ -209,7 +209,7 @@ body{
   z-index:19;    
   height:2.5em;
   background: @color-sticker;
-  -webkit-transform: rotate(-2deg);
+  // -webkit-transform: rotate(-2deg);
   -webkit-box-shadow:0 0px 1px 0 @color-sticker;
 }
 
@@ -421,16 +421,10 @@ body{
         #waiter-link-wrap.active .icon{
               background:@tab-button-color-ative;
         }
-        // .link-wrap.active .function-txt{
-              // color:@tab-button-color-ative;
-        // }
-        // .link-wrap.active .icon{
-              // background:@tab-button-color-ative;
-        // }
       }
+      @tab-button-color:orange;
+      @tab-button-color-ative:orangered;
       .link.active{
-        @tab-button-color:orangered;
-        @tab-button-color-ative:orange;
         #order-link-wrap .function-txt{
               color:@tab-button-color-ative;
         }
@@ -454,6 +448,33 @@ body{
         }
         #about-link-wrap .icon{
               background:@tab-button-color-ative;
+        }
+        
+      }
+      .link{
+        #order-link-wrap .function-txt{
+              color:@tab-button-color;
+        }
+        #order-link-wrap .icon{
+              background:@tab-button-color;
+        }
+        #history-link-wrap .function-txt{
+              color:@tab-button-color;
+        }
+        #history-link-wrap .icon{
+              background:@tab-button-color;
+        }
+        #feedback-link-wrap .function-txt{
+              color:@tab-button-color;
+        }
+        #feedback-link-wrap .icon{
+              background:@tab-button-color;
+        }
+        #about-link-wrap .function-txt{
+              color:@tab-button-color;
+        }
+        #about-link-wrap .icon{
+              background:@tab-button-color;
         }
         
       }
@@ -675,7 +696,10 @@ body{
 //==============================================================
 // Panel: StoreList
 //==============================================================
-      
+#addr-title{    
+  display:none;
+}
+
 .orderTab{
   position:relative;
   display: -webkit-box;
@@ -691,12 +715,9 @@ body{
       left:20%;
     }
     @media screen and (max-width:360px){
-      left:10%;
-    }
-    @media screen and (max-width:320px){
       left:0;
     }
-    width:16em;
+    width:18em;
     @district-height:2.5em;
     height:@district-height;
     .district-panel-inner{
@@ -716,27 +737,27 @@ body{
       #district-sticker1{
         .sticker;
         top:-0.2em;
-        left:0.5em;
-        width:8em;
+        left:0.3em;
+        width:10.6em;
       }
       #district-sticker2{
         .sticker;
         top:-0.2em;
-        left:9em; 
+        left:11.5em; 
         width:6.5em;
       }
       #district-sticker1-shadow{
         .sticker;
         top:-0.2em;
-        left:0.5em;
-        width:8em;
+        left:0.3em;
+        width:10.6em;
         background:none;
         -webkit-box-shadow: 0.2em 0.3em 5px 0 rgba(100,100,100,0.3);
       }
       #district-sticker2-shadow{
         .sticker;
         top:-0.2em;
-        left:9em; 
+        left:11.5em; 
         width:6.5em;
         background:none;
         -webkit-box-shadow: 0.2em 0.3em 5px 0 rgba(100,100,100,0.3);
@@ -747,7 +768,7 @@ body{
         -webkit-box-pack:left;
         -webkit-box-align:center;
         position:absolute;
-        left:1em;
+        left:0.7em;
         top:0.5em;
         z-index:inherit;
         
@@ -800,13 +821,17 @@ body{
             -webkit-box-orient: horizontal;
             -webkit-box-pack:left;
             -webkit-box-align:center;
+            #addr-title{
+              .sticker-txt;
+              display:inline;
+            }
             .selectedValue{
               .sticker-txt;
             }
             .option-sel-icon{
               display:inline-block;
-              height:1.5em;
-              width:1.5em;
+              height:1.8em;
+              width:1.8em;
               background:white;
               // -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_220_play_button.png);
               -webkit-transform:rotate(90deg);
@@ -821,7 +846,7 @@ body{
         -webkit-box-align:center;
         position:absolute;
         z-index:inherit;
-        left:9.5em;
+        left:12em;
         top:0.5em;
         .locating-txt{
           .sticker-txt;
@@ -913,7 +938,8 @@ body{
   .FlexGridContainerTitle{
     // position:absolute;
     // left:0em;
-    width:48%;
+    margin-top:1.5em;
+    width:55%;
     border: none;
     // opacity:0.7;
     margin:5px;
@@ -1516,8 +1542,96 @@ body{
               }
             }
           }
+//noteTemplate
+          .OptionPanel{
+            display: -webkit-box;
+            -webkit-box-pack: justify;
+            -webkit-box-align: center;
+            height: 2.5em;
+            width: 100%;
+            .OptionTitle{
+              border:0.25em solid orange;
+              color:orange;
+              height: 2.0em;
+              line-height: 2.0em;
+              -webkit-box-flex: 1;
+              border-bottom-left-radius: 1em;
+              border-top-left-radius: 1em;
+              color: orange;
+              background: rgba(255,255,255,0.6 );//rgba(255, 160, 0, 0.2);
+              padding-left:0.5em;
+              padding-right: 0.5em;
+            }
+            .SelectInput{
+              height: 2.0em;
+              line-height: 2.0em;
+              // margin-right:0.25em;
+              -webkit-box-flex:1000;
+              text-align: right;
+              position: relative;
+              background:orange;
+              border:0.25em solid orange;
+              border-bottom-right-radius: 1em;
+              border-top-right-radius: 1em;
+              .selectedValue{
+                // color:darkslategray;
+                color:white;
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 0 2em 0 0;
+              }
+              .option-sel-icon{
+                position: absolute;
+                top: 0%;
+                right: 0%;
+                display:inline-block;
+                height:2.0em;
+                width:2em;
+                background:white;
+                // -webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_220_play_button.png);
+                -webkit-transform:rotate(90deg);
+                // color:darkslategray;
+                // font-size:1.3em;
+              }
+            }
+          }
+          
           .WebOptionPanel{
           }
+        }
+      }
+      .notebox{
+        margin-bottom: 0.5em;
+        display: -webkit-box;
+        -webkit-box-pack: justify;
+        -webkit-box-align: center;
+        height:2.5em;
+        width: 100%;
+        .OptionTitle{
+          border:0.25em solid orange;
+          color:orange;
+          height: 2.0em;
+          line-height: 2.0em;
+          -webkit-box-flex: 1;
+          border-bottom-left-radius: 1em;
+          border-top-left-radius: 1em;
+          color: orange;
+          background: rgba(255,255,255,0.6 );//rgba(255, 160, 0, 0.2);
+          padding-left:0.5em;
+          padding-right: 0.5em;
+        }
+        .content{
+          height: 2.0em;
+          line-height: 2.0em;
+          // margin-right:0.25em;
+          -webkit-box-flex:1000;
+          text-align: right;
+          position: relative;
+          background:orange;
+          border:0.25em solid orange;
+           color:white;
         }
       }
       .NoteBox{
@@ -1950,6 +2064,7 @@ body{
       line-height:2em;
     }
     #pulldown-icon{
+      background:orangered;
       //-webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_212_down_arrow.png);
     }
     #pullup-icon{
