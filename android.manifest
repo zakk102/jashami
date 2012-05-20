@@ -1,6 +1,6 @@
 CACHE MANIFEST
-# Update Date: 2012/05/17 00:50
-# Note: must change this every time for cache to invalidate
+# Sat May 19 07:20:15 CST 2012 Compiled time
+# Note: do not change the above line
  
 CACHE:
 android.html
@@ -16,3 +16,4 @@ NETWORK:
 *
 
 FALLBACK:
+offline.html
