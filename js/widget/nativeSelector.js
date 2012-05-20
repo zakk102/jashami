@@ -2,6 +2,7 @@
 (function(Utils, DeviceType, Images, Picker){
 	var template = [
 		// '<div>',
+			'<span id="addr-title">送到</span>',
 			'<span class="selectedValue"></span>',
 			'<span class="option-sel-icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_220_play_button"]+');"></span>',
 		// '</div>',
