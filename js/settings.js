@@ -16,7 +16,8 @@
 			if( h<9 || (h==9&&m<=30) ) return false; //0:00~9:30
 			if( h>19 || (h==19&&m>=30) ) return false; //19:30~24:00
 			return true;
-		}
+		},
+		'appVersion': 'ver2.2.001'
 	};
 	
 	window.myapp.Api = window.myapp.Api || {};

@@ -17,7 +17,7 @@
 				  	}
 				});
 			}else{
-				console.log('develop mode, disable event sending: '+data.eventCategory+' '+data.eventAction+' '+data.eventLabel+' '+data.eventPararmeter);
+				console.log('develop mode, skip event sending: '+data.eventCategory+', '+data.eventAction+', '+data.eventLabel+', '+data.eventPararmeter);
 			}
 		},
 		onStart: function(){

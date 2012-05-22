@@ -10,7 +10,9 @@
 	var NativeProductOptionView = Backbone.View.extend({
 		initialize: function(){
 			this.$el.addClass('Native ProductOption');
-			this.$el.html(_.template(template, {title:this.model.title}));
+			var title = this.model.title;
+			if(this.model.subOption) title += ','+this.model.subOption.title;
+			this.$el.html(_.template(template, {title:title}));
 			var selector = new NativeSelector({el:$(".SelectInput",this.el)});
 			this.selector = selector;
 		},
