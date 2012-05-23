@@ -1,4 +1,4 @@
-(function(isOpenNow, appVersion){
+(function(addressAndZipcode, isOpenNow, appVersion){
 	
 /*	var orderProcessString = {
 		Loc:"Location",
@@ -44,8 +44,38 @@
 			}
 		},
 		goPage: function(){
-			var url = window.location.pathname + window.location.hash + "?open=" + isOpenNow();
+			var url = window.location.pathname + window.location.hash + "?open=" + isOpenNow() +"&v="+appVersion;
 			this.sendTrackUrl(url);
+		},
+		trackAppVersion: function(){
+			this.sendTrackEvent("網頁版本", appVersion);
+		},
+		trackAutoLocalzation_zipCode: function(zipCode){
+			var addr = addressAndZipcode.zipcode2address(zipCode);
+			if(!addr) this.sendTrackEvent("自動定位", "其他", zipCode);
+			else this.trackAutoLocalzation(addr.substring(0,3), addr.substring(3));
+		},
+		trackAutoLocalzation: function(country, area){
+			this.sendTrackEvent("自動定位", country, area);
+		},
+		trackOpenTime: function(){
+			var d = new Date();
+			this.sendTrackEvent("開啓app時間", isOpenNow()?"營業中":"休息中", d.getHours()+"");
+		},
+		trackIntoUserInfoPageTime: function(chainStore){
+			var d = new Date();
+			this.sendTrackEvent("進入填資料頁時間", "總計", d.getHours());
+			this.sendTrackEvent("進入填資料頁時間", chainStore, d.getHours()+"");
+		},
+		trackSendOrderTime: function(chainStore){
+			var d = new Date();
+			this.sendTrackEvent("送出訂單時間", "總計", d.getHours());
+			this.sendTrackEvent("送出訂單時間", chainStore, d.getHours()+"");
+		},
+		trackIntoStorePageTime: function(chainStore){
+			var d = new Date();
+			this.sendTrackEvent("瀏覽菜單時間", "總計", d.getHours());
+			this.sendTrackEvent("瀏覽菜單時間", chainStore, d.getHours()+"");
 		}
 /*		trackOrderProcess: function(page, action, data){
 			var isOpen = isOpenNow()?"營業中":"休息中";
@@ -80,5 +110,6 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.GoogleAnalytics = GoogleAnalytics;
-})(	window.myapp.Settings.isOpenNow,
+})(	window.addressAndZipcode,
+	window.myapp.Settings.isOpenNow,
 	window.myapp.Settings.appVersion);

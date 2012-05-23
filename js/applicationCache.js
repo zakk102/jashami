@@ -55,4 +55,12 @@
 	cache.addEventListener('updateready', readyCacheCallback);
 	cache.addEventListener('cached', readyCacheCallback);
 	cache.addEventListener('error', readyCacheCallback);
+	
+// auto check for update
+/*	setInterval(function(){
+		log("start checking cache update");
+	    try{cache.update();}catch(err){log(err);}
+	    log("finish checking cache update");
+	}, 10000);
+*/
 })();

@@ -1,5 +1,5 @@
 // Filename: router.js
-(function(OrderServiceUrl, MenuData, LoadingPanel, Views){
+(function(GoogleAnalytics, OrderServiceUrl, MenuData, LoadingPanel, Views){
 	var TransitionEffectTypes = 'hSlide';
 	var AppRouter = Backbone.Router.extend({
 		routes: {
@@ -126,6 +126,8 @@
 					that.loadToDOM(that.views.orderInfoPage.el);
 					window.orderInfoPage = that.views.orderInfoPage;
 				}
+				// send GA event
+				try{GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));}catch(err){}
 			},function(xhr, type){
 				console.log(type);
 			});
@@ -184,10 +186,6 @@
 				this.loadToDOM(this.views.userInfoPage.el);
 			}
 			// set store menu data
-			var that = this;
-			if(!window.menuData){
-				window.menuData = new MenuData();
-			}
 			this.views.userInfoPage.setTitle(storeName);
 			this.views.userInfoPage.setStore(store);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
@@ -207,6 +205,8 @@
 			this.transitionEffectType = null;
 			this.transitionDir = null;
 			this.views.userInfoPage.render();
+			// send GA event
+			try{GoogleAnalytics.trackIntoUserInfoPageTime(window.menuData.get('stores').get(store).get('chainStore'));}catch(err){}
 		},
 		orderResultPage: function(store){
 			if(!this.views.orderResultPage){ // load the orderResult page into DOM
@@ -223,6 +223,8 @@
 			this.transitionDir = null;
 			this.views.orderResultPage.render();
 			this.views.orderResultPage.cleanShoppingCart(store);
+			// send GA event
+			try{GoogleAnalytics.trackSendOrderTime(window.menuData.get('stores').get(store).get('chainStore'));}catch(err){}
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');
@@ -291,7 +293,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.Router = AppRouter;
 	
-})(	window.myapp.Api.OrderServiceUrl,
+})(	window.myapp.GoogleAnalytics,
+	window.myapp.Api.OrderServiceUrl,
 	window.myapp.Model.MenuData,
 	window.myapp.Widget.LoadingPanel,
 {	StartPageView:window.myapp.StartPageView,

@@ -1,5 +1,5 @@
 // Filename: js/pages/orderTab.js
-(function(Images, LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
+(function(GoogleAnalytics, Images, LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div class="district-panel"><div class="district-panel-inner">',
 				'<div id="district-sticker1"></div>',
@@ -96,6 +96,7 @@
     				var addr = address.results[0].formatted_address;
     				window.autoLocalization.address = addr; // save
     				that.addressSelector.setSelection_zipcode(addr.substring(0,3));
+    				GoogleAnalytics.trackAutoLocalzation_zipCode(addr.substring(0,3)); // send GA event
     				if(successCallBack) successCallBack();
     			},function(error){
     				if(window.loadingPanel) window.loadingPanel.connectionIn();
@@ -207,7 +208,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
 	
-})(	window.myapp.Images,
+})(	window.myapp.GoogleAnalytics,
+	window.myapp.Images,
 	window.myapp.LocalModel,
 	window.myapp.Settings,
 	window.myapp.PG.Geolocation,
