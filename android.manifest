@@ -1,10 +1,9 @@
 CACHE MANIFEST
-# Thu May 24 10:51:52 CST 2012 Compiled time
+# Thu May 24 19:12:42 CST 2012 Compiled time
 # Note: do not change the above line
  
 CACHE:
 android.html
-android.manifest
 compiled_androidlibs.js
 compiled_apps.js
 css/compiled.css

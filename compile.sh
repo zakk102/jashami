@@ -36,11 +36,12 @@ androidlibs="\
 "
 
 apps="\
+./js/settings.js \
 ./js/applicationCache.js \
 ./js/localModel.js \
+./js/errorCollection.js \
 ./js/i18n/zh-tw.js \
 ./js/main.js \
-./js/settings.js \
 ./js/utils.js \
 ./js/models/addressAndZipcode.js \
 ./js/models/menuData.js \

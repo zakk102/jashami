@@ -17,7 +17,7 @@
 			if( h>19 || (h==19&&m>=30) ) return false; //19:30~24:00
 			return true;
 		},
-		'appVersion': 'ver2.2.008'
+		'appVersion': 'ver2.2.009'
 	};
 	
 	window.myapp.Api = window.myapp.Api || {};
@@ -28,4 +28,5 @@
 	window.myapp.Api.AppEventServiceUrl = window.myapp.Api.BasicUrl + "AppEventService";
 	window.myapp.Api.FeedbackServiceUrl = window.myapp.Api.BasicUrl + "FeedbackService";
 	window.myapp.Api.DeviceInfoServiceUrl = window.myapp.Api.BasicUrl + "PushNotificationService";
+	window.myapp.Api.ErrorLogServiceUrl = window.myapp.Api.BasicUrl + "ErrorLogService";
 })();

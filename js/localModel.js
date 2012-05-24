@@ -45,6 +45,9 @@
 		LocalModel.getLocationServiceStatus = function(){ return this.get("LocationServiceStatus"); };
 		LocalModel.setLocationServiceStatus = function(status){ this.set("LocationServiceStatus", status); };
 
+	// error log
+//		LocalModel.getAppErrorLog = function()
+
 	// phone data
 		LocalModel.getAppId = function(){ return this.get("appID"); };
 		LocalModel.setPhoneUUID = function(uuid){ this.set("phoneUUID", uuid); };
