@@ -178,7 +178,7 @@
   			var that = this;
   			//  title
 			var storeName = this.model.get('displayedName');
-			$("#title", this.el).html(storeName);
+			$("#title", this.el).html(storeName3);
 			// product items
 			var products = this.model.get('menuId').get('products').models;
 			this.model.get('menuId').get('products').sort();

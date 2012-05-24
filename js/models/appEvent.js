@@ -1,12 +1,11 @@
 (function(AppEventServiceUrl, LocalModel){
 	
 	var AppEvent = {
-		_develop: true,
 		sendEvent: function(data){
 			if(data){
 				data.UUID = LocalModel.getUUID();
 			}
-			if(!this._develop){
+			if(!window._develop){
 				$.ajax({
     				type: 'POST',
   					url: AppEventServiceUrl+'?action=sendEvent',

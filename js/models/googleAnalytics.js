@@ -24,9 +24,8 @@
 	};
 	
 	var GoogleAnalytics = {
-		_develop: true,
 		sendTrackEvent: function(category, action, label){
-			if(!this._develop){
+			if(!window._develop){
 				if (window._gaq) {
 		    		if(label) window._gaq.push(['_trackEvent', category, action, label]);
 		    		else if(action) window._gaq.push(['_trackEvent', category, action]);
@@ -42,7 +41,7 @@
 			}
 		},
 		sendTrackUrl: function(url){
-			if(!this._develop){
+			if(!window._develop){
 				if (window._gaq) {
 		    		window._gaq.push(['_trackPageview', url]);
 				}else{
