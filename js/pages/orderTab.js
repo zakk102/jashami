@@ -179,7 +179,9 @@
 			},function(xhr, type){
 				console.log(type);
 			});
-			
+			// send GA event
+			GoogleAnalytics.trackGetMenuArea_zipcode(zipcode);
+			GoogleAnalytics.trackOrderProcess(1, zipcode);
   		},
 		render: function(){
 			this.scroller.render();

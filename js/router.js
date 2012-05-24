@@ -127,7 +127,10 @@
 					window.orderInfoPage = that.views.orderInfoPage;
 				}
 				// send GA event
-				try{GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));}catch(err){}
+				try{
+					GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));
+					GoogleAnalytics.trackOrderProcess(2, s.get('chainStore'));
+				}catch(err){}
 			},function(xhr, type){
 				console.log(type);
 			});
@@ -170,6 +173,8 @@
 			}
 			window.menuData.getMenuOfStore(store, function(s){
 				that.views.orderInfoPage.setModel(s);
+				// send GA event
+				try{ GoogleAnalytics.trackOrderProcess(4, s.get('chainStore')); }catch(err){}
 			},function(xhr, type){
 				console.log(type);
 			});
@@ -206,7 +211,11 @@
 			this.transitionDir = null;
 			this.views.userInfoPage.render();
 			// send GA event
-			try{GoogleAnalytics.trackIntoUserInfoPageTime(window.menuData.get('stores').get(store).get('chainStore'));}catch(err){}
+			try{
+				var GA_CS = window.menuData.get('stores').get(store).get('chainStore');
+				GoogleAnalytics.trackIntoUserInfoPageTime(GA_CS);
+				GoogleAnalytics.trackOrderProcess(5, GA_CS);
+			}catch(err){}
 		},
 		orderResultPage: function(store){
 			if(!this.views.orderResultPage){ // load the orderResult page into DOM
@@ -224,7 +233,11 @@
 			this.views.orderResultPage.render();
 			this.views.orderResultPage.cleanShoppingCart(store);
 			// send GA event
-			try{GoogleAnalytics.trackSendOrderTime(window.menuData.get('stores').get(store).get('chainStore'));}catch(err){}
+			try{
+				var GA_CS = window.menuData.get('stores').get(store).get('chainStore');
+				GoogleAnalytics.trackSendOrderTime(GA_CS);
+				GoogleAnalytics.trackOrderProcess(6, GA_CS);
+			}catch(err){}
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');

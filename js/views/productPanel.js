@@ -1,5 +1,5 @@
 //Filename: js/views/productPanel.js
-(function(ImageResource, Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection, TouchWidget){
+(function(GoogleAnalytics, ImageResource, Scroller, NativeProductOptionView, ProductOptionView, BuyItem, ShoppingCartData, ShoppingCartCollection, TouchWidget){
 	var pageTemplate = [
 		'<div class="header-wrap">',
 			'<div class="header-shadow"></div>',
@@ -245,6 +245,8 @@
 														}));
 					window.history.go(-1);
 				});	
+				// send GA event
+				try{ GoogleAnalytics.trackOrderProcess(3, that.model.get('productNameId')); }catch(err){}
 			}
 		},
 		_updateSelection: function(){
@@ -339,7 +341,8 @@
 	window.myapp = window.myapp || {};
 	window.myapp.View = window.myapp.View || {};
 	window.myapp.View.ProductPanel = ProductPanel;
-})( window.myapp.Images,
+})( window.myapp.GoogleAnalytics,
+	window.myapp.Images,
 	window.myapp.Widget.Scroller, 
 	window.myapp.View.NativeProductOptionView,
 	window.myapp.View.ProductOptionView,

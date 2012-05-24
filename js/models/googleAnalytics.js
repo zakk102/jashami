@@ -14,6 +14,15 @@
 		Fin:"完成訂單"
 	};*/
 	
+	var orderProcessStage = {
+		"1":"讀取菜單",
+		"2":"進入商家",
+		"3":"放入購物車",
+		"4":"進入購物車",
+		"5":"填資料",
+		"6":"訂購完成"
+	};
+	
 	var GoogleAnalytics = {
 		_develop: true,
 		sendTrackEvent: function(category, action, label){
@@ -58,24 +67,34 @@
 		trackAutoLocalzation: function(country, area){
 			this.sendTrackEvent("自動定位", country, area);
 		},
+		trackGetMenuArea_zipcode: function(zipCode){
+			var addr = addressAndZipcode.zipcode2address(zipCode);
+			if(!addr) this.sendTrackEvent("讀取菜單區域", "其他", zipCode);
+			else this.trackGetMenuArea(addr.substring(0,3), addr.substring(3));
+		},
+		trackGetMenuArea: function(country, area){
+			this.sendTrackEvent("讀取菜單區域", country, area);
+		},
 		trackOpenTime: function(){
 			var d = new Date();
 			this.sendTrackEvent("開啓app時間", isOpenNow()?"營業中":"休息中", d.getHours()+"");
 		},
 		trackIntoUserInfoPageTime: function(chainStore){
 			var d = new Date();
-			this.sendTrackEvent("進入填資料頁時間", "總計", d.getHours());
 			this.sendTrackEvent("進入填資料頁時間", chainStore, d.getHours()+"");
 		},
 		trackSendOrderTime: function(chainStore){
 			var d = new Date();
-			this.sendTrackEvent("送出訂單時間", "總計", d.getHours());
 			this.sendTrackEvent("送出訂單時間", chainStore, d.getHours()+"");
 		},
 		trackIntoStorePageTime: function(chainStore){
 			var d = new Date();
-			this.sendTrackEvent("瀏覽菜單時間", "總計", d.getHours());
 			this.sendTrackEvent("瀏覽菜單時間", chainStore, d.getHours()+"");
+		},
+		trackOrderProcess: function(stage, para){
+			var open = isOpenNow()?"營業中":"休息中";
+			if(para) this.sendTrackEvent("購物流程 "+open, orderProcessStage[stage+""], para);
+			else this.sendTrackEvent("購物流程 "+open, orderProcessStage[stage+""]);
 		}
 /*		trackOrderProcess: function(page, action, data){
 			var isOpen = isOpenNow()?"營業中":"休息中";
