@@ -24,6 +24,7 @@
 	var AboutUsTabView = Backbone.View.extend({
 		initialize: function(){
 			var scroller = new Scroller();
+			this.scroller = scroller;
 			scroller.html(_.template(tabTemplate, {appVersion:appVersion}));
 			$(this.el).html(scroller.el);
 			$(scroller.el).css('width', '100%');
@@ -39,6 +40,8 @@
   			}
   		},
 		render: function(tab){
+			this.scroller.render();
+			this.delegateEvents();
 			return this;
 	   }
 	});

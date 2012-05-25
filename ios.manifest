@@ -1,16 +1,16 @@
 CACHE MANIFEST
-# Fri May 25 14:39:39 CST 2012 Compiled time
+# Fri May 25 16:26:02 CST 2012 Compiled time
 # Note: do not change the above line
  
 CACHE:
-./ios.html
-./compiled_ioslibs.js
-./compiled_apps.js
-./css/compiled.css
-./pic/white_logo.png
-./pic/paper_antique-white_150.jpg
+ios.html
+ios.manifest
+compiled_ioslibs.js
+compiled_apps.js
+css/compiled.css
+pic/white_logo.png
+pic/paper_antique-white_150.jpg
 
- 
 # All other resources require the user to be online.
 NETWORK:
 *

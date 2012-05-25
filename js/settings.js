@@ -17,7 +17,7 @@
 			if( h>19 || (h==19&&m>=30) ) return false; //19:30~24:00
 			return true;
 		},
-		'appVersion': 'ver2.2.013'
+		'appVersion': 'ver2.2.015'
 	};
 	
 	window.myapp.Api = window.myapp.Api || {};
