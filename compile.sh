@@ -10,6 +10,7 @@ sed -i '' 's/window.myapp.compiledTime = ".*"./window.myapp.compiledTime = "'"$_
 # Start compiling
 
 ioslibs="\
+./js/libs/stacktrace.js \
 ./js/libs/phonegap/phonegap-ios.js \
 ./js/libs/phonegap/phonegap-plugin-ios.js \
 ./js/libs/phonegap/phonegap-zakk.js \
@@ -23,6 +24,7 @@ ioslibs="\
 "
 
 androidlibs="\
+./js/libs/stacktrace.js \
 ./js/libs/phonegap/phonegap-android.js \
 ./js/libs/phonegap/phonegap-plugin-android.js \
 ./js/libs/phonegap/phonegap-zakk.js \

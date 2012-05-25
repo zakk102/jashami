@@ -131,6 +131,7 @@
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				    console.log('_getMenuFromServer: Ajax error!');
+				    $(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 				    alert("讀取菜單失敗，請再試一次");
 				    if(failCallback) failCallback(xhr, type);
 				}
@@ -156,6 +157,7 @@
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
 				    console.log('_getMenuOfStoreFromServer: Ajax error!');
+				    $(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 				    alert("讀取菜單失敗，請再試一次");
 				    if(failCallback) failCallback(xhr, type);
 				}

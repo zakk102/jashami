@@ -12,6 +12,15 @@
 		return false;
 	}
 	
+	$(window).bind('ajaxError2', function(event, data){
+		var data = $.extend(data, {errorType:'ajaxError'});
+		addErrorLog(data);
+	});
+	
+	$(window).bind('imgLoadError', function(event, data){
+		var data = $.extend(data, {errorType:'imgLoadError'});
+		addErrorLog(data);
+	});
 	
 	var addErrorLog = function(data){
 		if(window._develop){
@@ -19,7 +28,7 @@
 			return;
 		}
 		var d = new Date();
-		data = $.extend(data, {errorTime:d.getTime(), appVersion:appVersion});
+		data = $.extend(data, {errorTime:d.getTime(), appVersion:appVersion, url:window.location.href});
 		sendErrorLog(data);
 	};
 	

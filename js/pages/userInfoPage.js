@@ -164,9 +164,10 @@
 					}
 					// send order info to server
 					if(window.loadingPanel) window.loadingPanel.connectionOut();
+					var url = OrderServiceUrl+'?action=sendOrder';
 					$.ajax({
 		    			type: 'POST',
-		  				url: OrderServiceUrl+'?action=sendOrder',
+		  				url: url,
 		  				dataType: 'json',
 		    			data:JSON.stringify(data), 
 		    			success: function(response){ 
@@ -177,13 +178,12 @@
 								var href = '#orderResultPage/' + encodeURIComponent(that.store);
 								Backbone.history.navigate(href, {trigger: true, replace: false});
 							}else{
-								alert(response.msg);
+								$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 							}
 						},
 						error: function(xhr, type){
 							if(window.loadingPanel) window.loadingPanel.connectionIn();
-							console.log(xhr);
-							console.log(type);
+							$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 							alert(type);
 						}
 					});

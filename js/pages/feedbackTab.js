@@ -40,9 +40,10 @@
 	   		data.feedbacks = {};
 	   		data.feedbacks.recommandation = recommandation;
 	   		data.feedbacks.opinion = opinion;
+	   		var url = FeedbackServiceUrl+'?action=sendFeedback';
 	   		$.ajax({
 				type: 'POST',
-				url: FeedbackServiceUrl+'?action=sendFeedback',
+				url: url,
 				dataType: 'json',
 				data:JSON.stringify(data), 
 				success: function(response){ 
@@ -50,6 +51,7 @@
 			  		alert('謝謝您的寶貴意見');
 			  	},
 			  	error: function(xhr, type){
+			  		$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 				    alert('謝謝您的寶貴意見');
 				}
 			});

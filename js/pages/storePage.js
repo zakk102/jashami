@@ -178,7 +178,7 @@
   			var that = this;
   			//  title
 			var storeName = this.model.get('displayedName');
-			$("#title", this.el).html(storeName3);
+			$("#title", this.el).html(storeName);
 			// product items
 			var products = this.model.get('menuId').get('products').models;
 			this.model.get('menuId').get('products').sort();
@@ -256,6 +256,7 @@
 			// render product widgets & bind events
 			setTimeout(function(){ // wait time to let browser show above code
 				_.each(products, dd);
+				$('img', that.el).bind('error', function(){$(window).trigger('imgLoadError', {errorMsg:this.src, errorLocation:'StorePageView'})});
 				//$(cateWidget).css('margin-bottom', '0px'); // reset the margin of last line
 				that.scroller.render();
 //				that.segmentPanel.render();

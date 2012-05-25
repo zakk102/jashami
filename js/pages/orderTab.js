@@ -164,6 +164,7 @@
 					currentChain = m.get('chainStore');
 					itemCount ++;
 				});
+				$('img', this.el).bind('error', function(){$(window).trigger('imgLoadError', {errorMsg:this.src, errorLocation:'OrderTabView'})});
 				
 				//re-fresh the scroller to know the new size of the scroller
 				//re-fresh masonry

@@ -6,14 +6,19 @@
 				data.UUID = LocalModel.getUUID();
 			}
 			if(!window._develop){
+				var url = AppEventServiceUrl+'?action=sendEvent';
 				$.ajax({
     				type: 'POST',
-  					url: AppEventServiceUrl+'?action=sendEvent',
+  					url: url,
 					dataType: 'json',
 					data:JSON.stringify(data), 
 					success: function(response){ 
 				  		console.log(response);
-				  	}
+				  	},
+				  	error: function(xhr, type){
+					    console.log('sendEvent: Ajax error!');
+					    $(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
+					}
 				});
 			}else{
 				console.log('develop mode, skip event sending: '+data.eventCategory+', '+data.eventAction+', '+data.eventLabel+', '+data.eventPararmeter);

@@ -194,9 +194,10 @@
 			this.views.userInfoPage.setTitle(storeName);
 			this.views.userInfoPage.setStore(store);
 			if(window.loadingPanel) window.loadingPanel.connectionOut();
+			var url = OrderServiceUrl+'?action=getAvailableDeliveryTime&storeID='+store;
 			$.ajax({
 				type: 'GET',
-				url: OrderServiceUrl+'?action=getAvailableDeliveryTime&storeID='+store,
+				url: url,
 				dataType: 'json',
 				success: function(data){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
@@ -204,6 +205,7 @@
 				},
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
+					$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 				}
 			});
 			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
