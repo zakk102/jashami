@@ -22,6 +22,11 @@
 		addErrorLog(data);
 	});
 	
+	$(window).bind('tryCatchError', function(event, data){
+		var data = $.extend(data, {errorType:'tryCatchError'});
+		addErrorLog(data);
+	});
+	
 	var addErrorLog = function(data){
 		if(window._develop){
 			console.log('develop mode, skip sending error log to server: '+JSON.stringify(data));

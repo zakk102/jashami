@@ -24,7 +24,7 @@
 			// '<div><div class="HeaderButton NextButton"><span class="Button">送出</span><span class="Pointer"></span></div></div>',
 		// '</div>',
 		
-		'<div id="userinfoList" style="color: #000; -webkit-box-flex: 10;display: -webkit-box; -webkit-box-orient: horizontal;">',
+		'<div id="userinfoList" style="color: #000; -webkit-box-flex: 10;display: -webkit-box; position:relative">',
 		'</div>'
 	].join('');
 	
@@ -116,78 +116,82 @@
 			this._saveUserInput();
 		},
 		sendOrder: function(){
-			var that = this;
-			var send = false;
-			var message = [
-				'按下確定後，訂單就會成立，送至系統處理。\n',
-				'\n',
-				'如果要修改或取消訂單，請等待系統回覆門市資料，\n',
-				'請您直接聯繫門市處理。\n',
-				'\n',
-				'請問您確定要訂購嗎？'
-			].join('');
-			
-			if(this.isFromValided()){
-				this._saveUserInput();
-				send = confirm(message);
-				if(send) {
-					var name = $.trim($('.name', this.el).val());
-					var tel = $.trim($('.tel', this.el).val());
-					var address = window.myapp.location + $.trim($('.address', this.el).val());
-					var company = $.trim($('.company', this.el).val());
-					var invoice = $.trim($('.invoice', this.el).val());
-					var remarks = $.trim($('.remarks', this.el).val());
-					var deviceID = window.myapp.LocalModel.getUUID();
-					var wantDate = this.timeSelector.getSelection().getTime();
-					var buyList = window.shoppingCartCollection.get(this.store).get('buyList').toJSON();
-					var sum = window.shoppingCartCollection.get(this.store).get('sum');
-					
-					var data = {
-						"storeID":this.store,
-						"type":"Delivery",
-						"customerName":name,
-						"customerPhone":tel,
-						"customerDeviceID":deviceID,
-						"customerAddress":address,
-						"wantDate":wantDate,
-						"buyList":buyList,
-						"notes":{
-							"公司行號":company,
-							"統一編號":invoice,
-							"備註":remarks
-						},
-						"sum":sum
-					};
-					
-					if(window.autoLocalization){
-						data.autoLocalization = window.autoLocalization;
-					}
-					// send order info to server
-					if(window.loadingPanel) window.loadingPanel.connectionOut();
-					var url = OrderServiceUrl+'?action=sendOrder';
-					$.ajax({
-		    			type: 'POST',
-		  				url: url,
-		  				dataType: 'json',
-		    			data:JSON.stringify(data), 
-		    			success: function(response){ 
-		    				if(window.loadingPanel) window.loadingPanel.connectionIn();
-							console.log(response);
-							if(response.msg !== 'null'){
-								window.myapp.orderNumber = response.orderID;
-								var href = '#orderResultPage/' + encodeURIComponent(that.store);
-								Backbone.history.navigate(href, {trigger: true, replace: false});
-							}else{
-								$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
-							}
-						},
-						error: function(xhr, type){
-							if(window.loadingPanel) window.loadingPanel.connectionIn();
-							$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
-							alert(type);
+			try{
+				var that = this;
+				var send = false;
+				var message = [
+					'按下確定後，訂單就會成立，送至系統處理。\n',
+					'\n',
+					'如果要修改或取消訂單，請等待系統回覆門市資料，\n',
+					'請您直接聯繫門市處理。\n',
+					'\n',
+					'請問您確定要訂購嗎？'
+				].join('');
+				
+				if(this.isFromValided()){
+					this._saveUserInput();
+					send = confirm(message);
+					if(send) {
+						var name = $.trim($('.name', this.el).val());
+						var tel = $.trim($('.tel', this.el).val());
+						var address = window.myapp.location + $.trim($('.address', this.el).val());
+						var company = $.trim($('.company', this.el).val());
+						var invoice = $.trim($('.invoice', this.el).val());
+						var remarks = $.trim($('.remarks', this.el).val());
+						var deviceID = window.myapp.LocalModel.getUUID();
+						var wantDate = this.timeSelector.getSelection().getTime();
+						var buyList = window.shoppingCartCollection.get(this.store).get('buyList').toJSON();
+						var sum = window.shoppingCartCollection.get(this.store).get('sum');
+						
+						var data = {
+							"storeID":this.store,
+							"type":"Delivery",
+							"customerName":name,
+							"customerPhone":tel,
+							"customerDeviceID":deviceID,
+							"customerAddress":address,
+							"wantDate":wantDate,
+							"buyList":buyList,
+							"notes":{
+								"公司行號":company,
+								"統一編號":invoice,
+								"備註":remarks
+							},
+							"sum":sum
+						};
+						
+						if(window.autoLocalization){
+							data.autoLocalization = window.autoLocalization;
 						}
-					});
+						// send order info to server
+						if(window.loadingPanel) window.loadingPanel.connectionOut();
+						var url = OrderServiceUrl+'?action=sendOrder';
+						$.ajax({
+			    			type: 'POST',
+			  				url: url,
+			  				dataType: 'json',
+			    			data:JSON.stringify(data), 
+			    			success: function(response){ 
+			    				try{
+				    				if(window.loadingPanel) window.loadingPanel.connectionIn();
+									console.log(response);
+									window.myapp.orderNumber = response.orderID;
+									var href = '#orderResultPage/' + encodeURIComponent(that.store);
+									Backbone.history.navigate(href, {trigger: true, replace: false});
+								}catch(err){
+									$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+								}
+							},
+							error: function(xhr, type){
+								if(window.loadingPanel) window.loadingPanel.connectionIn();
+								$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
+								alert(type);
+							}
+						});
+					}
 				}
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message, errorLocation:err.stack});
 			}
 		},
 		isFromValided: function(){
@@ -210,19 +214,20 @@
 			
 			while(tel === ''){
 				tel = prompt('請輸入手機號碼！');
-				if(name === null) return false;
+				if(tel === null) return false;
 				tel = $.trim(tel);
 			}
 			
 			while(!this.isTel(tel)){
 				tel = prompt('手機格式錯誤，請輸入正確的手機號碼！', tel);
-				if(name === null) return false;
+				if(tel === null) return false;
 				tel = $.trim(tel);
 			}
 			$('.tel', this.el).val(tel);
 			
 			while(address === ''){
 				address = prompt('請輸入您的地址！');
+				if(address === null) return false;
 				address = $.trim(address);
 			}
 			$('.address', this.el).val(address); 
@@ -256,13 +261,16 @@
 			}
 		},
 		render: function(){
-			// re-bind event
-			if(window.myapp.location) $('.location', this.el).html(window.myapp.location+"的");
-			else $('.location', this.el).html('');
-			this.scroller.render();
-			this.delegateEvents();
-			this._restoreUserInput();
-			return this;
+			try{			
+				if(window.myapp.location) $('.location', this.el).html(window.myapp.location+"的");
+				else $('.location', this.el).html('');
+				this.scroller.render();
+				this.delegateEvents();
+				this._restoreUserInput();
+				return this;
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message, errorLocation:err.stack});
+			}
 	  	},
 	  	useNative: function(isNative){
 			var timeSelector;

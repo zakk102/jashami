@@ -115,18 +115,22 @@
 				url: url, 
 				dataType: 'json',
 				success: function(data){
-					if(window.loadingPanel) window.loadingPanel.connectionIn();
-					if(!data.zipCodeIndexs){
-						alert("讀取菜單失敗，請再試一次");
-						return;
+					try{
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						if(!data.zipCodeIndexs){
+							alert("讀取菜單失敗，請再試一次");
+							return;
+						}
+						that.get('zipCodeIndexs').add(data.zipCodeIndexs);
+						that.get('stores').add(data.stores);
+						that.get('menus').add(data.menus);
+						if(successCallback){
+							var index = that.get('zipCodeIndexs').get(zipCode);
+							successCallback(index);
+						} 
+					}catch(err){
+						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
 					}
-					that.get('zipCodeIndexs').add(data.zipCodeIndexs);
-					that.get('stores').add(data.stores);
-					that.get('menus').add(data.menus);
-					if(successCallback){
-						var index = that.get('zipCodeIndexs').get(zipCode);
-						successCallback(index);
-					} 
 				},
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();
@@ -146,12 +150,16 @@
 				url: url, 
 				dataType: 'json',
 				success: function(data){
-					if(window.loadingPanel) window.loadingPanel.connectionIn();
-					that.get('stores').add(data.stores);
-					that.get('menus').add(data.menus);
-					if(successCallback){
-						var store = that.get('stores').get(storeID);
-						successCallback(store);
+					try{
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						that.get('stores').add(data.stores);
+						that.get('menus').add(data.menus);
+						if(successCallback){
+							var store = that.get('stores').get(storeID);
+							successCallback(store);
+						}
+					}catch(err){
+						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
 					} 
 				},
 				error: function(xhr, type){

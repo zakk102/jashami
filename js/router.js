@@ -200,8 +200,12 @@
 				url: url,
 				dataType: 'json',
 				success: function(data){
-					if(window.loadingPanel) window.loadingPanel.connectionIn();
-					that.views.userInfoPage.setAvailableTime(data.time);
+					try{
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						that.views.userInfoPage.setAvailableTime(data.time);
+					}catch(err){
+						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+					}
 				},
 				error: function(xhr, type){
 					if(window.loadingPanel) window.loadingPanel.connectionIn();

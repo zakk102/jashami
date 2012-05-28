@@ -47,8 +47,12 @@
 				dataType: 'json',
 				data:JSON.stringify(data), 
 				success: function(response){ 
-			  		console.log(response);
-			  		alert('謝謝您的寶貴意見');
+					try{
+				  		console.log(response);
+				  		alert('謝謝您的寶貴意見');
+				  	}catch(err){
+				  		$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+				  	}
 			  	},
 			  	error: function(xhr, type){
 			  		$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
