@@ -2,20 +2,23 @@
 (function(Scroller, FeedbackServiceUrl, LocalModel){
 	var tabTemplate = [
 		"<p class='about_text' >",
-			// "感謝您使用甲蝦米<br/>",
-			"我希望這些店家可以加入甲蝦米：<br/>",
+			"我的手機是",
+			"<input id='cellphone' class='INPUT Text' value='<%= cellphone %>'><br/><br/>",
+			"甲蝦米有這些問題：<br/>",
+			"<textarea id='opinion' type='Text' class='INPUT Text'></textarea><br/>",
+			"我想要這些店家加入甲蝦米：<br/>",
 			"<input id='recommendation' type='Text' class='INPUT Text'><br/><br/>",
-			"我想對甲蝦米說：<br/>",
-			"<input id='opinion' type='Text' class='INPUT Text'><br/>",
 		"</p>",
 		"<p class='submit-paragraph'><a id='sendFeedbackBtn' class='SubmitButton'>送出</a></p>"
 	].join('');
 	
 	var FeedbackTabView = Backbone.View.extend({
 		initialize: function(){
+			var cellphone=LocalModel.getUserPhoneNumber();
+			if(!cellphone)cellphone="";
 			var scroller = new Scroller();
 			this.scroller = scroller;
-			scroller.html(_.template(tabTemplate));
+			scroller.html(_.template(tabTemplate,{cellphone:cellphone}));
 			$(this.el).html(scroller.el);
 			$(this.el).css('display', '-webkit-box');	
 			$(this.el).css('-webkit-box-flex', '10');
