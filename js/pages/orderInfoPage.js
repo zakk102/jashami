@@ -149,7 +149,7 @@
 				sum = shoppingCart.getSum('飲料');
 			}
 			
-			if(sum < deliveryLimit){
+			if( sum<deliveryLimit || (deliveryLimit==0&&sum<=deliveryLimit) ){
 				alert('未達外送額度');
 				e.preventDefault();
 			}
