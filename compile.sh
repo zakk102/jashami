@@ -15,7 +15,7 @@ ioslibs="\
 ./js/libs/phonegap/phonegap-plugin-ios.js \
 ./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
-./js/libs/zepto/zepto.min.js \
+./js/libs/zepto/zepto.js \
 ./js/libs/underscore/underscore-min.js \
 ./js/libs/backbone/backbone-min.js \
 ./js/libs/backbone/backbone-relational.js \
@@ -29,7 +29,7 @@ androidlibs="\
 ./js/libs/phonegap/phonegap-plugin-android.js \
 ./js/libs/phonegap/phonegap-zakk.js \
 ./js/libs/i18n/i18n-zakk.js \
-./js/libs/zepto/zepto.min.js \
+./js/libs/zepto/zepto.js \
 ./js/libs/underscore/underscore-min.js \
 ./js/libs/backbone/backbone-min.js \
 ./js/libs/backbone/backbone-relational.js \

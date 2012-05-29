@@ -11,6 +11,7 @@
     				type: 'POST',
   					url: url,
 					dataType: 'json',
+					cache : false,
 					data:JSON.stringify(data), 
 					success: function(response){ 
 				  		console.log(response);

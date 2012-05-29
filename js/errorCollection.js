@@ -48,6 +48,7 @@
 			type: 'POST',
 			url: ErrorLogServiceUrl+"?action=addErrorLog", 
 			dataType: 'json',
+			cache : false,
 			data:JSON.stringify(data), 
 			success: function(data){
 				console.log(data.msg);
@@ -76,6 +77,7 @@
 			type: 'POST',
 			url: ErrorLogServiceUrl+"?action=addErrorLog", 
 			dataType: 'json',
+			cache : false,
 			data:JSON.stringify(data), 
 			success: function(data){
 				console.log(data.msg);

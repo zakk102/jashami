@@ -199,6 +199,7 @@
 				type: 'GET',
 				url: url,
 				dataType: 'json',
+				cache : false,
 				success: function(data){
 					try{
 						if(window.loadingPanel) window.loadingPanel.connectionIn();

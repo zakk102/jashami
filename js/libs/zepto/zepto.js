@@ -1131,7 +1131,17 @@ window.Zepto = Zepto
 
     if (!settings.url) settings.url = window.location.toString()
     serializeData(settings)
+// zakk modify
+	// Add anti-cache in url if needed
+	if ( settings.cache === false ) {
+		var ts = (new Date()).getTime(),
+			// try replacing _= if it is there
+			ret = settings.url.replace( /([?&])_=[^&]*/, "$1_=" + ts );
+		// if nothing was replaced, add timestamp to the end
+		settings.url = ret + ( ( ret === settings.url ) ? ( /\?/.test( settings.url ) ? "&" : "?" ) + "_=" + ts : "" );
+	}
 
+// end of zakk modify
     var mime = settings.accepts[dataType],
         baseHeaders = { },
         protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
