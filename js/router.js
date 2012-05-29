@@ -30,221 +30,245 @@
 			this.loadToDOM(this.views.storePage.el);
 			// determine transition type & direction
 			$(window).bind('hashchange', function(e){
-				var newUrl, oldUrl;
-				if(e.newURL){
-					newUrl = e.newURL;
-					oldUrl = e.oldURL;
-				}else{ // if not support e.newUrl
-					newUrl = window.location.href;
-					oldUrl = window.lastUrl;
-					window.lastUrl = newUrl;
+				try{
+					var newUrl, oldUrl;
+					if(e.newURL){
+						newUrl = e.newURL;
+						oldUrl = e.oldURL;
+					}else{ // if not support e.newUrl
+						newUrl = window.location.href;
+						oldUrl = window.lastUrl;
+						window.lastUrl = newUrl;
+					}
+	//				console.log('hashchange from '+oldUrl+" to "+newUrl);
+					// determin slide direction, default = 'left'
+					if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
+						that.transitionEffectType = 'hSlide';
+	//					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
+	//						that.transitionDir = 'left';
+	//					}
+					}else if(newUrl.indexOf('#storePage')>=0){ // to store page
+						that.transitionEffectType = 'hSlide';
+						if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
+							that.transitionDir = 'right';
+						}
+					}else if(newUrl.indexOf('#orderInfoPage')>=0){ // to order info page
+						that.transitionEffectType = 'hSlide';
+						if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
+							that.transitionDir = 'right';
+						}
+					}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
+						that.transitionEffectType = 'hSlide';
+						if(oldUrl.indexOf('#orderInfoPage')>=0){ // from order info page, slide from right
+							that.transitionDir = 'right';
+						}
+					}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
+						that.transitionEffectType = 'hSlide';
+						if(oldUrl.indexOf('#userInfoPage')>=0){ // from user info page, slide from right
+							that.transitionDir = 'right';
+						}
+					}
+					// App event tracking: page changed
+					window.myapp.AppEvent.goPage();
+					window.myapp.GoogleAnalytics.goPage();
+				}catch(err){
+					$(window).trigger('tryCatchError', {errorMsg:err.message+" at hashchange event handler in router.", errorLocation:err.stack});
 				}
-//				console.log('hashchange from '+oldUrl+" to "+newUrl);
-				// determin slide direction, default = 'left'
-				if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
-					that.transitionEffectType = 'hSlide';
-//					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
-//						that.transitionDir = 'left';
-//					}
-				}else if(newUrl.indexOf('#storePage')>=0){ // to store page
-					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
-						that.transitionDir = 'right';
-					}
-				}else if(newUrl.indexOf('#orderInfoPage')>=0){ // to order info page
-					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
-						that.transitionDir = 'right';
-					}
-				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
-					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#orderInfoPage')>=0){ // from order info page, slide from right
-						that.transitionDir = 'right';
-					}
-				}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
-					that.transitionEffectType = 'hSlide';
-					if(oldUrl.indexOf('#userInfoPage')>=0){ // from user info page, slide from right
-						that.transitionDir = 'right';
-					}
-				}
-				// App event tracking: page changed
-				window.myapp.AppEvent.goPage();
-				window.myapp.GoogleAnalytics.goPage();
 			});
 			// App event tracking: first page
 			window.myapp.AppEvent.goPage();
 			window.myapp.GoogleAnalytics.goPage();
 	    },
 		defaultAction: function(){
-			console.log('do default action.');
+			//console.log('do default action.');
 			this.startPage('orderTab');
 		},
 		startPage: function(tab){
-			if(!this.views.startPage){ // load the page into DOM
-				this.views.startPage = new Views.StartPageView();
-				this.loadToDOM(this.views.startPage.el);
+			try{
+				if(!this.views.startPage){ // load the page into DOM
+					this.views.startPage = new Views.StartPageView();
+					this.loadToDOM(this.views.startPage.el);
+				}
+				if(window.productPanel){ // product panel
+					window.productPanel.$el.hide();
+				}
+				this.changePage(this.views.startPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.transitionEffectType = null;
+				this.transitionDir = null;
+				this.views.startPage.toTab(tab);
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function startPage in router", errorLocation:err.stack});
 			}
-			if(window.productPanel){ // product panel
-				window.productPanel.$el.hide();
-			}
-			this.changePage(this.views.startPage.render().el, this.transitionEffectType, this.transitionDir);
-			this.transitionEffectType = null;
-			this.transitionDir = null;
-			this.views.startPage.toTab(tab);
 		},
 		storePage: function(store){
-			if(!this.views.storePage){ // load the store page into DOM
-				this.views.storePage = new Views.StorePageView();
-				this.loadToDOM(this.views.storePage.el);
-			}
-			if(window.productPanel){ // product panel
-				window.productPanel.$el.hide();
-			}
-			var that = this;
-			if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
+			try{
+				if(!this.views.storePage){ // load the store page into DOM
+					this.views.storePage = new Views.StorePageView();
+					this.loadToDOM(this.views.storePage.el);
+				}
+				if(window.productPanel){ // product panel
+					window.productPanel.$el.hide();
+				}
+				var that = this;
+				if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
+					that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
+					that.transitionEffectType = null;
+					that.transitionDir = null;
+					that.views.storePage.render();
+					return;
+				}
 				that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
 				that.transitionEffectType = null;
 				that.transitionDir = null;
 				that.views.storePage.render();
-				return;
-			}
-			that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
-			that.transitionEffectType = null;
-			that.transitionDir = null;
-			that.views.storePage.render();
-			if(!window.menuData){
-				//only occur in the direct access to store page
-				window.menuData = new MenuData();
-			}
-			window.menuData.getMenuOfStore(store, function(s){
-				that.views.storePage.resetDisplayedData();
-				that.views.storePage.refreshGridSize();
-				that.views.storePage.setModel(s);
-				that.views.storePage.resetScroller();
-				if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
-					that.views.orderInfoPage = new Views.OrderInfoPageView();
-					that.loadToDOM(that.views.orderInfoPage.el);
-					window.orderInfoPage = that.views.orderInfoPage;
+				if(!window.menuData){
+					//only occur in the direct access to store page
+					window.menuData = new MenuData();
 				}
-				// send GA event
-				try{
-					GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));
-					GoogleAnalytics.trackOrderProcess(2, s.get('chainStore'));
-				}catch(err){}
-			},function(xhr, type){
-				console.log(type);
-			});
+				window.menuData.getMenuOfStore(store, function(s){
+					that.views.storePage.resetDisplayedData();
+					that.views.storePage.refreshGridSize();
+					that.views.storePage.setModel(s);
+					that.views.storePage.resetScroller();
+					if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
+						that.views.orderInfoPage = new Views.OrderInfoPageView();
+						that.loadToDOM(that.views.orderInfoPage.el);
+						window.orderInfoPage = that.views.orderInfoPage;
+					}
+					// send GA event
+					try{
+						GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));
+						GoogleAnalytics.trackOrderProcess(2, s.get('chainStore'));
+					}catch(err){}
+				},function(xhr, type){
+					console.log(type);
+				});
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function storePage in router", errorLocation:err.stack});
+			}
 		},
 		productPage: function(store, product){
-			// product panel
-			if(!window.productPanel){
-				window.productPanel = new ProductPanel();
-				$('body').append(window.productPanel.$el);
+			try{
+				// product panel
+				if(!window.productPanel){
+					window.productPanel = new ProductPanel();
+					$('body').append(window.productPanel.$el);
+				}
+				// set product panel hidden callback
+				var that = this;
+				//TODO: if jump to this url directly, need to define some button callback actions to render views
+	/*			window.productPanel.callback = function(){
+					//TODO: show store page content
+					// url modify
+					Backbone.history.navigate("#storePage/"+store, {trigger: false, replace: true});
+				};
+	*/
+				// show product panel
+				window.productPanel.$el.show();
+				// load store page in background
+				//TODO fix url: this will change storePage's url attribute, we don't want that
+				//this.changePage(this.views.storePage.el);
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function productPage in router", errorLocation:err.stack});
 			}
-			// set product panel hidden callback
-			var that = this;
-			//TODO: if jump to this url directly, need to define some button callback actions to render views
-/*			window.productPanel.callback = function(){
-				//TODO: show store page content
-				// url modify
-				Backbone.history.navigate("#storePage/"+store, {trigger: false, replace: true});
-			};
-*/
-			// show product panel
-			window.productPanel.$el.show();
-			// load store page in background
-			//TODO fix url: this will change storePage's url attribute, we don't want that
-			//this.changePage(this.views.storePage.el);
 		},
 		orderInfoPage: function(store){
-			if(!this.views.orderInfoPage){ // load the orderInfo page into DOM
-				this.views.orderInfoPage = new Views.OrderInfoPageView();
-				this.loadToDOM(this.views.orderInfoPage.el);
-				window.orderInfoPage = this.views.orderInfoPage;
+			try{
+				if(!this.views.orderInfoPage){ // load the orderInfo page into DOM
+					this.views.orderInfoPage = new Views.OrderInfoPageView();
+					this.loadToDOM(this.views.orderInfoPage.el);
+					window.orderInfoPage = this.views.orderInfoPage;
+				}
+				
+				this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.transitionEffectType = null;
+				this.transitionDir = null;
+				// set store menu data
+				var that = this;
+				if(!window.menuData){
+					window.menuData = new MenuData();
+				}
+				window.menuData.getMenuOfStore(store, function(s){
+					that.views.orderInfoPage.setModel(s);
+					// send GA event
+					try{ GoogleAnalytics.trackOrderProcess(4, s.get('chainStore')); }catch(err){}
+				},function(xhr, type){
+					console.log(type);
+				});
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function orderInfoPage in router", errorLocation:err.stack});
 			}
-			
-			this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
-			this.transitionEffectType = null;
-			this.transitionDir = null;
-			// set store menu data
-			var that = this;
-			if(!window.menuData){
-				window.menuData = new MenuData();
-			}
-			window.menuData.getMenuOfStore(store, function(s){
-				that.views.orderInfoPage.setModel(s);
-				// send GA event
-				try{ GoogleAnalytics.trackOrderProcess(4, s.get('chainStore')); }catch(err){}
-			},function(xhr, type){
-				console.log(type);
-			});
 		},
 		orderEditPage : function(store, index){
 			console.log('do orderEditPage function.');
 		},
 		userInfoPage: function(store){
-			var storeName = window.menuData.get('stores').get(store).get('displayedName');
-			var that = this;
-	
-			if(!this.views.userInfoPage){ // load the userInfo page into DOM
-				this.views.userInfoPage = new Views.UserInfoPageView();
-				this.loadToDOM(this.views.userInfoPage.el);
-			}
-			// set store menu data
-			this.views.userInfoPage.setTitle(storeName);
-			this.views.userInfoPage.setStore(store);
-			if(window.loadingPanel) window.loadingPanel.connectionOut();
-			var url = OrderServiceUrl+'?action=getAvailableDeliveryTime&storeID='+store;
-			$.ajax({
-				type: 'GET',
-				url: url,
-				dataType: 'json',
-				cache : false,
-				success: function(data){
-					try{
-						if(window.loadingPanel) window.loadingPanel.connectionIn();
-						that.views.userInfoPage.setAvailableTime(data.time);
-					}catch(err){
-						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
-					}
-				},
-				error: function(xhr, type){
-					if(window.loadingPanel) window.loadingPanel.connectionIn();
-					$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
-				}
-			});
-			this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
-			this.transitionEffectType = null;
-			this.transitionDir = null;
-			this.views.userInfoPage.render();
-			// send GA event
 			try{
+				var storeName = window.menuData.get('stores').get(store).get('displayedName');
+				var that = this;
+		
+				if(!this.views.userInfoPage){ // load the userInfo page into DOM
+					this.views.userInfoPage = new Views.UserInfoPageView();
+					this.loadToDOM(this.views.userInfoPage.el);
+				}
+				// set store menu data
+				this.views.userInfoPage.setTitle(storeName);
+				this.views.userInfoPage.setStore(store);
+				if(window.loadingPanel) window.loadingPanel.connectionOut();
+				var url = OrderServiceUrl+'?action=getAvailableDeliveryTime&storeID='+store;
+				$.ajax({
+					type: 'GET',
+					url: url,
+					dataType: 'json',
+					cache : false,
+					success: function(data){
+						try{
+							if(window.loadingPanel) window.loadingPanel.connectionIn();
+							that.views.userInfoPage.setAvailableTime(data.time);
+						}catch(err){
+							$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+						}
+					},
+					error: function(xhr, type){
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
+					}
+				});
+				this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.transitionEffectType = null;
+				this.transitionDir = null;
+				this.views.userInfoPage.render();
+				// send GA event
 				var GA_CS = window.menuData.get('stores').get(store).get('chainStore');
 				GoogleAnalytics.trackIntoUserInfoPageTime(GA_CS);
 				GoogleAnalytics.trackOrderProcess(5, GA_CS);
-			}catch(err){}
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function userInfoPage in router", errorLocation:err.stack});
+			}
 		},
 		orderResultPage: function(store){
-			if(!this.views.orderResultPage){ // load the orderResult page into DOM
-				this.views.orderResultPage = new Views.OrderResultPageView();
-				this.loadToDOM(this.views.orderResultPage.el);
-			}
-			if(!window.myapp.orderNumber){
-				window.myapp.orderNumber = 0;
-			} 
-			this.views.orderResultPage.setOrderNumber(window.myapp.orderNumber);
-			this.views.orderResultPage.setStore(store);
-			this.changePage(this.views.orderResultPage.render().el, this.transitionEffectType, this.transitionDir);
-			this.transitionEffectType = null;
-			this.transitionDir = null;
-			this.views.orderResultPage.render();
-			this.views.orderResultPage.cleanShoppingCart(store);
-			// send GA event
 			try{
+				if(!this.views.orderResultPage){ // load the orderResult page into DOM
+					this.views.orderResultPage = new Views.OrderResultPageView();
+					this.loadToDOM(this.views.orderResultPage.el);
+				}
+				if(!window.myapp.orderNumber){
+					window.myapp.orderNumber = 0;
+				} 
+				this.views.orderResultPage.setOrderNumber(window.myapp.orderNumber);
+				this.views.orderResultPage.setStore(store);
+				this.changePage(this.views.orderResultPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.transitionEffectType = null;
+				this.transitionDir = null;
+				this.views.orderResultPage.render();
+				this.views.orderResultPage.cleanShoppingCart(store);
+				// send GA event
 				var GA_CS = window.menuData.get('stores').get(store).get('chainStore');
 				GoogleAnalytics.trackSendOrderTime(GA_CS);
 				GoogleAnalytics.trackOrderProcess(6, GA_CS);
-			}catch(err){}
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function orderResultPage in router", errorLocation:err.stack});
+			}
 		},
 		loadToDOM: function(el){
 			var id = $(el).attr('id');

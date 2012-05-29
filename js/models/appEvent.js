@@ -50,8 +50,8 @@
 			data.eventCategory = "Page";
 			data.eventAction = "Enter";
 			var hash = window.location.hash;
-			data.eventLabel = hash.substring(0, hash.indexOf('/'));;
-			data.eventPararmeter = hash.substring(hash.indexOf('/')+1);;
+			data.eventLabel = hash.substring(0, hash.indexOf('/'));
+			data.eventPararmeter = hash.substring(hash.indexOf('/')+1);
 			this.sendEvent(data);
 		}
 	};
