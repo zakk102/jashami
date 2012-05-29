@@ -26,7 +26,7 @@
 				console.log('refresh scroller by: ' + e.type);
 				that.scroll.refresh(e.type);
 				// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
-				[].slice.call(that.content.querySelectorAll('input, select, button')).forEach(function(el){
+				[].slice.call(that.content.querySelectorAll('input, select, button, textarea')).forEach(function(el){
 					el.addEventListener(('ontouchstart' in window)?'touchstart':'mousedown', function(e){
 						e.stopPropagation();
 					});
@@ -116,7 +116,7 @@
 			if(options) this.scroll.setOption(options);
 			else this.scroll.refresh('re-bind event');
 			// fix: Preventing event from bubbling up to iScroll, as it would then remove it.
-			[].slice.call(this.content.querySelectorAll('input, select, button')).forEach(function(el){
+			[].slice.call(this.content.querySelectorAll('input, select, button, textarea')).forEach(function(el){
 				el.addEventListener(('ontouchstart' in window)?'touchstart':'mousedown', function(e){
 					e.stopPropagation();
 				});
