@@ -69,7 +69,7 @@
 		},
 		homePage: function(){
 			// clear shopping car
-			if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
+			//if(window.shoppingCartCollection) window.shoppingCartCollection.clear();
 			Backbone.history.navigate('#startPage', {trigger: true, replace: false});
 		},
 		setStore: function(store){
@@ -79,8 +79,9 @@
 			this.orderNumber = orderNumber;
 		},
 		cleanShoppingCart: function(store){
-			window.shoppingCartCollection.get(store).get('buyList').reset();
-			window.shoppingCartCollection.get(store).updateDisplay();
+			if( window.shoppingCartCollection && window.shoppingCartCollection.get(store) ) window.shoppingCartCollection.get(store).clearBuyList();
+			//window.shoppingCartCollection.get(store).get('buyList').reset();
+			//window.shoppingCartCollection.get(store).updateDisplay();
 		},
 		render: function(){
 			// re-bind event
