@@ -33,16 +33,20 @@
 			var shoppingCartSum = model.get('sum');
 			if(storeID.indexOf('85度C')<0){
 				var progress = shoppingCartSum/deliveryLimit*100;
-				if(progress >= 100){
+				if(isNaN(progress)){
+					progress = 0;
+				}else if(progress >= 100){
 					progress = 100;
-				}
+				} 
 				$(this.el).html(_.template(pageTemplate, { 'shoppingCartSum':shoppingCartSum, 'deliveryLimit':'未滿 '+deliveryLimit, 'progress':progress }));
 			}else{
 				var sum = model.getSum('飲料');
 				var progress = sum/deliveryLimit*100;
-				if(progress >= 100){
+				if(isNaN(progress)){
+					progress = 0;
+				}else if(progress >= 100){
 					progress = 100;
-				}
+				} 
 				$(this.el).html(_.template(pageTemplate, { 'shoppingCartSum':shoppingCartSum, 'deliveryLimit':'飲料未滿 '+deliveryLimit, 'progress':progress }));
 			}
 		}
