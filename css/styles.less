@@ -1949,7 +1949,6 @@ body{
   display: -webkit-box;
   -webkit-box-orient: vertical;
   
-  input{min-width:20em;}
   
   .UserInfo {
     position:relative;
@@ -1958,17 +1957,32 @@ body{
     top:10px;
     padding: 0 0 30px 0;
     .DateTimeSelectionBox{
-      .option-sel-icon{
-        display:inline-block;
-        width:2.0em;
-        height:2.0em;
-        background:orangered;
-        -webkit-transform:rotate(90deg);
+      .SelectInput{
+        background: orangeRed;
+        border: 0.3em solid orangeRed;
+        border-radius: 0.5em;
+        height: 2em;
+        display: inline-block;
+        padding: 0 0.3em 0 0.3em;
+        line-height: 2em;
+
+        .selectedValue{
+          color:white;
+        }
+        
+        .option-sel-icon{
+          display:inline-block;
+          width:2.0em;
+          height:2.0em;
+          background:white;
+          -webkit-transform:rotate(90deg);
+        }
       }
     }
     
     .userinfo-paragraph{
       
+      input{min-width:19em;}
       line-height: 2em;
       text-align: center;
   

@@ -28,36 +28,17 @@
 		'</div>'
 	].join('');
 	
-	// var infoListTemplate = [
-		// '<table class="UserInfo">',
-			// '<colgroup><col></colgroup>',
-			// '<tbody>',
-				// '<tr><td><div>送達時間</div></td><td><div class="DateTimeSelectionBox"></div></td></tr>',
-				// '<tr><td><div>稱呼</div></td><td><input type="Text" placeholder="必填" class="INPUT name"></td></tr>',
-				// '<tr><td><div>手機</div></td><td><input type="Tel" placeholder="必填" class="INPUT tel"></td></tr>',
-				// '<tr><td><div>地址</div></td><td>',
-					// '<table cellspacing="0" cellpadding="0" style="width: 100%; "><tbody><tr>',
-						// '<td align="left" style="vertical-align: middle; " width="200px"><div style="font-size: 12pt; "><%= location %></div></td>',
-						// '<td align="left" style="vertical-align: middle; "><input type="Text" placeholder="必填" class="INPUT address" style=""></td>',
-					// '</tr></tbody></table>',
-				// '</td></tr>',
-				// '<tr><td><div>公司行號</div></td><td><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></td></tr>',
-				// '<tr><td><div>統一編號</div></td><td><input type="Tel" placeholder="選填" class="INPUT invoice"></td></tr>',
-				// '<tr><td><div>附註</div></td><td><input type="Text" placeholder="選填，任何您想補充說明的" class="INPUT remarks"></td></tr>',
-			// '</tbody>',
-		// '</table>'
-	// ].join('');
 	var infoListTemplate = [
 		'<div class="UserInfo">',
 			'<p class="userinfo-paragraph" id="ErrorMsg">服務時間已過</p>',
 			'<p class="userinfo-paragraph" id="userinfo-paragraph">',
 				'<span class="userinfo-line"><span class="info-title">我是</span><input type="Text" placeholder="必填" class="INPUT name"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">我要</span><span class="DateTimeSelectionBox"></span></span>',
-				'<span id="addr-line" class="userinfo-line"><span class="info-title">送到</span><span class="location"><%= location %></span><br /><input type="Text" placeholder="必填" class="INPUT address" style=""></span><br />',
+				'<span id="addr-line" class="userinfo-line"><span class="info-title">送到</span><span class="location"><%= location %></span><br /><input type="Text" placeholder="必填，基隆路一段180號7樓" class="INPUT address" style=""></span><br />',
 				'<span class="userinfo-line"><span class="info-title">手機</span><input type="Tel" placeholder="必填" class="INPUT tel"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">公司行號</span><input type="Text" placeholder="選填，公司請註明，以便外送人員找尋" class="INPUT company"></span><br />',
 				'<span class="userinfo-line"><span class="info-title">統一編號</span><input type="Tel" placeholder="選填" class="INPUT invoice"></span><br />',
-				'<span class="userinfo-line"><span class="info-title">附註</span><input type="Text" placeholder="選填，任何您想補充說明的" class="INPUT remarks"></span>',
+				'<span class="userinfo-line"><span class="info-title">特殊需求</span><input type="Text" placeholder="選填，越快越好、可樂要附紙杯" class="INPUT remarks"></span>',
 			'</p>',
 		'</div>'
 	].join('');

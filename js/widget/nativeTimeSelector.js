@@ -1,7 +1,7 @@
 // Filename: js/widget/nativeTimeSelector.js
 (function(NativeSelector){
 	var template = [
-		'<div class="SelectInput"></div>'
+		'<span class="SelectInput"></span>'
 	].join('');
 	
 	var NativeTimeSelector = Backbone.View.extend({

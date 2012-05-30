@@ -13,7 +13,7 @@
 		$(window).trigger('tryCatchError', {errorMsg:err.message+" at i18n init in main.js", errorLocation:err.stack});
 	}
 
-	//window.phonegapEnabled = true;
+	// window.phonegapEnabled = true;
 
 // phonegap
 	document.addEventListener("deviceready", function(){
