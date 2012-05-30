@@ -1,13 +1,13 @@
 // Filename: js/pages/feedbackTab.js
-(function(LocalModel, Scroller, FeedbackServiceUrl, LocalModel){
+(function(Scroller, FeedbackServiceUrl, LocalModel){
 	var tabTemplate = [
 		"<p class='about_text' >",
 			"甲蝦米有這些問題：<br/>",
-			"<textarea id='opinion' type='Text' class='INPUT Text'></textarea><br/><br/>",
+			"<textarea id='errorReport' type='Text' class='INPUT Text'></textarea><br/><br/>",
 			"我想要這些店家加入甲蝦米：<br/>",
 			"<input id='recommendation' type='Text' class='INPUT Text'><br/><br/>",
 			"我的手機是",
-			"<input id='cellphone' class='INPUT Text' value='<%= cellphone %>'><br/>",
+			"<input id='cellphone' class='INPUT Tel' type='tel'><br/>",
 			"請客服儘快跟我聯絡",
 
 		"</p>",
@@ -74,7 +74,6 @@
 	
 	window.myapp = window.myapp || {};
 	window.myapp.FeedbackTabView = FeedbackTabView;
-})(	window.myapp.LocalModel,
-	window.myapp.Widget.Scroller,
+})(	window.myapp.Widget.Scroller,
 	window.myapp.Api.FeedbackServiceUrl,
 	window.myapp.LocalModel);
