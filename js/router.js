@@ -139,6 +139,7 @@
 					try{
 						GoogleAnalytics.trackIntoStorePageTime(s.get('chainStore'));
 						GoogleAnalytics.trackOrderProcess(2, s.get('chainStore'));
+						GoogleAnalytics.trackStoreRanking(window.myapp.location, s.get('chainStore'));
 					}catch(err){}
 				},function(xhr, type){
 					console.log(type);
