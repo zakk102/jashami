@@ -103,7 +103,9 @@
 							else note += key+'：'+notes[key]+'<br/>';
 						}
 						var header = _.template(orderHeaderTemplate, {send:new Date(m.get('submitDate')), want:new Date(m.get('wantDate')), ID: m.get('orderID'), status:orderStatus[m.get('status')]});
-						var content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney'), notes:note});
+						var content;
+						if(m.get('status')=="Accepted") content = _.template(orderContentTemplate, {store:m.get('branchName'), storePhone:m.get('branchPhone'), buyList:m.get('buyList'), total:m.get('totalMoney'), notes:note});
+						else content = _.template(orderContentTemplate, {store:m.get('chainStore'), storePhone:undefined, buyList:m.get('buyList'), total:m.get('totalMoney'), notes:note});
 						accordion.add(header, content);
 					});
 					// re-fresh scroller boundery
