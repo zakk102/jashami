@@ -52,7 +52,7 @@
 			}
 		},
 		goPage: function(){
-			var url = window.location.pathname + window.location.hash + "?open=" + isOpenNow() +"&v="+appVersion;
+			var url = window.location.pathname + decodeURIComponent(window.location.hash) + "?open=" + isOpenNow() +"&v="+appVersion;
 			this.sendTrackUrl(url);
 		},
 		trackAppVersion: function(){
