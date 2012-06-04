@@ -17,11 +17,10 @@
 			if( h>19 || (h==19&&m>=30) ) return false; //19:30~24:00
 			return true;
 		},
-		'appVersion': 'ver2.2.025'
+		'appVersion': 'ver2.2.026'
 	};
 	
 	window.myapp.Api = window.myapp.Api || {};
-//	window.myapp.Api.BasicUrl = "http://localhost:8888/ifood_api";
 	window.myapp.Api.BasicUrl = "http://api2.majashami.appspot.com/api/";
 	window.myapp.Api.MenuServiceUrl = window.myapp.Api.BasicUrl + "MenuService2";
 	window.myapp.Api.OrderServiceUrl = window.myapp.Api.BasicUrl + "OrderService";

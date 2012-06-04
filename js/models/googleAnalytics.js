@@ -97,7 +97,7 @@
 		},
 		trackStoreRanking_zipcode: function(zipCode, chainStore){
 			var addr = addressAndZipcode.zipcode2address(zipCode);
-			this.sendTrackEvent("店家排名 "+(isOpenNow()?"營業中":"休息中"), addr, chainStore?chainStore:"全部");
+			this.trackStoreRanking(addr, chainStore);
 		},
 		trackStoreRanking: function(location, chainStore){
 			this.sendTrackEvent("店家排名 "+(isOpenNow()?"營業中":"休息中"), location, chainStore?chainStore:"全部");
