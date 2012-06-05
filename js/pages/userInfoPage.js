@@ -160,6 +160,7 @@
 									window.myapp.orderNumber = response.orderID;
 									var href = '#orderResultPage/' + encodeURIComponent(that.store);
 									Backbone.history.navigate(href, {trigger: true, replace: false});
+									window._widget = false;
 								}catch(err){
 									$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
 								}

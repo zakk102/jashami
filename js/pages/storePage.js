@@ -307,6 +307,11 @@
 			// re-bind event
 			this.scroller.render();
 			this.delegateEvents();
+			if(window._widget){
+				$('.BackButton', this.el).hide();
+			}else{
+				$('.BackButton', this.el).show();
+			}
 			return this;
 	  	}
 	});
