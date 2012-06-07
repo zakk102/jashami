@@ -15,6 +15,7 @@ var m = Math,
     isIDevice = (/iphone|ipad/gi).test(navigator.appVersion),
     isPlaybook = (/playbook/gi).test(navigator.appVersion),
     isTouchPad = (/hp-tablet/gi).test(navigator.appVersion),
+    isWindows = (/windows/gi).test(navigator.appVersion),
 
     has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix(),
     hasTouch = 'ontouchstart' in window && !isTouchPad,
@@ -625,10 +626,16 @@ iScroll.prototype = {
 			deltaScale;
 
 		if ('wheelDeltaX' in e) {
-			wheelDeltaX = e.wheelDeltaX / 12;
-			wheelDeltaY = e.wheelDeltaY / 12;
+			if(isWindows){
+				wheelDeltaX = e.wheelDeltaX;
+				wheelDeltaY = e.wheelDeltaY;
+			}else{
+				wheelDeltaX = e.wheelDeltaX / 12;
+				wheelDeltaY = e.wheelDeltaY / 12;
+			}
 		} else if('wheelDelta' in e) {
-			wheelDeltaX = wheelDeltaY = e.wheelDelta / 12;
+			if(isWindows){ wheelDeltaX = wheelDeltaY = e.wheelDelta; }
+			else{ wheelDeltaX = wheelDeltaY = e.wheelDelta / 12; }
 		} else if ('detail' in e) {
 			wheelDeltaX = wheelDeltaY = -e.detail * 3;
 		} else {

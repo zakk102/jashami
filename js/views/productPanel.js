@@ -214,7 +214,10 @@
 						that.callback();
 						that.callback = null;
 					}else{
-						window.history.go(-1);
+						if(window._iframe) {
+							var href = window.location.hash.substring(0,window.location.hash.lastIndexOf('/')-1);
+							Backbone.history.navigate(href, {trigger: false, replace: true});
+						} else window.history.go(-1);
 					}
 				});
 			}
@@ -243,7 +246,10 @@
 															orderName: that.getOrderName(),
 															remarks: that.getRemarks()
 														}));
-					window.history.go(-1);
+					if(window._iframe) {
+						var href = window.location.hash.substring(0,window.location.hash.lastIndexOf('/')-1);
+						Backbone.history.navigate(href, {trigger: false, replace: true});
+					} else window.history.go(-1);
 				});	
 				// send GA event
 				try{ GoogleAnalytics.trackOrderProcess(3, that.model.get('productNameId')); }catch(err){}

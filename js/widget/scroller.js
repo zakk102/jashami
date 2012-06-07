@@ -6,7 +6,7 @@
 	var pullup_label="向上推可以更新";
 	var Scroller = Backbone.View.extend({
 		initialize: function(){
-			var opt = { hScrollbar: false, vScrollbar: false };
+			var opt = { hScrollbar: false, vScrollbar: true };
 			
 			this.container = document.createElement('div');
 			this.content = document.createElement('div');

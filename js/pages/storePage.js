@@ -286,7 +286,10 @@
 		goBack: function(){
 			if(window.inTransition) return;
 			window.isGoBack = true;
-			window.history.back();
+			if(window._iframe) {
+				var href = "#startPage/orderTab"
+				Backbone.history.navigate(href, {trigger: true, replace: true});
+			} else window.history.go(-1);
 		},
 		showProduct: function(e){
 			// get product id

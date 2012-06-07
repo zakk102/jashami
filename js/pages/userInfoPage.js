@@ -115,7 +115,7 @@
 					if(send) {
 						var name = $.trim($('.name', this.el).val());
 						var tel = $.trim($('.tel', this.el).val());
-						var address = window.myapp.location + $.trim($('.address', this.el).val());
+						var address = (window.myapp.location?window.myapp.location:"") + $.trim($('.address', this.el).val());
 						var company = $.trim($('.company', this.el).val());
 						var invoice = $.trim($('.invoice', this.el).val());
 						var remarks = $.trim($('.remarks', this.el).val());

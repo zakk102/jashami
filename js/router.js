@@ -293,8 +293,10 @@
 			if(!window.useTransitionEffect || !effectType || TransitionEffectTypes.indexOf(effectType)<0){ // no change page animation
 				from.hide();
 				to.show();
+				to.css('-webkit-transform','translate3d(0, 0, 0)');
             	this.currentActivePage = to;
 				window.inTransition = false;
+				effectType = false;
 			}else if(effectType=='hSlide'){
 				var that = this;
 				// prepare transition
@@ -302,6 +304,7 @@
 				to.css('position', 'absolute');
 				to.show();
 				if(effectDir=='right'){
+					console.log('1');
 					to.css('-webkit-transform','translate3d(100%, 0, 0)');
 					from.css('-webkit-transform','translate3d(0, 0, 0)');
 					from.animate({
@@ -330,7 +333,8 @@
 				  		window.inTransition = false;
 				  	});
 				  	window.isGoBack = false;
-				}				
+				}	
+				effectType = false;			
 			}
 		}
 	});
