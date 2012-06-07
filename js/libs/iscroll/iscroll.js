@@ -672,6 +672,7 @@ iScroll.prototype = {
 		else if (deltaY < that.maxScrollY) deltaY = that.maxScrollY;
 
 		that.scrollTo(deltaX, deltaY, 0);
+		e.preventDefault();
 	},
 	
 	_mouseout: function (e) {

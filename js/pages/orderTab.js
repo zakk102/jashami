@@ -2,39 +2,30 @@
 (function(GoogleAnalytics, Images, LocalModel, Settings, Geolocation, Utils, MenuData, Scroller, StoreBrief, AddressSelector, NativeAddressSelector){
 	var tabTemplate = [
 			'<div class="district-panel"><div class="district-panel-inner">',
-				'<div id="district-sticker1" style="display:none;"></div>',
+				'<div id="district-sticker1"></div>',
 				'<div id="district-sticker2"></div>',
-				'<div id="district-sticker1-shadow" style="display:none;"></div>',
+				'<div id="district-sticker1-shadow"></div>',
 				'<div id="district-sticker2-shadow"></div>',
 				// '<div id="addr-title">送到</div>',
-				'<div class="AddressSelector" style="display:none;"></div>',
+				'<div class="AddressSelector"></div>',
 				'<div class="CircleButton"><span class="locating-txt">自動定位</span><span id="locating-icon" style="-webkit-mask-box-image:url('+Images["css/bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_239_riflescope"]+');"></span></div>',
 			'</div></div>',
 			'<div id="stores-panel"></div>'
 	].join('');
-	
-	var welcomeTemplate = [
-		'<div id="welcomeMessage" style="text-align:center; padding-top:80px;">',
-			'叫外送，請先選擇您的地區來找店家<br /><br />',
-			'<div id="welcomeAddressSelector"></div><br /><br /><br />',
-			'<img src="http://4.bp.blogspot.com/-AXiqyJi9lG4/T8886XcVwAI/AAAAAAAADjA/dGq4CAJg4wA/s1600/store.png" width="90%"></img>',
-		'</div>'
-	].join('');
-	
+
 	var OrderTabView = Backbone.View.extend({
 		initialize: function(){
 			var that = this;
 			this.scroller = new Scroller();
-			this.scroller.html(_.template(welcomeTemplate));
-			 
+
 			// $(this.el).append('<div class="district-panel"><div class="district-panel-inner"><div id="district-sticker1"></div><div id="district-sticker2"></div><div class="AddressSelector"></div><div class="CircleButton"><div class="locating-txt">自動定位</div><div id="locating-icon">⊙</div></div></div></div><div id="stores-panel">');s.scroller = scroller;
-			
+
 			$(this.el).html(_.template(tabTemplate));
 			$('#stores-panel', this.el).css('-webkit-box-flex', '1');
 			$('#stores-panel', this.el).append(this.scroller.render().el);
 			// $(this.scroller.el).css('height', '100%');
 			$(this.el).addClass('orderTab');
-			
+
 			this.itemWidth = Settings.getStoreBriefWidth($(window).width())-20;
 			var ele = document.createElement('div');
 			$(ele).addClass('StoreList clearfix masonry centered');
@@ -45,7 +36,7 @@
 		    	isFitWidth: true,
 		    	isResizable: true
 			});
-			
+
 			this.useNative(window.phonegapEnabled);
 			//this.useNative(true);
 			$(window).bind('useNative', function(e){
@@ -59,7 +50,6 @@
 			var locaStatus = LocalModel.getLocationServiceStatus();
 			var osType = Utils.DeviceType.getDeviceType();
 			var last = LocalModel.getUserDistrict();
-
 			//TODO load default menu
 			if(window.phonegapEnabled){ // load from autoLocate
 				if(osType==Utils.DeviceType.Android){ // android, run autoLocate
@@ -78,29 +68,18 @@
 						if(that.addressSelector.showSelector) that.addressSelector.showSelector();
 					});
 				}
-				
-				 $('.AddressSelector', this.el).css("display", "");
-  				$("#district-sticker1", this.el).css("display", "");
-				$("#district-sticker1-shadow", this.el).css("display", "");
-  				$("#welcomeMessage", this.el).css("display", "none");
 			}else if(osType==Utils.DeviceType.Other){ // load from last selection
 				if(last && last!=null && last.length>2){
 					this.addressSelector.setSelection(last);
 					//TODO fix cannot catch location change event
 					window.myapp.location = last;
 					this.loadStore(window.addressAndZipcode.address2zipcode(last));
-					
-					$('.AddressSelector', this.el).css("display", "");
-  					$("#district-sticker1", this.el).css("display", "");
-					$("#district-sticker1-shadow", this.el).css("display", "");
-  					$("#welcomeMessage", this.el).css("display", "none");
 				}
 			}
 		},
 		events: {
 			"click .CircleButton":"autoLocate",
-			"locationChange .AddressSelector":"locationChange",
-			"locationChange #welcomeAddressSelector":"locationChange"
+			"locationChange .AddressSelector":"locationChange"
   		},
   		autoLocate: function(event, data, successCallBack, errorCallBack){
   			var that = this;
@@ -132,11 +111,6 @@
     		});
   		},
   		locationChange: function(e){
-  			$('.AddressSelector', this.el).css("display", "");
-  			$("#district-sticker1", this.el).css("display", "");
-			$("#district-sticker1-shadow", this.el).css("display", "");
-  			$("#welcomeMessage", this.el).css("display", "none");
-  			
   			var location = window.addressAndZipcode.zipcode2address(e.data);
   			window.myapp.location = location;
   			LocalModel.setUserDistrict(location);
@@ -191,7 +165,7 @@
 					itemCount ++;
 				});
 				$('img', this.el).bind('error', function(){$(window).trigger('imgLoadError', {errorMsg:this.src, errorLocation:'OrderTabView'})});
-				
+
 				//re-fresh the scroller to know the new size of the scroller
 				//re-fresh masonry
 				$('img', this.el).bind('load', function(){
@@ -218,7 +192,6 @@
 		},
 		useNative: function(isNative){
 			var addressSelector;
-			var welcomeAddressSelector;
 			if(isNative){
 				// address selector
 				addressSelector = new NativeAddressSelector();
@@ -227,24 +200,17 @@
 			}else{
 				// address selector
 				addressSelector = new AddressSelector();
-				welcomeAddressSelector = new AddressSelector();
 				// localization button
 				$(".CircleButton", this.el).css("display", "none");
-				$("#district-sticker2", this.el).css("display", "none");
-				$("#district-sticker2-shadow", this.el).css("display", "none");
-				
-				$('#welcomeAddressSelector', this.el).html(welcomeAddressSelector.render().el);
-				$('.country-selector', this.el).css('font-size', '1em');
-				$('.area-selector', this.el).css('font-size', '1em');
 			}
 			this.addressSelector = addressSelector;
 			$('.AddressSelector', this.el).html(this.addressSelector.render().el);
 		}
 	});
-	
+
 	window.myapp = window.myapp || {};
 	window.myapp.OrderTabView = OrderTabView;
-	
+
 })(	window.myapp.GoogleAnalytics,
 	window.myapp.Images,
 	window.myapp.LocalModel,
