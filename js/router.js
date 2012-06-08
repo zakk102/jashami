@@ -5,6 +5,7 @@
 		routes: {
 			// Define some URL routes
 			'startPage/:tab': 'startPage',
+			'startPage/orderTab/:location': 'orderTab',
 			'storePage/:store': 'storePage',
 			'storePage/:store/:product': 'productPage',
 			'orderInfoPage/:store': 'orderInfoPage',
@@ -49,6 +50,18 @@
 				this.transitionEffectType = null;
 				this.transitionDir = null;
 				this.views.startPage.toTab(tab);
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function startPage in router", errorLocation:err.stack});
+			}
+		},
+		orderTab: function(location){
+			try{
+				this.startPage('orderTab');
+				if(location.length==3){
+					this.views.startPage.tabs.orderTab.assignLocation_zipcode(location);
+				}else{
+					this.views.startPage.tabs.orderTab.assignLocation(location);
+				}
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function startPage in router", errorLocation:err.stack});
 			}

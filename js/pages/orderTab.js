@@ -46,6 +46,7 @@
 			this.loadDefaultMenu();
 		},
 		loadDefaultMenu: function(){
+			if(this.disableLoadDefault) return;
 			var that = this;
 			var locaStatus = LocalModel.getLocationServiceStatus();
 			var osType = Utils.DeviceType.getDeviceType();
@@ -115,6 +116,14 @@
   			window.myapp.location = location;
   			LocalModel.setUserDistrict(location);
   			this.loadStore(e.data);
+  		},
+  		assignLocation: function(loc){
+  			this.disableLoadDefault = true;
+  			this.addressSelector.setSelection(loc);
+  		},
+  		assignLocation_zipcode: function(zipcode){
+  			this.disableLoadDefault = true;
+  			this.addressSelector.setSelection_zipcode(zipcode);
   		},
   		loadStore: function(zipcode) {
   			if(!window.menuData){ window.menuData = new MenuData(); }
