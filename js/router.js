@@ -28,53 +28,6 @@
 			this.loadToDOM(this.views.startPage.el);
 			this.views.storePage = new Views.StorePageView();
 			this.loadToDOM(this.views.storePage.el);
-			// determine transition type & direction
-			$(window).bind('hashchange', function(e){
-				try{
-					var newUrl, oldUrl;
-					if(e.newURL){
-						newUrl = e.newURL;
-						oldUrl = e.oldURL;
-					}else{ // if not support e.newUrl
-						newUrl = window.location.href;
-						oldUrl = window.lastUrl;
-						window.lastUrl = newUrl;
-					}
-	//				console.log('hashchange from '+oldUrl+" to "+newUrl);
-					// determin slide direction, default = 'left'
-					if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
-						that.transitionEffectType = 'hSlide';
-	//					if(oldUrl.indexOf('#storePage')>=0){ //from store page, slide from left
-	//						that.transitionDir = 'left';
-	//					}
-					}else if(newUrl.indexOf('#storePage')>=0){ // to store page
-						that.transitionEffectType = 'hSlide';
-						if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
-							that.transitionDir = 'right';
-						}
-					}else if(newUrl.indexOf('#orderInfoPage')>=0){ // to order info page
-						that.transitionEffectType = 'hSlide';
-						if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
-							that.transitionDir = 'right';
-						}
-					}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
-						that.transitionEffectType = 'hSlide';
-						if(oldUrl.indexOf('#orderInfoPage')>=0){ // from order info page, slide from right
-							that.transitionDir = 'right';
-						}
-					}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
-						that.transitionEffectType = 'hSlide';
-						if(oldUrl.indexOf('#userInfoPage')>=0){ // from user info page, slide from right
-							that.transitionDir = 'right';
-						}
-					}
-					// App event tracking: page changed
-					window.myapp.AppEvent.goPage();
-					window.myapp.GoogleAnalytics.goPage();
-				}catch(err){
-					$(window).trigger('tryCatchError', {errorMsg:err.message+" at hashchange event handler in router.", errorLocation:err.stack});
-				}
-			});
 			// App event tracking: first page
 			window.myapp.AppEvent.goPage();
 			window.myapp.GoogleAnalytics.goPage();
@@ -92,7 +45,7 @@
 				if(window.productPanel){ // product panel
 					window.productPanel.$el.hide();
 				}
-				this.changePage(this.views.startPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.changePage(this.views.startPage.render().el);
 				this.transitionEffectType = null;
 				this.transitionDir = null;
 				this.views.startPage.toTab(tab);
@@ -111,13 +64,13 @@
 				}
 				var that = this;
 				if(that.views.storePage.$el.attr('url')==window.location.href){ // the same store page, no need to refresh data
-					that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
+					that.changePage(that.views.storePage.el);
 					that.transitionEffectType = null;
 					that.transitionDir = null;
 					that.views.storePage.render();
 					return;
 				}
-				that.changePage(that.views.storePage.el, that.transitionEffectType, that.transitionDir);
+				that.changePage(that.views.storePage.el);
 				that.transitionEffectType = null;
 				that.transitionDir = null;
 				that.views.storePage.render();
@@ -181,7 +134,7 @@
 					window.orderInfoPage = this.views.orderInfoPage;
 				}
 				
-				this.changePage(this.views.orderInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.changePage(this.views.orderInfoPage.render().el);
 				this.transitionEffectType = null;
 				this.transitionDir = null;
 				// set store menu data
@@ -235,7 +188,7 @@
 						$(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
 					}
 				});
-				this.changePage(this.views.userInfoPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.changePage(this.views.userInfoPage.render().el);
 				this.transitionEffectType = null;
 				this.transitionDir = null;
 				this.views.userInfoPage.render();
@@ -258,7 +211,7 @@
 				} 
 				this.views.orderResultPage.setOrderNumber(window.myapp.orderNumber);
 				this.views.orderResultPage.setStore(store);
-				this.changePage(this.views.orderResultPage.render().el, this.transitionEffectType, this.transitionDir);
+				this.changePage(this.views.orderResultPage.render().el);
 				this.transitionEffectType = null;
 				this.transitionDir = null;
 				this.views.orderResultPage.render();
@@ -280,14 +233,54 @@
 			$(el).hide();
 			$('#mainRoot').append(el);
 		},
-		changePage: function(el, effectType, effectDir){
+		changePage: function(el){
 			// Collapse the keyboard
             $(':focus').blur();
+            
+            var effectType, effectDir;
             
 			var from = $(this.currentActivePage);
 			var to = $(el);
 			to.attr('url',window.location.href); // set url
 			if(from==to || from.attr('url')==to.attr('url')) return;
+			
+			// change page effect
+			try{
+				var newUrl, oldUrl;
+				newUrl = window.location.href;
+				oldUrl = window.lastUrl;
+				window.lastUrl = newUrl;
+				
+				if(newUrl.indexOf('#startPage')>=0 || newUrl.indexOf('#')<0){ // to start page
+					effectType = 'hSlide';
+				}else if(newUrl.indexOf('#storePage')>=0){ // to store page
+					effectType = 'hSlide';
+					if(oldUrl.indexOf('#startPage')>=0  || oldUrl.indexOf('#')<0){ // from start page, slide from right
+						effectDir = 'right';
+					}
+				}else if(newUrl.indexOf('#orderInfoPage')>=0){ // to order info page
+					effectType = 'hSlide';
+					if(oldUrl.indexOf('#storePage')>=0){ // from store page, slide from right
+						effectDir = 'right';
+					}
+				}else if(newUrl.indexOf('#userInfoPage')>=0){ // to user info page
+					effectType = 'hSlide';
+					if(oldUrl.indexOf('#orderInfoPage')>=0){ // from order info page, slide from right
+						effectDir = 'right';
+					}
+				}else if(newUrl.indexOf('#orderResultPage')>=0){ // to order Result Page
+					effectType = 'hSlide';
+					if(oldUrl.indexOf('#userInfoPage')>=0){ // from user info page, slide from right
+						effectDir = 'right';
+					}
+				}
+				// App event tracking: page changed
+				window.myapp.AppEvent.goPage();
+				window.myapp.GoogleAnalytics.goPage();
+			}catch(err){
+				$(window).trigger('tryCatchError', {errorMsg:err.message+" at hashchange event handler in router.", errorLocation:err.stack});
+			}
+			
 			
 			window.inTransition = true;
 			if(!window.useTransitionEffect || !effectType || TransitionEffectTypes.indexOf(effectType)<0){ // no change page animation
@@ -304,7 +297,6 @@
 				to.css('position', 'absolute');
 				to.show();
 				if(effectDir=='right'){
-					console.log('1');
 					to.css('-webkit-transform','translate3d(100%, 0, 0)');
 					from.css('-webkit-transform','translate3d(0, 0, 0)');
 					from.animate({

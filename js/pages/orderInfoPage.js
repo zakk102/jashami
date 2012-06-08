@@ -133,7 +133,6 @@
 			if(window._iframe) {
 				var href = "#storePage"+window.location.hash.substring(window.location.hash.lastIndexOf('/'));
 				Backbone.history.navigate(href, {trigger: true, replace: true});
-				window._iframe = false;
 			} else window.history.go(-1);
 		},
 		clearAll: function(){
