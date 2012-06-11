@@ -57,6 +57,7 @@
 				  		alert('謝謝您的寶貴意見');
 				  	}catch(err){
 				  		$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+				  		throw err;
 				  	}
 			  	},
 			  	error: function(xhr, type){

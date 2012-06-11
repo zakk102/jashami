@@ -41,6 +41,7 @@
   			var currentVal = $('.area-selector', this.el).val();
   			var country = value.substring(0, 3);
 			var area = value.substring(3);
+			if(!areas[country]) return;
 			for(var i=0,length=areas[country].length; i<length; i++) {
 				if(areas[country][i].indexOf(area)>=0){
 					area = areas[country][i].split(",")[1];

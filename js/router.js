@@ -52,6 +52,7 @@
 				this.views.startPage.toTab(tab);
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function startPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		orderTab: function(location){
@@ -64,6 +65,7 @@
 				}
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function startPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		storePage: function(store){
@@ -112,6 +114,7 @@
 				});
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function storePage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		productPage: function(store, product){
@@ -137,6 +140,7 @@
 				//this.changePage(this.views.storePage.el);
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function productPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		orderInfoPage: function(store){
@@ -164,6 +168,7 @@
 				});
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function orderInfoPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		orderEditPage : function(store, index){
@@ -211,6 +216,7 @@
 				GoogleAnalytics.trackOrderProcess(5, GA_CS);
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function userInfoPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		orderResultPage: function(store){
@@ -235,6 +241,7 @@
 				GoogleAnalytics.trackOrderProcess(6, GA_CS);
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at function orderResultPage in router", errorLocation:err.stack});
+				throw err;
 			}
 		},
 		loadToDOM: function(el){
@@ -292,6 +299,7 @@
 				window.myapp.GoogleAnalytics.goPage();
 			}catch(err){
 				$(window).trigger('tryCatchError', {errorMsg:err.message+" at hashchange event handler in router.", errorLocation:err.stack});
+				throw err;
 			}
 			
 			
