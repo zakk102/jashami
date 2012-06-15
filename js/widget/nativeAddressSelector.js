@@ -38,6 +38,7 @@
   			this.$el.trigger("locationChange", zipcode);
   		},
 		setSelection: function(value, options){
+			if(!value || value.length<5 || value==='null' || value==='undefined') return;
 			var values = {};
 			values['city'] = value.substring(0, 3);
 			values['town'] = value.substring(3);
