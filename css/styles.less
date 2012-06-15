@@ -10,6 +10,12 @@
 //==============================================================
 // Cross-Browser CSS3 Rule Generator http://css3please.com/
 //==============================================================
+.box-sizing{  
+  box-sizing:border-box; //IE, Opera, and Chrome
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+
 // for now its only for abbriviation.
 .border-radius(@px:3px) {
   -webkit-border-radius: @px; /* Saf3-4, iOS 1-3.2, Android ≤1.6 */
@@ -1345,43 +1351,65 @@ body{
       position:relative;
       width:100%;
       height:auto;
-      padding: 0.8em;
-      -webkit-box-sizing: border-box;
-      // margin: 3%;
+      padding: 1em;
+      .box-sizing;
+      
+      .column{
+        .box-sizing;
+        padding:0.5em;
+        display:inline-block;
+        
+        @media screen and (min-width: 780px) {
+          width:50%;
+        }  
+        @media screen and (max-width: 780px) {
+          width:50%;
+        }  
+        @media screen and (max-width: 500px) {
+          width:100%;
+        }  
+      }
+      // .sub-column{
+        // .box-sizing;
+        // padding:0.5em;
+        // display:inline-block;
+//         
+        // @media screen and (min-width: 780px) {
+          // width:50%;
+        // }  
+        // @media screen and (max-width: 780px) {
+          // width:50%;
+        // }  
+        // @media screen and (max-width: 500px) {
+          // width:100%;
+        // }  
+      // }
+ 
       .image-intro-wrap{
         
         .image-wrap{
           position: relative;
           height: auto;
           width: 100%;
-  //        display: -webkit-box;
-          // margin-top:1em;
           box-sizing: border-box;
           @image-padding:0.5em;
           .Img{
-            width: 85%;
-            // background:abbey;
-            // padding: @image-padding;
-            // padding-bottom: 3em;
-            // background-color: white;
+            width: 100%;
             height: auto;
-            // box-sizing: border-box;
           }
           .name{
             position: absolute;
             bottom: 0em;
-            // left: 0.5em;
             height: 1.5em;
             line-height: 1.5em;
             background: rgba(255, 255, 255, 0.8);
-            width: 85%;
+            width: 100%;
             color: orangered;
           }
         }
         .intro{
           font-size: 0.95em;
           margin: 0.5em 0 0.5em 0;
-          margin-right:3em;
           color: darkslategray;
           // position:absolute;
           // bottom:@image-padding;
@@ -1391,28 +1419,30 @@ body{
         }
       }
       #amount-panel{
-            position: absolute;
-            top: 0.5em;
-            right: 0.2em;
-            height:auto;
-            box-sizing: border-box;
             @tag-height:3em;
-            @tag-width:3.2em;
+            @tag-width:3em;
             @tag-padding:0.2em;
+            margin-bottom:0.5em;
+            display:-webkit-box;
+            -webkit-box-align:center;
+            -webkit-box-pack:center;
+            
             .tag{
+              background:orange;
+              display:inline-block;
               height:@tag-height;
               width:@tag-width;
               margin:0 0 0.1em 0;
-              // padding:@tag-padding;
-              border-radius: 2em;
+              padding:@tag-padding;
+              // border-radius: 2em;
               //background:url(../pic/type-tag.png) repeat 0 0;
               display:-webkit-box;
               -webkit-box-align:center;
               -webkit-box-pack:center;
-              -webkit-box-shadow:0 1px 5px dimgray;
+              // -webkit-box-shadow:0 1px 5px dimgray;
               .tag-inner{
                 border-radius: 2em;
-                border: 1px dashed white;
+                // border: 1px dashed white;
                 height:@tag-height - @tag-padding*2;
                 width:@tag-width - @tag-padding*2;
                 display:-webkit-box;
@@ -1434,7 +1464,9 @@ body{
               background:white;
               // -webkit-box-shadow:0 0 2px 5px white;
             }
-            #add-icon{
+            #plusBtn{
+              border-bottom-left-radius: 2em;
+              border-top-left-radius: 2em;
               //-webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_190_circle_plus.png);              
             }
             #amount-icon{
@@ -1443,14 +1475,16 @@ body{
             #total-icon{
               
             }
-            #sub-icon{
+            #minusBtn{
+              border-bottom-right-radius: 2em;
+              border-top-right-radius: 2em;
               //-webkit-mask-box-image:url(bootstrap/img/glyphicons_free/glyphicons/png-square/glyphicons_191_circle_minus.png);
             }
               #amount-tag-content{
                 -webkit-box-orient:horizontal;
               }
               #total-tag-content{
-                -webkit-box-orient:vertical;
+                -webkit-box-orient:horizontal;
               }
 
             #product-box-total{
@@ -1468,13 +1502,14 @@ body{
             }
           }
           #add-icon:active{
-            background:orange;
+            background:orangered;
           }
           #sub-icon:active{
-            background:orange;
+            background:orangered;
           }
       .OptionBox{
-        // margin: 0.4em;
+        width:100%;
+        
         .ProductOption{
           // background:rgba(255,255,255,0.6);
           // margin-left: 0.5em;
@@ -1602,7 +1637,7 @@ body{
           }
         }
       }
-      .notebox{
+      .single_option{
         margin-bottom: 0.5em;
         display: -webkit-box;
         -webkit-box-pack: justify;
@@ -1701,6 +1736,7 @@ body{
       #amount-panel{
         top:0;
         right:1.2em;
+        margin-bottom:0.5em;
       }
       .OptionBox{
         width:75%;
