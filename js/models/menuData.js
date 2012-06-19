@@ -142,6 +142,41 @@
 				}
 			});
 		},
+		_getStoreListFromServer: function(zipCode, successCallback, failCallback){
+			var that = this;
+			var url = Api.MenuServiceUrl+"?action=getStoreListByZipcode&zipCode="+zipCode+"&isEditMode="+this.isEditMode;
+			if(window.loadingPanel) window.loadingPanel.connectionOut();
+			$.ajax({
+				type: 'GET',
+				url: url, 
+				dataType: 'json',
+				cache : false,
+				success: function(data){
+					try{
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						if(!data.zipCodeIndexs){
+							alert("讀取菜單失敗，請再試一次");
+							return;
+						}
+						that.get('zipCodeIndexs').add(data.zipCodeIndexs);
+						that.get('stores').add(data.stores);
+						if(successCallback){
+							var index = that.get('zipCodeIndexs').get(zipCode);
+							successCallback(index);
+						} 
+					}catch(err){
+						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+					}
+				},
+				error: function(xhr, type){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+				    console.log('_getStoreListFromServer: Ajax error!');
+				    $(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
+				    alert("讀取菜單失敗，請再試一次");
+				    if(failCallback) failCallback(xhr, type);
+				}
+			});
+		},
 		_getMenuOfStoreFromServer: function(storeID, successCallback, failCallback){
 			var that = this;
 			var url = Api.MenuServiceUrl+"?action=getMenuOfStore&storeID="+storeID+"&isEditMode="+this.isEditMode;
@@ -173,6 +208,36 @@
 				}
 			});
 		},
+		_getMenuByMenuIDFromServer: function(menuID, successCallback, failCallback){
+			var that = this;
+			var url = Api.MenuServiceUrl+"?action=getMenuByMenuID&menuID="+menuID+"&isEditMode="+this.isEditMode;
+			if(window.loadingPanel) window.loadingPanel.connectionOut();
+			$.ajax({
+				type: 'GET',
+				url: url, 
+				dataType: 'json',
+				cache : false,
+				success: function(data){
+					try{
+						if(window.loadingPanel) window.loadingPanel.connectionIn();
+						that.get('menus').add(data.menu);
+						if(successCallback){
+							var menu = that.get('menus').get(menuID);
+							successCallback(menu);
+						}
+					}catch(err){
+						$(window).trigger('tryCatchError', {errorMsg:err.message+" at ajax for "+url, errorLocation:err.stack});
+					} 
+				},
+				error: function(xhr, type){
+					if(window.loadingPanel) window.loadingPanel.connectionIn();
+				    console.log('_getMenuByMenuIDFromServer: Ajax error!');
+				    $(window).trigger('ajaxError2', {errorMsg:url, errorLocation:printStackTrace()});
+				    alert("讀取菜單失敗，請再試一次");
+				    if(failCallback) failCallback(xhr, type);
+				}
+			});
+		},
 		getMenuByZipCode: function(zipCode, successCallback, failCallback){
 			var index = this.get('zipCodeIndexs').get(zipCode);
 			if(index){
@@ -181,10 +246,26 @@
 				this._getMenuFromServer(zipCode, successCallback, failCallback);
 			}
 		},
+		getStoreListByZipCode: function(zipCode, successCallback, failCallback){
+			var index = this.get('zipCodeIndexs').get(zipCode);
+			if(index){
+				if(successCallback) successCallback(index);
+			}else{
+				this._getStoreListFromServer(zipCode, successCallback, failCallback);
+			}
+		},
 		getMenuOfStore: function(storeID, successCallback, failCallback){
 			var store = this.get('stores').get(storeID);
 			if(store){
-				if(successCallback) successCallback(store);
+				var menuID = store.get('menuIdString');
+				var menu = this.get('menus').get(menuID);
+				if(menu){
+					if(successCallback) successCallback(store);
+				}else{
+					this._getMenuByMenuIDFromServer(menuID, function(menu){
+						if(successCallback) successCallback(store);
+					}, failCallback);
+				}
 			}else{
 				this._getMenuOfStoreFromServer(storeID, successCallback, failCallback);
 			}

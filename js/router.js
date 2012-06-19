@@ -85,10 +85,7 @@
 					that.views.storePage.render();
 					return;
 				}
-				that.changePage(that.views.storePage.el);
-				that.transitionEffectType = null;
-				that.transitionDir = null;
-				that.views.storePage.render();
+				
 				if(!window.menuData){
 					//only occur in the direct access to store page
 					window.menuData = new MenuData();
@@ -98,6 +95,10 @@
 					that.views.storePage.refreshGridSize();
 					that.views.storePage.setModel(s);
 					that.views.storePage.resetScroller();
+					that.changePage(that.views.storePage.el);
+					that.transitionEffectType = null;
+					that.transitionDir = null;
+					that.views.storePage.render();
 					if(!that.views.orderInfoPage){ // pre-load the order info page into DOM
 						that.views.orderInfoPage = new Views.OrderInfoPageView();
 						that.loadToDOM(that.views.orderInfoPage.el);

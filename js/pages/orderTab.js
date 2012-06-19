@@ -129,7 +129,7 @@
   			if(!window.menuData){ window.menuData = new MenuData(); }
 			var that = this;
 			var menudata = window.menuData;
-			menudata.getMenuByZipCode(zipcode, function(index){
+			menudata.getStoreListByZipCode(zipcode, function(index){
 				var stores = index.get('stores');
 				stores.comparator = function(arg0, arg1){
 					if(!window.autoLocalization){ //沒有定位，無法算距離
